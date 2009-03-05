@@ -1,0 +1,2 @@
+depend perlmodule Getopt::Long
+depend perlmodule WWW::Mechanize

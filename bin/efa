@@ -1,0 +1,84 @@
+#!/usr/bin/env perl
+## Copyright © 2009 by Daniel Friesel <derf@derf.homelinux.org>
+## License: WTFPL <http://sam.zoy.org/wtfpl>
+use strict;
+use warnings;
+use encoding 'utf8';
+use Getopt::Long;
+use WWW::Mechanize;
+
+my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
+my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
+
+my $content;
+my %post;
+my $www = WWW::Mechanize->new(
+	autocheck => 1,
+);
+my $offer = 0;
+my $i = 0;
+my $connection;
+my $groupsize = 8;
+my $offset;
+my @from;
+my @to;
+
+$post{type_origin} = 'stop';
+$post{type_destination} = 'stop';
+
+GetOptions(
+	'from=s{2}' => \@from,
+	'to=s{2}'   => \@to,
+);
+
+$post{place_origin} = $from[0];
+$post{name_origin} = $from[1];
+$post{place_destination} = $to[0];
+$post{name_destination} = $to[1];
+
+$www->get($firsturl);
+$www->submit_form(
+	form_name => 'jp',
+	fields => \%post,
+);
+
+$content = $www->content;
+
+foreach(split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $content)) {
+	unless ($offer) {
+		$offer++;
+		next;
+	}
+	foreach(split(/\n/)) {
+		if (/<span class="labelText">(?<content>[^<]+)<\/span>/) {
+			# Ignore "ca. 3 Minuten" and similar
+			# something like /^ca\. \d+ Minute/ does not work here, for some reason
+			# (probably related to encoding fuckup)
+			if ($+{content} !~ /^ca.*Minute/) {
+				push(@{$connection->[$offer-1]}, $+{content});
+			}
+		}
+	}
+	$offer++;
+}
+
+foreach (@$connection) {
+	for($i = 0; @{$_} >= (($i+1) * $groupsize); $i++) {
+		$offset = $i * $groupsize;
+		# skip "Fußweg: x Minuten" messages (they're smaller than $groupsize)
+		if ($_->[$offset+2] =~ /ca.*Minute/) {
+			splice(@$_, $offset, 5);
+		}
+		printf("%-5s %-2s %-30s %-20s %s\n", $_->[$offset+0], $_->[$offset+1], $_->[$offset+2], $_->[$offset+3], $_->[$offset+7]);
+		printf("%-5s %-2s %-30s\n\n", $_->[$offset+4], $_->[$offset+5], $_->[$offset+6]);
+	}
+	print "-----\n\n";
+}
+
+#print "---\n";
+#foreach(@$connection) {
+#	print "\n";
+#	foreach(@$_) {
+#		print "$_\n";
+#	}
+#}
