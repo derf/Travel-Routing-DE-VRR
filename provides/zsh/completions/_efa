@@ -1,0 +1,12 @@
+#compdef efa
+
+typeset -a arguments
+arguments=(
+	'--from:city: :stop: '
+	'--to:city: :stop: '
+	'--debug'
+	'--time:time'
+	'--date:date'
+)
+
+_arguments -s $arguments
