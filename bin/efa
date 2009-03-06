@@ -38,10 +38,8 @@ GetOptions(
 	'debug'     => \$debug,
 );
 
-$post{place_origin} = $from[0];
-$post{name_origin} = $from[1];
-$post{place_destination} = $to[0];
-$post{name_destination} = $to[1];
+@post{'place_origin','name_origin'} = @from;
+@post{'place_destination','name_destination'} = @to;
 
 if ($time) {
 	@post{'itdTimeHour','itdTimeMinute'} = split(/:/, $time);
