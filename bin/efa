@@ -3,6 +3,7 @@
 ## License: WTFPL <http://sam.zoy.org/wtfpl>
 use strict;
 use warnings;
+use 5.010;
 use encoding 'utf8';
 use Getopt::Long;
 use WWW::Mechanize;
