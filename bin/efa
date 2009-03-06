@@ -118,3 +118,45 @@ foreach (@$cons) {
 	}
 	print "------\n\n";
 }
+
+__END__
+
+=head1 NAME
+
+efa - unofficial efa.vrr.de command line cleant
+
+=head1 SYNOPSIS
+
+B<efa> B<--from> I<city> I<stop> B<--to> I<city> I<stop> [ I<additional options> ]
+
+=head1 DESCRIPTION
+
+B<efa> is a command line client for the L<http://efa.vrr.de> web interface.
+It sends the specified information to the online form and displays the results
+
+=head1 OPTIONS
+
+=over
+
+=item B<--from> I<city> I<stop> (mandatory)
+
+Departure place
+
+=item B<--to> I<city> I<stop> (mandatory)
+
+Arrival place
+
+=item B<--debug>
+
+Display debug information (additional post requests sent to the site,
+raw items received from the site)
+
+=item B<--time> I<hh>:I<mm>
+
+Journey start time
+
+=item B<--date> I<dd>.I<mm>.I<yyyy>
+
+Journey date
+
+=back
