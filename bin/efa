@@ -17,7 +17,8 @@ my $www = WWW::Mechanize->new(
 );
 my $offer = 0;
 my $i = 0;
-my $connection;
+my $raw;
+my $cons;
 my $groupsize = 8;
 my $offset;
 my @from;
@@ -66,25 +67,44 @@ foreach(split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $content)) {
 			# something like /^ca\. \d+ Minute/ does not work here, for some reason
 			# (probably related to encoding fuckup)
 			if ($+{content} !~ /^ca.*Minute/) {
-				push(@{$connection->[$offer-1]}, $+{content});
+				push(@{$raw->[$offer-1]}, $+{content});
 			}
 		}
 	}
 	$offer++;
 }
 
-foreach (@$connection) {
-	for($i = 0; @{$_} >= (($i+1) * $groupsize); $i++) {
+for ($offer = 0; exists($raw->[$offer]); $offer++) {
+	for ($i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize); $i++) {
 		$offset = $i * $groupsize;
 		# skip "Fußweg: x Minuten" messages (they're smaller than $groupsize)
-		if ($_->[$offset+2] =~ /ca.*Minute/) {
+		if ($raw->[$offer]->[$offset+2] =~ /ca.*Minute/) {
 			splice(@$_, $offset, 5);
 		}
-		printf("%-5s %-2s %-30s %-20s %s\n", $_->[$offset+0], $_->[$offset+1], $_->[$offset+2], $_->[$offset+3], $_->[$offset+7]);
-		printf("%-5s %-2s %-30s\n\n", $_->[$offset+4], $_->[$offset+5], $_->[$offset+6]);
+		$cons->[$offer]->[$i] = {
+			deptime  => $raw->[$offer]->[$offset],
+			dep      => $raw->[$offer]->[$offset+1],
+			depstop  => $raw->[$offer]->[$offset+2],
+			deptrain => $raw->[$offer]->[$offset+3],
+			depdest  => $raw->[$offer]->[$offset+7],
+			arrtime  => $raw->[$offer]->[$offset+4],
+			arr      => $raw->[$offer]->[$offset+5],
+			arrstop  => $raw->[$offer]->[$offset+6],
+		};
 	}
-	print "-----\n\n";
 }
+
+foreach (@$cons) {
+	foreach (@$_) {
+		printf(
+			"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
+			$_->{deptime}, $_->{dep}, $_->{depstop}, $_->{deptrain},
+			$_->{depdest}, $_->{arrtime}, $_->{arr}, $_->{arrstop}
+		);
+	}
+	print "------\n\n";
+}
+
 
 #print "---\n";
 #foreach(@$connection) {
