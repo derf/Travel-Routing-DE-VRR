@@ -22,6 +22,8 @@ my $groupsize = 8;
 my $offset;
 my @from;
 my @to;
+my $time;
+my $date;
 
 $post{type_origin} = 'stop';
 $post{type_destination} = 'stop';
@@ -29,12 +31,21 @@ $post{type_destination} = 'stop';
 GetOptions(
 	'from=s{2}' => \@from,
 	'to=s{2}'   => \@to,
+	'time=s'    => \$time,
+	'date=s'    => \$date,
 );
 
 $post{place_origin} = $from[0];
 $post{name_origin} = $from[1];
 $post{place_destination} = $to[0];
 $post{name_destination} = $to[1];
+
+if ($time) {
+	@post{'itdTimeHour','itdTimeMinute'} = split(/:/, $time);
+}
+if ($date) {
+	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
+}
 
 $www->get($firsturl);
 $www->submit_form(
