@@ -25,6 +25,7 @@ my @from;
 my @to;
 my $time;
 my $date;
+my $debug = 0;
 
 $post{type_origin} = 'stop';
 $post{type_destination} = 'stop';
@@ -34,6 +35,7 @@ GetOptions(
 	'to=s{2}'   => \@to,
 	'time=s'    => \$time,
 	'date=s'    => \$date,
+	'debug'     => \$debug,
 );
 
 $post{place_origin} = $from[0];
@@ -74,6 +76,20 @@ foreach(split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $content)) {
 	$offer++;
 }
 
+if ($debug) {
+	print STDERR "custom post values used in query:\n";
+	foreach(keys(%post)) {
+		print STDERR "    $_ => $post{$_}\n";
+	}
+	print STDERR "\nraw response:\n";
+	foreach(@$raw) {
+		print STDERR "---\n";
+		foreach(@$_) {
+			print STDERR "$_\n";
+		}
+	}
+}
+
 for ($offer = 0; exists($raw->[$offer]); $offer++) {
 	for ($i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize); $i++) {
 		$offset = $i * $groupsize;
@@ -104,12 +120,3 @@ foreach (@$cons) {
 	}
 	print "------\n\n";
 }
-
-
-#print "---\n";
-#foreach(@$connection) {
-#	print "\n";
-#	foreach(@$_) {
-#		print "$_\n";
-#	}
-#}
