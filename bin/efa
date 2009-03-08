@@ -39,6 +39,11 @@ GetOptions(
 	'debug'     => \$debug,
 );
 
+unless (@to == 2 and @from == 2) {
+	print STDERR "Usage: efa --from <city> <stop> --to <city> <stop> [other options]\n";
+	exit(1);
+}
+
 @post{'place_origin','name_origin'} = @from;
 @post{'place_destination','name_destination'} = @to;
 
