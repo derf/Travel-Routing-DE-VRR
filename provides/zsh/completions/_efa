@@ -8,6 +8,7 @@ arguments=(
 	'--time:time'
 	'--time-for:event:(arrival departure)'
 	'--date:date'
+	'*--post:POST key=value'
 )
 
 _arguments -s $arguments

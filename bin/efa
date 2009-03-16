@@ -38,6 +38,7 @@ GetOptions(
 	'date=s'    => \$date,
 	'debug'     => \$debug,
 	'time-for=s' => \$time_for,
+	'post=s'    => \%post,
 );
 
 unless (@to == 2 and @from == 2) {
@@ -171,5 +172,13 @@ Define whether the time means time of departure (default) or time of arrival
 =item B<--date> I<dd>.I<mm>.I<yyyy>
 
 Journey date
+
+=item B<--post> I<key>=I<value>
+
+Add I<key> with I<value> to the HTTP POST request sent to the EFA server.
+This can be used to use setting B<efa> does not yet cover, like
+C<--post lineRestriction=400> to also show IC and ICE trains.
+Note that B<--post> will be overridden by the standard efa options, such as
+B<--time>.
 
 =back
