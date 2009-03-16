@@ -6,6 +6,7 @@ arguments=(
 	'--to:city: :stop: '
 	'--debug'
 	'--time:time'
+	'--time-for:event:(arrival departure)'
 	'--date:date'
 )
 

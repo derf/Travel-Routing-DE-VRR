@@ -24,7 +24,7 @@ my $groupsize = 8;
 my $offset;
 my @from;
 my @to;
-my $time;
+my ($time, $time_for);
 my $date;
 my $debug = 0;
 
@@ -37,6 +37,7 @@ GetOptions(
 	'time=s'    => \$time,
 	'date=s'    => \$date,
 	'debug'     => \$debug,
+	'time-for=s' => \$time_for,
 );
 
 unless (@to == 2 and @from == 2) {
@@ -52,6 +53,12 @@ if ($time) {
 }
 if ($date) {
 	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
+}
+if ($time_for) {
+	given ($time_for) {
+		when('arrival') {$post{itdTripDateTimeDepArr} = 'arr'}
+		when('departure') {$post{itdTripDateTimeDepArr} = 'dep'}
+	}
 }
 
 $www->get($firsturl);
@@ -155,7 +162,11 @@ raw items received from the site)
 
 =item B<--time> I<hh>:I<mm>
 
-Journey start time
+Journey start/end time
+
+=item B<--time-for> B<arrival>|B<departure>
+
+Define whether the time means time of departure (default) or time of arrival
 
 =item B<--date> I<dd>.I<mm>.I<yyyy>
 
