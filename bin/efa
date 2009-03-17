@@ -103,7 +103,7 @@ for ($offer = 0; exists($raw->[$offer]); $offer++) {
 		# If the first field is not a time we've got some additional information.
 		# Sadly, this script does not parse it yet, so it's ignored
 		until ($raw->[$offer]->[$offset] =~ /^\d+:\d+$/) {
-			splice(@{$raw->[$offer]}, $offset, 1) or last;
+			last unless exists($raw->[$offer]->[++$offset]);
 		}
 		$cons->[$offer]->[$i] = {
 			deptime  => $raw->[$offer]->[$offset],
