@@ -22,8 +22,7 @@ my $raw;
 my $cons;
 my $groupsize = 8;
 my $offset;
-my @from;
-my @to;
+my (@from, @to, @via);
 my ($time, $time_for);
 my $date;
 my $debug = 0;
@@ -34,6 +33,7 @@ $post{type_destination} = 'stop';
 GetOptions(
 	'from=s{2}' => \@from,
 	'to=s{2}'   => \@to,
+	'via=s{2}'  => \@via,
 	'time=s'    => \$time,
 	'date=s'    => \$date,
 	'debug'     => \$debug,
@@ -48,6 +48,9 @@ unless (@to == 2 and @from == 2) {
 
 @post{'place_origin','name_origin'} = @from;
 @post{'place_destination','name_destination'} = @to;
+if (@via == 2) {
+	@post{'place_via','name_via'} = @via;
+}
 
 if ($time) {
 	@post{'itdTimeHour','itdTimeMinute'} = split(/:/, $time);
@@ -155,6 +158,10 @@ Departure place
 =item B<--to> I<city> I<stop> (mandatory)
 
 Arrival place
+
+=time B<--via> I<city> I<stop>
+
+Travel via this place
 
 =item B<--debug>
 

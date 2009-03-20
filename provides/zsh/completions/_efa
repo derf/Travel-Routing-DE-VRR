@@ -4,6 +4,7 @@ typeset -a arguments
 arguments=(
 	'--from:city: :stop: '
 	'--to:city: :stop: '
+	'--via:city: :stop: '
 	'--debug'
 	'--time:time'
 	'--time-for:event:(arrival departure)'
