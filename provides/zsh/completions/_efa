@@ -6,8 +6,9 @@ arguments=(
 	'--to:city: :stop: '
 	'--via:city: :stop: '
 	'--debug'
-	'--time:time'
-	'--time-for:event:(arrival departure)'
+	'(--depart --arrive)--time:time'
+	'(--depart --time)--arrive:time'
+	'(--arrive --time)--depart:time'
 	'--date:date'
 	'*--post:POST key=value'
 )

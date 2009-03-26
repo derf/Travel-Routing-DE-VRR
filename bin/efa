@@ -23,7 +23,7 @@ my $cons;
 my $groupsize = 8;
 my $offset;
 my (@from, @to, @via);
-my ($time, $time_for);
+my ($time, $time_depart, $time_arrive);
 my $date;
 my $debug = 0;
 
@@ -35,9 +35,10 @@ GetOptions(
 	'to=s{2}'   => \@to,
 	'via=s{2}'  => \@via,
 	'time=s'    => \$time,
+	'depart=s'  => \$time_depart,
+	'arrive=s'  => \$time_arrive,
 	'date=s'    => \$date,
 	'debug'     => \$debug,
-	'time-for=s' => \$time_for,
 	'post=s'    => \%post,
 );
 
@@ -52,17 +53,19 @@ if (@via == 2) {
 	@post{'place_via','name_via'} = @via;
 }
 
+if ($time_arrive) {
+	$time = $time_arrive;
+	$post{itdTripDateTimeDepArr} = 'arr';
+} elsif ($time_depart) {
+	$time = $time_depart;
+	$post{itdTripDateTimeDepArr} = 'dep';
+}
+
 if ($time) {
 	@post{'itdTimeHour','itdTimeMinute'} = split(/:/, $time);
 }
 if ($date) {
 	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
-}
-if ($time_for) {
-	given ($time_for) {
-		when('arrival') {$post{itdTripDateTimeDepArr} = 'arr'}
-		when('departure') {$post{itdTripDateTimeDepArr} = 'dep'}
-	}
 }
 
 $www->get($firsturl);
@@ -168,13 +171,13 @@ Travel via this place
 Display debug information (additional post requests sent to the site,
 raw items received from the site)
 
-=item B<--time> I<hh>:I<mm>
+=item B<--time>|B<--depart> I<hh>:I<mm>
 
-Journey start/end time
+Journey start time
 
-=item B<--time-for> B<arrival>|B<departure>
+=item B<--arrive> I<hh>:I<mm>
 
-Define whether the time means time of departure (default) or time of arrival
+Journey end time (overrides --time/--depart)
 
 =item B<--date> I<dd>.I<mm>.I<yyyy>
 
