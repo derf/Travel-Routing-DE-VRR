@@ -10,6 +10,7 @@ arguments=(
 	'(--depart --time)--arrive:time'
 	'(--arrive --time)--depart:time'
 	'--date:date'
+	'--restrict:type:(local ic ice)'
 	'*--post:POST key=value'
 )
 

@@ -25,6 +25,7 @@ my $offset;
 my (@from, @to, @via);
 my ($time, $time_depart, $time_arrive);
 my $date;
+my $restrict;
 my $debug = 0;
 
 $post{type_origin} = 'stop';
@@ -40,6 +41,7 @@ GetOptions(
 	'date=s'    => \$date,
 	'debug'     => \$debug,
 	'post=s'    => \%post,
+	'restrict=s' => \$restrict,
 );
 
 unless (@to == 2 and @from == 2) {
@@ -66,6 +68,18 @@ if ($time) {
 }
 if ($date) {
 	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
+}
+
+if ($restrict) {
+	given ($restrict) {
+		when('local') { $post{lineRestriction} = 403 }
+		when('ic')    { $post{lineRestriction} = 401 }
+		when('ice')   { $post{lineRestriction} = 400 }
+		when(/\d+/)   { $post{lineRestriction} = $restrict }
+		default {
+			print STDERR "--restrict usage: local / ic / ice\n";
+		}
+	}
 }
 
 $www->get($firsturl);
@@ -162,7 +176,7 @@ Departure place
 
 Arrival place
 
-=time B<--via> I<city> I<stop>
+=item B<--via> I<city> I<stop>
 
 Travel via this place
 
@@ -182,6 +196,27 @@ Journey end time (overrides --time/--depart)
 =item B<--date> I<dd>.I<mm>.I<yyyy>
 
 Journey date
+
+=item B<--restrict> I<type>
+
+Only accept connections using trains of type I<type>, where I<type> may be:
+
+=over
+
+=item * local
+
+only take local trains ("Verbund-/Nahverkehrslinien"). Slow, but the cheapest
+method if you're not travelling long distance
+
+=item * ic
+
+All trains exctep ICE
+
+=item * ICE
+
+All trains
+
+=back
 
 =item B<--post> I<key>=I<value>
 
