@@ -32,16 +32,16 @@ $post{type_origin} = 'stop';
 $post{type_destination} = 'stop';
 
 GetOptions(
-	'from=s{2}' => \@from,
-	'to=s{2}'   => \@to,
-	'via=s{2}'  => \@via,
-	'time=s'    => \$time,
-	'depart=s'  => \$time_depart,
 	'arrive=s'  => \$time_arrive,
 	'date=s'    => \$date,
 	'debug'     => \$debug,
+	'depart=s'  => \$time_depart,
+	'from=s{2}' => \@from,
 	'post=s'    => \%post,
 	'restrict=s' => \$restrict,
+	'time=s'    => \$time,
+	'to=s{2}'   => \@to,
+	'via=s{2}'  => \@via,
 );
 
 unless (@to == 2 and @from == 2) {
@@ -180,11 +180,6 @@ Arrival place
 
 Travel via this place
 
-=item B<--debug>
-
-Display debug information (additional post requests sent to the site,
-raw items received from the site)
-
 =item B<--time>|B<--depart> I<hh>:I<mm>
 
 Journey start time
@@ -212,11 +207,16 @@ method if you're not travelling long distance
 
 All trains exctep ICE
 
-=item * ICE
+=item * ice
 
 All trains
 
 =back
+
+=item B<--debug>
+
+Display debug information (additional post requests sent to the site,
+raw items received from the site)
 
 =item B<--post> I<key>=I<value>
 
