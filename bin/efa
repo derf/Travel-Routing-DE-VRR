@@ -93,10 +93,10 @@ $content = $www->content;
 # ambiguous input
 foreach (split(/<span class="errorTextBold">Bitte auswählen<\/span>/s, $content)) {
 	if (/<select name="(?<what>(place|type|name)_(origin|destination))"/) {
-		print STDERR "Ambiguous input for $+{what}\n";
+		print "Ambiguous input for $+{what}\n";
 	}
 	while (/<option value="\d+(:\d+)*"( selected)?>(?<choice>[^<]+)<\/option>/gs) {
-		print STDERR "\t$+{choice}\n";
+		print "\t$+{choice}\n";
 	}
 }
 
