@@ -16,12 +16,8 @@ my %post;
 my $www = WWW::Mechanize->new(
 	autocheck => 1,
 );
-my $offer = 0;
-my $i = 0;
 my $raw;
 my $cons;
-my $groupsize = 8;
-my $offset;
 my (@from, @to, @via);
 my ($time, $time_depart, $time_arrive);
 my $date;
@@ -30,6 +26,73 @@ my $debug = 0;
 
 $post{type_origin} = 'stop';
 $post{type_destination} = 'stop';
+
+sub check_ambiguous($) {
+	my $html = shift;
+	my $choose_re = qr/<span class="errorTextBold">Bitte auswählen<\/span>/;
+	my $select_re = qr/<select name="(?<what>(place|type|name)_(origin|destination))"/;
+	my $option_re = qr/<option value="\d+(:\d+)*"( selected)?>(?<choice>[^<]+)<\/option>/;
+
+	if ($html =~ /$choose_re/s) {
+		foreach (split(/$choose_re/s, $html)) {
+			if (/$select_re/) {
+				print "Ambiguous input for $+{what}\n";
+			}
+			while (/$option_re/gs) {
+				print "\t$+{choice}\n";
+			}
+		}
+		return(1);
+	}
+	return(0);
+}
+
+sub parse_content($) {
+	my $raw = shift;
+	my $groupsize = 8;
+	my $offset;
+	my $return;
+	for (my $offer = 0; exists($raw->[$offer]); $offer++) {
+		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize); $i++) {
+			$offset = $i * $groupsize;
+			# If the first field is not a time we've got some additional information.
+			# Sadly, this script does not parse it yet, so it's ignored
+			until ($raw->[$offer]->[$offset] =~ /^\d+:\d+$/) {
+				last unless exists($raw->[$offer]->[++$offset]);
+			}
+			$return->[$offer]->[$i] = {
+				deptime  => $raw->[$offer]->[$offset],
+				dep      => $raw->[$offer]->[$offset+1],
+				depstop  => $raw->[$offer]->[$offset+2],
+				deptrain => $raw->[$offer]->[$offset+3],
+				depdest  => $raw->[$offer]->[$offset+7],
+				arrtime  => $raw->[$offer]->[$offset+4],
+				arr      => $raw->[$offer]->[$offset+5],
+				arrstop  => $raw->[$offer]->[$offset+6],
+			};
+		}
+	}
+	return($return);
+}
+
+sub prepare_content($) {
+	my $html = shift;
+	my $offer = 0;
+	my $return;
+	foreach (split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $html)) {
+		unless ($offer) {
+			$offer++;
+			next;
+		}
+		foreach(split(/\n/)) {
+			if (/<span class="labelText">(?<content>[^<]+)<\/span>/) {
+				push(@{$return->[$offer-1]}, $+{content});
+			}
+		}
+		$offer++;
+	}
+	return($return);
+}
 
 GetOptions(
 	'arrive=s'  => \$time_arrive,
@@ -87,31 +150,13 @@ $www->submit_form(
 	form_name => 'jp',
 	fields => \%post,
 );
-
 $content = $www->content;
 
-# ambiguous input
-foreach (split(/<span class="errorTextBold">Bitte auswählen<\/span>/s, $content)) {
-	if (/<select name="(?<what>(place|type|name)_(origin|destination))"/) {
-		print "Ambiguous input for $+{what}\n";
-	}
-	while (/<option value="\d+(:\d+)*"( selected)?>(?<choice>[^<]+)<\/option>/gs) {
-		print "\t$+{choice}\n";
-	}
+if (check_ambiguous($content)) {
+	exit(1);
 }
 
-foreach (split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $content)) {
-	unless ($offer) {
-		$offer++;
-		next;
-	}
-	foreach(split(/\n/)) {
-		if (/<span class="labelText">(?<content>[^<]+)<\/span>/) {
-			push(@{$raw->[$offer-1]}, $+{content});
-		}
-	}
-	$offer++;
-}
+$raw = prepare_content($content);
 
 if ($debug) {
 	print STDERR "custom post values used in query:\n";
@@ -127,26 +172,7 @@ if ($debug) {
 	}
 }
 
-for ($offer = 0; exists($raw->[$offer]); $offer++) {
-	for ($i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize); $i++) {
-		$offset = $i * $groupsize;
-		# If the first field is not a time we've got some additional information.
-		# Sadly, this script does not parse it yet, so it's ignored
-		until ($raw->[$offer]->[$offset] =~ /^\d+:\d+$/) {
-			last unless exists($raw->[$offer]->[++$offset]);
-		}
-		$cons->[$offer]->[$i] = {
-			deptime  => $raw->[$offer]->[$offset],
-			dep      => $raw->[$offer]->[$offset+1],
-			depstop  => $raw->[$offer]->[$offset+2],
-			deptrain => $raw->[$offer]->[$offset+3],
-			depdest  => $raw->[$offer]->[$offset+7],
-			arrtime  => $raw->[$offer]->[$offset+4],
-			arr      => $raw->[$offer]->[$offset+5],
-			arrstop  => $raw->[$offer]->[$offset+6],
-		};
-	}
-}
+$cons = parse_content($raw);
 
 foreach (@$cons) {
 	foreach (@$_) {
