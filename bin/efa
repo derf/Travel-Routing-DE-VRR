@@ -90,7 +90,21 @@ $www->submit_form(
 
 $content = $www->content;
 
-foreach(split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $content)) {
+# ambiguous input
+if ($content =~ /<span class="errorTextBold">Bitte auswählen<\/span>/s) {
+	print STDERR "Ambiguous input for ";
+	if ($content =~ /<select name="(?<what>(place|type|name)_(origin|destination))"/) {
+		print STDERR "$+{what}\n";
+	} else {
+		print STDERR "unknown\n";
+	}
+	while ($content =~ /<option value="\d+:\d+"( selected)?>(?<choice>[^<]+)<\/option>/gs) {
+		print STDERR "\t$+{choice}\n";
+	}
+	exit(1);
+}
+
+foreach (split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $content)) {
 	unless ($offer) {
 		$offer++;
 		next;
