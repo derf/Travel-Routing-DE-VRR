@@ -58,7 +58,8 @@ sub parse_content($) {
 			# If the first field is not a time we've got some additional information.
 			# Sadly, this script does not parse it yet, so it's ignored
 			until ($raw->[$offer]->[$offset] =~ /^\d+:\d+$/) {
-				last unless exists($raw->[$offer]->[++$offset]);
+				printf("# lost information: %s\n", $raw->[$offer]->[$offset]) if ($debug);
+				last unless (exists($raw->[$offer]->[++$offset]));
 			}
 			$return->[$offer]->[$i] = {
 				deptime  => $raw->[$offer]->[$offset],
