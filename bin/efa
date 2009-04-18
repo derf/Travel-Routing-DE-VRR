@@ -23,6 +23,7 @@ my ($time, $time_depart, $time_arrive);
 my $date;
 my $restrict;
 my $debug = 0;
+my ($i, $j, $con, $part);
 
 $post{type_origin} = 'stop';
 $post{type_destination} = 'stop';
@@ -175,15 +176,17 @@ if ($debug) {
 
 $cons = parse_content($raw);
 
-foreach (@$cons) {
-	foreach (@$_) {
+for ($i = 0; $con = $cons->[$i]; $i++) {
+	for ($j = 0; $part = $con->[$j]; $j++) {
 		printf(
 			"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
-			$_->{deptime}, $_->{dep}, $_->{depstop}, $_->{deptrain},
-			$_->{depdest}, $_->{arrtime}, $_->{arr}, $_->{arrstop}
+			$part->{deptime}, $part->{dep}, $part->{depstop}, $part->{deptrain},
+			$part->{depdest}, $part->{arrtime}, $part->{arr}, $part->{arrstop}
 		);
 	}
-	print "------\n\n";
+	if (defined($cons->[$i+1])) {
+		print "------\n\n";
+	}
 }
 
 __END__
