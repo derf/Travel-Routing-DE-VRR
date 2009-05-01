@@ -81,6 +81,7 @@ sub prepare_content($) {
 	my $html = shift;
 	my $offer = 0;
 	my $return;
+	# beware of the no-break space (U+00A0)     ↓     ↓
 	foreach (split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $html)) {
 		unless ($offer) {
 			$offer++;
