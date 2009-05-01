@@ -109,6 +109,10 @@ GetOptions(
 	'via=s{2}'  => \@via,
 );
 
+unless (@from and @to) {
+	(@from[0,1], @to[0,1]) = @ARGV;
+}
+
 unless (@to == 2 and @from == 2) {
 	print STDERR "Usage: efa --from <city> <stop> --to <city> <stop> [other options]\n";
 	exit(1);
@@ -197,7 +201,13 @@ efa - unofficial efa.vrr.de command line client
 
 =head1 SYNOPSIS
 
-B<efa> B<--from> I<city> I<stop> B<--to> I<city> I<stop> [ I<additional options> ]
+=over
+
+=item B<efa> B<--from> I<city> I<stop> B<--to> I<city> I<stop> [ I<additional options> ]
+
+=item B<efa> [ I<options> ] I<from-city> I<from-stop> I<to-city> I<to-stop>
+
+=back
 
 =head1 DESCRIPTION
 
