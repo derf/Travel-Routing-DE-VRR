@@ -53,14 +53,25 @@ sub parse_content($) {
 	my $groupsize = 8;
 	my $offset;
 	my $return;
+	my @extra;
 	for (my $offer = 0; exists($raw->[$offer]); $offer++) {
+		foreach (@{$raw->[$offer]}) {
+			s/\s*<br>\s*/, /g;
+			s/<[^>]+>//g;
+		}
 		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize); $i++) {
 			$offset = $i * $groupsize;
-			# If the first field is not a time we've got some additional information.
-			# Sadly, this script does not parse it yet, so it's ignored
-			until ($raw->[$offer]->[$offset] =~ /^\d+:\d+$/) {
-				printf("# lost information: %s\n", $raw->[$offer]->[$offset]) if ($debug);
-				last unless (exists($raw->[$offer]->[++$offset]));
+			undef(@extra);
+			for my $j (0, 4, 8) {
+				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ /^\d+:\d+$/) {
+					last unless (exists($raw->[$offer]->[$offset+$j]));
+					last if ($raw->[$offer]->[$offset+$j] eq 'Verspätungen sind berücksichtigt');
+					if ($raw->[$offer]->[$offset+$j] =~ /^\s*$/) {
+						splice(@{$raw->[$offer]}, $offset+$j, 1);
+					} else {
+						push(@extra, splice(@{$raw->[$offer]}, $offset+$j, 1));
+					}
+				}
 			}
 			$return->[$offer]->[$i] = {
 				deptime  => $raw->[$offer]->[$offset],
@@ -72,6 +83,7 @@ sub parse_content($) {
 				arr      => $raw->[$offer]->[$offset+5],
 				arrstop  => $raw->[$offer]->[$offset+6],
 			};
+			@{$return->[$offer]->[$i]->{extra}} = @extra;
 		}
 	}
 	return($return);
@@ -88,7 +100,7 @@ sub prepare_content($) {
 			next;
 		}
 		foreach(split(/\n/)) {
-			if (/<span class="labelText">(?<content>[^<]+)<\/span>/) {
+			if (/<span class="labelText"( valign="center")?>(?<content>.+)<\/span><\/td>/) {
 				push(@{$return->[$offer-1]}, $+{content});
 			}
 		}
@@ -183,6 +195,9 @@ $cons = parse_content($raw);
 
 for ($i = 0; $con = $cons->[$i]; $i++) {
 	for ($j = 0; $part = $con->[$j]; $j++) {
+		foreach (@{$part->{extra}}) {
+			print "# $_\n";
+		}
 		printf(
 			"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
 			$part->{deptime}, $part->{dep}, $part->{depstop}, $part->{deptrain},
