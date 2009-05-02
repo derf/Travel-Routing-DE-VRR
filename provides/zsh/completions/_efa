@@ -11,6 +11,7 @@ arguments=(
 	'(--arrive --time)--depart:time'
 	'--date:date'
 	'--restrict:type:(local ic ice)'
+	'--ignore-info:regex'
 	'*--post:POST key=value'
 )
 
