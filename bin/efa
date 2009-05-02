@@ -23,6 +23,7 @@ my ($time, $time_depart, $time_arrive);
 my $date;
 my $restrict;
 my $debug = 0;
+my $ignore_info = 'Fahrradmitnahme( begrenzt)? möglich';
 my ($i, $j, $con, $part);
 
 $post{type_origin} = 'stop';
@@ -115,6 +116,7 @@ GetOptions(
 	'debug'     => \$debug,
 	'depart=s'  => \$time_depart,
 	'from=s{2}' => \@from,
+	'ignore-info=s' => \$ignore_info,
 	'post=s'    => \%post,
 	'restrict=s' => \$restrict,
 	'time=s'    => \$time,
@@ -196,7 +198,9 @@ $cons = parse_content($raw);
 for ($i = 0; $con = $cons->[$i]; $i++) {
 	for ($j = 0; $part = $con->[$j]; $j++) {
 		foreach (@{$part->{extra}}) {
-			print "# $_\n";
+			unless (length($ignore_info) and $_ =~ /$ignore_info/i) {
+				print "# $_\n";
+			}
 		}
 		printf(
 			"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
@@ -261,6 +265,10 @@ Journey date
 =item B<--restrict> I<type>
 
 Only accept connections using trains of type I<type>, where I<type> may be:
+
+=item B<--ignore-info> I<regex>
+
+Ignore additional information matching I<regen> (default: "Fahrradmitnahme( begrenzt)? möglich")
 
 =over
 
