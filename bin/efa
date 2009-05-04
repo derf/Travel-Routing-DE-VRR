@@ -23,7 +23,7 @@ my ($time, $time_depart, $time_arrive);
 my $date;
 my $restrict;
 my $debug = 0;
-my $ignore_info = 'Fahrradmitnahme( begrenzt)? möglich';
+my $ignore_info = 'Fahrradmitnahme';
 my ($i, $j, $con, $part);
 
 $post{type_origin} = 'stop';
