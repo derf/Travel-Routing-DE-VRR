@@ -125,7 +125,11 @@ GetOptions(
 );
 
 unless (@from and @to) {
-	(@from[0,1], @to[0,1]) = @ARGV;
+	if (@ARGV == 4) {
+		(@from[0,1], @to[0,1]) = @ARGV;
+	} elsif (@ARGV == 6) {
+		(@from[0,1], @via[0,1], @to[0,1]) = @ARGV;
+	}
 }
 
 unless (@to == 2 and @from == 2) {
@@ -225,7 +229,7 @@ efa - unofficial efa.vrr.de command line client
 
 =item B<efa> B<--from> I<city> I<stop> B<--to> I<city> I<stop> [ I<additional options> ]
 
-=item B<efa> [ I<options> ] I<from-city> I<from-stop> I<to-city> I<to-stop>
+=item B<efa> [ I<options> ] I<from-city> I<from-stop> [ I<via-city> I<via-stop> ] I<to-city> I<to-stop>
 
 =back
 
