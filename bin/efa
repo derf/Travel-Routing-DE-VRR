@@ -270,10 +270,6 @@ Journey date
 
 Only accept connections using trains of type I<type>, where I<type> may be:
 
-=item B<--ignore-info> I<regex>
-
-Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
-
 =over
 
 =item * local
@@ -290,6 +286,10 @@ All trains except ICE
 All trains
 
 =back
+
+=item B<--ignore-info> I<regex>
+
+Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
 
 =item B<--debug>
 
