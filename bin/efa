@@ -272,7 +272,7 @@ Only accept connections using trains of type I<type>, where I<type> may be:
 
 =item B<--ignore-info> I<regex>
 
-Ignore additional information matching I<regen> (default: "Fahrradmitnahme( begrenzt)? möglich")
+Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
 
 =over
 
