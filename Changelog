@@ -1,0 +1,7 @@
+efa 0.9 - Sat May 16 2009
+
+    * Accept from, to and via city and stops
+    * Custom arrival/departure date/time
+    * Print extra infos (late trains etc.)
+    * Regex to ignore certain infos
+    * Restrict trains to anything/anything without ICE/local
