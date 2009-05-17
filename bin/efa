@@ -116,6 +116,7 @@ GetOptions(
 	'debug'     => \$debug,
 	'depart=s'  => \$time_depart,
 	'from=s{2}' => \@from,
+	'help'      => sub {exec('perldoc', $0)},
 	'ignore-info=s' => \$ignore_info,
 	'post=s'    => \%post,
 	'restrict=s' => \$restrict,
