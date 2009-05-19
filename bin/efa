@@ -23,6 +23,7 @@ my ($time, $time_depart, $time_arrive);
 my $date;
 my $restrict;
 my $prefer;
+my $proximity;
 my $debug = 0;
 my $ignore_info = 'Fahrradmitnahme';
 my ($i, $j, $con, $part);
@@ -121,6 +122,7 @@ GetOptions(
 	'ignore-info=s' => \$ignore_info,
 	'post=s'    => \%post,
 	'prefer=s'  => \$prefer,
+	'proximity' => \$proximity,
 	'restrict=s' => \$restrict,
 	'time=s'    => \$time,
 	'to=s{2}'   => \@to,
@@ -170,6 +172,10 @@ if ($prefer) {
 			print STDERR "--prefer usage: speed / nowait / nowalk\n";
 		}
 	}
+}
+
+if ($proximity) {
+	$post{useProxFootSearch} = 1;
 }
 
 if ($restrict) {
@@ -299,6 +305,10 @@ Prefer connections with less interchanges
 Prefer connections with less walking (at interchanges)
 
 =back
+
+=item B<--proximity>
+
+Take stops close to the stop/start into account and possibly use them instead
 
 =item B<--restrict> I<type>
 
