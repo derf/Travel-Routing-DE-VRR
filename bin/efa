@@ -21,6 +21,7 @@ my $cons;
 my (@from, @to, @via);
 my ($time, $time_depart, $time_arrive);
 my $date;
+my $maxinter;
 my $restrict;
 my $prefer;
 my $proximity;
@@ -120,6 +121,7 @@ GetOptions(
 	'from=s{2}' => \@from,
 	'help'      => sub {exec('perldoc', $0)},
 	'ignore-info=s' => \$ignore_info,
+	'max-change=i'  => \$maxinter,
 	'post=s'    => \%post,
 	'prefer=s'  => \$prefer,
 	'proximity' => \$proximity,
@@ -161,6 +163,10 @@ if ($time) {
 }
 if ($date) {
 	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
+}
+
+if (defined($maxinter)) {
+	$post{maxChanges} = $maxinter;
 }
 
 if ($prefer) {
@@ -285,6 +291,10 @@ Journey end time (overrides --time/--depart)
 =item B<--date> I<dd>.I<mm>.I<yyyy>
 
 Journey date
+
+=item B<--max-change> I<number>
+
+Print connections with at most I<number> interchanges
 
 =item B<--prefer> I<type>
 
