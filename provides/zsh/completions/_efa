@@ -10,6 +10,7 @@ arguments=(
 	'(--depart --time)--arrive:time'
 	'(--arrive --time)--depart:time'
 	'--date:date'
+	'--prefer:type:(speed nowait nowalk)'
 	'--restrict:type:(local ic ice)'
 	'--ignore-info:regex'
 	'*--post:POST key=value'

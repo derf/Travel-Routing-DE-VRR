@@ -22,6 +22,7 @@ my (@from, @to, @via);
 my ($time, $time_depart, $time_arrive);
 my $date;
 my $restrict;
+my $prefer;
 my $debug = 0;
 my $ignore_info = 'Fahrradmitnahme';
 my ($i, $j, $con, $part);
@@ -119,6 +120,7 @@ GetOptions(
 	'help'      => sub {exec('perldoc', $0)},
 	'ignore-info=s' => \$ignore_info,
 	'post=s'    => \%post,
+	'prefer=s'  => \$prefer,
 	'restrict=s' => \$restrict,
 	'time=s'    => \$time,
 	'to=s{2}'   => \@to,
@@ -157,6 +159,17 @@ if ($time) {
 }
 if ($date) {
 	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
+}
+
+if ($prefer) {
+	given($prefer) {
+		when('speed') { $post{routeType} = 'LEASTTIME' }
+		when('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
+		when('nowalk') { $post{routeType} = 'LEASTWALKING' }
+		default {
+			print STDERR "--prefer usage: speed / nowait / nowalk\n";
+		}
+	}
 }
 
 if ($restrict) {
@@ -267,13 +280,33 @@ Journey end time (overrides --time/--depart)
 
 Journey date
 
+=item B<--prefer> I<type>
+
+Prefer connections of I<type>:
+
+=over
+
+=item * speed (default)
+
+The faster, the better
+
+=item * nowait
+
+Prefer connections with less interchanges
+
+=item * nowalk
+
+Prefer connections with less walking (at interchanges)
+
+=back
+
 =item B<--restrict> I<type>
 
 Only accept connections using trains of type I<type>, where I<type> may be:
 
 =over
 
-=item * local
+=item * local (default)
 
 only take local trains ("Verbund-/Nahverkehrslinien"). Slow, but the cheapest
 method if you're not travelling long distance
