@@ -10,6 +10,7 @@ arguments=(
 	'(--depart --time)--arrive:time'
 	'(--arrive --time)--depart:time'
 	'--date:date'
+	'*--exclude:transports:_efa_transports'
 	'--max-change:number'
 	'--prefer:type:(speed nowait nowalk)'
 	'--proximity'
@@ -18,4 +19,16 @@ arguments=(
 	'*--post:POST key=value'
 )
 
+function _efa_transports {
+	typeset -a keys used_prefixes
+	typeset prefix=''
+	keys=(zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus schnellbus seilbahn schiff ast sonstige)
+
+	if [[ -prefix *, ]] {
+		prefix=${words[$CURRENT]%,*},
+		used_prefixes=(${(s:,:)prefix})
+	}
+	_wanted expression expl 'sort expression' \
+	compadd -F used_prefixes -qS , -P "$prefix" $keys
+}
 _arguments -s $arguments

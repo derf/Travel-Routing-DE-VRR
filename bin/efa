@@ -21,6 +21,7 @@ my $cons;
 my (@from, @to, @via);
 my ($time, $time_depart, $time_arrive);
 my $date;
+my @exclude;
 my $maxinter;
 my $restrict;
 my $prefer;
@@ -118,6 +119,7 @@ GetOptions(
 	'date=s'    => \$date,
 	'debug'     => \$debug,
 	'depart=s'  => \$time_depart,
+	'exclude=s' => \@exclude,
 	'from=s{2}' => \@from,
 	'help'      => sub {exec('perldoc', $0)},
 	'ignore-info=s' => \$ignore_info,
@@ -130,6 +132,8 @@ GetOptions(
 	'to=s{2}'   => \@to,
 	'via=s{2}'  => \@via,
 );
+
+@exclude = split(/,/, join(',', @exclude));
 
 unless (@from and @to) {
 	if (@ARGV == 4) {
@@ -163,6 +167,28 @@ if ($time) {
 }
 if ($date) {
 	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
+}
+
+if (@exclude) {
+	foreach(@exclude) {
+		given($_) {
+			when('zug')    { $post{inclMOT_0} = undef }
+			when('s-bahn') { $post{inclMOT_1} = undef }
+			when('u-bahn') { $post{inclMOT_2} = undef }
+			when('stadtbahn') { $post{inclMOT_3} = undef }
+			when('tram')   { $post{inclMOT_4} = undef }
+			when('stadtbus') { $post{inclMOT_5} = undef }
+			when('regionalbus') { $post{inclMOT_6} = undef }
+			when('schnellbus') { $post{inclMOT_7} = undef }
+			when('seilbahn') { $post{inclMOT_8} = undef }
+			when('schiff') { $post{inclMOT_9} = undef }
+			when('ast')    { $post{inclMOT_10} = undef }
+			when('sonstige') {$post{inclMOT_11} = undef }
+			default {
+				print STDERR "--exclude: invaled argument\n";
+			}
+		}
+	}
 }
 
 if (defined($maxinter)) {
@@ -202,6 +228,7 @@ $www->submit_form(
 	fields => \%post,
 );
 $content = $www->content;
+
 
 if (check_ambiguous($content)) {
 	exit(1);
@@ -291,6 +318,13 @@ Journey end time (overrides --time/--depart)
 =item B<--date> I<dd>.I<mm>.I<yyyy>
 
 Journey date
+
+=item B<--exclude> I<transports>
+
+Exclude I<transports> (comma separated list).
+
+Possible transports: zug, s-bahn, u-bahn, stadtbahn, tram, stadtbus, regionalbus,
+schnellbus, seilbahn, schiff, ast, sonstige
 
 =item B<--max-change> I<number>
 
