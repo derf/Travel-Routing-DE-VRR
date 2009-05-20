@@ -1,3 +1,11 @@
+efa 0.9.1 - Wed May 20 2009
+
+    * Added options:
+    + --exclude    - exclude certain train/transport types
+    + --max-change - limit maximum number of interchanges
+    + --prefer     - prefer connections based on speed/interchanges/walking
+    + --proximity  - take near stops into account for start/stop
+
 efa 0.9 - Sat May 16 2009
 
     * Accept from, to and via city and stops
