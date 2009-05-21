@@ -15,6 +15,7 @@ arguments=(
 	'--prefer:type:(speed nowait nowalk)'
 	'--proximity'
 	'--restrict:type:(local ic ice)'
+	'--walk-speed:speed:(normal fast slow)'
 	'--ignore-info:regex'
 	'*--post:POST key=value'
 )

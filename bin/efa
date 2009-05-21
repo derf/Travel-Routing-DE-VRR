@@ -26,6 +26,7 @@ my $maxinter;
 my $restrict;
 my $prefer;
 my $proximity;
+my $walk_speed;
 my $debug = 0;
 my $ignore_info = 'Fahrradmitnahme';
 my ($i, $j, $con, $part);
@@ -131,6 +132,7 @@ GetOptions(
 	'time=s'    => \$time,
 	'to=s{2}'   => \@to,
 	'via=s{2}'  => \@via,
+	'walk-speed=s' => \$walk_speed,
 );
 
 @exclude = split(/,/, join(',', @exclude));
@@ -219,6 +221,14 @@ if ($restrict) {
 		default {
 			print STDERR "--restrict usage: local / ic / ice\n";
 		}
+	}
+}
+
+if ($walk_speed) {
+	if ($walk_speed =~ /^(normal|fast|slow)$/) {
+		$post{changeSpeed} = $walk_speed;
+	} else {
+		print STDERR "--walk-speed usage: normal / fast / slow\n";
 	}
 }
 
@@ -374,6 +384,11 @@ All trains except ICE
 All trains
 
 =back
+
+=item B<--walk-speed> I<speed>
+
+Set your walking speed to I<speed>.
+Accepted values: normal (default), fast, slow
 
 =item B<--ignore-info> I<regex>
 
