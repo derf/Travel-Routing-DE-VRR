@@ -125,7 +125,7 @@ GetOptions(
 	'exclude=s' => \@exclude,
 	'from=s{2}' => \@from,
 	'help'      => sub {exec('perldoc', $0)},
-	'ignore-info=s' => \$ignore_info,
+	'ignore-info=s{0,1}' => \$ignore_info,
 	'max-change=i'  => \$maxinter,
 	'post=s'    => \%post,
 	'prefer=s'  => \$prefer,
@@ -401,9 +401,11 @@ All trains
 Set your walking speed to I<speed>.
 Accepted values: normal (default), fast, slow
 
-=item B<--ignore-info> I<regex>
+=item B<--ignore-info> [ I<regex> ]
 
-Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
+Ignore additional information matching I<regex> (default: /Fahrradmitnahme/).
+
+If I<regex> is not supplied, removes the default regex (-> nothing will be ignored)
 
 =item B<--debug>
 
