@@ -27,6 +27,7 @@ my $restrict;
 my $prefer;
 my $proximity;
 my $walk_speed;
+my $with_bike;
 my $debug = 0;
 my $ignore_info = 'Fahrradmitnahme';
 my ($i, $j, $con, $part);
@@ -117,6 +118,7 @@ sub prepare_content($) {
 
 GetOptions(
 	'arrive=s'  => \$time_arrive,
+	'bike'      => \$with_bike,
 	'date=s'    => \$date,
 	'debug'     => \$debug,
 	'depart=s'  => \$time_depart,
@@ -232,6 +234,11 @@ if ($walk_speed) {
 	}
 }
 
+if ($with_bike) {
+	$ignore_info = undef;
+	$post{bikeTakeAlong} = 1;
+}
+
 $www->get($firsturl);
 $www->submit_form(
 	form_name => 'jp',
@@ -265,7 +272,7 @@ $cons = parse_content($raw);
 for ($i = 0; $con = $cons->[$i]; $i++) {
 	for ($j = 0; $part = $con->[$j]; $j++) {
 		foreach (@{$part->{extra}}) {
-			unless (length($ignore_info) and $_ =~ /$ignore_info/i) {
+			unless ($ignore_info and $_ =~ /$ignore_info/i) {
 				print "# $_\n";
 			}
 		}
@@ -328,6 +335,10 @@ Journey end time (overrides --time/--depart)
 =item B<--date> I<dd>.I<mm>.I<yyyy>
 
 Journey date
+
+=item B<--bike>
+
+Choose connections where you can take a bike with you
 
 =item B<--exclude> I<transports>
 

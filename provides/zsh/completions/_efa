@@ -5,6 +5,7 @@ arguments=(
 	'--from:city: :stop: '
 	'--to:city: :stop: '
 	'--via:city: :stop: '
+	'--bike'
 	'--debug'
 	'(--depart --arrive)--time:time'
 	'(--depart --time)--arrive:time'
