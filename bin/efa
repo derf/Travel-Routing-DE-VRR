@@ -189,7 +189,7 @@ if (@exclude) {
 			when('ast')    { $post{inclMOT_10} = undef }
 			when('sonstige') {$post{inclMOT_11} = undef }
 			default {
-				print STDERR "--exclude: invaled argument\n";
+				print STDERR "--exclude: invalid argument\n";
 			}
 		}
 	}
