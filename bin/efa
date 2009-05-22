@@ -227,7 +227,7 @@ if ($restrict) {
 }
 
 if ($walk_speed) {
-	if ($walk_speed =~ /^(normal|fast|slow)$/) {
+	if ($walk_speed ~~ ['normal', 'fast', 'slow']) {
 		$post{changeSpeed} = $walk_speed;
 	} else {
 		print STDERR "--walk-speed usage: normal / fast / slow\n";
