@@ -67,12 +67,17 @@ sub parse_content($) {
 		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize); $i++) {
 			$offset = $i * $groupsize;
 			undef(@extra);
+			if ($raw->[$offer]->[$offset+2] =~ /^Fußweg/) {
+				# These are generic, which means they don't contain a time
+				splice(@{$raw->[$offer]}, $offset, 0, '');
+				splice(@{$raw->[$offer]}, $offset+4, 0, '');
+			}
 			if ($raw->[$offer]->[$offset+3] =~ /^Fußweg/) {
-				# Fußweg messages lack the last element, so inject it
+				# These messages lack the last element, so inject it
 				splice(@{$raw->[$offer]}, $offset+7, 0, '');
 			}
 			for my $j (0, 4, 8) {
-				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ /^\d+:\d+$/) {
+				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ /^(\d+:\d+)?$/) {
 					last unless (exists($raw->[$offer]->[$offset+$j]));
 					last if ($raw->[$offer]->[$offset+$j] eq 'Verspätungen sind berücksichtigt');
 					if ($raw->[$offer]->[$offset+$j] =~ /^\s*$/) {
