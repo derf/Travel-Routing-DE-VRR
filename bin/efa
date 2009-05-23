@@ -312,11 +312,11 @@ It sends the specified information to the online form and displays the results
 
 =over
 
-=item B<--from> I<city> I<stop> (mandatory)
+=item B<--from> I<city> I<stop>
 
 Departure place
 
-=item B<--to> I<city> I<stop> (mandatory)
+=item B<--to> I<city> I<stop>
 
 Arrival place
 
