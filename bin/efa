@@ -19,6 +19,7 @@ my $www = WWW::Mechanize->new(
 my $raw;
 my $cons;
 my (@from, @to, @via);
+my ($from_type, $to_type, $via_type) = ('stop', 'stop', 'stop');
 my ($time, $time_depart, $time_arrive);
 my $date;
 my @exclude;
@@ -31,9 +32,6 @@ my $with_bike;
 my $debug = 0;
 my $ignore_info = 'Fahrradmitnahme';
 my ($i, $j, $con, $part);
-
-$post{type_origin} = 'stop';
-$post{type_destination} = 'stop';
 
 sub check_ambiguous($) {
 	my $html = shift;
@@ -124,6 +122,7 @@ GetOptions(
 	'depart=s'  => \$time_depart,
 	'exclude=s' => \@exclude,
 	'from=s{2}' => \@from,
+	'from-type=s' => \$from_type,
 	'help'      => sub {exec('perldoc', $0)},
 	'ignore-info=s{0,1}' => \$ignore_info,
 	'max-change=i'  => \$maxinter,
@@ -133,7 +132,9 @@ GetOptions(
 	'restrict=s' => \$restrict,
 	'time=s'    => \$time,
 	'to=s{2}'   => \@to,
+	'to-type=s' => \$to_type,
 	'via=s{2}'  => \@via,
+	'via-type=s' => \$via_type,
 	'walk-speed=s' => \$walk_speed,
 );
 
@@ -157,6 +158,17 @@ unless (@to == 2 and @from == 2) {
 if (@via == 2) {
 	@post{'place_via','name_via'} = @via;
 }
+
+foreach ($from_type, $to_type, $via_type) {
+	unless ($_ ~~ ['stop', 'address', 'poi']) {
+		$_ = 'stop';
+		print STDERR "from/to/via type: must be stop, address or poi\n";
+	}
+}
+
+$post{type_origin} = $from_type;
+$post{type_destination} = $to_type;
+$post{type_via} = $via_type;
 
 if ($time_arrive) {
 	$time = $time_arrive;
@@ -323,6 +335,11 @@ Arrival place
 =item B<--via> I<city> I<stop>
 
 Travel via this place
+
+=item B<--from-type>, B<--to-type>, B<--via-type> I<type>
+
+Designate type of the I<stop> for from/to/via.
+Possible I<type>s: B<stop> (default), B<address>, B<poi> (point of interest)
 
 =item B<--time>|B<--depart> I<hh>:I<mm>
 
