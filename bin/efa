@@ -64,7 +64,7 @@ sub parse_content($) {
 			s/\s*<br>\s*/, /g;
 			s/<[^>]+>//g;
 		}
-		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize); $i++) {
+		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
 			$offset = $i * $groupsize;
 			undef(@extra);
 			if ($raw->[$offer]->[$offset+2] =~ /^Fußweg/) {
