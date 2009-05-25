@@ -192,6 +192,7 @@ if ($time) {
 }
 if ($date) {
 	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
+	$post{itdDateYear} //= (localtime(time))[5] + 1900;
 }
 
 if (@exclude) {
@@ -358,7 +359,7 @@ Journey start time
 
 Journey end time (overrides --time/--depart)
 
-=item B<--date> I<dd>.I<mm>.I<yyyy>
+=item B<--date> I<dd>.I<mm>.[I<yyyy>]
 
 Journey date
 
