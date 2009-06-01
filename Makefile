@@ -9,10 +9,10 @@ install: build/efa.1
 	install -m 644 -D build/efa.1 $(prefix)/share/man/man1/efa.1
 
 uninstall:
-	$(RM) $(prefix)/bin/efa
-	$(RM) $(prefix)/share/man/man1/efa.1
+	rm -f $(prefix)/bin/efa
+	rm -f $(prefix)/share/man/man1/efa.1
 
 clean:
-	$(RM) -r build
+	rm -rf build
 
 .PHONY: install uninstall clean
