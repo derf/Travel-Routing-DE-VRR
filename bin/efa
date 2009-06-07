@@ -132,7 +132,7 @@ GetOptions(
 	'exclude=s' => \@exclude,
 	'from=s{2}' => \@from,
 	'from-type=s' => \$from_type,
-	'help'      => sub {exec('perldoc', $0)},
+	'help'      => sub {exec('perldoc', '-F', $0)},
 	'ignore-info=s{0,1}' => \$ignore_info,
 	'max-change=i'  => \$maxinter,
 	'post=s'    => \%post,
