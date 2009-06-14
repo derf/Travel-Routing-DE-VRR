@@ -158,7 +158,7 @@ unless (@from and @to) {
 }
 
 unless (@to == 2 and @from == 2) {
-	print STDERR "Usage: efa --from <city> <stop> --to <city> <stop> [other options]\n";
+	print STDERR "Usage: see '$0 --help'\n";
 	exit(1);
 }
 
