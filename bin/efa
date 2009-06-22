@@ -67,12 +67,12 @@ sub parse_content($) {
 		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
 			$offset = $i * $groupsize;
 			undef(@extra);
-			if ($raw->[$offer]->[$offset+2] =~ /^Fußweg/) {
+			if ($raw->[$offer]->[$offset+2] =~ /^(Fußweg|Anschluss wird.*abgewartet)/) {
 				# These are generic, which means they don't contain a time
 				splice(@{$raw->[$offer]}, $offset, 0, '');
 				splice(@{$raw->[$offer]}, $offset+4, 0, '');
 			}
-			if ($raw->[$offer]->[$offset+3] =~ /^Fußweg/) {
+			if ($raw->[$offer]->[$offset+3] =~ /^(Fußweg|Anschluss wird.*abgewartet)/) {
 				# These messages lack the last element, so inject it
 				splice(@{$raw->[$offer]}, $offset+7, 0, '');
 			}
