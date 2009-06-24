@@ -432,7 +432,7 @@ Accepted values: normal (default), fast, slow
 
 Ignore additional information matching I<regex> (default: /Fahrradmitnahme/).
 
-If I<regex> is not supplied, removes the default regex (-> nothing will be ignored)
+If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be ignored)
 
 =item B<--debug>
 
