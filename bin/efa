@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 use 5.010;
-use encoding 'utf8';
+use Encode;
 use Getopt::Long;
 use WWW::Mechanize;
 
@@ -77,7 +77,7 @@ sub parse_content($) {
 				splice(@{$raw->[$offer]}, $offset+7, 0, '');
 			}
 			for my $j (0, 4, 8) {
-				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ /^(\d+:\d+|ab |)$/) {
+				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ /^(\d+:\d+|ab |)$/) {
 					last unless (exists($raw->[$offer]->[$offset+$j]));
 					last if ($raw->[$offer]->[$offset+$j] eq 'Verspätungen sind berücksichtigt');
 					if ($raw->[$offer]->[$offset+$j] =~ /^\s*$/) {
@@ -107,8 +107,7 @@ sub prepare_content($) {
 	my $html = shift;
 	my $offer = 0;
 	my $return;
-	# beware of the no-break space (U+00A0)     ↓     ↓
-	foreach (split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $html)) {
+	foreach (split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $html)) {
 		unless ($offer) {
 			$offer++;
 			next;
@@ -267,7 +266,8 @@ $www->submit_form(
 	fields => \%post,
 );
 $content = $www->content;
-
+$content =~ s/\xa0/ /gs;
+$content = encode('utf-8', decode('iso-8859-1', $content));
 
 if (check_ambiguous($content)) {
 	exit(1);
