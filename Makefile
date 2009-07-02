@@ -8,6 +8,8 @@ install: build/efa.1
 	mkdir -p $(prefix)/bin $(prefix)/share/man/man1
 	cp bin/efa $(prefix)/bin/efa
 	cp build/efa.1 $(prefix)/share/man/man1/efa.1
+	chmod 755 $(prefix)/bin/efa
+	chmod 644 $(prefix)/share/man/man1/efa.1
 
 uninstall:
 	rm -f $(prefix)/bin/efa
