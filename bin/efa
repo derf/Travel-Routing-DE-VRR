@@ -448,3 +448,8 @@ Note that B<--post> will be overridden by the standard efa options, such as
 B<--time>.
 
 =back
+
+=head1 BUGS
+
+B<efa> only understands plain ASCII arguments, Unicode is not supported.
+Use ue insteod of E<uuml> etc.
