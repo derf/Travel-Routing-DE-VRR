@@ -11,6 +11,7 @@ use WWW::Mechanize;
 my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
 my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
 
+my $VERSION = '1.0.1+git';
 my $content;
 my %post;
 my $www = WWW::Mechanize->new(
@@ -141,6 +142,7 @@ GetOptions(
 	'time=s'    => \$time,
 	'to=s{2}'   => \@to,
 	'to-type=s' => \$to_type,
+	'version'   => sub {print "efa version $VERSION\n"; exit 0},
 	'via=s{2}'  => \@via,
 	'via-type=s' => \$via_type,
 	'walk-speed=s' => \$walk_speed,
@@ -446,6 +448,10 @@ This can be used to use setting B<efa> does not yet cover, like
 C<--post lineRestriction=400> to also show IC and ICE trains.
 Note that B<--post> will be overridden by the standard efa options, such as
 B<--time>.
+
+=item B<--version>
+
+Print version information
 
 =back
 
