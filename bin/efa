@@ -138,7 +138,7 @@ GetOptions(
 	'post=s'    => \%post,
 	'prefer=s'  => \$prefer,
 	'proximity' => \$proximity,
-	'restrict=s' => \$restrict,
+	'include=s' => \$include,
 	'time=s'    => \$time,
 	'to=s{2}'   => \@to,
 	'to-type=s' => \$to_type,
@@ -237,14 +237,14 @@ if ($proximity) {
 	$post{useProxFootSearch} = 1;
 }
 
-if ($restrict) {
-	given ($restrict) {
+if ($include) {
+	given ($include) {
 		when('local') { $post{lineRestriction} = 403 }
 		when('ic')    { $post{lineRestriction} = 401 }
 		when('ice')   { $post{lineRestriction} = 400 }
-		when(/\d+/)   { $post{lineRestriction} = $restrict }
+		when(/\d+/)   { $post{lineRestriction} = $include }
 		default {
-			print STDERR "--restrict usage: local / ic / ice\n";
+			print STDERR "--include usage: local / ic / ice\n";
 		}
 	}
 }
@@ -404,9 +404,9 @@ Prefer connections with less walking (at interchanges)
 
 Take stops close to the stop/start into account and possibly use them instead
 
-=item B<--restrict> I<type>
+=item B<--include> I<type>
 
-Only accept connections using trains of type I<type>, where I<type> may be:
+Include connections using trains of type I<type>, where I<type> may be:
 
 =over
 
@@ -417,11 +417,11 @@ method if you're not travelling long distance
 
 =item * ic
 
-All trains except ICE
+Local trains + IC
 
 =item * ice
 
-All trains
+All trains (local + IC + ICE)
 
 =back
 

@@ -14,7 +14,7 @@ arguments=(
 	'--max-change:number'
 	'--prefer:type:(speed nowait nowalk)'
 	'--proximity'
-	'--restrict:type:(local ic ice)'
+	'--include:type:(local ic ice)'
 	'--walk-speed:speed:(normal fast slow)'
 	'--ignore-info:regex'
 	'*--post:POST key=value'
