@@ -1,5 +1,4 @@
 #!/bin/sh -e
 
 podchecker -warnings -warnings bin/*
-# make sure there are no syntax errors...
-efa --version
+perl -c bin/efa
