@@ -25,7 +25,7 @@ my ($time, $time_depart, $time_arrive);
 my $date;
 my @exclude;
 my $maxinter;
-my $restrict;
+my $include;
 my $prefer;
 my $proximity;
 my $walk_speed;
