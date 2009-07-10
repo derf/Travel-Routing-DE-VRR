@@ -34,11 +34,11 @@ my $debug = 0;
 my $ignore_info = 'Fahrradmitnahme';
 my ($i, $j, $con, $part);
 
-sub check_ambiguous($) {
+sub check_ambiguous {
 	my $html = shift;
-	my $choose_re = qr/<span class="errorTextBold">Bitte auswählen<\/span>/;
-	my $select_re = qr/<select name="(?<what>(place|type|name)_(origin|destination))"/;
-	my $option_re = qr/<option value="\d+(:\d+)*"( selected)?>(?<choice>[^<]+)<\/option>/;
+	my $choose_re = qr#<span class="errorTextBold">Bitte auswählen</span>#;
+	my $select_re = qr#<select name="(?<what>(place|type|name)_(origin|destination))"#;
+	my $option_re = qr#<option value="\d+(:\d+)*"( selected)?>(?<choice>[^<]+)</option>#;
 
 	if ($html =~ /$choose_re/s) {
 		foreach (split(/$choose_re/s, $html)) {
@@ -54,7 +54,7 @@ sub check_ambiguous($) {
 	return(0);
 }
 
-sub parse_content($) {
+sub parse_content {
 	my $raw = shift;
 	my $groupsize = 8;
 	my $offset;
@@ -62,26 +62,26 @@ sub parse_content($) {
 	my @extra;
 	for (my $offer = 0; exists($raw->[$offer]); $offer++) {
 		foreach (@{$raw->[$offer]}) {
-			s/\s*<br>\s*/, /g;
-			s/<[^>]+>//g;
+			s/\s* <br> \s*/, /gx;
+			s/< [^>]+ >//gx;
 		}
 		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
 			$offset = $i * $groupsize;
 			undef(@extra);
-			if ($raw->[$offer]->[$offset+2] =~ /^(Fußweg|Anschluss wird.*abgewartet)/) {
+			if ($raw->[$offer]->[$offset+2] =~ /^(Fußweg | Anschluss \s wird .* abgewartet)/x) {
 				# These are generic, which means they don't contain a time
 				splice(@{$raw->[$offer]}, $offset, 0, '');
 				splice(@{$raw->[$offer]}, $offset+4, 0, '');
 			}
-			if ($raw->[$offer]->[$offset+3] =~ /^(Fußweg|Anschluss wird.*abgewartet)/) {
+			if ($raw->[$offer]->[$offset+3] =~ /^(Fußweg | Anschluss \s  wird .* abgewartet)/x) {
 				# These messages lack the last element, so inject it
 				splice(@{$raw->[$offer]}, $offset+7, 0, '');
 			}
 			for my $j (0, 4, 8) {
-				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ /^(\d+:\d+|ab |)$/) {
+				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ /^(\d+ : \d+ | ab \s |)$/x) {
 					last unless (exists($raw->[$offer]->[$offset+$j]));
 					last if ($raw->[$offer]->[$offset+$j] eq 'Verspätungen sind berücksichtigt');
-					if ($raw->[$offer]->[$offset+$j] =~ /^\s*$/) {
+					if ($raw->[$offer]->[$offset+$j] =~ /^ \s* $/x) {
 						splice(@{$raw->[$offer]}, $offset+$j, 1);
 					} else {
 						push(@extra, splice(@{$raw->[$offer]}, $offset+$j, 1));
@@ -104,7 +104,7 @@ sub parse_content($) {
 	return($return);
 }
 
-sub prepare_content($) {
+sub prepare_content {
 	my $html = shift;
 	my $offer = 0;
 	my $return;
@@ -163,10 +163,10 @@ unless (@to == 2 and @from == 2) {
 	exit(1);
 }
 
-@post{'place_origin','name_origin'} = @from;
-@post{'place_destination','name_destination'} = @to;
+@post{'place_origin', 'name_origin'} = @from;
+@post{'place_destination', 'name_destination'} = @to;
 if (@via == 2) {
-	@post{'place_via','name_via'} = @via;
+	@post{'place_via', 'name_via'} = @via;
 }
 
 foreach ($from_type, $to_type, $via_type) {
@@ -189,10 +189,10 @@ if ($time_arrive) {
 }
 
 if ($time) {
-	@post{'itdTimeHour','itdTimeMinute'} = split(/:/, $time);
+	@post{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
 }
 if ($date) {
-	@post{'itdDateDay','itdDateMonth','itdDateYear'} = split(/\./, $date);
+	@post{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
 	$post{itdDateYear} //= (localtime(time))[5] + 1900;
 }
 
@@ -224,7 +224,7 @@ if (defined($maxinter)) {
 
 if ($prefer) {
 	given($prefer) {
-		when('speed') { $post{routeType} = 'LEASTTIME' }
+		when('speed')  { $post{routeType} = 'LEASTTIME' }
 		when('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
 		when('nowalk') { $post{routeType} = 'LEASTWALKING' }
 		default {
@@ -280,7 +280,7 @@ $raw = prepare_content($content);
 if ($debug) {
 	print STDERR "custom post values used in query:\n";
 	foreach(keys(%post)) {
-		print STDERR "    $_ => $post{$_}\n";
+		print STDERR "\t$_ => $post{$_}\n";
 	}
 	print STDERR "\nraw response:\n";
 	foreach(@$raw) {
