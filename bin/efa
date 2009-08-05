@@ -32,7 +32,6 @@ my $walk_speed;
 my $with_bike;
 my $debug = 0;
 my $ignore_info = 'Fahrradmitnahme';
-my ($i, $j, $con, $part);
 
 sub check_ambiguous {
 	my $html = shift;
@@ -57,17 +56,15 @@ sub check_ambiguous {
 sub parse_content {
 	my $raw = shift;
 	my $groupsize = 8;
-	my $offset;
 	my $return;
-	my @extra;
 	for (my $offer = 0; exists($raw->[$offer]); $offer++) {
 		foreach (@{$raw->[$offer]}) {
 			s/\s* <br> \s*/, /gx;
 			s/< [^>]+ >//gx;
 		}
 		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
-			$offset = $i * $groupsize;
-			undef(@extra);
+			my $offset = $i * $groupsize;
+			my @extra;
 			if ($raw->[$offer]->[$offset+2] =~ /^(Fußweg | Anschluss \s wird .* abgewartet)/x) {
 				# These are generic, which means they don't contain a time
 				splice(@{$raw->[$offer]}, $offset, 0, '');
@@ -113,7 +110,7 @@ sub prepare_content {
 			$offer++;
 			next;
 		}
-		foreach(split(/\n/)) {
+		foreach (split(/\n/)) {
 			if (/<span class="labelText"( valign="center")?>(?<content>.+)<\/span><\/td>/) {
 				push(@{$return->[$offer-1]}, $+{content});
 			}
@@ -197,22 +194,22 @@ if ($date) {
 }
 
 if (@exclude) {
-	foreach(@exclude) {
-		given($_) {
-			when('zug')    { $post{inclMOT_0} = undef }
-			when('s-bahn') { $post{inclMOT_1} = undef }
-			when('u-bahn') { $post{inclMOT_2} = undef }
-			when('stadtbahn') { $post{inclMOT_3} = undef }
-			when('tram')   { $post{inclMOT_4} = undef }
-			when('stadtbus') { $post{inclMOT_5} = undef }
-			when('regionalbus') { $post{inclMOT_6} = undef }
-			when('schnellbus') { $post{inclMOT_7} = undef }
-			when('seilbahn') { $post{inclMOT_8} = undef }
-			when('schiff') { $post{inclMOT_9} = undef }
-			when('ast')    { $post{inclMOT_10} = undef }
-			when('sonstige') {$post{inclMOT_11} = undef }
+	foreach (@exclude) {
+		given ($_) {
+			when ('zug')    { $post{inclMOT_0} = undef }
+			when ('s-bahn') { $post{inclMOT_1} = undef }
+			when ('u-bahn') { $post{inclMOT_2} = undef }
+			when ('stadtbahn') { $post{inclMOT_3} = undef }
+			when ('tram')   { $post{inclMOT_4} = undef }
+			when ('stadtbus') { $post{inclMOT_5} = undef }
+			when ('regionalbus') { $post{inclMOT_6} = undef }
+			when ('schnellbus') { $post{inclMOT_7} = undef }
+			when ('seilbahn') { $post{inclMOT_8} = undef }
+			when ('schiff') { $post{inclMOT_9} = undef }
+			when ('ast')    { $post{inclMOT_10} = undef }
+			when ('sonstige') {$post{inclMOT_11} = undef }
 			default {
-				print STDERR "--exclude: invalid argument\n";
+				print STDERR "--exclude: invalid argument '$_'\n";
 			}
 		}
 	}
@@ -223,10 +220,10 @@ if (defined($maxinter)) {
 }
 
 if ($prefer) {
-	given($prefer) {
-		when('speed')  { $post{routeType} = 'LEASTTIME' }
-		when('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
-		when('nowalk') { $post{routeType} = 'LEASTWALKING' }
+	given ($prefer) {
+		when ('speed')  { $post{routeType} = 'LEASTTIME' }
+		when ('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
+		when ('nowalk') { $post{routeType} = 'LEASTWALKING' }
 		default {
 			print STDERR "--prefer usage: speed / nowait / nowalk\n";
 		}
@@ -239,10 +236,10 @@ if ($proximity) {
 
 if ($include) {
 	given ($include) {
-		when('local') { $post{lineRestriction} = 403 }
-		when('ic')    { $post{lineRestriction} = 401 }
-		when('ice')   { $post{lineRestriction} = 400 }
-		when(/\d+/)   { $post{lineRestriction} = $include }
+		when ('local') { $post{lineRestriction} = 403 }
+		when ('ic')    { $post{lineRestriction} = 401 }
+		when ('ice')   { $post{lineRestriction} = 400 }
+		when (/\d+/)   { $post{lineRestriction} = $include }
 		default {
 			print STDERR "--include usage: local / ic / ice\n";
 		}
@@ -279,13 +276,13 @@ $raw = prepare_content($content);
 
 if ($debug) {
 	print STDERR "custom post values used in query:\n";
-	foreach(keys(%post)) {
+	foreach (keys(%post)) {
 		print STDERR "\t$_ => $post{$_}\n";
 	}
 	print STDERR "\nraw response:\n";
-	foreach(@$raw) {
+	foreach (@{$raw}) {
 		print STDERR "---\n";
-		foreach(@$_) {
+		foreach (@{$_}) {
 			print STDERR "$_\n";
 		}
 	}
@@ -293,8 +290,8 @@ if ($debug) {
 
 $cons = parse_content($raw);
 
-for ($i = 0; $con = $cons->[$i]; $i++) {
-	for ($j = 0; $part = $con->[$j]; $j++) {
+for (my $i = 0; my $con = $cons->[$i]; $i++) {
+	for (my $j = 0; my $part = $con->[$j]; $j++) {
 		foreach (@{$part->{extra}}) {
 			unless ($ignore_info and $_ =~ /$ignore_info/i) {
 				print "# $_\n";
