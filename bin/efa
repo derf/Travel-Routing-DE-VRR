@@ -66,12 +66,9 @@ sub parse_content {
 			my $offset = $i * $groupsize;
 			my @extra;
 			if ($raw->[$offer]->[$offset+2] =~ /^(Fußweg | Anschluss \s wird .* abgewartet)/x) {
-				# These are generic, which means they don't contain a time
+				# These are generic and lack both the time and the last element
 				splice(@{$raw->[$offer]}, $offset, 0, '');
 				splice(@{$raw->[$offer]}, $offset+4, 0, '');
-			}
-			if ($raw->[$offer]->[$offset+3] =~ /^(Fußweg | Anschluss \s  wird .* abgewartet)/x) {
-				# These messages lack the last element, so inject it
 				splice(@{$raw->[$offer]}, $offset+7, 0, '');
 			}
 			for my $j (0, 4, 8) {
