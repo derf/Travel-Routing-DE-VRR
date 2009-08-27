@@ -291,7 +291,7 @@ if ($debug) {
 $cons = parse_content($raw);
 
 for (my $i = 0; my $con = $cons->[$i]; $i++) {
-	for (my $j = 0; my $part = $con->[$j]; $j++) {
+	foreach my $part (@{$con}) {
 		foreach (@{$part->{extra}}) {
 			unless ($ignore_info and $_ =~ /$ignore_info/i) {
 				print "# $_\n";
