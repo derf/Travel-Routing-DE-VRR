@@ -65,10 +65,13 @@ sub parse_content {
 		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
 			my $offset = $i * $groupsize;
 			my @extra;
-			if ($raw->[$offer]->[$offset+2] =~ /^(Fußweg | Anschluss \s wird .* abgewartet)/x) {
-				# These are generic and lack both the time and the last element
-				splice(@{$raw->[$offer]}, $offset, 0, '');
-				splice(@{$raw->[$offer]}, $offset+4, 0, '');
+			if (
+			     $raw->[$offer]->[$offset+2] =~ /^(Fußweg | Anschluss \s wird .* abgewartet)/x
+			  or $raw->[$offer]->[$offset+3] =~ /^Fußweg/
+			) {
+				# These are generic and usually lack both the time and the last element
+				if ($raw->[$offer]->[$offset  ] !~ /\d+:\d+/) {splice(@{$raw->[$offer]}, $offset  , 0, '')}
+				if ($raw->[$offer]->[$offset+4] !~ /\d+:\d+/) {splice(@{$raw->[$offer]}, $offset+4, 0, '')}
 				splice(@{$raw->[$offer]}, $offset+7, 0, '');
 			}
 			for my $j (0, 4, 8) {
