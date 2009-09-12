@@ -454,5 +454,5 @@ Print version information
 
 =head1 BUGS
 
-B<efa> only understands plain ASCII arguments, Unicode is not supported.
-Use ue insteod of E<uuml> etc.
+Arguments to B<efa> should be plain ASCII. Unicode may work, but it cannot be
+guaranteed.
