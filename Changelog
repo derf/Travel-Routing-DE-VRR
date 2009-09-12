@@ -1,3 +1,8 @@
+efa 1.0.2 - Sat Sep 12 2009
+
+    * Code cleanup
+    * --restrict is now --include
+
 efa 1.0.1 - Wed Jul 1 2009
 
     * Fixed unicode handling (apparently efa.vrr.de got changed)

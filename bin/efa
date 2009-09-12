@@ -11,7 +11,7 @@ use WWW::Mechanize;
 my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
 my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
 
-my $VERSION = '1.0.1+git';
+my $VERSION = '1.0.2+git';
 my $content;
 my %post;
 my $www = WWW::Mechanize->new(
