@@ -35,9 +35,25 @@ my $ignore_info = 'Fahrradmitnahme';
 
 sub check_ambiguous {
 	my $html = shift;
-	my $choose_re = qr#<span class="errorTextBold">Bitte auswählen</span>#;
-	my $select_re = qr#<select name="(?<what>(place|type|name)_(origin|destination))"#;
-	my $option_re = qr#<option value="\d+(:\d+)*"( selected)?>(?<choice>[^<]+)</option>#;
+	my $choose_re = qr{
+		<span \s class="errorTextBold">
+		Bitte \s auswählen
+		</span>
+	}x;
+	my $select_re = qr{
+		<select \s name="
+		(?<what>
+			( place | type | name )
+			_
+			( origin | destination )
+		) "
+	}x;
+	my $option_re = qr{
+		<option \s value=" \d+ ( : \d+ )* "
+		( \s selected )? >
+		(?<choice> [^<]+ )
+		</option>
+	}x;
 
 	if ($html =~ /$choose_re/s) {
 		foreach (split(/$choose_re/s, $html)) {
@@ -57,25 +73,44 @@ sub parse_content {
 	my $raw = shift;
 	my $groupsize = 8;
 	my $return;
+	my $time_re = qr{ \d+ : \d+ }x;
+	my $ext_time_re = qr{
+		^ (
+			$time_re
+			|
+			ab \s
+			|
+		) $
+	}x;
+	my $anschluss_re = qr{
+		^ (
+			Fußweg
+			|
+			Anschluss \s wird .* abgewartet
+		)
+	}x;
+
 	for (my $offer = 0; exists($raw->[$offer]); $offer++) {
 		foreach (@{$raw->[$offer]}) {
 			s/\s* <br> \s*/, /gx;
 			s/< [^>]+ >//gx;
 		}
+
 		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
 			my $offset = $i * $groupsize;
 			my @extra;
 			if (
-			     $raw->[$offer]->[$offset+2] =~ /^(Fußweg | Anschluss \s wird .* abgewartet)/x
-			  or $raw->[$offer]->[$offset+3] =~ /^Fußweg/
+			     $raw->[$offer]->[$offset+2] =~ $anschluss_re
+			  or $raw->[$offer]->[$offset+3] =~ / ^ Fußweg /x
 			) {
 				# These are generic and usually lack both the time and the last element
-				if ($raw->[$offer]->[$offset  ] !~ /\d+:\d+/) {splice(@{$raw->[$offer]}, $offset  , 0, '')}
-				if ($raw->[$offer]->[$offset+4] !~ /\d+:\d+/) {splice(@{$raw->[$offer]}, $offset+4, 0, '')}
+				if ($raw->[$offer]->[$offset  ] !~ $time_re) {splice(@{$raw->[$offer]}, $offset  , 0, '')}
+				if ($raw->[$offer]->[$offset+4] !~ $time_re) {splice(@{$raw->[$offer]}, $offset+4, 0, '')}
 				splice(@{$raw->[$offer]}, $offset+7, 0, '');
 			}
+
 			for my $j (0, 4, 8) {
-				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ /^(\d+ : \d+ | ab \s |)$/x) {
+				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ $ext_time_re) {
 					last unless (exists($raw->[$offer]->[$offset+$j]));
 					last if ($raw->[$offer]->[$offset+$j] eq 'Verspätungen sind berücksichtigt');
 					if ($raw->[$offer]->[$offset+$j] =~ /^ \s* $/x) {
@@ -85,6 +120,7 @@ sub parse_content {
 					}
 				}
 			}
+
 			$return->[$offer]->[$i] = {
 				deptime  => $raw->[$offer]->[$offset],
 				dep      => $raw->[$offer]->[$offset+1],
@@ -105,13 +141,23 @@ sub prepare_content {
 	my $html = shift;
 	my $offer = 0;
 	my $return;
-	foreach (split(/<span class="labelTextBold"> \d+\. Fahrt<\/span>/, $html)) {
+	my $split_re = qr{
+		<span \s class="labelTextBold">
+		\s \d+ \. \s Fahrt
+		</span>
+	}x;
+	my $content_re = qr{
+		<span \s class="labelText" ( \s valign="center" )? >
+		(?<content> .+ )
+		</span> </td>
+	}x;
+	foreach (split($split_re, $html)) {
 		unless ($offer) {
 			$offer++;
 			next;
 		}
 		foreach (split(/\n/)) {
-			if (/<span class="labelText"( valign="center")?>(?<content>.+)<\/span><\/td>/) {
+			if ($_ =~ $content_re) {
 				push(@{$return->[$offer-1]}, $+{content});
 			}
 		}
