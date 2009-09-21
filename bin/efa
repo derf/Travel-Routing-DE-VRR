@@ -18,7 +18,6 @@ my $www = WWW::Mechanize->new(
 	autocheck => 1,
 );
 my $raw;
-my $cons;
 my (@from, @to, @via);
 my ($from_type, $to_type, $via_type) = ('stop', 'stop', 'stop');
 my ($time, $time_depart, $time_arrive);
@@ -64,13 +63,13 @@ sub check_ambiguous {
 				print "\t$+{choice}\n";
 			}
 		}
-		return(1);
+		return 1;
 	}
-	return(0);
+	return 0;
 }
 
 sub parse_content {
-	my $raw = shift;
+	my $input = shift;
 	my $groupsize = 8;
 	my $return;
 	my $time_re = qr{ \d+ : \d+ }x;
@@ -90,51 +89,53 @@ sub parse_content {
 		)
 	}x;
 
-	for (my $offer = 0; exists($raw->[$offer]); $offer++) {
-		foreach (@{$raw->[$offer]}) {
+	for my $offer (0 .. $#{$input}) {
+		foreach (@{$input->[$offer]}) {
 			s/\s* <br> \s*/, /gx;
 			s/< [^>]+ >//gx;
 		}
 
-		for (my $i = 0; @{$raw->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
+		for (my $i = 0; @{$input->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
 			my $offset = $i * $groupsize;
 			my @extra;
 			if (
-			     $raw->[$offer]->[$offset+2] =~ $anschluss_re
-			  or $raw->[$offer]->[$offset+3] =~ / ^ Fußweg /x
+			     $input->[$offer]->[$offset+2] =~ $anschluss_re
+			  or $input->[$offer]->[$offset+3] =~ / ^ Fußweg /x
 			) {
 				# These are generic and usually lack both the time and the last element
-				if ($raw->[$offer]->[$offset  ] !~ $time_re) {splice(@{$raw->[$offer]}, $offset  , 0, '')}
-				if ($raw->[$offer]->[$offset+4] !~ $time_re) {splice(@{$raw->[$offer]}, $offset+4, 0, '')}
-				splice(@{$raw->[$offer]}, $offset+7, 0, '');
+				if ($input->[$offer]->[$offset  ] !~ $time_re) {splice(@{$input->[$offer]}, $offset  , 0, '')}
+				if ($input->[$offer]->[$offset+4] !~ $time_re) {splice(@{$input->[$offer]}, $offset+4, 0, '')}
+				splice(@{$input->[$offer]}, $offset+7, 0, '');
 			}
 
 			for my $j (0, 4, 8) {
-				until (not exists($raw->[$offer]->[$offset+$j]) or $raw->[$offer]->[$offset+$j] =~ $ext_time_re) {
-					last unless (exists($raw->[$offer]->[$offset+$j]));
-					last if ($raw->[$offer]->[$offset+$j] eq 'Verspätungen sind berücksichtigt');
-					if ($raw->[$offer]->[$offset+$j] =~ /^ \s* $/x) {
-						splice(@{$raw->[$offer]}, $offset+$j, 1);
+				while (
+					exists $input->[$offer]->[$offset+$j]
+					and $input->[$offer]->[$offset+$j] !~ $ext_time_re
+					and $input->[$offer]->[$offset+$j] ne 'Verspätungen sind berücksichtigt'
+				) {
+					if ($input->[$offer]->[$offset+$j] =~ /^ \s* $/x) {
+						splice(@{$input->[$offer]}, $offset+$j, 1);
 					} else {
-						push(@extra, splice(@{$raw->[$offer]}, $offset+$j, 1));
+						push(@extra, splice(@{$input->[$offer]}, $offset+$j, 1));
 					}
 				}
 			}
 
 			$return->[$offer]->[$i] = {
-				deptime  => $raw->[$offer]->[$offset],
-				dep      => $raw->[$offer]->[$offset+1],
-				depstop  => $raw->[$offer]->[$offset+2],
-				deptrain => $raw->[$offer]->[$offset+3],
-				depdest  => $raw->[$offer]->[$offset+7],
-				arrtime  => $raw->[$offer]->[$offset+4],
-				arr      => $raw->[$offer]->[$offset+5],
-				arrstop  => $raw->[$offer]->[$offset+6],
+				deptime  => $input->[$offer]->[$offset],
+				dep      => $input->[$offer]->[$offset+1],
+				depstop  => $input->[$offer]->[$offset+2],
+				deptrain => $input->[$offer]->[$offset+3],
+				depdest  => $input->[$offer]->[$offset+7],
+				arrtime  => $input->[$offer]->[$offset+4],
+				arr      => $input->[$offer]->[$offset+5],
+				arrstop  => $input->[$offer]->[$offset+6],
 			};
 			@{$return->[$offer]->[$i]->{extra}} = @extra;
 		}
 	}
-	return($return);
+	return $return;
 }
 
 sub prepare_content {
@@ -151,8 +152,9 @@ sub prepare_content {
 		(?<content> .+ )
 		</span> </td>
 	}x;
+
 	foreach (split($split_re, $html)) {
-		unless ($offer) {
+		if ($offer == 0) {
 			$offer++;
 			next;
 		}
@@ -163,7 +165,36 @@ sub prepare_content {
 		}
 		$offer++;
 	}
-	return($return);
+	return $return;
+}
+
+sub show_content {
+	my $connections = shift;
+	my $first = 0;
+
+	foreach my $connection (@{$connections}) {
+		if ($first) {
+			print "------\n\n";
+		} else {
+			$first = 1;
+		}
+
+		foreach my $part (@{$connection}) {
+			foreach (@{$part->{extra}}) {
+				if (not (defined $ignore_info and $_ =~ /$ignore_info/i)) {
+					print "# $_\n";
+				}
+			}
+
+			printf(
+				"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
+				$part->{deptime}, $part->{dep}, $part->{depstop}, $part->{deptrain},
+				$part->{depdest}, $part->{arrtime}, $part->{arr}, $part->{arrstop}
+			);
+
+		}
+	}
+	return;
 }
 
 GetOptions(
@@ -193,7 +224,7 @@ GetOptions(
 
 @exclude = split(/,/, join(',', @exclude));
 
-unless (@from and @to) {
+if (not (@from and @to)) {
 	if (@ARGV == 4) {
 		(@from[0,1], @to[0,1]) = @ARGV;
 	} elsif (@ARGV == 6) {
@@ -201,9 +232,9 @@ unless (@from and @to) {
 	}
 }
 
-unless (@to == 2 and @from == 2) {
+if (@to != 2 or @from != 2) {
 	print STDERR "Usage: see '$0 --help'\n";
-	exit(1);
+	exit 1;
 }
 
 @post{'place_origin', 'name_origin'} = @from;
@@ -213,7 +244,7 @@ if (@via == 2) {
 }
 
 foreach ($from_type, $to_type, $via_type) {
-	unless ($_ ~~ ['stop', 'address', 'poi']) {
+	if (not ($_ ~~ ['stop', 'address', 'poi'])) {
 		$_ = 'stop';
 		print STDERR "from/to/via type: must be stop, address or poi\n";
 	}
@@ -310,12 +341,13 @@ $www->submit_form(
 	form_name => 'jp',
 	fields => \%post,
 );
+
 $content = $www->content;
 $content =~ s/\xa0/ /gs;
 $content = encode('utf-8', decode('iso-8859-1', $content));
 
 if (check_ambiguous($content)) {
-	exit(1);
+	exit 1;
 }
 
 $raw = prepare_content($content);
@@ -325,6 +357,7 @@ if ($debug) {
 	foreach (keys(%post)) {
 		print STDERR "\t$_ => $post{$_}\n";
 	}
+
 	print STDERR "\nraw response:\n";
 	foreach (@{$raw}) {
 		print STDERR "---\n";
@@ -334,25 +367,7 @@ if ($debug) {
 	}
 }
 
-$cons = parse_content($raw);
-
-for (my $i = 0; my $con = $cons->[$i]; $i++) {
-	foreach my $part (@{$con}) {
-		foreach (@{$part->{extra}}) {
-			unless ($ignore_info and $_ =~ /$ignore_info/i) {
-				print "# $_\n";
-			}
-		}
-		printf(
-			"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
-			$part->{deptime}, $part->{dep}, $part->{depstop}, $part->{deptrain},
-			$part->{depdest}, $part->{arrtime}, $part->{arr}, $part->{arrstop}
-		);
-	}
-	if (defined($cons->[$i+1])) {
-		print "------\n\n";
-	}
-}
+show_content(parse_content($raw));
 
 __END__
 
