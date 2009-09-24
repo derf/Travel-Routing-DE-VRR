@@ -3,6 +3,7 @@
 ## License: WTFPL <http://sam.zoy.org/wtfpl>
 use strict;
 use warnings;
+use encoding 'utf8';
 use 5.010;
 use Encode;
 use Getopt::Long;
@@ -344,7 +345,7 @@ $www->submit_form(
 
 $content = $www->content;
 $content =~ s/\xa0/ /gs;
-$content = encode('utf-8', decode('iso-8859-1', $content));
+$content = decode('iso-8859-1', $content);
 
 if (check_ambiguous($content)) {
 	exit 1;
