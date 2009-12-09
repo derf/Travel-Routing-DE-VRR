@@ -1,3 +1,8 @@
+efa 1.0.3 - Wed Dec 9 2009
+
+    * Further code cleanup
+    * Fixes a minor unicode-related glitch in the output formatting
+
 efa 1.0.2 - Sat Sep 12 2009
 
     * Code cleanup
