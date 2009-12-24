@@ -238,6 +238,29 @@ if (@to != 2 or @from != 2) {
 	exit 1;
 }
 
+# TODO: More code reuse here
+
+if ($from[1] =~ s/ ^ addr: \s* (.+) $ /$1/x) {
+	$from_type = 'address';
+}
+elsif ($from[1] =~ s/ ^ poi: \s* (.+) $ /$1/x) {
+	$from_type = 'poi';
+}
+
+if (defined $via[1] and $via[1] =~ s/ ^ addr: \s* (.+) $ /$1/x) {
+	$via_type = 'address';
+}
+elsif (defined $via[1] and $via[1] =~ s/ ^ poi: \s* (.+) $ /$1/x) {
+	$via_type = 'poi';
+}
+
+if ($to[1] =~ s/ ^ addr: \s* (.+) $ /$1/x) {
+	$to_type = 'address';
+}
+elsif ($to[1] =~ s/ ^ poi: \s* (.+) $ /$1/x) {
+	$to_type = 'poi';
+}
+
 @post{'place_origin', 'name_origin'} = @from;
 @post{'place_destination', 'name_destination'} = @to;
 if (@via == 2) {
@@ -411,6 +434,9 @@ Travel via this place
 
 Designate type of the I<stop> for from/to/via.
 Possible I<type>s: B<stop> (default), B<address>, B<poi> (point of interest)
+
+As an alternative to these options, it is possible to specify the I<stop>
+of the to/from/via options as "addr:I<stop>" or "poi:I<stop>", respectively.
 
 =item B<--time>|B<--depart> I<hh>:I<mm>
 
