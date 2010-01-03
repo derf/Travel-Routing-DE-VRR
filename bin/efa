@@ -241,27 +241,17 @@ if (@to != 2 or @from != 2) {
 	exit 1;
 }
 
-# TODO: More code reuse here
-
-if ($from[1] =~ s/ ^ addr: \s* (.+) $ /$1/x) {
-	$from_type = 'address';
-}
-elsif ($from[1] =~ s/ ^ poi: \s* (.+) $ /$1/x) {
-	$from_type = 'poi';
-}
-
-if (defined $via[1] and $via[1] =~ s/ ^ addr: \s* (.+) $ /$1/x) {
-	$via_type = 'address';
-}
-elsif (defined $via[1] and $via[1] =~ s/ ^ poi: \s* (.+) $ /$1/x) {
-	$via_type = 'poi';
-}
-
-if ($to[1] =~ s/ ^ addr: \s* (.+) $ /$1/x) {
-	$to_type = 'address';
-}
-elsif ($to[1] =~ s/ ^ poi: \s* (.+) $ /$1/x) {
-	$to_type = 'poi';
+for my $pair (
+	[$from[1], \$from_type],
+	[$via[1] , \$via_type ],
+	[$to[1]  , \$to_type  ],
+) {
+	next if (not defined $pair->[0]);
+	for my $type (['addr', 'address'], ['poi', 'poi']) {
+		if ($pair->[0] =~ s/ ^ $type->[0] : \s* (.+) $ /$1/x) {
+			${$pair->[1]} = $type->[1];
+		}
+	}
 }
 
 @post{'place_origin', 'name_origin'} = @from;
