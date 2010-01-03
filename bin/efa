@@ -20,7 +20,7 @@ my $www = WWW::Mechanize->new(
 );
 my $raw;
 my (@from, @to, @via);
-my ($from_type, $to_type, $via_type) = ('stop', 'stop', 'stop');
+my ($from_type, $to_type, $via_type) = ('stop') x 3;
 my ($time, $time_depart, $time_arrive);
 my $date;
 my @exclude;
@@ -117,7 +117,8 @@ sub parse_content {
 				) {
 					if ($input->[$offer]->[$offset+$j] =~ /^ \s* $/x) {
 						splice(@{$input->[$offer]}, $offset+$j, 1);
-					} else {
+					}
+					else {
 						push(@extra, splice(@{$input->[$offer]}, $offset+$j, 1));
 					}
 				}
@@ -154,13 +155,13 @@ sub prepare_content {
 		</span> </td>
 	}x;
 
-	foreach (split($split_re, $html)) {
+	foreach my $chunk (split($split_re, $html)) {
 		if ($offer == 0) {
 			$offer++;
 			next;
 		}
-		foreach (split(/\n/)) {
-			if ($_ =~ $content_re) {
+		foreach my $line (split(/\n/, $chunk)) {
+			if ($line =~ $content_re) {
 				push(@{$return->[$offer-1]}, $+{content});
 			}
 		}
@@ -176,7 +177,8 @@ sub show_content {
 	foreach my $connection (@{$connections}) {
 		if ($first) {
 			print "------\n\n";
-		} else {
+		}
+		else {
 			$first = 1;
 		}
 
@@ -228,7 +230,8 @@ GetOptions(
 if (not (@from and @to)) {
 	if (@ARGV == 4) {
 		(@from[0,1], @to[0,1]) = @ARGV;
-	} elsif (@ARGV == 6) {
+	}
+	elsif (@ARGV == 6) {
 		(@from[0,1], @via[0,1], @to[0,1]) = @ARGV;
 	}
 }
@@ -267,9 +270,10 @@ if (@via == 2) {
 	@post{'place_via', 'name_via'} = @via;
 }
 
-foreach ($from_type, $to_type, $via_type) {
-	if (not ($_ ~~ ['stop', 'address', 'poi'])) {
-		$_ = 'stop';
+# note that $from_type etc are changed here
+foreach my $type ($from_type, $to_type, $via_type) {
+	if (not ($type ~~ ['stop', 'address', 'poi'])) {
+		$type = 'stop';
 		print STDERR "from/to/via type: must be stop, address or poi\n";
 	}
 }
@@ -281,7 +285,8 @@ $post{type_via} = $via_type;
 if ($time_arrive) {
 	$time = $time_arrive;
 	$post{itdTripDateTimeDepArr} = 'arr';
-} elsif ($time_depart) {
+}
+elsif ($time_depart) {
 	$time = $time_depart;
 	$post{itdTripDateTimeDepArr} = 'dep';
 }
@@ -350,7 +355,8 @@ if ($include) {
 if ($walk_speed) {
 	if ($walk_speed ~~ ['normal', 'fast', 'slow']) {
 		$post{changeSpeed} = $walk_speed;
-	} else {
+	}
+	else {
 		print STDERR "--walk-speed usage: normal / fast / slow\n";
 	}
 }
