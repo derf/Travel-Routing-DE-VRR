@@ -237,8 +237,7 @@ if (not (@from and @to)) {
 }
 
 if (@to != 2 or @from != 2) {
-	print STDERR "Usage: see '$0 --help'\n";
-	exit 1;
+	die("Insufficient to/from arguments, see $0 --help for usage\n");
 }
 
 for my $pair (
@@ -264,7 +263,7 @@ if (@via == 2) {
 foreach my $type ($from_type, $to_type, $via_type) {
 	if (not ($type ~~ ['stop', 'address', 'poi'])) {
 		$type = 'stop';
-		print STDERR "from/to/via type: must be stop, address or poi\n";
+		warn("from/to/via type: Must be stop, address or poi, not '$type'\n");
 	}
 }
 
@@ -314,7 +313,7 @@ if ($prefer) {
 		when ('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
 		when ('nowalk') { $post{routeType} = 'LEASTWALKING' }
 		default {
-			print STDERR "--prefer usage: speed / nowait / nowalk\n";
+			warn("--prefer usage: speed / nowait / nowalk\n");
 		}
 	}
 }
@@ -330,7 +329,7 @@ if ($include) {
 		when ('ice')   { $post{lineRestriction} = 400 }
 		when (/\d+/)   { $post{lineRestriction} = $include }
 		default {
-			print STDERR "--include usage: local / ic / ice\n";
+			warn("--include usage: local / ic / ice\n");
 		}
 	}
 }
@@ -340,7 +339,7 @@ if ($walk_speed) {
 		$post{changeSpeed} = $walk_speed;
 	}
 	else {
-		print STDERR "--walk-speed usage: normal / fast / slow\n";
+		warn("--walk-speed usage: normal / fast / slow\n");
 	}
 }
 
