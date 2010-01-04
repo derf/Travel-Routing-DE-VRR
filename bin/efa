@@ -290,22 +290,15 @@ if ($date) {
 }
 
 if (@exclude) {
-	foreach (@exclude) {
-		given ($_) {
-			when ('zug')    { $post{inclMOT_0} = undef }
-			when ('s-bahn') { $post{inclMOT_1} = undef }
-			when ('u-bahn') { $post{inclMOT_2} = undef }
-			when ('stadtbahn') { $post{inclMOT_3} = undef }
-			when ('tram')   { $post{inclMOT_4} = undef }
-			when ('stadtbus') { $post{inclMOT_5} = undef }
-			when ('regionalbus') { $post{inclMOT_6} = undef }
-			when ('schnellbus') { $post{inclMOT_7} = undef }
-			when ('seilbahn') { $post{inclMOT_8} = undef }
-			when ('schiff') { $post{inclMOT_9} = undef }
-			when ('ast')    { $post{inclMOT_10} = undef }
-			when ('sonstige') {$post{inclMOT_11} = undef }
-			default {
-				print STDERR "--exclude: invalid argument '$_'\n";
+	my @mapping = qw/
+		zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus
+		schnellbus seilbahn schiff ast sonstige
+	/;
+
+	foreach my $exclude_type (@exclude) {
+		for my $map_id (0 .. $#mapping) {
+			if ($exclude_type eq $mapping[$map_id]) {
+				$post{"inclMOT_$map_id"} = undef;
 			}
 		}
 	}
