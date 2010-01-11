@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 ## Copyright © 2009 by Daniel Friesel <derf@derf.homelinux.org>
 ## License: WTFPL <http://sam.zoy.org/wtfpl>
+##   0. You just DO WHAT THE FUCK YOU WANT TO.
 use strict;
 use warnings;
 use encoding 'utf8';
