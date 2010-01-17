@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-## Copyright © 2009 by Daniel Friesel <derf@derf.homelinux.org>
+## Copyright © 2009,2010 by Daniel Friesel <derf@derf.homelinux.org>
 ## License: WTFPL <http://sam.zoy.org/wtfpl>
 ##   0. You just DO WHAT THE FUCK YOU WANT TO.
 use strict;
@@ -13,7 +13,7 @@ use WWW::Mechanize;
 my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
 my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
 
-my $version = '1.0.3+git';
+my $version = '1.1+git';
 my $content;
 my %post;
 my $www = WWW::Mechanize->new(

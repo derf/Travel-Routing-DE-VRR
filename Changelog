@@ -1,3 +1,8 @@
+efa 1.1 - Sun Jan 17 2010
+
+    * Code cleanup and DRY-ing
+    * Add 'addr:foo' and 'poi:foo' as alternative to '--to-type poi' etc.
+
 efa 1.0.3 - Wed Dec 9 2009
 
     * Further code cleanup
