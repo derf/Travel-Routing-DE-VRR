@@ -264,7 +264,7 @@ if (@via == 2) {
 foreach my $type ($from_type, $to_type, $via_type) {
 	if (not ($type ~~ ['stop', 'address', 'poi'])) {
 		$type = 'stop';
-		warn("from/to/via type: Must be stop, address or poi, not '$type'\n");
+		die("from/to/via type: Must be stop, address or poi, not '$type'\n");
 	}
 }
 
@@ -282,9 +282,15 @@ elsif ($time_depart) {
 }
 
 if ($time) {
+	if ($time !~ /^ [0-2]? \d : [0-5]? \d $/x) {
+		die("Invalid argument. Usage: --time HH:MM\n");
+	}
 	@post{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
 }
 if ($date) {
+	if ($date !~ /^ [0-3]? \d \. [01]? \d (?: \. \d{4} )? /x) {
+		die("Invalid argument: Usage: --date DD.MM[.YYYY]\n");
+	}
 	@post{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
 	$post{itdDateYear} //= (localtime(time))[5] + 1900;
 }
@@ -314,7 +320,7 @@ if ($prefer) {
 		when ('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
 		when ('nowalk') { $post{routeType} = 'LEASTWALKING' }
 		default {
-			warn("--prefer usage: speed / nowait / nowalk\n");
+			die("Invalid argument. Usage: --prefer speed|nowait|nowalk\n");
 		}
 	}
 }
@@ -330,7 +336,7 @@ if ($include) {
 		when ('ice')   { $post{lineRestriction} = 400 }
 		when (/\d+/)   { $post{lineRestriction} = $include }
 		default {
-			warn("--include usage: local / ic / ice\n");
+			die("Invalid argument. Usage: --include local|ic|ice\n");
 		}
 	}
 }
@@ -340,7 +346,7 @@ if ($walk_speed) {
 		$post{changeSpeed} = $walk_speed;
 	}
 	else {
-		warn("--walk-speed usage: normal / fast / slow\n");
+		die("Invalid argument. Uaseg: --walk-speed normal|fast|slow\n");
 	}
 }
 
