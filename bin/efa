@@ -7,7 +7,7 @@ use warnings;
 use encoding 'utf8';
 use 5.010;
 use Encode;
-use Getopt::Long;
+use Getopt::Long qw/:config no_ignore_case/;
 use WWW::Mechanize;
 
 my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
@@ -202,28 +202,28 @@ sub show_content {
 }
 
 GetOptions(
-	'arrive=s'  => \$time_arrive,
-	'bike'      => \$with_bike,
-	'date=s'    => \$date,
-	'debug'     => \$debug,
-	'depart=s'  => \$time_depart,
-	'exclude=s' => \@exclude,
-	'from=s{2}' => \@from,
-	'from-type=s' => \$from_type,
-	'help'      => sub {exec('perldoc', '-F', $0)},
-	'ignore-info=s{0,1}' => \$ignore_info,
-	'max-change=i'  => \$maxinter,
-	'post=s'    => \%post,
-	'prefer=s'  => \$prefer,
-	'proximity' => \$proximity,
-	'include=s' => \$include,
-	'time=s'    => \$time,
-	'to=s{2}'   => \@to,
-	'to-type=s' => \$to_type,
-	'version'   => sub {print "efa version $version\n"; exit 0},
-	'via=s{2}'  => \@via,
-	'via-type=s' => \$via_type,
-	'walk-speed=s' => \$walk_speed,
+	'a|arrive=s'     => \$time_arrive,
+	'b|bike'         => \$with_bike,
+	'd|date=s'       => \$date,
+	'D|debug'        => \$debug,
+	'depart=s'       => \$time_depart,
+	'e|exclude=s'    => \@exclude,
+	'from=s{2}'      => \@from,
+	'from-type=s'    => \$from_type,
+	'h|help'         => sub {exec('perldoc', '-F', $0)},
+	'I|ignore-info=s{0,1}' => \$ignore_info,
+	'm|max-change=i' => \$maxinter,
+	'post=s'         => \%post,
+	'P|prefer=s'     => \$prefer,
+	'p|proximity'    => \$proximity,
+	'i|include=s'    => \$include,
+	't|time=s'       => \$time,
+	'to=s{2}'        => \@to,
+	'to-type=s'      => \$to_type,
+	'version'        => sub {print "efa version $version\n"; exit 0},
+	'via=s{2}'       => \@via,
+	'via-type=s'     => \$via_type,
+	'w|walk-speed=s' => \$walk_speed,
 );
 
 @exclude = split(/,/, join(',', @exclude));
@@ -433,34 +433,34 @@ Possible I<type>s: B<stop> (default), B<address>, B<poi> (point of interest)
 As an alternative to these options, it is possible to specify the I<stop>
 of the to/from/via options as "addr:I<stop>" or "poi:I<stop>", respectively.
 
-=item B<--time>|B<--depart> I<hh>:I<mm>
+=item B<-t>|B<--time>|B<--depart> I<hh>:I<mm>
 
 Journey start time
 
-=item B<--arrive> I<hh>:I<mm>
+=item B<-a>|B<--arrive> I<hh>:I<mm>
 
 Journey end time (overrides --time/--depart)
 
-=item B<--date> I<dd>.I<mm>.[I<yyyy>]
+=item B<-d>|B<--date> I<dd>.I<mm>.[I<yyyy>]
 
 Journey date
 
-=item B<--bike>
+=item B<-b>|B<--bike>
 
 Choose connections where you can take a bike with you
 
-=item B<--exclude> I<transports>
+=item B<-e>|B<--exclude> I<transports>
 
 Exclude I<transports> (comma separated list).
 
 Possible transports: zug, s-bahn, u-bahn, stadtbahn, tram, stadtbus, regionalbus,
 schnellbus, seilbahn, schiff, ast, sonstige
 
-=item B<--max-change> I<number>
+=item B<-m>|B<--max-change> I<number>
 
 Print connections with at most I<number> interchanges
 
-=item B<--prefer> I<type>
+=item B<-P>|B<--prefer> I<type>
 
 Prefer connections of I<type>:
 
@@ -480,11 +480,11 @@ Prefer connections with less walking (at interchanges)
 
 =back
 
-=item B<--proximity>
+=item B<-p>|B<--proximity>
 
 Take stops close to the stop/start into account and possibly use them instead
 
-=item B<--include> I<type>
+=item B<-i>|B<--include> I<type>
 
 Include connections using trains of type I<type>, where I<type> may be:
 
@@ -505,18 +505,18 @@ All trains (local + IC + ICE)
 
 =back
 
-=item B<--walk-speed> I<speed>
+=item B<-w>|B<--walk-speed> I<speed>
 
 Set your walking speed to I<speed>.
 Accepted values: normal (default), fast, slow
 
-=item B<--ignore-info> [ I<regex> ]
+=item B<-I>|B<--ignore-info> [ I<regex> ]
 
 Ignore additional information matching I<regex> (default: /Fahrradmitnahme/).
 
 If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be ignored)
 
-=item B<--debug>
+=item B<-D>|B<--debug>
 
 Display debug information (additional post requests sent to the site,
 raw items received from the site)
@@ -529,7 +529,7 @@ C<--post lineRestriction=400> to also show IC and ICE trains.
 Note that B<--post> will be overridden by the standard efa options, such as
 B<--time>.
 
-=item B<--version>
+=item B<-v>|B<--version>
 
 Print version information
 
