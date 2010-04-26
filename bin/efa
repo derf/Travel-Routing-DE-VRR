@@ -13,7 +13,7 @@ use WWW::Mechanize;
 my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
 my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
 
-my $version = '1.1+git';
+my $version = '1.1.1+git';
 my $content;
 my %post;
 my $www = WWW::Mechanize->new(
@@ -407,7 +407,7 @@ efa - unofficial efa.vrr.de command line client
 =head1 DESCRIPTION
 
 B<efa> is a command line client for the L<http://efa.vrr.de> web interface.
-It sends the specified information to the online form and displays the results
+It sends the specified information to the online form and displays the results.
 
 =head1 OPTIONS
 
@@ -430,8 +430,8 @@ Travel via this place
 Designate type of the I<stop> for from/to/via.
 Possible I<type>s: B<stop> (default), B<address>, B<poi> (point of interest)
 
-As an alternative to these options, it is possible to specify the I<stop>
-of the to/from/via options as "addr:I<stop>" or "poi:I<stop>", respectively.
+Alternatively, you can specify the I<stop> of the from/to/via options as
+"addr:I<stop>" or "poi:I<stop>", respectively
 
 =item B<-t>|B<--time>|B<--depart> I<hh>:I<mm>
 
@@ -447,7 +447,7 @@ Journey date
 
 =item B<-b>|B<--bike>
 
-Choose connections where you can take a bike with you
+Choose connections allowing to carry a bike
 
 =item B<-e>|B<--exclude> I<transports>
 
@@ -512,7 +512,7 @@ Accepted values: normal (default), fast, slow
 
 =item B<-I>|B<--ignore-info> [ I<regex> ]
 
-Ignore additional information matching I<regex> (default: /Fahrradmitnahme/).
+Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
 
 If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be ignored)
 
@@ -527,7 +527,7 @@ Add I<key> with I<value> to the HTTP POST request sent to the EFA server.
 This can be used to use setting B<efa> does not yet cover, like
 C<--post lineRestriction=400> to also show IC and ICE trains.
 Note that B<--post> will be overridden by the standard efa options, such as
-B<--time>.
+B<--time>
 
 =item B<-v>|B<--version>
 
@@ -537,5 +537,5 @@ Print version information
 
 =head1 BUGS
 
-Arguments to B<efa> should be plain ASCII. Unicode may work, but it cannot be
-guaranteed.
+The Unicode handling is slightly messed up. Therefore, arguments to B<efa>
+should always be plain ASCII (ue instead of E<uuml> etc).
