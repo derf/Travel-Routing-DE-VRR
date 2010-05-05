@@ -1,4 +1,0 @@
-#!/bin/sh -e
-
-podchecker -warnings -warnings bin/*
-perl -c bin/efa

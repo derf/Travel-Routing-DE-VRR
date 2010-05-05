@@ -17,7 +17,10 @@ uninstall:
 	rm -f ${basedir}/bin/efa
 	rm -f ${basedir}/share/man/man1/efa.1
 
+test:
+	@prove test
+
 clean:
 	rm -rf build
 
-.PHONY: install uninstall clean
+.PHONY: install uninstall test clean
