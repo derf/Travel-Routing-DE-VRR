@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use 5.010;
-use Test::Command tests => 30;
+use Test::Command tests => 48;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -38,45 +38,54 @@ $cmd->exit_isnt_num(0);
 $cmd->stdout_is_eq('');
 $cmd->stderr_like($re_usage);
 
-$cmd = Test::Command->new(cmd => "$efa --exclude invalid $testarg");
+for my $opt (qw/-e --exclude/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt invalid $testarg");
 
-$cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
-$cmd->stderr_is_eq($err_exclude);
+	$cmd->exit_isnt_num(0);
+	$cmd->stdout_is_eq('');
+	$cmd->stderr_is_eq($err_exclude);
+}
 
-$cmd = Test::Command->new(cmd => "$efa --prefer invalid $testarg");
+for my $opt (qw/-P --prefer/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt invalid $testarg");
 
-$cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
-$cmd->stderr_is_eq($err_prefer);
+	$cmd->exit_isnt_num(0);
+	$cmd->stdout_is_eq('');
+	$cmd->stderr_is_eq($err_prefer);
+}
 
-$cmd = Test::Command->new(cmd => "$efa --include invalid $testarg");
+for my $opt (qw/-i --include/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt invalid $testarg");
 
-$cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
-$cmd->stderr_is_eq($err_include);
+	$cmd->exit_isnt_num(0);
+	$cmd->stdout_is_eq('');
+	$cmd->stderr_is_eq($err_include);
+}
 
-$cmd = Test::Command->new(cmd => "$efa --walk-speed invalid $testarg");
+for my $opt (qw/-w --walk-speed/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt invalid $testarg");
 
-$cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
-$cmd->stderr_is_eq($err_walk_speed);
+	$cmd->exit_isnt_num(0);
+	$cmd->stdout_is_eq('');
+	$cmd->stderr_is_eq($err_walk_speed);
+}
 
-# (primitive) argument checking for --time
-$cmd = Test::Command->new(cmd => "$efa --time 35:12 $testarg");
+for my $opt (qw/-t --time/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt 35:12 $testarg");
 
-$cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
-$cmd->stderr_is_eq($err_time);
+	$cmd->exit_isnt_num(0);
+	$cmd->stdout_is_eq('');
+	$cmd->stderr_is_eq($err_time);
+}
 
-# (primitive) argument checking for --date
-$cmd = Test::Command->new(cmd => "$efa --date 11.23.2010 $testarg");
+for my $opt (qw/-d --date/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt 11.23.2010 $testarg");
 
-$cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
-$cmd->stderr_is_eq($err_date);
+	$cmd->exit_isnt_num(0);
+	$cmd->stdout_is_eq('');
+	$cmd->stderr_is_eq($err_date);
+}
 
-# --version
 $cmd = Test::Command->new(cmd => "$efa --version");
 
 $cmd->exit_is_num(0);
