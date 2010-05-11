@@ -315,6 +315,7 @@ if (@exclude) {
 	}
 }
 
+# Argument verification done by Getopt::Long
 if (defined($maxinter)) {
 	$post{maxChanges} = $maxinter;
 }
