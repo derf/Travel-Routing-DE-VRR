@@ -2,10 +2,11 @@
 use strict;
 use warnings;
 use 5.010;
-use Test::Command tests => 51;
+use Test::Command tests => 57;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
+my $test_parse = "--test-parse $testarg";
 
 my $re_usage = qr{Insufficient to/from arguments, see \S*efa --help for usage};
 my $re_version = qr{\S*efa version \S+};
@@ -91,5 +92,14 @@ for my $opt (qw/-v --version/) {
 
 	$cmd->exit_is_num(0);
 	$cmd->stdout_like($re_version);
+	$cmd->stderr_is_eq('');
+}
+
+
+for my $file (qw/e_hbf_mh_hbf e_hbf_du_hbf.ice/) {
+	$cmd = Test::Command->new(cmd => "$efa $test_parse < test/dump_$file");
+
+	$cmd->exit_is_num(0);
+	$cmd->stdout_is_file("test/parse_$file");
 	$cmd->stderr_is_eq('');
 }

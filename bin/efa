@@ -33,6 +33,7 @@ my $walk_speed;
 my $with_bike;
 my $debug = 0;
 my $ignore_info = 'Fahrradmitnahme';
+my ($test_dump, $test_parse);
 
 sub check_ambiguous {
 	my $html = shift;
@@ -217,6 +218,8 @@ GetOptions(
 	'P|prefer=s'     => \$prefer,
 	'p|proximity'    => \$proximity,
 	'i|include=s'    => \$include,
+	'test-dump'      => \$test_dump,
+	'test-parse'     => \$test_parse,
 	't|time=s'       => \$time,
 	'to=s{2}'        => \@to,
 	'to-type=s'      => \$to_type,
@@ -288,7 +291,7 @@ if ($time) {
 	@post{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
 }
 if ($date) {
-	if ($date !~ /^ [0-3]? \d \. [01]? \d (?: \. \d{4} )? $/x) {
+	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
 		die("Invalid argument: Usage: --date DD.MM[.YYYY]\n");
 	}
 	@post{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
@@ -361,15 +364,26 @@ if ($with_bike) {
 	$post{bikeTakeAlong} = 1;
 }
 
-$www->get($firsturl);
-$www->submit_form(
-	form_name => 'jp',
-	fields => \%post,
-);
+if ($test_parse) {
+	local $/;
+	$content = <STDIN>;
+}
+else {
+	$www->get($firsturl);
+	$www->submit_form(
+		form_name => 'jp',
+		fields => \%post,
+	);
 
-$content = $www->content;
-$content =~ s/\xa0/ /gs;
-$content = decode('iso-8859-1', $content);
+	$content = $www->content;
+	$content =~ s/\xa0/ /gs;
+	$content = decode('iso-8859-1', $content);
+}
+
+if ($test_dump) {
+	print $content;
+	exit 0
+}
 
 if (check_ambiguous($content)) {
 	exit 1;
