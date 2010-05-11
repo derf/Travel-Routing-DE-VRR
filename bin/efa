@@ -186,7 +186,7 @@ sub show_content {
 
 		foreach my $part (@{$connection}) {
 			foreach (@{$part->{extra}}) {
-				if (not (defined $ignore_info and $_ =~ /$ignore_info/i)) {
+				if (not (length($ignore_info) and $_ =~ /$ignore_info/i)) {
 					print "# $_\n";
 				}
 			}

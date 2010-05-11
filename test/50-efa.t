@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use 5.010;
-use Test::Command tests => 57;
+use Test::Command tests => 72;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -96,10 +96,33 @@ for my $opt (qw/-v --version/) {
 }
 
 
-for my $file (qw/e_hbf_mh_hbf e_hbf_du_hbf.ice/) {
+for my $file (qw{
+	e_hbf_mh_hbf
+	e_hbf_du_hbf.ice
+	e_werden_e_hbf
+	e_hbf_b_hbf.ice
+	e_martinstr_e_florastr
+	})
+{
 	$cmd = Test::Command->new(cmd => "$efa $test_parse < test/dump_$file");
 
 	$cmd->exit_is_num(0);
 	$cmd->stdout_is_file("test/parse_$file");
 	$cmd->stderr_is_eq('');
 }
+
+$cmd = Test::Command->new(
+	cmd => "$efa $test_parse --ignore-info '.*' < test/dump_e_hbf_b_hbf.ice"
+);
+
+$cmd->exit_is_num(0);
+$cmd->stdout_is_file("test/parse_e_hbf_b_hbf.ice.ignore_all");
+$cmd->stderr_is_eq('');
+
+$cmd = Test::Command->new(
+	cmd => "$efa $test_parse --ignore-info < test/dump_e_hbf_mh_hbf"
+);
+
+$cmd->exit_is_num(0);
+$cmd->stdout_is_file("test/parse_e_hbf_mh_hbf.ignore_none");
+$cmd->stderr_is_eq('');
