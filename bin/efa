@@ -220,7 +220,7 @@ GetOptions(
 	't|time=s'       => \$time,
 	'to=s{2}'        => \@to,
 	'to-type=s'      => \$to_type,
-	'version'        => sub {print "efa version $version\n"; exit 0},
+	'v|version'      => sub {print "efa version $version\n"; exit 0},
 	'via=s{2}'       => \@via,
 	'via-type=s'     => \$via_type,
 	'w|walk-speed=s' => \$walk_speed,

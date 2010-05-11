@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use 5.010;
-use Test::Command tests => 48;
+use Test::Command tests => 51;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -86,8 +86,10 @@ for my $opt (qw/-d --date/) {
 	$cmd->stderr_is_eq($err_date);
 }
 
-$cmd = Test::Command->new(cmd => "$efa --version");
+for my $opt (qw/-v --version/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt");
 
-$cmd->exit_is_num(0);
-$cmd->stdout_like($re_version);
-$cmd->stderr_is_eq('');
+	$cmd->exit_is_num(0);
+	$cmd->stdout_like($re_version);
+	$cmd->stderr_is_eq('');
+}
