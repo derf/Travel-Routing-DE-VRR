@@ -300,13 +300,18 @@ if (@exclude) {
 		zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus
 		schnellbus seilbahn schiff ast sonstige
 	/;
+	my $ok = 0;
 
 	foreach my $exclude_type (@exclude) {
 		for my $map_id (0 .. $#mapping) {
 			if ($exclude_type eq $mapping[$map_id]) {
 				$post{"inclMOT_$map_id"} = undef;
+				$ok = 1;
 			}
 		}
+	}
+	if (not $ok) {
+		die("Invalid argument. See manpage for --exclude usage\n");
 	}
 }
 
