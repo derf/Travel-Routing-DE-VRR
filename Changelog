@@ -1,3 +1,10 @@
+efa 1.1.2 - Wed May 12 2010
+
+    * Fix -v
+    * Fix --date DD.MM. (was incorrectly rejected)
+    * Fix support for empty --ignore-info
+    * Add some more argument verification
+
 efa 1.1.1 - Mon Apr 26 2010
 
     * Add short options
