@@ -292,7 +292,7 @@ if ($time) {
 }
 if ($date) {
 	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
-		die("Invalid argument: Usage: --date DD.MM[.YYYY]\n");
+		die("Invalid argument: Usage: --date DD.MM.[YYYY]\n");
 	}
 	@post{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
 	$post{itdDateYear} //= (localtime(time))[5] + 1900;

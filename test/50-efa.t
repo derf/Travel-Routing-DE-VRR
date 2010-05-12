@@ -15,7 +15,7 @@ my $err_exclude = "Invalid argument. See manpage for --exclude usage\n";
 my $err_prefer  = "Invalid argument. Usage: --prefer speed|nowait|nowalk\n";
 my $err_include = "Invalid argument. Usage: --include local|ic|ice\n";
 my $err_time    = "Invalid argument. Usage: --time HH:MM\n";
-my $err_date    = "Invalid argument: Usage: --date DD.MM[.YYYY]\n";
+my $err_date    = "Invalid argument: Usage: --date DD.MM.[YYYY]\n";
 
 my $err_walk_speed
 	= "Invalid argument. Uaseg: --walk-speed normal|fast|slow\n";
