@@ -3,3 +3,12 @@ efa - inofficial efa.vrr.de commandline client
 Requires:
  - perl version 5.10 or newer
  - The perl module WWW::Mechanize
+
+
+Installation
+
+> make
+> make test
+> sudo make install
+
+You can skip "make test" if you want.
