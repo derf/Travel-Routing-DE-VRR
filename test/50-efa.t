@@ -2,11 +2,14 @@
 use strict;
 use warnings;
 use 5.010;
+
 use Test::Command tests => 76;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
 my $test_parse = "--test-parse $testarg";
+
+my $EMPTY = '';
 
 my $re_usage = qr{Insufficient to/from arguments, see \S*efa --help for usage};
 my $re_version = qr{\S*efa version \S+};
@@ -24,26 +27,26 @@ my $err_walk_speed
 my $cmd = Test::Command->new(cmd => "$efa");
 
 $cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
+$cmd->stdout_is_eq($EMPTY);
 $cmd->stderr_like($re_usage);
 
 $cmd = Test::Command->new(cmd => "$efa E HBf MH");
 
 $cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
+$cmd->stdout_is_eq($EMPTY);
 $cmd->stderr_like($re_usage);
 
 $cmd = Test::Command->new(cmd => "$efa E HBf Du HBf MH");
 
 $cmd->exit_isnt_num(0);
-$cmd->stdout_is_eq('');
+$cmd->stdout_is_eq($EMPTY);
 $cmd->stderr_like($re_usage);
 
 for my $opt (qw/-e --exclude/) {
 	$cmd = Test::Command->new(cmd => "$efa $opt invalid $testarg");
 
 	$cmd->exit_isnt_num(0);
-	$cmd->stdout_is_eq('');
+	$cmd->stdout_is_eq($EMPTY);
 	$cmd->stderr_is_eq($err_exclude);
 }
 
@@ -51,7 +54,7 @@ for my $opt (qw/-m --max-change/) {
 	$cmd = Test::Command->new(cmd => "$efa $opt nan $testarg");
 
 	$cmd->exit_isnt_num(0);
-	$cmd->stdout_is_eq('');
+	$cmd->stdout_is_eq($EMPTY);
 	# no stderr test - depends on Getopt::Long
 }
 
@@ -59,7 +62,7 @@ for my $opt (qw/-P --prefer/) {
 	$cmd = Test::Command->new(cmd => "$efa $opt invalid $testarg");
 
 	$cmd->exit_isnt_num(0);
-	$cmd->stdout_is_eq('');
+	$cmd->stdout_is_eq($EMPTY);
 	$cmd->stderr_is_eq($err_prefer);
 }
 
@@ -67,7 +70,7 @@ for my $opt (qw/-i --include/) {
 	$cmd = Test::Command->new(cmd => "$efa $opt invalid $testarg");
 
 	$cmd->exit_isnt_num(0);
-	$cmd->stdout_is_eq('');
+	$cmd->stdout_is_eq($EMPTY);
 	$cmd->stderr_is_eq($err_include);
 }
 
@@ -75,7 +78,7 @@ for my $opt (qw/-w --walk-speed/) {
 	$cmd = Test::Command->new(cmd => "$efa $opt invalid $testarg");
 
 	$cmd->exit_isnt_num(0);
-	$cmd->stdout_is_eq('');
+	$cmd->stdout_is_eq($EMPTY);
 	$cmd->stderr_is_eq($err_walk_speed);
 }
 
@@ -83,7 +86,7 @@ for my $opt (qw/-t --time/) {
 	$cmd = Test::Command->new(cmd => "$efa $opt 35:12 $testarg");
 
 	$cmd->exit_isnt_num(0);
-	$cmd->stdout_is_eq('');
+	$cmd->stdout_is_eq($EMPTY);
 	$cmd->stderr_is_eq($err_time);
 }
 
@@ -91,7 +94,7 @@ for my $opt (qw/-d --date/) {
 	$cmd = Test::Command->new(cmd => "$efa $opt 11.23.2010 $testarg");
 
 	$cmd->exit_isnt_num(0);
-	$cmd->stdout_is_eq('');
+	$cmd->stdout_is_eq($EMPTY);
 	$cmd->stderr_is_eq($err_date);
 }
 
@@ -100,7 +103,7 @@ for my $opt (qw/-v --version/) {
 
 	$cmd->exit_is_num(0);
 	$cmd->stdout_like($re_version);
-	$cmd->stderr_is_eq('');
+	$cmd->stderr_is_eq($EMPTY);
 }
 
 
@@ -116,7 +119,7 @@ for my $file (qw{
 
 	$cmd->exit_is_num(0);
 	$cmd->stdout_is_file("test/parse_$file");
-	$cmd->stderr_is_eq('');
+	$cmd->stderr_is_eq($EMPTY);
 }
 
 $cmd = Test::Command->new(
@@ -125,7 +128,7 @@ $cmd = Test::Command->new(
 
 $cmd->exit_is_num(0);
 $cmd->stdout_is_file("test/parse_e_hbf_b_hbf.ice.ignore_all");
-$cmd->stderr_is_eq('');
+$cmd->stderr_is_eq($EMPTY);
 
 $cmd = Test::Command->new(
 	cmd => "$efa $test_parse --ignore-info < test/dump_e_hbf_mh_hbf"
@@ -133,4 +136,4 @@ $cmd = Test::Command->new(
 
 $cmd->exit_is_num(0);
 $cmd->stdout_is_file("test/parse_e_hbf_mh_hbf.ignore_none");
-$cmd->stderr_is_eq('');
+$cmd->stderr_is_eq($EMPTY);
