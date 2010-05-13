@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 use 5.010;
-use Test::Command tests => 72;
+use Test::Command tests => 76;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -45,6 +45,14 @@ for my $opt (qw/-e --exclude/) {
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq('');
 	$cmd->stderr_is_eq($err_exclude);
+}
+
+for my $opt (qw/-m --max-change/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt nan $testarg");
+
+	$cmd->exit_isnt_num(0);
+	$cmd->stdout_is_eq('');
+	# no stderr test - depends on Getopt::Long
 }
 
 for my $opt (qw/-P --prefer/) {

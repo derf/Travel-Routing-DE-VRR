@@ -227,7 +227,8 @@ GetOptions(
 	'via=s{2}'       => \@via,
 	'via-type=s'     => \$via_type,
 	'w|walk-speed=s' => \$walk_speed,
-);
+
+) or die("Please see $0 --help\n");
 
 @exclude = split(/,/, join(',', @exclude));
 
