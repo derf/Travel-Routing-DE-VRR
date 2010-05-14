@@ -556,7 +556,29 @@ Print version information
 
 =back
 
-=head1 BUGS
+=head1 EXIT STATUS
+
+Non-Zero on grave errors, otherwise zero. Note that there are cases where
+B<efa> returns zero although it didn't work properly (i.e. displays an empty
+result).
+
+=head1 CONFIGURATION
+
+None.
+
+=head1 DEPENDENCIES
+
+This script requires the WWW::Mechanize module and perl 5.10 (or higher).
+
+=head1 BUGS AND LIMITATIONS
 
 The Unicode handling is slightly messed up. Therefore, arguments to B<efa>
 should always be plain ASCII (ue instead of E<uuml> etc).
+
+=head1 AUTHOR
+
+Copyright (C) 2009,2010 by Daniel Friesel E<lt>derf@derf.homelinux.orgE<gt>
+
+=head1 LICENSE
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.
