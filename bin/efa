@@ -32,6 +32,7 @@ my $proximity;
 my $walk_speed;
 my $with_bike;
 my $debug = 0;
+my $timeout = 60;
 my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
 
@@ -221,6 +222,7 @@ GetOptions(
 	'test-dump'      => \$test_dump,
 	'test-parse'     => \$test_parse,
 	't|time=s'       => \$time,
+	'timeout=i'      => \$timeout,
 	'to=s{2}'        => \@to,
 	'to-type=s'      => \$to_type,
 	'v|version'      => sub {print "efa version $version\n"; exit 0},
@@ -370,6 +372,7 @@ if ($test_parse) {
 	$content = <STDIN>;
 }
 else {
+	$www->timeout($timeout);
 	$www->get($firsturl);
 	$www->submit_form(
 		form_name => 'jp',
@@ -536,6 +539,10 @@ Accepted values: normal (default), fast, slow
 Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
 
 If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be ignored)
+
+=item B<--timeout> I<seconds>
+
+Set timeout for HTTP requests. Default: 60 seconds.
 
 =item B<-D>|B<--debug>
 
