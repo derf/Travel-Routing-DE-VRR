@@ -17,6 +17,7 @@ my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
 
 my $version = '1.1.2+git';
 my $content;
+my $connections;
 my %post;
 my $www = WWW::Mechanize->new(
 	autocheck => 1,
@@ -25,6 +26,56 @@ my (@from, @to, @via);
 my ($from_type, $to_type, $via_type) = ('stop') x 3;
 my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
+
+sub check_ambiguous {
+	my ($full_tree) = @_;
+	my $xp_select = '//select';
+
+	if (not $full_tree->exists($xp_select)) {
+		return;
+	}
+
+	foreach my $select (@{$full_tree->findnodes($xp_select)}) {
+		printf(
+			"Ambiguous input for %s\n",
+			$select->attr('name'),
+		);
+		foreach my $val ($select->findnodes_as_strings('./option')) {
+			say "\t$val";
+		}
+	}
+	exit 1;
+}
+
+sub display_connection {
+	my ($con_parts) = @_;
+
+	for my $con (@{$con_parts}) {
+
+		if ($con->[0] !~ / \d{2} : \d{2} /ox) {
+			splice(@{$con}, 0, 0, q{});
+			splice(@{$con}, 4, 0, q{});
+			$con->[7] = q{};
+		}
+		elsif ($con->[4] =~ / Plan: \s ab /ox) {
+			printf(
+				"# %s\n",
+				splice(@{$con}, 4, 1),
+			);
+		}
+
+		foreach my $extra (splice(@{$con}, 8, -1)) {
+			if (not (length($ignore_info) and $extra =~ /$ignore_info/i)) {
+				say "# $extra";
+			}
+		}
+
+		printf(
+			"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
+			@{$con}[0, 1, 2, 3, 7, 4, 5, 6],
+		)
+	}
+}
 
 sub opt_time_arr {
 	$post{itdTripDateTimeDepArr} = 'arr';
@@ -134,6 +185,41 @@ sub opt_timeout {
 	$www->timeout($timeout);
 }
 
+sub parse_tree {
+	my ($full_tree) = @_;
+	my $con_part = 0;
+	my $con_no = 0;
+	my $cons;
+
+	foreach my $row (@{$full_tree->findnodes('//table//table/tr')}) {
+		foreach (@{$row->findnodes(
+			'./td[@class="bgColor"] | '.
+			'./td[@class="bgColor2"] | '.
+			'./td[@colspan="8"]')})
+		{
+			if (defined $_->attr('colspan') and $_->attr('colspan') == 8) {
+				if ($_->as_text() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
+					$con_no = $+{'no'} - 1;
+					$con_part = 0;
+					next;
+				}
+			}
+			if (defined $_->attr('class') and $_->attr('class') =~ /^bgColor2?$/) {
+				if ($_->attr('class') eq 'bgColor' and ($con_part % 2) == 1) {
+					$con_part++;
+				}
+				elsif ($_->attr('class') eq 'bgColor2' and ($con_part % 2) == 0) {
+					$con_part++;
+				}
+			}
+			if (not $_->exists('./img') and $_->as_text() !~ /^\s*$/) {
+				push(@{$cons->[$con_no]->[$con_part]}, $_->as_text());
+			}
+		}
+	}
+	return $cons;
+}
+
 GetOptions(
 	'a|arrive=s'     => \&opt_time_arr,
 	'b|bike'         => \&opt_bike,
@@ -227,80 +313,16 @@ if ($test_dump) {
 
 my $tree = HTML::TreeBuilder::XPath->new_from_content($content);
 
-if ($tree->exists('//select')) {
-	foreach my $select (@{$tree->findnodes('//select')}) {
-		printf(
-			"Ambiguous input: %s\n",
-			$select->attr('name'),
-		);
-		foreach my $val ($select->findnodes_as_strings('./option')) {
-			say "\t$val";
-		}
-	}
-	exit 1;
-}
+check_ambiguous($tree);
 
-my $con_part = 0;
-my $con_no = 0;
-my $connections;
-
-foreach my $row (@{$tree->findnodes('//table//table/tr')}) {
-	foreach (@{$row->findnodes(
-		'./td[@class="bgColor"] | '.
-		'./td[@class="bgColor2"] | '.
-		'./td[@colspan="8"]')})
-	{
-		if (defined $_->attr('colspan') and $_->attr('colspan') == 8) {
-			if ($_->as_text() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
-				$con_no = $+{'no'} - 1;
-				$con_part = 0;
-				next;
-			}
-		}
-		if (defined $_->attr('class') and $_->attr('class') =~ /^bgColor2?$/) {
-			if ($_->attr('class') eq 'bgColor' and ($con_part % 2) == 1) {
-				$con_part++;
-			}
-			elsif ($_->attr('class') eq 'bgColor2' and ($con_part % 2) == 0) {
-				$con_part++;
-			}
-		}
-		if (not $_->exists('./img') and $_->as_text() !~ /^\s*$/) {
-			push(@{$connections->[$con_no]->[$con_part]}, $_->as_text());
-		}
-	}
-}
+$connections = parse_tree($tree);
 
 if (@{$connections} == 0) {
 	die("Got no connections, parse error?\n");
 }
 
 for my $i (0 .. $#{$connections}) {
-	for my $j (0 .. $#{$connections->[$i]}) {
-
-		if ($connections->[$i]->[$j]->[0] !~ / \d{2} : \d{2} /ox) {
-			splice(@{$connections->[$i]->[$j]}, 0, 0, q{});
-			splice(@{$connections->[$i]->[$j]}, 4, 0, q{});
-			$connections->[$i]->[$j]->[7] = q{};
-		}
-		elsif ($connections->[$i]->[$j]->[4] =~ / Plan: \s ab /ox) {
-			printf(
-				"# %s\n",
-				splice(@{$connections->[$i]->[$j]}, 4, 1),
-			);
-		}
-
-		foreach my $extra (splice(@{$connections->[$i]->[$j]}, 8, -1)) {
-			if (not (length($ignore_info) and $extra =~ /$ignore_info/i)) {
-				say "# $extra";
-			}
-		}
-
-		printf(
-			"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
-			@{$connections->[$i]->[$j]}[0, 1, 2, 3, 7, 4, 5, 6],
-		)
-	}
+	display_connection($connections->[$i]);
 	if ($i != $#{$connections}) {
 		print "------\n\n";
 	}
