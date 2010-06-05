@@ -4,10 +4,8 @@
 ##   0. You just DO WHAT THE FUCK YOU WANT TO.
 use strict;
 use warnings;
-use encoding 'utf8';
 use 5.010;
 
-use Encode;
 use Getopt::Long qw/:config no_ignore_case/;
 use HTML::TreeBuilder::XPath;
 use WWW::Mechanize;
@@ -308,9 +306,8 @@ else {
 		fields => \%post,
 	);
 
-	$content = $www->content;
+	$content = $www->response()->decoded_content();
 	$content =~ s/\xa0/ /gs;
-	$content = decode('iso-8859-1', $content);
 }
 
 if ($test_dump) {
