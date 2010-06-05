@@ -97,7 +97,7 @@ sub opt_time {
 }
 
 sub opt_date {
-	my ($date) = @_;
+	my (undef, $date) = @_;
 
 	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
 		die("Invalid argument: Usage: --date DD.MM.[YYYY]\n");
