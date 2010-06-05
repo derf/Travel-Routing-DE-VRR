@@ -1,6 +1,7 @@
-git HEAD
+efa 1.2 - Sat Jun 5 2010
 
     * Rewrite efa parser using HTML::TreeBuilder::XPath
+    * Fixes information about late trains (was broken by efa.vrr.de changes)
 
 efa 1.1.2 - Wed May 12 2010
 
