@@ -308,8 +308,8 @@ else {
 		fields => \%post,
 	);
 
-	$content = $www->response()->decoded_content();
-	$content =~ s/\xa0/ /gs;
+	# The content actually is iso-8859-1, but HTML::Message seems to be buggy
+	$content = $www->response()->decoded_content(charset => 'iso-8859-15');
 }
 
 if ($test_dump) {
