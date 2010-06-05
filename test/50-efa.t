@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test::Command tests => 76;
+use Test::Command tests => 79;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -137,4 +137,12 @@ $cmd = Test::Command->new(
 
 $cmd->exit_is_num(0);
 $cmd->stdout_is_file("test/parse_e_hbf_mh_hbf.ignore_none");
+$cmd->stderr_is_eq($EMPTY);
+
+$cmd = Test::Command->new(
+	cmd => "$efa $test_parse < test/dump_ambiguous"
+);
+
+$cmd->exit_is_num(1);
+$cmd->stdout_is_file('test/parse_ambiguous');
 $cmd->stderr_is_eq($EMPTY);
