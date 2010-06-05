@@ -23,50 +23,146 @@ my $www = WWW::Mechanize->new(
 );
 my (@from, @to, @via);
 my ($from_type, $to_type, $via_type) = ('stop') x 3;
-my ($time, $time_depart, $time_arrive);
-my $date;
-my @exclude;
-my $maxinter;
-my $include;
-my $prefer;
-my $proximity;
-my $walk_speed;
-my $with_bike;
-my $timeout = 60;
 my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
 
 my $xp_ambiguous = '//select';
 
+sub opt_time_arr {
+	$post{itdTripDateTimeDepArr} = 'arr';
+	opt_time(@_);
+}
+
+sub opt_time_dep {
+	$post{itdTripDateTimeDepArr} = 'dep';
+	opt_time(@_);
+}
+
+sub opt_time {
+	my (undef, $time) = @_;
+
+	if ($time !~ /^ [0-2]? \d : [0-5]? \d $/x) {
+		die("Invalid argument. Usage: --time HH:MM\n");
+	}
+	@post{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
+}
+
+sub opt_date {
+	my ($date) = @_;
+
+	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
+		die("Invalid argument: Usage: --date DD.MM.[YYYY]\n");
+	}
+	@post{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
+	$post{itdDateYear} //= (localtime(time))[5] + 1900;
+}
+
+sub opt_exclude {
+	my @mapping = qw/
+		zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus
+		schnellbus seilbahn schiff ast sonstige
+	/;
+	my $ok = 0;
+	my (undef, $str) = @_;
+	my @exclude = split(/,/, $str);
+
+	foreach my $exclude_type (@exclude) {
+		for my $map_id (0 .. $#mapping) {
+			if ($exclude_type eq $mapping[$map_id]) {
+				$post{"inclMOT_$map_id"} = undef;
+				$ok = 1;
+			}
+		}
+	}
+	if (not $ok) {
+		die("Invalid argument. See manpage for --exclude usage\n");
+	}
+}
+
+sub opt_maxinter {
+	my (undef, $opt) = @_;
+	$post{maxChanges} = $opt;
+}
+
+sub opt_prefer {
+	my (undef, $prefer) = @_;
+
+	given ($prefer) {
+		when ('speed')  { $post{routeType} = 'LEASTTIME' }
+		when ('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
+		when ('nowalk') { $post{routeType} = 'LEASTWALKING' }
+		default {
+			die("Invalid argument. Usage: --prefer speed|nowait|nowalk\n");
+		}
+	}
+}
+
+sub opt_proximity {
+	$post{useProxFootSearch} = 1;
+}
+
+sub opt_include {
+	my (undef, $include) = @_;
+
+	given ($include) {
+		when ('local') { $post{lineRestriction} = 403 }
+		when ('ic')    { $post{lineRestriction} = 401 }
+		when ('ice')   { $post{lineRestriction} = 400 }
+		when (/\d+/)   { $post{lineRestriction} = $include }
+		default {
+			die("Invalid argument. Usage: --include local|ic|ice\n");
+		}
+	}
+}
+
+sub opt_walk_speed {
+	my (undef, $walk_speed) = @_;
+
+	if ($walk_speed ~~ ['normal', 'fast', 'slow']) {
+		$post{changeSpeed} = $walk_speed;
+	}
+	else {
+		die("Invalid argument. Uaseg: --walk-speed normal|fast|slow\n");
+	}
+}
+
+sub opt_bike {
+	$ignore_info = undef;
+	$post{bikeTakeAlong} = 1;
+}
+
+sub opt_timeout {
+	my (undef, $timeout) = @_;
+	$www->timeout($timeout);
+}
+
 GetOptions(
-	'a|arrive=s'     => \$time_arrive,
-	'b|bike'         => \$with_bike,
-	'd|date=s'       => \$date,
-	'depart=s'       => \$time_depart,
-	'e|exclude=s'    => \@exclude,
+	'a|arrive=s'     => \&opt_time_arr,
+	'b|bike'         => \&opt_bike,
+	'd|date=s'       => \&opt_date,
+	'depart=s'       => \&opt_time_dep,
+	'e|exclude=s'    => \&opt_exclude,
 	'from=s{2}'      => \@from,
 	'from-type=s'    => \$from_type,
 	'h|help'         => sub {exec('perldoc', '-F', $0)},
 	'I|ignore-info=s{0,1}' => \$ignore_info,
-	'm|max-change=i' => \$maxinter,
+	'm|max-change=i' => \&opt_maxinter,
 	'post=s'         => \%post,
-	'P|prefer=s'     => \$prefer,
-	'p|proximity'    => \$proximity,
-	'i|include=s'    => \$include,
+	'P|prefer=s'     => \&opt_prefer,
+	'p|proximity'    => \&opt_proximity,
+	'i|include=s'    => \&opt_include,
 	'test-dump'      => \$test_dump,
 	'test-parse'     => \$test_parse,
-	't|time=s'       => \$time,
-	'timeout=i'      => \$timeout,
+	't|time=s'       => \&opt_time,
+	'timeout=i'      => \&opt_timeout,
 	'to=s{2}'        => \@to,
 	'to-type=s'      => \$to_type,
 	'v|version'      => sub {print "efa version $version\n"; exit 0},
 	'via=s{2}'       => \@via,
 	'via-type=s'     => \$via_type,
-	'w|walk-speed=s' => \$walk_speed,
+	'w|walk-speed=s' => \&opt_walk_speed,
 
 ) or die("Please see $0 --help\n");
-
-@exclude = split(/,/, join(',', @exclude));
 
 if (not (@from and @to)) {
 	if (@ARGV == 4) {
@@ -100,10 +196,8 @@ if (@via == 2) {
 	@post{'place_via', 'name_via'} = @via;
 }
 
-# note that $from_type etc are changed here
 foreach my $type ($from_type, $to_type, $via_type) {
 	if (not ($type ~~ ['stop', 'address', 'poi'])) {
-		$type = 'stop';
 		die("from/to/via type: Must be stop, address or poi, not '$type'\n");
 	}
 }
@@ -112,101 +206,11 @@ $post{type_origin} = $from_type;
 $post{type_destination} = $to_type;
 $post{type_via} = $via_type;
 
-if ($time_arrive) {
-	$time = $time_arrive;
-	$post{itdTripDateTimeDepArr} = 'arr';
-}
-elsif ($time_depart) {
-	$time = $time_depart;
-	$post{itdTripDateTimeDepArr} = 'dep';
-}
-
-if ($time) {
-	if ($time !~ /^ [0-2]? \d : [0-5]? \d $/x) {
-		die("Invalid argument. Usage: --time HH:MM\n");
-	}
-	@post{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
-}
-if ($date) {
-	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
-		die("Invalid argument: Usage: --date DD.MM.[YYYY]\n");
-	}
-	@post{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
-	$post{itdDateYear} //= (localtime(time))[5] + 1900;
-}
-
-if (@exclude) {
-	my @mapping = qw/
-		zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus
-		schnellbus seilbahn schiff ast sonstige
-	/;
-	my $ok = 0;
-
-	foreach my $exclude_type (@exclude) {
-		for my $map_id (0 .. $#mapping) {
-			if ($exclude_type eq $mapping[$map_id]) {
-				$post{"inclMOT_$map_id"} = undef;
-				$ok = 1;
-			}
-		}
-	}
-	if (not $ok) {
-		die("Invalid argument. See manpage for --exclude usage\n");
-	}
-}
-
-# Argument verification done by Getopt::Long
-if (defined($maxinter)) {
-	$post{maxChanges} = $maxinter;
-}
-
-if ($prefer) {
-	given ($prefer) {
-		when ('speed')  { $post{routeType} = 'LEASTTIME' }
-		when ('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
-		when ('nowalk') { $post{routeType} = 'LEASTWALKING' }
-		default {
-			die("Invalid argument. Usage: --prefer speed|nowait|nowalk\n");
-		}
-	}
-}
-
-if ($proximity) {
-	$post{useProxFootSearch} = 1;
-}
-
-if ($include) {
-	given ($include) {
-		when ('local') { $post{lineRestriction} = 403 }
-		when ('ic')    { $post{lineRestriction} = 401 }
-		when ('ice')   { $post{lineRestriction} = 400 }
-		when (/\d+/)   { $post{lineRestriction} = $include }
-		default {
-			die("Invalid argument. Usage: --include local|ic|ice\n");
-		}
-	}
-}
-
-if ($walk_speed) {
-	if ($walk_speed ~~ ['normal', 'fast', 'slow']) {
-		$post{changeSpeed} = $walk_speed;
-	}
-	else {
-		die("Invalid argument. Uaseg: --walk-speed normal|fast|slow\n");
-	}
-}
-
-if ($with_bike) {
-	$ignore_info = undef;
-	$post{bikeTakeAlong} = 1;
-}
-
 if ($test_parse) {
 	local $/;
 	$content = <STDIN>;
 }
 else {
-	$www->timeout($timeout);
 	$www->get($firsturl);
 	$www->submit_form(
 		form_name => 'jp',

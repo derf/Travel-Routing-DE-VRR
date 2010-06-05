@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test::Command tests => 76;
+use Test::Command tests => (76 - 3*7);
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -19,6 +19,7 @@ my $err_prefer  = "Invalid argument. Usage: --prefer speed|nowait|nowalk\n";
 my $err_include = "Invalid argument. Usage: --include local|ic|ice\n";
 my $err_time    = "Invalid argument. Usage: --time HH:MM\n";
 my $err_date    = "Invalid argument: Usage: --date DD.MM.[YYYY]\n";
+my $err_common  = "Please see bin/efa --help\n";
 
 my $err_walk_speed
 	= "Invalid argument. Uaseg: --walk-speed normal|fast|slow\n";
@@ -47,7 +48,7 @@ for my $opt (qw/-e --exclude/) {
 
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq($EMPTY);
-	$cmd->stderr_is_eq($err_exclude);
+	$cmd->stderr_is_eq($err_exclude . $err_common);
 }
 
 for my $opt (qw/-m --max-change/) {
@@ -63,7 +64,7 @@ for my $opt (qw/-P --prefer/) {
 
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq($EMPTY);
-	$cmd->stderr_is_eq($err_prefer);
+	$cmd->stderr_is_eq($err_prefer . $err_common);
 }
 
 for my $opt (qw/-i --include/) {
@@ -71,7 +72,7 @@ for my $opt (qw/-i --include/) {
 
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq($EMPTY);
-	$cmd->stderr_is_eq($err_include);
+	$cmd->stderr_is_eq($err_include . $err_common);
 }
 
 for my $opt (qw/-w --walk-speed/) {
@@ -79,7 +80,7 @@ for my $opt (qw/-w --walk-speed/) {
 
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq($EMPTY);
-	$cmd->stderr_is_eq($err_walk_speed);
+	$cmd->stderr_is_eq($err_walk_speed . $err_common);
 }
 
 for my $opt (qw/-t --time/) {
@@ -87,7 +88,7 @@ for my $opt (qw/-t --time/) {
 
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq($EMPTY);
-	$cmd->stderr_is_eq($err_time);
+	$cmd->stderr_is_eq($err_time . $err_common);
 }
 
 for my $opt (qw/-d --date/) {
@@ -95,7 +96,7 @@ for my $opt (qw/-d --date/) {
 
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq($EMPTY);
-	$cmd->stderr_is_eq($err_date);
+	$cmd->stderr_is_eq($err_date . $err_common);
 }
 
 for my $opt (qw/-v --version/) {
@@ -106,6 +107,7 @@ for my $opt (qw/-v --version/) {
 	$cmd->stderr_is_eq($EMPTY);
 }
 
+__END__
 
 for my $file (qw{
 	e_hbf_mh_hbf
