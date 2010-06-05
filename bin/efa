@@ -310,10 +310,9 @@ else {
 
 	# XXX (workaround)
 	# The content actually is iso-8859-1. But HTML::Message doesn't actually
-	# decode character strings when they have that encoding. So we specify
-	# iso-8859-15, which makes HTML::Message do the decoding and is similar
-	# enough for our purpose.
-	$content = $www->response()->decoded_content(charset => 'iso-8859-15');
+	# decode character strings when they have that encoding. However, it
+	# doesn't check for latin-1, which is an alias for iso-8859-1.
+	$content = $www->response()->decoded_content(charset => 'latin-1');
 }
 
 if ($test_dump) {
