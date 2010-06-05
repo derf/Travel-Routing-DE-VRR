@@ -26,8 +26,6 @@ my ($from_type, $to_type, $via_type) = ('stop') x 3;
 my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
 
-my $xp_ambiguous = '//select';
-
 sub opt_time_arr {
 	$post{itdTripDateTimeDepArr} = 'arr';
 	opt_time(@_);
@@ -229,8 +227,8 @@ if ($test_dump) {
 
 my $tree = HTML::TreeBuilder::XPath->new_from_content($content);
 
-if ($tree->exists($xp_ambiguous)) {
-	foreach my $select (@{$tree->findnodes($xp_ambiguous)}) {
+if ($tree->exists('//select')) {
+	foreach my $select (@{$tree->findnodes('//select')}) {
 		printf(
 			"Ambiguous input: %s\n",
 			$select->attr('name'),
@@ -242,9 +240,8 @@ if ($tree->exists($xp_ambiguous)) {
 	exit 1;
 }
 
-my @chunk;
 my $con_part = 0;
-my $no = 0;
+my $con_no = 0;
 my $connections;
 
 foreach my $row (@{$tree->findnodes('//table//table/tr')}) {
@@ -255,7 +252,7 @@ foreach my $row (@{$tree->findnodes('//table//table/tr')}) {
 	{
 		if (defined $_->attr('colspan') and $_->attr('colspan') == 8) {
 			if ($_->as_text() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
-				$no = $+{'no'} - 1;
+				$con_no = $+{'no'} - 1;
 				$con_part = 0;
 				next;
 			}
@@ -269,7 +266,7 @@ foreach my $row (@{$tree->findnodes('//table//table/tr')}) {
 			}
 		}
 		if (not $_->exists('./img') and $_->as_text() !~ /^\s*$/) {
-			push(@{$connections->[$no]->[$con_part]}, $_->as_text());
+			push(@{$connections->[$con_no]->[$con_part]}, $_->as_text());
 		}
 	}
 }
