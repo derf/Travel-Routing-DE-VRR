@@ -66,7 +66,7 @@
 				'via' : '::',
 				'command' : ''
 			};
-			var sid = 'efa3.vrr.de_52888734';
+			var sid = 'efa2.vrr.de_60595593';
 			var curLanguage = 'de';
 			var dmStop = "Haltestelle";
 			var dmPOI = "wichtiger Punkt";
@@ -109,7 +109,7 @@
 					--></script><script>function initMdvMapConfig() {var usages = new Array("origin", "destination", "via", "dm", "stt");for(var i=0; i<usages.length; i++) {var usage = usages[i];mdvMapConfigs[usage] = mdvMapConfig.clone();mdvMapConfigs[usage].add("serverURL", "http://efa.vrr.de/maps/nrw/");mdvMapConfigs[usage].add("efaURL", "../lite/XSLT_COORD_REQUEST");mdvMapConfigs[usage].add("transparentImg", "images/transparent.gif");mdvMapConfigs[usage].add("defaultScale", "2");mdvMapConfigs[usage].add("toolTimeOut", "20");mdvMapConfigs[usage].add("zoomOnDoubleClick", "true");mdvMapConfigs[usage].add("useMagnifyGlass", "true");mdvMapConfigs[usage].add("cursorMove", "images/grabbing.cur");mdvMapConfigs[usage].add("poiArea", "true");mdvMapConfigs[usage].add("poiPoint", "true");mdvMapConfigs[usage].add("language", "de");mdvMapConfigs[usage].add("imagePath", "images/mdvMap/");mdvMapConfigs[usage].add("xCenterReal", "3368363");mdvMapConfigs[usage].add("yCenterReal", "450530");mdvMapConfigs[usage].add("mapName", "NAV3");mdvMapConfigs[usage].add("network", "NRW");mdvMapConfigs[usage].add("useBubbleForEFAInfo", "true");mdvMapConfigs[usage].add("info.stop.size.width", "250");mdvMapConfigs[usage].add("info.stop.size.height", "200");mdvMapConfigs[usage].add("info.poi.size.width", "250");mdvMapConfigs[usage].add("info.poi.size.height", "120");mdvMapConfigs[usage].add("useBubbleOverflowForEFAInfo", "true");mdvMapConfigs[usage].add("block", "100");mdvMapConfigs[usage].add("language", "de");mdvMiniMapConfigs[usage] = mdvMiniMapConfig.clone();mdvMiniMapConfigs[usage].add("serverURL", "http://efa.vrr.de/maps/nrw/");mdvMiniMapConfigs[usage].add("efaURL", "../lite/XSLT_COORD_REQUEST");mdvMiniMapConfigs[usage].add("transparentImg", "images/transparent.gif");mdvMiniMapConfigs[usage].add("defaultScale", "2");mdvMiniMapConfigs[usage].add("toolTimeOut", "20");mdvMiniMapConfigs[usage].add("zoomOnDoubleClick", "true");mdvMiniMapConfigs[usage].add("useMagnifyGlass", "true");mdvMiniMapConfigs[usage].add("cursorMove", "images/grabbing.cur");mdvMiniMapConfigs[usage].add("language", "de");mdvMiniMapConfigs[usage].add("imagePath", "images/mdvMap/");mdvMiniMapConfigs[usage].add("xCenterReal", "3368363");mdvMiniMapConfigs[usage].add("yCenterReal", "450530");mdvMiniMapConfigs[usage].add("mapName", "NAV3");mdvMiniMapConfigs[usage].add("network", "NRW");mdvMiniMapConfigs[usage].add("block", "100");mdvMiniMapConfigs[usage].add("language", "de");}}
 	</script></head>
 <body onload="">
-<form action="XSLT_TRIP_REQUEST2" id="jp" name="jp" method="POST"><input type="hidden" name="sessionID" id="sessionID" value="efa3.vrr.de_52888734"><input type="hidden" name="language" value="de"><input type="hidden" name="requestID" id="requestID" value="1"><input type="hidden" name="command" id="command" value=""><input type="hidden" name="itdLPxx_ShowFare" value=" "><input type="hidden" name="itdLPxx_view" value=""><input type="hidden" name="useRealtime" value="1"><input type="hidden" name="itdLPxx_enableMobilityRestrictionOptionsWithButton" value=""><input type="hidden" name="execInst" id="execInst" value=""><input type="hidden" name="itdLPxx_mdvMap2_origin" id="itdLPxx_mdvMap2_origin" value="::"><input type="hidden" name="itdLPxx_mdvMap2_destination" id="itdLPxx_mdvMap2_destination" value="::"><input type="hidden" name="itdLPxx_mdvMap2_via" id="itdLPxx_mdvMap2_via" value="::"><input type="hidden" name="itdLPxx_mapState_origin" id="itdLPxx_mapState_origin" value=""><input type="hidden" name="itdLPxx_mapState_destination" id="itdLPxx_mapState_destination" value=""><input type="hidden" name="itdLPxx_mapState_via" id="itdLPxx_mapState_via" value=""><input type="hidden" name="itdLPxx_mdvMap_origin" id="itdLPxx_mdvMap_origin" value="3361949:456292:NAV3"><input type="hidden" name="itdLPxx_mdvMap_destination" id="itdLPxx_mdvMap_destination" value="3345418:457865:NAV3"><input type="hidden" name="itdLPxx_mdvMap_via" id="itdLPxx_mdvMap_via" value="::"><input type="hidden" name="itdLPxx_command" id="itdLPxx_command" value=""><input type="hidden" name="itdLPxx_priceCalculator" id="itdLPxx_priceCalculator" value=""><input type="hidden" name="trip" value=""><input type="hidden" name="partialTrip" value=""><input type="hidden" name="itdLPxx_transpCompany" value="vrr"><table cellspacing="0" cellpadding="0" border="0">
+<form action="XSLT_TRIP_REQUEST2" id="jp" name="jp" method="POST"><input type="hidden" name="sessionID" id="sessionID" value="efa2.vrr.de_60595593"><input type="hidden" name="language" value="de"><input type="hidden" name="requestID" id="requestID" value="1"><input type="hidden" name="command" id="command" value=""><input type="hidden" name="itdLPxx_ShowFare" value=" "><input type="hidden" name="itdLPxx_view" value=""><input type="hidden" name="useRealtime" value="1"><input type="hidden" name="itdLPxx_enableMobilityRestrictionOptionsWithButton" value=""><input type="hidden" name="execInst" id="execInst" value=""><input type="hidden" name="itdLPxx_mdvMap2_origin" id="itdLPxx_mdvMap2_origin" value="::"><input type="hidden" name="itdLPxx_mdvMap2_destination" id="itdLPxx_mdvMap2_destination" value="::"><input type="hidden" name="itdLPxx_mdvMap2_via" id="itdLPxx_mdvMap2_via" value="::"><input type="hidden" name="itdLPxx_mapState_origin" id="itdLPxx_mapState_origin" value=""><input type="hidden" name="itdLPxx_mapState_destination" id="itdLPxx_mapState_destination" value=""><input type="hidden" name="itdLPxx_mapState_via" id="itdLPxx_mapState_via" value=""><input type="hidden" name="itdLPxx_mdvMap_origin" id="itdLPxx_mdvMap_origin" value="3361949:456292:NAV3"><input type="hidden" name="itdLPxx_mdvMap_destination" id="itdLPxx_mdvMap_destination" value="3345418:457865:NAV3"><input type="hidden" name="itdLPxx_mdvMap_via" id="itdLPxx_mdvMap_via" value="::"><input type="hidden" name="itdLPxx_command" id="itdLPxx_command" value=""><input type="hidden" name="itdLPxx_priceCalculator" id="itdLPxx_priceCalculator" value=""><input type="hidden" name="trip" value=""><input type="hidden" name="partialTrip" value=""><input type="hidden" name="itdLPxx_transpCompany" value="vrr"><table cellspacing="0" cellpadding="0" border="0">
 <tr>
 <td rowspan="3" valign="top" align="left" width="155">
 <table id="tabNav">
@@ -195,9 +195,9 @@
 <tr>
 <td width="2%" align="top"> </td>
 <td width="10%"><span class="labelTextBold"> Abfahrt:</span></td>
-<td width="40%"><span class="labelText">17:24</span><span class="labelText"> Uhr</span></td>
+<td width="40%"><span class="labelText">12:00</span><span class="labelText"> Uhr</span></td>
 <td width="10%"><span class="labelTextBold">Datum:</span></td>
-<td width="38%"><span class="labelText">11.05.2010</span></td>
+<td width="38%"><span class="labelText">07.06.2010</span></td>
 </tr>
 </table>
 </td>
@@ -226,24 +226,39 @@
 </tr>
 <tr>
 <td width="2%"><img src="images/dummy.gif" width="5" height="5" alt="*"></td>
-<td><span class="labelText"> <a href="#Trip1"><u>1. Fahrt:</u></a>  am 11.05.2010  von 17:15 bis 17:33 Uhr</span></td>
-<td align="center"><span class="labelText">00:18</span></td>
+<td><span class="labelText"> <a href="#Trip1"><u>1. Fahrt:</u></a>
+									 am 
+									<span class="7**
+		">07.06.2010</span>
+									 von
+									 11:59 bis 12:10 Uhr</span></td>
+<td align="center"><span class="labelText">00:11</span></td>
 <td align="center"><span class="labelText">0</span></td>
-<td align="center" class="labelText"><a href="javascript:document.forms[0].itdLPxx_view.value = ''; document.forms[0].itdLPxx_ShowFare.value = '1';document.forms[0].command.value='nop';document.forms[0].submit();"><u>B</u></a></td>
+<td align="center" class="labelText"> </td>
 </tr>
 <tr>
 <td width="2%"><img src="images/dummy.gif" width="5" height="5" alt="*"></td>
-<td><span class="labelText"> <a href="#Trip2"><u>2. Fahrt:</u></a>  am 11.05.2010  von 17:34 bis 17:46 Uhr<img src="images/Rbl_nOK_Thumb.gif" width="13" height="13" alt="Abweichungen"></span></td>
-<td align="center"><span class="labelText">00:12</span></td>
+<td><span class="labelText"> <a href="#Trip2"><u>2. Fahrt:</u></a>
+									 am 
+									<span class="7**
+		">07.06.2010</span>
+									 von
+									 12:08 bis 12:21 Uhr</span></td>
+<td align="center"><span class="labelText">00:13</span></td>
 <td align="center"><span class="labelText">0</span></td>
 <td align="center" class="labelText"><a href="javascript:document.forms[0].itdLPxx_view.value = ''; document.forms[0].itdLPxx_ShowFare.value = '2';document.forms[0].command.value='nop';document.forms[0].submit();"><u>B</u></a></td>
 </tr>
 <tr>
 <td width="2%"><img src="images/dummy.gif" width="5" height="5" alt="*"></td>
-<td><span class="labelText"> <a href="#Trip3"><u>3. Fahrt:</u></a>  am 11.05.2010  von 17:41 bis 17:53 Uhr</span></td>
-<td align="center"><span class="labelText">00:12</span></td>
+<td><span class="labelText"> <a href="#Trip3"><u>3. Fahrt:</u></a>
+									 am 
+									<span class="7**
+		">07.06.2010</span>
+									 von
+									 12:15 bis 12:33 Uhr</span></td>
+<td align="center"><span class="labelText">00:18</span></td>
 <td align="center"><span class="labelText">0</span></td>
-<td align="center" class="labelText"> </td>
+<td align="center" class="labelText"><a href="javascript:document.forms[0].itdLPxx_view.value = ''; document.forms[0].itdLPxx_ShowFare.value = '3';document.forms[0].command.value='nop';document.forms[0].submit();"><u>B</u></a></td>
 </tr>
 </table>
 </td>
@@ -306,34 +321,34 @@
 </tr>
 <tr>
 <td> </td>
-<td class="bgColor"><span class="labelText">17:15</span></td>
+<td class="bgColor"><span class="labelText">11:59</span></td>
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
-<td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 7</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4BE976CA0.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
-<td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/s_Bahn.gif" width="32" height="32" alt="S-Bahn"></td>
-<td class="bgColor"><span class="labelText">S-Bahn S1</span></td>
-<td rowspan="2" class="bgColor"></td>
+<td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 1</span></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A8A395.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
+<td class="bgColor"><span class="labelText">IC 2113 InterCity</span></td>
 </tr>
 <tr valign="middle">
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td class="bgColor"><span class="labelText">17:33</span></td>
+<td class="bgColor"><span class="labelText">12:10</span></td>
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
-<td class="bgColor"><span class="labelText">Duisburg Hbf: Gleis 5</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/16032_du_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4BE976CA1.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
-<td class="bgColor"><span class="labelText">Solingen Hbf</span></td>
+<td class="bgColor"><span class="labelText">Duisburg Hbf: Gleis 4</span></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/16032_du_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A8A396.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td class="bgColor"><span class="labelText">Stuttgart Hauptbahnhof (oben)</span></td>
 </tr>
 <tr>
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td class="bgColor"><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="7" class="bgColor" align="left"><a class="addInfoTrip" href="#" onclick="window.open('http://217.70.161.100:80/cm/XSLT_CM_SHOWADDINFO_REQUEST?infoID=5394_EVAG_01&amp;seqID=1&amp;language=de', 'addInfo', 'width=500,height=500,location=no,menubar=no,status=no,toolbar=no,resizable=yes,scrollbars=yes');return false;"><span>Abweichung der Steig/Haltestellenummern am Essen Hbf</span></a></td>
-<td class="bgColor"></td>
+<td colspan="8" class="bgColor"><span class="labelText"><i>Fahrradmitnahme reservierungspflichtig</i></span></td>
 </tr>
 <tr>
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="8" class="bgColor"><span class="labelText"><i>Linie S1: Fahrradmitnahme begrenzt möglich</i></span></td>
-<td class="bgColor"></td>
+<td colspan="8" class="bgColor"><span class="labelText"><i>Fahrradmitnahme begrenzt möglich</i></span></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
+<td colspan="8" class="bgColor"><span class="labelText"><i>Bordrestaurant</i></span></td>
 </tr>
 <tr>
 <td colspan="9"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -357,39 +372,26 @@
 </tr>
 <tr>
 <td> </td>
-<td class="bgColor"><span class="labelText">17:34</span></td>
+<td class="bgColor"><span class="labelText">12:08</span></td>
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 2</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4BE976CA2.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A8A397.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
-<td class="bgColor"><span class="labelText">R-Bahn RE6</span></td>
-<td rowspan="2" class="bgColor">
-<table>
-<td valign="center"><img src="images/Rbl_nOK.gif" width="13" height="30" border="0" title="Abweichung" alt="Abweichung"></td>
-<td><span class="labelText" valign="center"><span>2 Min. später</span><br> Plan: ab 17:32</span></td>
-</table>
-</td>
+<td class="bgColor"><span class="labelText">R-Bahn RE1</span></td>
 </tr>
 <tr valign="middle">
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td class="bgColor"><span class="labelText">17:46</span></td>
+<td class="bgColor"><span class="labelText">12:21</span></td>
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
-<td class="bgColor"><span class="labelText">Duisburg Hbf: Gleis 5</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/16032_du_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4BE976CA3.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
-<td class="bgColor"><span class="labelText">Düsseldorf Hbf</span></td>
-</tr>
-<tr>
-<td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td class="bgColor"><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="7" class="bgColor" align="left"><a class="addInfoTrip" href="#" onclick="window.open('http://217.70.161.100:80/cm/XSLT_CM_SHOWADDINFO_REQUEST?infoID=5394_EVAG_01&amp;seqID=1&amp;language=de', 'addInfo', 'width=500,height=500,location=no,menubar=no,status=no,toolbar=no,resizable=yes,scrollbars=yes');return false;"><span>Abweichung der Steig/Haltestellenummern am Essen Hbf</span></a></td>
-<td class="bgColor"></td>
+<td class="bgColor"><span class="labelText">Duisburg Hbf: Gleis 4</span></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/16032_du_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A8A398.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td class="bgColor"><span class="labelText">Aachen Hbf</span></td>
 </tr>
 <tr>
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td colspan="8" class="bgColor"><span class="labelText"><i>Fahrradmitnahme begrenzt möglich</i></span></td>
-<td class="bgColor"></td>
 </tr>
 <tr>
 <td colspan="9"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -413,39 +415,26 @@
 </tr>
 <tr>
 <td> </td>
-<td class="bgColor"><span class="labelText">17:41</span></td>
+<td class="bgColor"><span class="labelText">12:15</span></td>
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
-<td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 2</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4BE976CA4.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
-<td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
-<td class="bgColor"><span class="labelText">IC 2150 InterCity</span></td>
-<td rowspan="2" class="bgColor"></td>
+<td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 7</span></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A8A399.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/s_Bahn.gif" width="32" height="32" alt="S-Bahn"></td>
+<td class="bgColor"><span class="labelText">S-Bahn S1</span></td>
 </tr>
 <tr valign="middle">
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td class="bgColor"><span class="labelText">17:53</span></td>
+<td class="bgColor"><span class="labelText">12:33</span></td>
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
-<td class="bgColor"><span class="labelText">Duisburg Hbf: Gleis 2</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/16032_du_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4BE976CA5.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
-<td class="bgColor"><span class="labelText">Düsseldorf Hbf</span></td>
+<td class="bgColor"><span class="labelText">Duisburg Hbf: Gleis 5</span></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/16032_du_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A8A39A.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td class="bgColor"><span class="labelText">Solingen Hbf</span></td>
 </tr>
 <tr>
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td class="bgColor"><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="7" class="bgColor" align="left"><a class="addInfoTrip" href="#" onclick="window.open('http://217.70.161.100:80/cm/XSLT_CM_SHOWADDINFO_REQUEST?infoID=5394_EVAG_01&amp;seqID=1&amp;language=de', 'addInfo', 'width=500,height=500,location=no,menubar=no,status=no,toolbar=no,resizable=yes,scrollbars=yes');return false;"><span>Abweichung der Steig/Haltestellenummern am Essen Hbf</span></a></td>
-<td class="bgColor"></td>
-</tr>
-<tr>
-<td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="8" class="bgColor"><span class="labelText"><i>Fahrradmitnahme reservierungspflichtig</i></span></td>
-<td class="bgColor"></td>
-</tr>
-<tr>
-<td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="8" class="bgColor"><span class="labelText"><i>Fahrradmitnahme begrenzt möglich</i></span></td>
-<td class="bgColor"></td>
+<td colspan="8" class="bgColor"><span class="labelText"><i>Linie S1: Fahrradmitnahme begrenzt möglich</i></span></td>
 </tr>
 <tr>
 <td colspan="9"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -496,7 +485,6 @@
 <td width="2%" align="top"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
 <td width="10%" align="center"><a href="javascript:document.forms[0].itdLPxx_view.value='printview';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='nop';document.forms[0].submit();"><img src="images/drucker.jpg" width="20" height="20" border="0" alt="zur Druckversion der ausgewählten Verbindungen"></a> <input type="hidden" name="configurationFontSizeNormal" value="0"><a href="javascript:document.forms[0].command.value='toPDF';document.forms[0].itdLPxx_view.value='printview';document.forms[0].submit();"><img src="images/pdf.gif" width="20" height="20" border="0" alt="In Datei Drucken"></a>  </td>
 <td width="50%"><span class="labelTextBold">zur Druckversion der ausgewählten Verbindungen</span></td>
-<td><span class="labelText"><a href="http://www.bahn.de" style="text-decoration:underline;">www.bahn.de</a></span></td>
 <td width="38%" align="right"><span class="labelText">(Alle Angaben ohne Gewähr.) </span></td>
 </tr>
 <tr>

@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test::Command tests => (76 - 3*7);
+use Test::Command tests => 76;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -107,7 +107,6 @@ for my $opt (qw/-v --version/) {
 	$cmd->stderr_is_eq($EMPTY);
 }
 
-__END__
 
 for my $file (qw{
 	e_hbf_mh_hbf
