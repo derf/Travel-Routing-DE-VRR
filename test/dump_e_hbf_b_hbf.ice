@@ -40,7 +40,7 @@
 			{
 				if(document.forms[0].ppPersonNetPassword.value!=document.forms[0].ppPersonConfirmNetPassword.value || document.forms[0].ppPersonNetPassword.value=='')
 				{
-					alert('Ihre Passwortangaben sind ungültig. Bitte geben Sie zweimal dasselbe Passwort ein.');
+					alert('Ihre Passwortangaben sind ungÃ¼ltig. Bitte geben Sie zweimal dasselbe Passwort ein.');
 					document.forms[0].ppPersonNetPassword.value="";
 					document.forms[0].ppPersonConfirmNetPassword.value="";
 					return false;
@@ -66,7 +66,7 @@
 				'via' : '::',
 				'command' : ''
 			};
-			var sid = 'efa3.vrr.de_64267250';
+			var sid = 'efa2.vrr.de_65057343';
 			var curLanguage = 'de';
 			var dmStop = "Haltestelle";
 			var dmPOI = "wichtiger Punkt";
@@ -109,7 +109,7 @@
 					--></script><script>function initMdvMapConfig() {var usages = new Array("origin", "destination", "via", "dm", "stt");for(var i=0; i<usages.length; i++) {var usage = usages[i];mdvMapConfigs[usage] = mdvMapConfig.clone();mdvMapConfigs[usage].add("serverURL", "http://efa.vrr.de/maps/nrw/");mdvMapConfigs[usage].add("efaURL", "../lite/XSLT_COORD_REQUEST");mdvMapConfigs[usage].add("transparentImg", "images/transparent.gif");mdvMapConfigs[usage].add("defaultScale", "2");mdvMapConfigs[usage].add("toolTimeOut", "20");mdvMapConfigs[usage].add("zoomOnDoubleClick", "true");mdvMapConfigs[usage].add("useMagnifyGlass", "true");mdvMapConfigs[usage].add("cursorMove", "images/grabbing.cur");mdvMapConfigs[usage].add("poiArea", "true");mdvMapConfigs[usage].add("poiPoint", "true");mdvMapConfigs[usage].add("language", "de");mdvMapConfigs[usage].add("imagePath", "images/mdvMap/");mdvMapConfigs[usage].add("xCenterReal", "3368363");mdvMapConfigs[usage].add("yCenterReal", "450530");mdvMapConfigs[usage].add("mapName", "NAV3");mdvMapConfigs[usage].add("network", "NRW");mdvMapConfigs[usage].add("useBubbleForEFAInfo", "true");mdvMapConfigs[usage].add("info.stop.size.width", "250");mdvMapConfigs[usage].add("info.stop.size.height", "200");mdvMapConfigs[usage].add("info.poi.size.width", "250");mdvMapConfigs[usage].add("info.poi.size.height", "120");mdvMapConfigs[usage].add("useBubbleOverflowForEFAInfo", "true");mdvMapConfigs[usage].add("block", "100");mdvMapConfigs[usage].add("language", "de");mdvMiniMapConfigs[usage] = mdvMiniMapConfig.clone();mdvMiniMapConfigs[usage].add("serverURL", "http://efa.vrr.de/maps/nrw/");mdvMiniMapConfigs[usage].add("efaURL", "../lite/XSLT_COORD_REQUEST");mdvMiniMapConfigs[usage].add("transparentImg", "images/transparent.gif");mdvMiniMapConfigs[usage].add("defaultScale", "2");mdvMiniMapConfigs[usage].add("toolTimeOut", "20");mdvMiniMapConfigs[usage].add("zoomOnDoubleClick", "true");mdvMiniMapConfigs[usage].add("useMagnifyGlass", "true");mdvMiniMapConfigs[usage].add("cursorMove", "images/grabbing.cur");mdvMiniMapConfigs[usage].add("language", "de");mdvMiniMapConfigs[usage].add("imagePath", "images/mdvMap/");mdvMiniMapConfigs[usage].add("xCenterReal", "3368363");mdvMiniMapConfigs[usage].add("yCenterReal", "450530");mdvMiniMapConfigs[usage].add("mapName", "NAV3");mdvMiniMapConfigs[usage].add("network", "NRW");mdvMiniMapConfigs[usage].add("block", "100");mdvMiniMapConfigs[usage].add("language", "de");}}
 	</script></head>
 <body onload="">
-<form action="XSLT_TRIP_REQUEST2" id="jp" name="jp" method="POST"><input type="hidden" name="sessionID" id="sessionID" value="efa3.vrr.de_64267250"><input type="hidden" name="language" value="de"><input type="hidden" name="requestID" id="requestID" value="1"><input type="hidden" name="command" id="command" value=""><input type="hidden" name="itdLPxx_ShowFare" value=" "><input type="hidden" name="itdLPxx_view" value=""><input type="hidden" name="useRealtime" value="1"><input type="hidden" name="itdLPxx_enableMobilityRestrictionOptionsWithButton" value=""><input type="hidden" name="execInst" id="execInst" value=""><input type="hidden" name="itdLPxx_mdvMap2_origin" id="itdLPxx_mdvMap2_origin" value="::"><input type="hidden" name="itdLPxx_mdvMap2_destination" id="itdLPxx_mdvMap2_destination" value="::"><input type="hidden" name="itdLPxx_mdvMap2_via" id="itdLPxx_mdvMap2_via" value="::"><input type="hidden" name="itdLPxx_mapState_origin" id="itdLPxx_mapState_origin" value=""><input type="hidden" name="itdLPxx_mapState_destination" id="itdLPxx_mapState_destination" value=""><input type="hidden" name="itdLPxx_mapState_via" id="itdLPxx_mapState_via" value=""><input type="hidden" name="itdLPxx_mdvMap_origin" id="itdLPxx_mdvMap_origin" value="3361949:456292:NAV3"><input type="hidden" name="itdLPxx_mdvMap_destination" id="itdLPxx_mdvMap_destination" value="::"><input type="hidden" name="itdLPxx_mdvMap_via" id="itdLPxx_mdvMap_via" value="::"><input type="hidden" name="itdLPxx_command" id="itdLPxx_command" value=""><input type="hidden" name="itdLPxx_priceCalculator" id="itdLPxx_priceCalculator" value=""><input type="hidden" name="trip" value=""><input type="hidden" name="partialTrip" value=""><input type="hidden" name="itdLPxx_transpCompany" value="vrr"><table cellspacing="0" cellpadding="0" border="0">
+<form action="XSLT_TRIP_REQUEST2" id="jp" name="jp" method="POST"><input type="hidden" name="sessionID" id="sessionID" value="efa2.vrr.de_65057343"><input type="hidden" name="language" value="de"><input type="hidden" name="requestID" id="requestID" value="1"><input type="hidden" name="command" id="command" value=""><input type="hidden" name="itdLPxx_ShowFare" value=" "><input type="hidden" name="itdLPxx_view" value=""><input type="hidden" name="useRealtime" value="1"><input type="hidden" name="itdLPxx_enableMobilityRestrictionOptionsWithButton" value=""><input type="hidden" name="execInst" id="execInst" value=""><input type="hidden" name="itdLPxx_mdvMap2_origin" id="itdLPxx_mdvMap2_origin" value="::"><input type="hidden" name="itdLPxx_mdvMap2_destination" id="itdLPxx_mdvMap2_destination" value="::"><input type="hidden" name="itdLPxx_mdvMap2_via" id="itdLPxx_mdvMap2_via" value="::"><input type="hidden" name="itdLPxx_mapState_origin" id="itdLPxx_mapState_origin" value=""><input type="hidden" name="itdLPxx_mapState_destination" id="itdLPxx_mapState_destination" value=""><input type="hidden" name="itdLPxx_mapState_via" id="itdLPxx_mapState_via" value=""><input type="hidden" name="itdLPxx_mdvMap_origin" id="itdLPxx_mdvMap_origin" value="3361949:456292:NAV3"><input type="hidden" name="itdLPxx_mdvMap_destination" id="itdLPxx_mdvMap_destination" value="::"><input type="hidden" name="itdLPxx_mdvMap_via" id="itdLPxx_mdvMap_via" value="::"><input type="hidden" name="itdLPxx_command" id="itdLPxx_command" value=""><input type="hidden" name="itdLPxx_priceCalculator" id="itdLPxx_priceCalculator" value=""><input type="hidden" name="trip" value=""><input type="hidden" name="partialTrip" value=""><input type="hidden" name="itdLPxx_transpCompany" value="vrr"><table cellspacing="0" cellpadding="0" border="0">
 <tr>
 <td rowspan="3" valign="top" align="left" width="155">
 <table id="tabNav">
@@ -129,7 +129,7 @@
 <td><a href="XSLT_DM_REQUEST?language=de&amp;itdLPxx_transpCompany=vrr&amp;">Abfahrtsmonitor</a></td>
 </tr>
 <tr>
-<td><a href="XSLT_PS_REQUEST2?language=de&amp;itdLPxx_transpCompany=vrr&amp;">Persönlicher Fahrplan</a></td>
+<td><a href="XSLT_PS_REQUEST2?language=de&amp;itdLPxx_transpCompany=vrr&amp;">PersÃ¶nlicher Fahrplan</a></td>
 </tr>
 <tr>
 <td><a href="http://www.vrr.de/de/fahrplanauskunft/fahr_und_linienplaene/verbundfahrplan_schnellverkehr/index.html" target="vrr">Verbundfahrplan Schnellverkehr</a></td>
@@ -138,7 +138,7 @@
 <td><a href="http://www.vrr.de/de/fahrplanauskunft/fahr_und_linienplaene/linienplan_schnellverkehr/index.html" target="vrr">Linienplan Schnellverkehr</a></td>
 </tr>
 <tr>
-<td><a href="http://www.vrr.de/de/fahrplanauskunft/fahr_und_linienplaene/stadtlinienplaene/index.html" target="vrr">Stadtlinienpläne</a></td>
+<td><a href="http://www.vrr.de/de/fahrplanauskunft/fahr_und_linienplaene/stadtlinienplaene/index.html" target="vrr">StadtlinienplÃ¤ne</a></td>
 </tr>
 <tr>
 <td><a href="./Bedienungshinweise_de.htm" target="vrr">Bedienungshinweise</a></td>
@@ -289,9 +289,9 @@
 <table cellspacing="0" cellpadding="0" width="100%" border="0">
 <tr>
 <td width="2%" align="top"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
-<td width="10%" align="center"><a href="javascript:document.forms[0].itdLPxx_view.value='printview';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='nop';document.forms[0].submit();"><img src="images/drucker.jpg" width="20" height="20" border="0" alt="zur Druckversion der ausgewählten Verbindungen"></a> <input type="hidden" name="configurationFontSizeNormal" value="0"><a href="javascript:document.forms[0].command.value='toPDF';document.forms[0].itdLPxx_view.value='printview';document.forms[0].submit();"><img src="images/pdf.gif" width="20" height="20" border="0" alt="In Datei Drucken"></a>  </td>
-<td width="50%"><span class="labelTextBold">zur Druckversion der ausgewählten Verbindungen</span></td>
-<td width="38%" align="right"><span class="labelText">(Alle Angaben ohne Gewähr.) </span></td>
+<td width="10%" align="center"><a href="javascript:document.forms[0].itdLPxx_view.value='printview';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='nop';document.forms[0].submit();"><img src="images/drucker.jpg" width="20" height="20" border="0" alt="zur Druckversion der ausgewÃ¤hlten Verbindungen"></a> <input type="hidden" name="configurationFontSizeNormal" value="0"><a href="javascript:document.forms[0].command.value='toPDF';document.forms[0].itdLPxx_view.value='printview';document.forms[0].submit();"><img src="images/pdf.gif" width="20" height="20" border="0" alt="In Datei Drucken"></a>  </td>
+<td width="50%"><span class="labelTextBold">zur Druckversion der ausgewÃ¤hlten Verbindungen</span></td>
+<td width="38%" align="right"><span class="labelText">(Alle Angaben ohne GewÃ¤hr.) </span></td>
 </tr>
 <tr>
 <td colspan="4"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -307,10 +307,10 @@
 <table cellspacing="0" cellpadding="0" width="100%" border="0">
 <td><img src="images/dummy.gif" width="50" height="1" alt="*"></td>
 <td><input type="button" value="neue Fahrt" onClick="document.location.href='XSLT_TRIP_REQUEST2?language=de&amp;itdLPxx_transpCompany=vrr'"></td>
-<td><input type="button" value="Rückfahrt" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripRetoure';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
-<td><input type="button" value="Fahrt ändern" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='changeRequest';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
-<td><input type="button" value="früher" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripPrev';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
-<td><input type="button" value="später" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripNext';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
+<td><input type="button" value="RÃ¼ckfahrt" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripRetoure';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
+<td><input type="button" value="Fahrt Ã¤ndern" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='changeRequest';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
+<td><input type="button" value="frÃ¼her" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripPrev';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
+<td><input type="button" value="spÃ¤ter" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripNext';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
 <td><input type="button" value="Hilfe" onclick="window.open('Bedienungshinweise_de.htm', 'help', '');"></td>
 <td><img src="images/dummy.gif" width="50" height="1" alt="*"></td>
 </table>
@@ -334,10 +334,10 @@
 <tr>
 <td> </td>
 <td class="bgColor"><span class="labelText">11:23</span></td>
-<td class="bgColor nudgePartTrip"><div style="float:left;"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='1';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="früher" src="images/earlier.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='1';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">früher</a></div></td>
+<td class="bgColor nudgePartTrip"><div style="float:left;"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='1';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="frÃ¼her" src="images/earlier.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='1';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">frÃ¼her</a></div></td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 4</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A989E0.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A9BA70.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
 <td class="bgColor"><span class="labelText">ICE 547 InterCityExpress</span></td>
 </tr>
@@ -347,7 +347,7 @@
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
 <td class="bgColor"><span class="labelText">Hamm (Westf): Gleis 5 E-H</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A989E1.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A9BA71.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td class="bgColor"><span class="labelText">Berlin Ostbahnhof</span></td>
 </tr>
 <tr>
@@ -368,7 +368,7 @@
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2" colspan="4"><img src="images/dummy.gif" width="1" height="1"></td>
 <td colspan="2" align="center" class="bgColor2"> </td>
-<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug möglich</span></td>
+<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug mÃ¶glich</span></td>
 </tr>
 <tr valign="middle">
 <td colspan="8"><img src="images/dummy.gif" width="1" height="1"></td>
@@ -379,7 +379,7 @@
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Hamm (Westf): Gleis 5</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A989E2.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A9BA72.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
 <td class="bgColor"><span class="labelText">ICE 557 InterCityExpress</span></td>
 </tr>
@@ -410,7 +410,7 @@
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2" colspan="4"><img src="images/dummy.gif" width="1" height="1"></td>
 <td colspan="2" align="center" class="bgColor2"> </td>
-<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug möglich</span></td>
+<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug mÃ¶glich</span></td>
 </tr>
 <tr valign="middle">
 <td colspan="8"><img src="images/dummy.gif" width="1" height="1"></td>
@@ -428,7 +428,7 @@
 <tr valign="middle">
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor"><span class="labelText">15:08</span></td>
-<td class="bgColor nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='1';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="später" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='1';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">später</a></div></td>
+<td class="bgColor nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='1';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="spÃ¤ter" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='1';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">spÃ¤ter</a></div></td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
 <td class="bgColor"><span class="labelText">Berlin Hbf: Gleis 12 D - G</span></td>
 <td colspan="2" align="center" class="bgColor"></td>
@@ -439,7 +439,7 @@
 </tr>
 <tr>
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="8"><input type="checkbox" name="tripSelector1" checked="1"><span class="labelTextBold"> Verbindung zum Drucken auswählen</span></td>
+<td colspan="8"><input type="checkbox" name="tripSelector1" checked="1"><span class="labelTextBold"> Verbindung zum Drucken auswÃ¤hlen</span></td>
 </tr>
 <tr class="bgColor">
 <td colspan="3"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -457,10 +457,10 @@
 <tr>
 <td> </td>
 <td class="bgColor"><span class="labelText">12:23</span></td>
-<td class="bgColor nudgePartTrip"><div style="float:left;"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='2';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="früher" src="images/earlier.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='2';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">früher</a></div></td>
+<td class="bgColor nudgePartTrip"><div style="float:left;"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='2';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="frÃ¼her" src="images/earlier.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='2';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">frÃ¼her</a></div></td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 4</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A989E3.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A9BA73.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
 <td class="bgColor"><span class="labelText">ICE 849 InterCityExpress</span></td>
 </tr>
@@ -470,7 +470,7 @@
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
 <td class="bgColor"><span class="labelText">Hamm (Westf): Gleis 5 E-H</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A989E4.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A9BA74.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td class="bgColor"><span class="labelText">Berlin Ostbahnhof</span></td>
 </tr>
 <tr>
@@ -491,7 +491,7 @@
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2" colspan="4"><img src="images/dummy.gif" width="1" height="1"></td>
 <td colspan="2" align="center" class="bgColor2"> </td>
-<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug möglich</span></td>
+<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug mÃ¶glich</span></td>
 </tr>
 <tr valign="middle">
 <td colspan="8"><img src="images/dummy.gif" width="1" height="1"></td>
@@ -502,7 +502,7 @@
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Hamm (Westf): Gleis 5</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A989E5.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A9BA75.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
 <td class="bgColor"><span class="labelText">ICE 859 InterCityExpress</span></td>
 </tr>
@@ -533,7 +533,7 @@
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2" colspan="4"><img src="images/dummy.gif" width="1" height="1"></td>
 <td colspan="2" align="center" class="bgColor2"> </td>
-<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug möglich</span></td>
+<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug mÃ¶glich</span></td>
 </tr>
 <tr valign="middle">
 <td colspan="8"><img src="images/dummy.gif" width="1" height="1"></td>
@@ -551,7 +551,7 @@
 <tr valign="middle">
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor"><span class="labelText">16:11</span></td>
-<td class="bgColor nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='2';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="später" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='2';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">später</a></div></td>
+<td class="bgColor nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='2';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="spÃ¤ter" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='2';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">spÃ¤ter</a></div></td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
 <td class="bgColor"><span class="labelText">Berlin Hbf: Gleis 12 A - D</span></td>
 <td colspan="2" align="center" class="bgColor"></td>
@@ -562,7 +562,7 @@
 </tr>
 <tr>
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="8"><input type="checkbox" name="tripSelector2" checked="1"><span class="labelTextBold"> Verbindung zum Drucken auswählen</span></td>
+<td colspan="8"><input type="checkbox" name="tripSelector2" checked="1"><span class="labelTextBold"> Verbindung zum Drucken auswÃ¤hlen</span></td>
 </tr>
 <tr class="bgColor">
 <td colspan="3"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -580,10 +580,10 @@
 <tr>
 <td> </td>
 <td class="bgColor"><span class="labelText">13:23</span></td>
-<td class="bgColor nudgePartTrip"><div style="float:left;"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="früher" src="images/earlier.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">früher</a></div></td>
+<td class="bgColor nudgePartTrip"><div style="float:left;"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="frÃ¼her" src="images/earlier.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">frÃ¼her</a></div></td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 6</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A989E6.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A9BA76.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
 <td class="bgColor"><span class="labelText">ICE 549 InterCityExpress</span></td>
 </tr>
@@ -593,7 +593,7 @@
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
 <td class="bgColor"><span class="labelText">Hamm (Westf): Gleis 5 E-H</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A989E7.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A9BA77.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td class="bgColor"><span class="labelText">Berlin Ostbahnhof</span></td>
 </tr>
 <tr>
@@ -614,7 +614,7 @@
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2" colspan="4"><img src="images/dummy.gif" width="1" height="1"></td>
 <td colspan="2" align="center" class="bgColor2"> </td>
-<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug möglich</span></td>
+<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug mÃ¶glich</span></td>
 </tr>
 <tr valign="middle">
 <td colspan="8"><img src="images/dummy.gif" width="1" height="1"></td>
@@ -625,7 +625,7 @@
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Hamm (Westf): Gleis 5</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A989E8.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A9BA78.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
 <td class="bgColor"><span class="labelText">ICE 559 InterCityExpress</span></td>
 </tr>
@@ -656,7 +656,7 @@
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2" colspan="4"><img src="images/dummy.gif" width="1" height="1"></td>
 <td colspan="2" align="center" class="bgColor2"> </td>
-<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug möglich</span></td>
+<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug mÃ¶glich</span></td>
 </tr>
 <tr valign="middle">
 <td colspan="8"><img src="images/dummy.gif" width="1" height="1"></td>
@@ -674,7 +674,7 @@
 <tr valign="middle">
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor"><span class="labelText">16:54</span></td>
-<td class="bgColor nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="später" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">später</a></div></td>
+<td class="bgColor nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="spÃ¤ter" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">spÃ¤ter</a></div></td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
 <td class="bgColor"><span class="labelText">Berlin-Spandau: Gleis 6 A - C</span></td>
 <td colspan="2" align="center" class="bgColor"></td>
@@ -696,7 +696,7 @@
 <tr valign="middle">
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2"><span class="labelText">17:03</span></td>
-<td class="bgColor2 nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='6';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="später" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='6';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">später</a></div></td>
+<td class="bgColor2 nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='6';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="spÃ¤ter" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='3';document.forms[0].partialTrip.value='6';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">spÃ¤ter</a></div></td>
 <td align="right" class="bgColor2"><span class="labelText">an </span></td>
 <td class="bgColor2"><span class="labelText">Berlin Hbf</span></td>
 <td colspan="2" align="center" class="bgColor2"></td>
@@ -711,7 +711,7 @@
 </tr>
 <tr>
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="8"><input type="checkbox" name="tripSelector3" checked="1"><span class="labelTextBold"> Verbindung zum Drucken auswählen</span></td>
+<td colspan="8"><input type="checkbox" name="tripSelector3" checked="1"><span class="labelTextBold"> Verbindung zum Drucken auswÃ¤hlen</span></td>
 </tr>
 <tr class="bgColor">
 <td colspan="3"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -729,10 +729,10 @@
 <tr>
 <td> </td>
 <td class="bgColor"><span class="labelText">13:23</span></td>
-<td class="bgColor nudgePartTrip"><div style="float:left;"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='4';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="früher" src="images/earlier.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='4';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">früher</a></div></td>
+<td class="bgColor nudgePartTrip"><div style="float:left;"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='4';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="frÃ¼her" src="images/earlier.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='prevPartialTrip';document.forms[0].trip.value='4';document.forms[0].partialTrip.value='1';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">frÃ¼her</a></div></td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Essen Hauptbahnhof: Gleis 6</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A989E9.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="/download/envmaps/vrr/09289_e_hbf_1.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_2.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="/download/envmaps/vrr/09289_e_hbf_3.htm" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/bitmapThumb.gif" width="16" height="16" border="0" alt="Umgebungsplan" title="Umgebungsplan"></a><a href="FILELOAD?Filename=dwa_4C0A9BA79.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
 <td class="bgColor"><span class="labelText">ICE 549 InterCityExpress</span></td>
 </tr>
@@ -742,7 +742,7 @@
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
 <td class="bgColor"><span class="labelText">Hamm (Westf): Gleis 5 E-H</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A989EA.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A9BA7A.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td class="bgColor"><span class="labelText">Berlin Ostbahnhof</span></td>
 </tr>
 <tr>
@@ -763,7 +763,7 @@
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2" colspan="4"><img src="images/dummy.gif" width="1" height="1"></td>
 <td colspan="2" align="center" class="bgColor2"> </td>
-<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug möglich</span></td>
+<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug mÃ¶glich</span></td>
 </tr>
 <tr valign="middle">
 <td colspan="8"><img src="images/dummy.gif" width="1" height="1"></td>
@@ -774,7 +774,7 @@
 <td class="bgColor"> </td>
 <td align="right" class="bgColor"><span class="labelText">ab </span></td>
 <td class="bgColor"><span class="labelText">Hamm (Westf): Gleis 5</span></td>
-<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A989EB.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
+<td colspan="2" align="center" class="bgColor"><a href="FILELOAD?Filename=dwa_4C0A9BA7B.pdf" target="mapWindow"><img src="images/dummy.gif" width="5" height="1" border="0" alt="*"><img src="images/pdfThumb.gif" width="16" height="16" border="0" alt="Stadtplan" title="Stadtplan"></a></td>
 <td rowspan="2" align="right" class="bgColor" style="padding-right:3px;"><img src="images/means/train.gif" width="32" height="32" alt="Zug"></td>
 <td class="bgColor"><span class="labelText">ICE 559 InterCityExpress</span></td>
 </tr>
@@ -805,7 +805,7 @@
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor2" colspan="4"><img src="images/dummy.gif" width="1" height="1"></td>
 <td colspan="2" align="center" class="bgColor2"> </td>
-<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug möglich</span></td>
+<td class="bgColor2"><span class="labelText">Weiterfahrt im selben Fahrzeug mÃ¶glich</span></td>
 </tr>
 <tr valign="middle">
 <td colspan="8"><img src="images/dummy.gif" width="1" height="1"></td>
@@ -823,7 +823,7 @@
 <tr valign="middle">
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
 <td class="bgColor"><span class="labelText">17:08</span></td>
-<td class="bgColor nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='4';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="später" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='4';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">später</a></div></td>
+<td class="bgColor nudgePartTrip"><div style="float: left;"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='4';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"><img alt="spÃ¤ter" src="images/later.gif" border="0"></a></div><div class="labelTextBold"><a href="javascript:document.forms[0].command.value='nextPartialTrip';document.forms[0].trip.value='4';document.forms[0].partialTrip.value='5';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();">spÃ¤ter</a></div></td>
 <td align="right" class="bgColor"><span class="labelText">an </span></td>
 <td class="bgColor"><span class="labelText">Berlin Hbf: Gleis 12 A - D</span></td>
 <td colspan="2" align="center" class="bgColor"></td>
@@ -834,7 +834,7 @@
 </tr>
 <tr>
 <td><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
-<td colspan="8"><input type="checkbox" name="tripSelector4" checked="1"><span class="labelTextBold"> Verbindung zum Drucken auswählen</span></td>
+<td colspan="8"><input type="checkbox" name="tripSelector4" checked="1"><span class="labelTextBold"> Verbindung zum Drucken auswÃ¤hlen</span></td>
 </tr>
 <tr class="bgColor">
 <td colspan="3"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -854,10 +854,10 @@
 <tr>
 <td width="2%"></td>
 <td valign="center"><img src="images/Rbl_nOK.gif" width="13" height="30" border="0" title="Abweichung" alt="Abweichung"></td>
-<td valign="center"><span class="labelText" valign="center">Verspätungen sind berücksichtigt</span></td>
+<td valign="center"><span class="labelText" valign="center">VerspÃ¤tungen sind berÃ¼cksichtigt</span></td>
 <td width="2%"></td>
-<td valign="center"><img src="images/Rbl.gif" width="13" height="30" border="0" title="Pünktlich" alt="Pünktlich"></td>
-<td valign="center"><span class="labelText" valign="center">Fahrt voraussichtlich pünktlich</span></td>
+<td valign="center"><img src="images/Rbl.gif" width="13" height="30" border="0" title="PÃ¼nktlich" alt="PÃ¼nktlich"></td>
+<td valign="center"><span class="labelText" valign="center">Fahrt voraussichtlich pÃ¼nktlich</span></td>
 </tr>
 </table>
 </td>
@@ -876,9 +876,9 @@
 <table cellspacing="0" cellpadding="0" width="100%" border="0">
 <tr>
 <td width="2%" align="top"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
-<td width="10%" align="center"><a href="javascript:document.forms[0].itdLPxx_view.value='printview';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='nop';document.forms[0].submit();"><img src="images/drucker.jpg" width="20" height="20" border="0" alt="zur Druckversion der ausgewählten Verbindungen"></a> <input type="hidden" name="configurationFontSizeNormal" value="0"><a href="javascript:document.forms[0].command.value='toPDF';document.forms[0].itdLPxx_view.value='printview';document.forms[0].submit();"><img src="images/pdf.gif" width="20" height="20" border="0" alt="In Datei Drucken"></a>  </td>
-<td width="50%"><span class="labelTextBold">zur Druckversion der ausgewählten Verbindungen</span></td>
-<td width="38%" align="right"><span class="labelText">(Alle Angaben ohne Gewähr.) </span></td>
+<td width="10%" align="center"><a href="javascript:document.forms[0].itdLPxx_view.value='printview';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='nop';document.forms[0].submit();"><img src="images/drucker.jpg" width="20" height="20" border="0" alt="zur Druckversion der ausgewÃ¤hlten Verbindungen"></a> <input type="hidden" name="configurationFontSizeNormal" value="0"><a href="javascript:document.forms[0].command.value='toPDF';document.forms[0].itdLPxx_view.value='printview';document.forms[0].submit();"><img src="images/pdf.gif" width="20" height="20" border="0" alt="In Datei Drucken"></a>  </td>
+<td width="50%"><span class="labelTextBold">zur Druckversion der ausgewÃ¤hlten Verbindungen</span></td>
+<td width="38%" align="right"><span class="labelText">(Alle Angaben ohne GewÃ¤hr.) </span></td>
 </tr>
 <tr>
 <td colspan="4"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
@@ -894,10 +894,10 @@
 <table cellspacing="0" cellpadding="0" width="100%" border="0">
 <td><img src="images/dummy.gif" width="50" height="1" alt="*"></td>
 <td><input type="button" value="neue Fahrt" onClick="document.location.href='XSLT_TRIP_REQUEST2?language=de&amp;itdLPxx_transpCompany=vrr'"></td>
-<td><input type="button" value="Rückfahrt" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripRetoure';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
-<td><input type="button" value="Fahrt ändern" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='changeRequest';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
-<td><input type="button" value="früher" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripPrev';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
-<td><input type="button" value="später" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripNext';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
+<td><input type="button" value="RÃ¼ckfahrt" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripRetoure';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
+<td><input type="button" value="Fahrt Ã¤ndern" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='changeRequest';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
+<td><input type="button" value="frÃ¼her" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripPrev';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
+<td><input type="button" value="spÃ¤ter" onClick="document.forms[0].itdLPxx_view.value='';document.forms[0].itdLPxx_ShowFare.value='';document.forms[0].command.value='tripNext';document.forms[0].itdLPxx_view.value='';document.forms[0].submit();"></td>
 <td><input type="button" value="Hilfe" onclick="window.open('Bedienungshinweise_de.htm', 'help', '');"></td>
 <td><img src="images/dummy.gif" width="50" height="1" alt="*"></td>
 </table>

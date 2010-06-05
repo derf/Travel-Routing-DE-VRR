@@ -25,6 +25,8 @@ my ($from_type, $to_type, $via_type) = ('stop') x 3;
 my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
 
+binmode(STDOUT, ':utf8');
+
 sub check_ambiguous {
 	my ($full_tree) = @_;
 	my $xp_select = '//select';
