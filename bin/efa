@@ -6,8 +6,10 @@ use strict;
 use warnings;
 use encoding 'utf8';
 use 5.010;
+
 use Encode;
 use Getopt::Long qw/:config no_ignore_case/;
+use HTML::TreeBuilder::XPath;
 use WWW::Mechanize;
 
 my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
@@ -19,7 +21,6 @@ my %post;
 my $www = WWW::Mechanize->new(
 	autocheck => 1,
 );
-my $raw;
 my (@from, @to, @via);
 my ($from_type, $to_type, $via_type) = ('stop') x 3;
 my ($time, $time_depart, $time_arrive);
@@ -31,183 +32,16 @@ my $prefer;
 my $proximity;
 my $walk_speed;
 my $with_bike;
-my $debug = 0;
 my $timeout = 60;
 my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
 
-sub check_ambiguous {
-	my $html = shift;
-	my $choose_re = qr{
-		<span \s class="errorTextBold">
-		Bitte \s auswählen
-		</span>
-	}x;
-	my $select_re = qr{
-		<select \s name="
-		(?<what>
-			( place | type | name )
-			_
-			( origin | destination )
-		) "
-	}x;
-	my $option_re = qr{
-		<option \s value=" \d+ ( : \d+ )* "
-		( \s selected )? >
-		(?<choice> [^<]+ )
-		</option>
-	}x;
-
-	if ($html =~ /$choose_re/s) {
-		foreach (split(/$choose_re/s, $html)) {
-			if (/$select_re/) {
-				print "Ambiguous input for $+{what}\n";
-			}
-			while (/$option_re/gs) {
-				print "\t$+{choice}\n";
-			}
-		}
-		return 1;
-	}
-	return 0;
-}
-
-sub parse_content {
-	my $input = shift;
-	my $groupsize = 8;
-	my $return;
-	my $time_re = qr{ \d+ : \d+ }x;
-	my $ext_time_re = qr{
-		^ (
-			$time_re
-			|
-			ab \s
-			|
-		) $
-	}x;
-	my $anschluss_re = qr{
-		^ (
-			Fußweg
-			|
-			Anschluss \s wird .* abgewartet
-		)
-	}x;
-
-	for my $offer (0 .. $#{$input}) {
-		foreach (@{$input->[$offer]}) {
-			s/\s* <br> \s*/, /gx;
-			s/< [^>]+ >//gx;
-		}
-
-		for (my $i = 0; @{$input->[$offer]} >= (($i+1) * $groupsize) - 1; $i++) {
-			my $offset = $i * $groupsize;
-			my @extra;
-			if (
-			     $input->[$offer]->[$offset+2] =~ $anschluss_re
-			  or $input->[$offer]->[$offset+3] =~ / ^ Fußweg /x
-			) {
-				# These are generic and usually lack both the time and the last element
-				if ($input->[$offer]->[$offset  ] !~ $time_re) {splice(@{$input->[$offer]}, $offset  , 0, '')}
-				if ($input->[$offer]->[$offset+4] !~ $time_re) {splice(@{$input->[$offer]}, $offset+4, 0, '')}
-				splice(@{$input->[$offer]}, $offset+7, 0, '');
-			}
-
-			for my $j (0, 4, 8) {
-				while (
-					exists $input->[$offer]->[$offset+$j]
-					and $input->[$offer]->[$offset+$j] !~ $ext_time_re
-					and $input->[$offer]->[$offset+$j] ne 'Verspätungen sind berücksichtigt'
-				) {
-					if ($input->[$offer]->[$offset+$j] =~ /^ \s* $/x) {
-						splice(@{$input->[$offer]}, $offset+$j, 1);
-					}
-					else {
-						push(@extra, splice(@{$input->[$offer]}, $offset+$j, 1));
-					}
-				}
-			}
-
-			$return->[$offer]->[$i] = {
-				deptime  => $input->[$offer]->[$offset],
-				dep      => $input->[$offer]->[$offset+1],
-				depstop  => $input->[$offer]->[$offset+2],
-				deptrain => $input->[$offer]->[$offset+3],
-				depdest  => $input->[$offer]->[$offset+7],
-				arrtime  => $input->[$offer]->[$offset+4],
-				arr      => $input->[$offer]->[$offset+5],
-				arrstop  => $input->[$offer]->[$offset+6],
-			};
-			@{$return->[$offer]->[$i]->{extra}} = @extra;
-		}
-	}
-	return $return;
-}
-
-sub prepare_content {
-	my $html = shift;
-	my $offer = 0;
-	my $return;
-	my $split_re = qr{
-		<span \s class="labelTextBold">
-		\s \d+ \. \s Fahrt
-		</span>
-	}x;
-	my $content_re = qr{
-		<span \s class="labelText" ( \s valign="center" )? >
-		(?<content> .+ )
-		</span> </td>
-	}x;
-
-	foreach my $chunk (split($split_re, $html)) {
-		if ($offer == 0) {
-			$offer++;
-			next;
-		}
-		foreach my $line (split(/\n/, $chunk)) {
-			if ($line =~ $content_re) {
-				push(@{$return->[$offer-1]}, $+{content});
-			}
-		}
-		$offer++;
-	}
-	return $return;
-}
-
-sub show_content {
-	my $connections = shift;
-	my $first = 0;
-
-	foreach my $connection (@{$connections}) {
-		if ($first) {
-			print "------\n\n";
-		}
-		else {
-			$first = 1;
-		}
-
-		foreach my $part (@{$connection}) {
-			foreach (@{$part->{extra}}) {
-				if (not (length($ignore_info) and $_ =~ /$ignore_info/i)) {
-					print "# $_\n";
-				}
-			}
-
-			printf(
-				"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
-				$part->{deptime}, $part->{dep}, $part->{depstop}, $part->{deptrain},
-				$part->{depdest}, $part->{arrtime}, $part->{arr}, $part->{arrstop}
-			);
-
-		}
-	}
-	return;
-}
+my $xp_ambiguous = '//select';
 
 GetOptions(
 	'a|arrive=s'     => \$time_arrive,
 	'b|bike'         => \$with_bike,
 	'd|date=s'       => \$date,
-	'D|debug'        => \$debug,
 	'depart=s'       => \$time_depart,
 	'e|exclude=s'    => \@exclude,
 	'from=s{2}'      => \@from,
@@ -389,28 +223,87 @@ if ($test_dump) {
 	exit 0
 }
 
-if (check_ambiguous($content)) {
+my $tree = HTML::TreeBuilder::XPath->new_from_content($content);
+
+if ($tree->exists($xp_ambiguous)) {
+	foreach my $select (@{$tree->findnodes($xp_ambiguous)}) {
+		printf(
+			"Ambiguous input: %s\n",
+			$select->attr('name'),
+		);
+		foreach my $val ($select->findnodes_as_strings('./option')) {
+			say "\t$val";
+		}
+	}
 	exit 1;
 }
 
-$raw = prepare_content($content);
+my @chunk;
+my $con_part = 0;
+my $no = 0;
+my $connections;
 
-if ($debug) {
-	print STDERR "custom post values used in query:\n";
-	foreach (keys(%post)) {
-		print STDERR "\t$_ => $post{$_}\n";
-	}
-
-	print STDERR "\nraw response:\n";
-	foreach (@{$raw}) {
-		print STDERR "---\n";
-		foreach (@{$_}) {
-			print STDERR "$_\n";
+foreach my $row (@{$tree->findnodes('//table//table/tr')}) {
+	foreach (@{$row->findnodes(
+		'./td[@class="bgColor"] | '.
+		'./td[@class="bgColor2"] | '.
+		'./td[@colspan="8"]')})
+	{
+		if (defined $_->attr('colspan') and $_->attr('colspan') == 8) {
+			if ($_->as_text() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
+				$no = $+{'no'} - 1;
+				$con_part = 0;
+				next;
+			}
+		}
+		if (defined $_->attr('class') and $_->attr('class') =~ /^bgColor2?$/) {
+			if ($_->attr('class') eq 'bgColor' and ($con_part % 2) == 1) {
+				$con_part++;
+			}
+			elsif ($_->attr('class') eq 'bgColor2' and ($con_part % 2) == 0) {
+				$con_part++;
+			}
+		}
+		if (not $_->exists('./img') and $_->as_text() !~ /^\s*$/) {
+			push(@{$connections->[$no]->[$con_part]}, $_->as_text());
 		}
 	}
 }
 
-show_content(parse_content($raw));
+if (@{$connections} == 0) {
+	die("Got no connections, parse error?\n");
+}
+
+for my $i (0 .. $#{$connections}) {
+	for my $j (0 .. $#{$connections->[$i]}) {
+
+		if ($connections->[$i]->[$j]->[0] !~ / \d{2} : \d{2} /ox) {
+			splice(@{$connections->[$i]->[$j]}, 0, 0, q{});
+			splice(@{$connections->[$i]->[$j]}, 4, 0, q{});
+			$connections->[$i]->[$j]->[7] = q{};
+		}
+		elsif ($connections->[$i]->[$j]->[4] =~ / Plan: \s ab /ox) {
+			printf(
+				"# %s\n",
+				splice(@{$connections->[$i]->[$j]}, 4, 1),
+			);
+		}
+
+		foreach my $extra (splice(@{$connections->[$i]->[$j]}, 8, -1)) {
+			if (not (length($ignore_info) and $extra =~ /$ignore_info/i)) {
+				say "# $extra";
+			}
+		}
+
+		printf(
+			"%-5s %-2s %-30s %-20s %s\n%-5s %-2s %-30s\n\n",
+			@{$connections->[$i]->[$j]}[0, 1, 2, 3, 7, 4, 5, 6],
+		)
+	}
+	if ($i != $#{$connections}) {
+		print "------\n\n";
+	}
+}
 
 __END__
 
@@ -543,11 +436,6 @@ If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be i
 =item B<--timeout> I<seconds>
 
 Set timeout for HTTP requests. Default: 60 seconds.
-
-=item B<-D>|B<--debug>
-
-Display debug information (additional post requests sent to the site,
-raw items received from the site)
 
 =item B<--post> I<key>=I<value>
 

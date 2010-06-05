@@ -1,3 +1,7 @@
+git HEAD
+
+    * Rewrite efa parser using HTML::TreeBuilder::XPath
+
 efa 1.1.2 - Wed May 12 2010
 
     * Fix -v
