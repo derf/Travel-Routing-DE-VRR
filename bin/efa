@@ -52,6 +52,13 @@ sub display_connection {
 
 	for my $con (@{$con_parts}) {
 
+		if (@{$con} < 5) {
+			foreach my $str (@{$con}) {
+				say "# $str";
+			}
+			next;
+		}
+
 		if ($con->[0] !~ / \d{2} : \d{2} /ox) {
 			splice(@{$con}, 0, 0, q{});
 			splice(@{$con}, 4, 0, q{});
