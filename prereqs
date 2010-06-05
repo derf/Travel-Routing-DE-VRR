@@ -1,2 +1,3 @@
 depend perlmodule Getopt::Long
+depend perlmodule HTML::TreeBuilder::XPath
 depend perlmodule WWW::Mechanize

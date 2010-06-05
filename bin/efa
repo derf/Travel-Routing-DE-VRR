@@ -485,9 +485,9 @@ Print version information
 
 =head1 EXIT STATUS
 
-Non-Zero on grave errors, otherwise zero. Note that there are cases where
-B<efa> returns zero although it didn't work properly (i.e. displays an empty
-result).
+Zero if everything went well (or at least if B<efa> thinks so), one if you
+gave ambiguous input and need to re-run B<efa> with different arguments. 255
+on any other kind of error.
 
 =head1 CONFIGURATION
 
@@ -495,12 +495,15 @@ None.
 
 =head1 DEPENDENCIES
 
-This script requires the WWW::Mechanize module and perl 5.10 (or higher).
+This script requires perl 5.10 (or higher) with the modules
+HTML::TreeBuilder::XPath and WWW::Mechanize.
 
 =head1 BUGS AND LIMITATIONS
 
-The Unicode handling is slightly messed up. Therefore, arguments to B<efa>
-should always be plain ASCII (ue instead of E<uuml> etc).
+B<efa> cannot handle Unicode in its arguments, so use plain ASCII.
+
+The Parser is quite new and may not yet cover all corner cases, use with
+caution.
 
 =head1 AUTHOR
 
