@@ -308,7 +308,11 @@ else {
 		fields => \%post,
 	);
 
-	# The content actually is iso-8859-1, but HTML::Message seems to be buggy
+	# XXX (workaround)
+	# The content actually is iso-8859-1. But HTML::Message doesn't actually
+	# decode character strings when they have that encoding. So we specify
+	# iso-8859-15, which makes HTML::Message do the decoding and is similar
+	# enough for our purpose.
 	$content = $www->response()->decoded_content(charset => 'iso-8859-15');
 }
 
