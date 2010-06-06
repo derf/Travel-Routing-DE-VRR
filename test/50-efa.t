@@ -14,15 +14,13 @@ my $EMPTY = '';
 my $re_usage = qr{Insufficient to/from arguments, see \S*efa --help for usage};
 my $re_version = qr{\S*efa version \S+};
 
-my $err_exclude = "Invalid argument. See manpage for --exclude usage\n";
-my $err_prefer  = "Invalid argument. Usage: --prefer speed|nowait|nowalk\n";
-my $err_include = "Invalid argument. Usage: --include local|ic|ice\n";
-my $err_time    = "Invalid argument. Usage: --time HH:MM\n";
-my $err_date    = "Invalid argument: Usage: --date DD.MM.[YYYY]\n";
-my $err_common  = "Please see bin/efa --help\n";
-
-my $err_walk_speed
-	= "Invalid argument. Uaseg: --walk-speed normal|fast|slow\n";
+my $err_exclude    = "exclude: Invalid argument.\n";
+my $err_prefer     = "prefer: Invalid argument. Use speed|nowait|nowalk\n";
+my $err_include    = "include: Invalid argument. Use local|ic|ice\n";
+my $err_time       = "time: Invalid argument. Use HH:MM\n";
+my $err_date       = "date: Invalid argument: Use DD.MM.[YYYY]\n";
+my $err_walk_speed = "walk-speed: Invalid argument. Use normal|fast|slow\n";
+my $err_common     = "Please see bin/efa --help\n";
 
 # Usage on invalid invocation
 my $cmd = Test::Command->new(cmd => "$efa");

@@ -97,7 +97,7 @@ sub opt_time {
 	my (undef, $time) = @_;
 
 	if ($time !~ /^ [0-2]? \d : [0-5]? \d $/x) {
-		die("Invalid argument. Usage: --time HH:MM\n");
+		die("time: Invalid argument. Use HH:MM\n");
 	}
 	@post{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
 }
@@ -106,7 +106,7 @@ sub opt_date {
 	my (undef, $date) = @_;
 
 	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
-		die("Invalid argument: Usage: --date DD.MM.[YYYY]\n");
+		die("date: Invalid argument: Use DD.MM.[YYYY]\n");
 	}
 	@post{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
 	$post{itdDateYear} //= (localtime(time))[5] + 1900;
@@ -130,7 +130,7 @@ sub opt_exclude {
 		}
 	}
 	if (not $ok) {
-		die("Invalid argument. See manpage for --exclude usage\n");
+		die("exclude: Invalid argument.\n");
 	}
 }
 
@@ -147,7 +147,7 @@ sub opt_prefer {
 		when ('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
 		when ('nowalk') { $post{routeType} = 'LEASTWALKING' }
 		default {
-			die("Invalid argument. Usage: --prefer speed|nowait|nowalk\n");
+			die("prefer: Invalid argument. Use speed|nowait|nowalk\n");
 		}
 	}
 }
@@ -165,7 +165,7 @@ sub opt_include {
 		when ('ice')   { $post{lineRestriction} = 400 }
 		when (/\d+/)   { $post{lineRestriction} = $include }
 		default {
-			die("Invalid argument. Usage: --include local|ic|ice\n");
+			die("include: Invalid argument. Use local|ic|ice\n");
 		}
 	}
 }
@@ -177,7 +177,7 @@ sub opt_walk_speed {
 		$post{changeSpeed} = $walk_speed;
 	}
 	else {
-		die("Invalid argument. Uaseg: --walk-speed normal|fast|slow\n");
+		die("walk-speed: Invalid argument. Use normal|fast|slow\n");
 	}
 }
 
