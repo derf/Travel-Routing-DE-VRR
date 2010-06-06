@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test::Command tests => 79;
+use Test::Command tests => 82;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -143,4 +143,12 @@ $cmd = Test::Command->new(
 
 $cmd->exit_is_num(1);
 $cmd->stdout_is_file('test/parse_ambiguous');
+$cmd->stderr_is_eq($EMPTY);
+
+$cmd = Test::Command->new(
+	cmd => "$efa $test_parse < test/dump_no_connections"
+);
+
+$cmd->exit_is_num(2);
+$cmd->stdout_is_file('test/parse_no_connections');
 $cmd->stderr_is_eq($EMPTY);

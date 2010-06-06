@@ -50,6 +50,24 @@ sub check_ambiguous {
 	}
 }
 
+sub check_no_connections {
+	my ($full_tree) = @_;
+
+	my $xp_err_img = XML::LibXML::XPathExpression->new(
+		'//td/img[@src="images/ausrufezeichen.jpg"]');
+
+	my $err_node = $full_tree->findnodes($xp_err_img)->[0];
+
+	if ($err_node) {
+		say "Looks like efa.vrr.de showed an error.";
+		say "I will now try to dump the error message:";
+
+		say $err_node->parentNode()->parentNode()->textContent();
+
+		exit 2;
+	}
+}
+
 sub display_connection {
 	my ($con_parts) = @_;
 
@@ -340,6 +358,7 @@ if ($test_dump) {
 my $tree = XML::LibXML->load_html(string => $content);
 
 check_ambiguous($tree);
+check_no_connections($tree);
 
 $connections = parse_tree($tree);
 
