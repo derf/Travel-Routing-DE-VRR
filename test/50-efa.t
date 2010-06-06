@@ -142,21 +142,21 @@ $cmd = Test::Command->new(
 );
 
 $cmd->exit_is_num(1);
-$cmd->stdout_is_file('test/parse_ambiguous');
-$cmd->stderr_is_eq($EMPTY);
+$cmd->stdout_is_eq($EMPTY);
+$cmd->stderr_is_file('test/parse_ambiguous');
 
 $cmd = Test::Command->new(
 	cmd => "$efa $test_parse < test/dump_no_connections"
 );
 
 $cmd->exit_is_num(2);
-$cmd->stdout_is_file('test/parse_no_connections');
-$cmd->stderr_is_eq($EMPTY);
+$cmd->stdout_is_eq($EMPTY);
+$cmd->stderr_is_file('test/parse_no_connections');
 
 $cmd = Test::Command->new(
 	cmd => "$efa $test_parse < test/dump_invalid_input"
 );
 
 $cmd->exit_is_num(3);
-$cmd->stdout_is_file('test/parse_invalid_input');
-$cmd->stderr_is_eq($EMPTY);
+$cmd->stdout_is_eq($EMPTY);
+$cmd->stderr_is_file('test/parse_invalid_input');

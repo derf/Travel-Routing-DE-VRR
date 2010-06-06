@@ -26,6 +26,7 @@ my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
 
 binmode(STDOUT, ':utf8');
+binmode(STDERR, ':utf8');
 
 sub check_ambiguous {
 	my ($full_tree) = @_;
@@ -36,13 +37,13 @@ sub check_ambiguous {
 
 	foreach my $select (@{$full_tree->findnodes($xp_select)}) {
 		$ambiguous = 1;
-		printf(
+		printf {*STDERR} (
 			"Ambiguous input for %s\n",
 			$select->getAttribute('name'),
 		);
 		foreach my $val ($select->findnodes($xp_option)) {
-			print "\t";
-			say $val->textContent();
+			print {*STDERR} "\t";
+			say {*STDERR} $val->textContent();
 		}
 	}
 	if ($ambiguous) {
@@ -59,10 +60,10 @@ sub check_no_connections {
 	my $err_node = $full_tree->findnodes($xp_err_img)->[0];
 
 	if ($err_node) {
-		say "Looks like efa.vrr.de showed an error.";
-		say "I will now try to dump the error message:";
+		say {*STDERR} "Looks like efa.vrr.de showed an error.";
+		say {*STDERR} "I will now try to dump the error message:";
 
-		say $err_node->parentNode()->parentNode()->textContent();
+		say {*STDERR} $err_node->parentNode()->parentNode()->textContent();
 
 		exit 2;
 	}
@@ -268,7 +269,8 @@ sub parse_tree {
 		return $cons;
 	}
 	else {
-		say "efa.vrr.de returned no connections, check your input data.";
+		say {*STDERR}
+			"efa.vrr.de returned no connections, check your input data.";
 		exit 3;
 	}
 }
