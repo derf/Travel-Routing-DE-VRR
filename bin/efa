@@ -237,7 +237,7 @@ sub parse_tree {
 			}
 		}
 
-		if (not @{$td->findnodes($xp_img)} and $td->textContent() !~ /^\s*$/) {
+		if (not $td->exists($xp_img) and $td->textContent() !~ /^\s*$/) {
 			push(@{$cons->[$con_no]->[$con_part]}, $td->textContent());
 		}
 	}
