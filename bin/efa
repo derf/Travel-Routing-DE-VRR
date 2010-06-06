@@ -7,7 +7,7 @@ use warnings;
 use 5.010;
 
 use Getopt::Long qw/:config no_ignore_case/;
-use HTML::TreeBuilder::LibXML;
+use XML::LibXML;
 use WWW::Mechanize;
 
 my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
@@ -31,15 +31,18 @@ sub check_ambiguous {
 	my ($full_tree) = @_;
 	my $ambiguous = 0;
 
-	foreach my $select (@{$full_tree->findnodes('//select')}) {
+	my $xp_select = XML::LibXML::XPathExpression->new('//select');
+	my $xp_option = XML::LibXML::XPathExpression->new('./option');
+
+	foreach my $select (@{$full_tree->findnodes($xp_select)}) {
 		$ambiguous = 1;
 		printf(
 			"Ambiguous input for %s\n",
-			$select->attr('name'),
+			$select->getAttribute('name'),
 		);
-		foreach my $val ($select->findnodes('./option')) {
+		foreach my $val ($select->findnodes($xp_option)) {
 			print "\t";
-			say $val->as_trimmed_text();
+			say $val->textContent();
 		}
 	}
 	if ($ambiguous) {
@@ -51,6 +54,13 @@ sub display_connection {
 	my ($con_parts) = @_;
 
 	for my $con (@{$con_parts}) {
+
+		# Note: Idets @{$con} elements
+		foreach my $str (@{$con}) {
+			$str =~ s/[\s\n\t]+/ /gs;
+			$str =~ s/^ //;
+			$str =~ s/ $//;
+		}
 
 		if (@{$con} < 5) {
 			foreach my $str (@{$con}) {
@@ -198,19 +208,20 @@ sub parse_tree {
 	my $con_no = 0;
 	my $cons;
 
-	foreach my $td (@{$full_tree->findnodes('//table//table/tr/td')}) {
+	my $xp_td = XML::LibXML::XPathExpression->new('//table//table/tr/td');
+	my $xp_img = XML::LibXML::XPathExpression->new('./img');
 
-		my $colspan = $td->attr('colspan') // 0;
-		my $class   = $td->attr('class')   // q{};
+	foreach my $td (@{$full_tree->findnodes($xp_td)}) {
 
-		# Putting these into the XPath expression would lead to noticable (1
-		# to 2 seconds) performance penalties
+		my $colspan = $td->getAttribute('colspan') // 0;
+		my $class   = $td->getAttribute('class')   // q{};
+
 		if ( $colspan != 8 and $class !~ /^bgColor2?$/ ) {
 			next;
 		}
 
 		if ($colspan == 8) {
-			if ($td->as_trimmed_text() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
+			if ($td->textContent() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
 				$con_no = $+{'no'} - 1;
 				$con_part = 0;
 				next;
@@ -226,8 +237,8 @@ sub parse_tree {
 			}
 		}
 
-		if (not @{$td->findnodes('./img')} and $td->as_text() !~ /^\s*$/) {
-			push(@{$cons->[$con_no]->[$con_part]}, $td->as_trimmed_text());
+		if (not @{$td->findnodes($xp_img)} and $td->textContent() !~ /^\s*$/) {
+			push(@{$cons->[$con_no]->[$con_part]}, $td->textContent());
 		}
 	}
 	return $cons;
@@ -326,9 +337,7 @@ if ($test_dump) {
 	exit 0
 }
 
-my $tree = HTML::TreeBuilder::LibXML->new();
-$tree->parse($content);
-$tree->eof();
+my $tree = XML::LibXML->load_html(string => $content);
 
 check_ambiguous($tree);
 
