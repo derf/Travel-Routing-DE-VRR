@@ -2,7 +2,7 @@ efa - inofficial efa.vrr.de commandline client
 
 Requires:
  - perl version 5.10 or newer
- - The perl modules WWW::Mechanize and HTML::TreeBuilder::XPath
+ - The perl modules WWW::Mechanize and XML::LibXML
 
 
 Installation

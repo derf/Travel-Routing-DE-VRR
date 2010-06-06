@@ -1,3 +1,8 @@
+git HEAD
+
+    * Rewrite efa parser using XML::LibXML (major performance improvement)
+    * Detect more efa.vrr.de errors (no routes found, invalid input data, etc.)
+
 efa 1.2 - Sat Jun 5 2010
 
     * Rewrite efa parser using HTML::TreeBuilder::XPath
