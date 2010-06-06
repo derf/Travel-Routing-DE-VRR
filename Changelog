@@ -1,4 +1,4 @@
-git HEAD
+efa 1.3 - Sun Jun 6 2010
 
     * Rewrite efa parser using XML::LibXML (major performance improvement)
     * Detect more efa.vrr.de errors (no routes found, invalid input data, etc.)
