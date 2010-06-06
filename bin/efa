@@ -73,7 +73,7 @@ sub display_connection {
 
 	for my $con (@{$con_parts}) {
 
-		# Note: Idets @{$con} elements
+		# Note: Changes @{$con} elements
 		foreach my $str (@{$con}) {
 			$str =~ s/[\s\n\t]+/ /gs;
 			$str =~ s/^ //;
@@ -521,9 +521,10 @@ Print version information
 
 =head1 EXIT STATUS
 
-Zero if everything went well (or at least if B<efa> thinks so), one if you
-gave ambiguous input and need to re-run B<efa> with different arguments. 255
-on any other kind of error.
+    0    Everything went well
+    1    Ambiguous input, re-run efa with different arguments
+    2    efa.vrr.de error
+    255  Any other kind of error
 
 =head1 CONFIGURATION
 
@@ -532,7 +533,7 @@ None.
 =head1 DEPENDENCIES
 
 This script requires perl 5.10 (or higher) with the modules
-HTML::TreeBuilder::XPath and WWW::Mechanize.
+WWW::Mechanize and XML::LibXML.
 
 =head1 BUGS AND LIMITATIONS
 
