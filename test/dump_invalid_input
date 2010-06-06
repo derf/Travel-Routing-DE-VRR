@@ -1,0 +1,793 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html xmlns:vrr="http://www.vrr.de/" xmlns:mdv="http://www.mentzdv.de/">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Fahrplanauskunft</title>
+<link rel="stylesheet" type="text/css" href="css/map.css">
+<link rel="stylesheet" type="text/css" href="css/MDVMapContextMenu.css">
+<link rel="stylesheet" type="text/css" href="css/MDVMapControl.css">
+<link rel="stylesheet" type="text/css" href="css/calendar.css">
+<link rel="stylesheet" type="text/css" href="css/itpTravelService.css">
+<link rel="stylesheet" type="text/css" href="css/vrr.css"><script type="text/javascript"><!--
+			
+			function attachEventListener(target, eventType, functionRef, capture) {
+			  if (typeof target.addEventListener != "undefined") {
+				target.addEventListener(eventType, functionRef, capture);
+			  }
+			  else if (typeof target.attachEvent != "undefined") {
+				target.attachEvent("on" + eventType, functionRef);
+			  }
+			  else {
+				eventType = "on" + eventType;
+			
+				if (typeof target[eventType] == "function") {
+				  var oldListener = target[eventType];
+			
+				  target[eventType] = function() {
+					oldListener();
+			
+					return  functionRef();
+				  }
+				}
+				else {
+				  target[eventType] = functionRef;
+				}
+			  }
+			
+			  return true; 
+			}
+					
+			function checkPwdBoxes()
+			{
+				if(document.forms[0].ppPersonNetPassword.value!=document.forms[0].ppPersonConfirmNetPassword.value || document.forms[0].ppPersonNetPassword.value=='')
+				{
+					alert('Ihre Passwortangaben sind ungültig. Bitte geben Sie zweimal dasselbe Passwort ein.');
+					document.forms[0].ppPersonNetPassword.value="";
+					document.forms[0].ppPersonConfirmNetPassword.value="";
+					return false;
+				}
+				else return true;
+			}
+			
+			function concatDate()
+			{
+				var completDate;
+				completDate = document.forms[0].itdLPxx_date.value;
+				completDate = completDate + "-" + document.forms[0].itdLPxx_month.value;
+				completDate = completDate + "-" + document.forms[0].itdLPxx_year.value;
+				
+				document.forms[0].filterDateValid.value=completDate;
+			}
+			
+			var viaInMobilityRestrictionOptions = 'true';
+			var viaFlag = 'false';
+			var identifiedOdv = {
+				'origin' : '::',
+				'destination' : '::',
+				'via' : '::',
+				'command' : ''
+			};
+			var sid = 'efa3.vrr.de_55128406';
+			var curLanguage = 'de';
+			var dmStop = "Haltestelle";
+			var dmPOI = "wichtiger Punkt";
+			
+			var includedMeans = [];
+			
+			var excludedMeans = [];
+			
+			
+			function checkMeans() {
+
+				var f = document.getElementsByName('jp')[0]; 
+				
+				if (!f || sid!=='0') {
+					return true;
+				}
+				
+				if (includedMeans.length >=1) {
+					for (var i=0; i < includedMeans.length; i++) {
+						if(f['inclMOT_' + includedMeans[i]]) {
+							f['inclMOT_' + includedMeans[i]].checked = false;
+						}
+					}
+				} else if (excludedMeans.length >=1) {
+					for (var j=0; j < excludedMeans.length; j++) {
+						if (f['inclMOT_' + excludedMeans[j]]) {
+							f['inclMOT_' + excludedMeans[j]].checked = false;
+						}
+					}
+				}
+			}	
+			
+			attachEventListener(window, 'load', checkMeans, false);
+				//--></script><script type="text/javascript" src="JavaScriptFunctions/mdv.js"></script><script type="text/javascript" src="JavaScriptFunctions/odvScript.js"></script><script type="text/javascript" src="/mdv/mdvMap/mdvMap.js"></script><script type="text/javascript" src="/mdv/mdvMap/prototype-1.4.0.js"></script><script type="text/javascript" src="mdvMapSettings.js"></script><script type="text/javascript" src="miniMapSettings.js"></script><script type="text/javascript" src="JavaScriptFunctions/mdvMapHandler.js"></script><script type="text/javascript"><!--
+					var bCreateMapRequest = false;
+					--></script><script type="text/javascript"><!--
+						/* language of the map */
+						var mapLanguage = 'de';
+						var odv = new Array();
+					--></script><script>function initMdvMapConfig() {var usages = new Array("origin", "destination", "via", "dm", "stt");for(var i=0; i<usages.length; i++) {var usage = usages[i];mdvMapConfigs[usage] = mdvMapConfig.clone();mdvMapConfigs[usage].add("serverURL", "http://efa.vrr.de/maps/nrw/");mdvMapConfigs[usage].add("efaURL", "../lite/XSLT_COORD_REQUEST");mdvMapConfigs[usage].add("transparentImg", "images/transparent.gif");mdvMapConfigs[usage].add("defaultScale", "2");mdvMapConfigs[usage].add("toolTimeOut", "20");mdvMapConfigs[usage].add("zoomOnDoubleClick", "true");mdvMapConfigs[usage].add("useMagnifyGlass", "true");mdvMapConfigs[usage].add("cursorMove", "images/grabbing.cur");mdvMapConfigs[usage].add("poiArea", "true");mdvMapConfigs[usage].add("poiPoint", "true");mdvMapConfigs[usage].add("language", "de");mdvMapConfigs[usage].add("imagePath", "images/mdvMap/");mdvMapConfigs[usage].add("xCenterReal", "3368363");mdvMapConfigs[usage].add("yCenterReal", "450530");mdvMapConfigs[usage].add("mapName", "NAV3");mdvMapConfigs[usage].add("network", "NRW");mdvMapConfigs[usage].add("useBubbleForEFAInfo", "true");mdvMapConfigs[usage].add("info.stop.size.width", "250");mdvMapConfigs[usage].add("info.stop.size.height", "200");mdvMapConfigs[usage].add("info.poi.size.width", "250");mdvMapConfigs[usage].add("info.poi.size.height", "120");mdvMapConfigs[usage].add("useBubbleOverflowForEFAInfo", "true");mdvMapConfigs[usage].add("block", "100");mdvMapConfigs[usage].add("language", "de");mdvMiniMapConfigs[usage] = mdvMiniMapConfig.clone();mdvMiniMapConfigs[usage].add("serverURL", "http://efa.vrr.de/maps/nrw/");mdvMiniMapConfigs[usage].add("efaURL", "../lite/XSLT_COORD_REQUEST");mdvMiniMapConfigs[usage].add("transparentImg", "images/transparent.gif");mdvMiniMapConfigs[usage].add("defaultScale", "2");mdvMiniMapConfigs[usage].add("toolTimeOut", "20");mdvMiniMapConfigs[usage].add("zoomOnDoubleClick", "true");mdvMiniMapConfigs[usage].add("useMagnifyGlass", "true");mdvMiniMapConfigs[usage].add("cursorMove", "images/grabbing.cur");mdvMiniMapConfigs[usage].add("language", "de");mdvMiniMapConfigs[usage].add("imagePath", "images/mdvMap/");mdvMiniMapConfigs[usage].add("xCenterReal", "3368363");mdvMiniMapConfigs[usage].add("yCenterReal", "450530");mdvMiniMapConfigs[usage].add("mapName", "NAV3");mdvMiniMapConfigs[usage].add("network", "NRW");mdvMiniMapConfigs[usage].add("block", "100");mdvMiniMapConfigs[usage].add("language", "de");}}
+	</script></head>
+<body onload="">
+<form action="XSLT_TRIP_REQUEST2" id="jp" name="jp" method="POST"><input type="hidden" name="sessionID" id="sessionID" value="efa3.vrr.de_55128406"><input type="hidden" name="language" value="de"><input type="hidden" name="requestID" id="requestID" value="1"><input type="hidden" name="command" id="command" value=""><input type="hidden" name="itdLPxx_ShowFare" value=" "><input type="hidden" name="itdLPxx_view" value=""><input type="hidden" name="useRealtime" value="1"><input type="hidden" name="itdLPxx_enableMobilityRestrictionOptionsWithButton" value=""><input type="hidden" name="execInst" id="execInst" value=""><input type="hidden" name="itdLPxx_mdvMap2_origin" id="itdLPxx_mdvMap2_origin" value="::"><input type="hidden" name="itdLPxx_mdvMap2_destination" id="itdLPxx_mdvMap2_destination" value="::"><input type="hidden" name="itdLPxx_mdvMap2_via" id="itdLPxx_mdvMap2_via" value="::"><input type="hidden" name="itdLPxx_mapState_origin" id="itdLPxx_mapState_origin" value=""><input type="hidden" name="itdLPxx_mapState_destination" id="itdLPxx_mapState_destination" value=""><input type="hidden" name="itdLPxx_mapState_via" id="itdLPxx_mapState_via" value=""><input type="hidden" name="itdLPxx_mdvMap_origin" id="itdLPxx_mdvMap_origin" value="3361949:456292:NAV3"><input type="hidden" name="itdLPxx_mdvMap_destination" id="itdLPxx_mdvMap_destination" value="3345951:481467:NAV3"><input type="hidden" name="itdLPxx_mdvMap_via" id="itdLPxx_mdvMap_via" value="::"><input type="hidden" name="itdLPxx_command" id="itdLPxx_command" value=""><input type="hidden" name="itdLPxx_priceCalculator" id="itdLPxx_priceCalculator" value=""><input type="hidden" name="ptOptionsActive" value="1"><input type="hidden" name="itOptionsActive" value="1"><input type="hidden" name="itdLPxx_transpCompany" value="vrr"><table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td rowspan="3" valign="top" align="left" width="155">
+<table id="tabNav">
+<tr>
+<td class="leftHeader"></td>
+</tr>
+<tr>
+<td><a title="en" href="XSLT_TRIP_REQUEST2?language=en&amp;itdLPxx_transpCompany=vrr"><img src="images/flag/flag_en.gif" border="0"></a> <a title="fr" href="XSLT_TRIP_REQUEST2?language=fr&amp;itdLPxx_transpCompany=vrr"><img src="images/flag/flag_fr.gif" border="0"></a> <a title="es" href="XSLT_TRIP_REQUEST2?language=es&amp;itdLPxx_transpCompany=vrr"><img src="images/flag/flag_es.gif" border="0"></a> <a title="tr" href="XSLT_TRIP_REQUEST2?language=tr&amp;itdLPxx_transpCompany=vrr"><img src="images/flag/flag_tr.gif" border="0"></a></td>
+</tr>
+<tr>
+<td class="navLabelTextBoldColor"><a href="XSLT_TRIP_REQUEST2?language=de&amp;itdLPxx_transpCompany=vrr&amp;">Fahrplanauskunft</a></td>
+</tr>
+<tr>
+<td><a href="XSLT_STT_REQUEST?language=de&amp;itdLPxx_transpCompany=vrr&amp;">Aushangfahrplan</a></td>
+</tr>
+<tr>
+<td><a href="XSLT_DM_REQUEST?language=de&amp;itdLPxx_transpCompany=vrr&amp;">Abfahrtsmonitor</a></td>
+</tr>
+<tr>
+<td><a href="XSLT_PS_REQUEST2?language=de&amp;itdLPxx_transpCompany=vrr&amp;">Persönlicher Fahrplan</a></td>
+</tr>
+<tr>
+<td><a href="http://www.vrr.de/de/fahrplanauskunft/fahr_und_linienplaene/verbundfahrplan_schnellverkehr/index.html" target="vrr">Verbundfahrplan Schnellverkehr</a></td>
+</tr>
+<tr>
+<td><a href="http://www.vrr.de/de/fahrplanauskunft/fahr_und_linienplaene/linienplan_schnellverkehr/index.html" target="vrr">Linienplan Schnellverkehr</a></td>
+</tr>
+<tr>
+<td><a href="http://www.vrr.de/de/fahrplanauskunft/fahr_und_linienplaene/stadtlinienplaene/index.html" target="vrr">Stadtlinienpläne</a></td>
+</tr>
+<tr>
+<td><a href="./Bedienungshinweise_de.htm" target="vrr">Bedienungshinweise</a></td>
+</tr>
+<tr>
+<td><a href="XSLT_SCREEN_SAVER_REQUEST?language=de&amp;itdLPxx_transpCompany=vrr&amp;">Bildschirmschoner</a></td>
+</tr>
+<tr>
+<td><a href="XSLT_ADDINFO_REQUEST?language=de&amp;itdLPxx_transpCompany=vrr&amp;filterPublicationStatus=current&amp;filterShowPlaceList=1&amp;filterShowLineList=1&amp;filterShowStopList=0&amp;filterShowPlaceList=0&amp;">Aktuelle Hinweise</a></td>
+</tr>
+<tr>
+<td><a href="XSLT_TRIP_REQUEST2?language=de&amp;itdLPxx_transpCompany=vrr&amp;itdLPxx_urlGenerator=true&amp;">Ihr Link zu uns</a></td>
+</tr>
+<tr>
+<td><a href="http://www.vrr.de/de/global/impressum/index.html">Impressum</a></td>
+</tr>
+<tr>
+<td><a href="http://www.vrr.de/">Homepage</a></td>
+</tr>
+</table>
+</td>
+<td rowspan="3"> </td>
+<td valign="top" width="630" height="55">
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tr>
+<td colspan="3" height="35" align="left" class="logoHeader">
+<div class="textHeader">Fahrplanauskunft</div>
+</td>
+</tr>
+<tr>
+<td colspan="3"><img src="images/dummy.gif" width="100%" height="5"></td>
+</tr>
+</table>
+<table cellspacing="0" cellpadding="0" width="630" border="0">
+<tr>
+<td valign="top" width="100%">
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tr>
+<td valign="top" class="bgColor"><input type="hidden" name="placeInfo_origin" id="placeInfo_origin" value="invalid"><input type="hidden" name="typeInfo_origin" id="typeInfo_origin" value="invalid"><input type="hidden" name="nameInfo_origin" id="nameInfo_origin" value="invalid"><input type="hidden" name="placeState_origin" id="placeState_origin" value="identified"><input type="hidden" name="nameState_origin" id="nameState_origin" value="identified"><input type="hidden" name="nameX_origin" id="nameX_origin" value="3361949"><input type="hidden" name="nameY_origin" id="nameY_origin" value="456292"><input type="hidden" name="nameDisplay_origin" id="nameDisplay_origin" value="Hauptbahnhof"><input type="hidden" name="nameMapName_origin" id="nameMapName_origin" value="NAV3"><table width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td colspan="6"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td valign="top" rowspan="1" width="2%" class="kaestchen"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td valign="top" width="9%"><span class="labelTextBold"> von:</span></td>
+<td valign="top" width="18%" align="right"><span class="labelTextBold">Stadt/Ort</span></td>
+<td rowspan="1" width="2%"><img src="images/dummy.gif" width="10" height="1" alt="*"></td><input type="hidden" name="place_origin" id="place_origin" value="5113000:18"><td valign="top" rowspan="1" width="44%"><span class="labelTextBold">Essen</span></td>
+<td valign="top" rowspan="4"><img src="images/dummy.gif" width="1" height="1" alt="*"><br> </td>
+</tr>
+<tr>
+<td colspan="6"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td valign="top"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td valign="top" align="right" colspan="2"><input type="hidden" name="type_origin" id="type_origin" value="stop"><span class="labelTextBold">Haltestelle</span></td>
+<td rowspan="1" valign="top"><img src="images/dummy.gif" width="1" height="1" alt="*"></td><input type="hidden" name="name_origin" id="name_origin" value="20009289:1"><td rowspan="1" valign="top"><span class="labelTextBold">Hauptbahnhof</span></td>
+</tr>
+<tr>
+<td valign="top" width="2%"><img src="images/dummy.gif" width="1" height="1" border="0" alt="*"></td>
+<td valign="top" colspan="3"><span class="errorTextBold"><img src="images/dummy.gif" width="1" height="1" border="0" alt="*"></span></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<tr>
+<td></td>
+<td>
+<div id="mapHolder_origin" style="display:none;">
+<div style="width:98%;text-align:right"><span class="labelTextBold"><a href="javascript:hideMap('origin');">Karte ausblenden</a></span></div><input type="hidden" name="itdLPxx_id_origin" id="itdLPxx_id_origin" value="20009289:origin"><div id="mdvMap_origin" style="position:relative;width:605px; height:445px;border:1px solid black; margin-top:5px;margin-bottom:5px;">
+<div id="mdvMiniMap_origin" style="width:160px;height:150px;z-index:500;" class="miniMap"></div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td valign="top" class="bgColor"><input type="hidden" name="placeInfo_destination" id="placeInfo_destination" value="invalid"><input type="hidden" name="typeInfo_destination" id="typeInfo_destination" value="invalid"><input type="hidden" name="nameInfo_destination" id="nameInfo_destination" value="invalid"><input type="hidden" name="placeState_destination" id="placeState_destination" value="identified"><input type="hidden" name="nameState_destination" id="nameState_destination" value="identified"><input type="hidden" name="nameX_destination" id="nameX_destination" value="3345951"><input type="hidden" name="nameY_destination" id="nameY_destination" value="481467"><input type="hidden" name="nameDisplay_destination" id="nameDisplay_destination" value="Hbf"><input type="hidden" name="nameMapName_destination" id="nameMapName_destination" value="NAV3"><table width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td colspan="6"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td valign="top" rowspan="1" width="2%" class="kaestchen"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td valign="top" width="9%"><span class="labelTextBold"> nach:</span></td>
+<td valign="top" width="18%" align="right"><span class="labelTextBold">Stadt/Ort</span></td>
+<td rowspan="1" width="2%"><img src="images/dummy.gif" width="10" height="1" alt="*"></td><input type="hidden" name="place_destination" id="place_destination" value="5111000:6"><td valign="top" rowspan="1" width="44%"><span class="labelTextBold">Düsseldorf</span></td>
+<td valign="top" rowspan="4"><img src="images/dummy.gif" width="1" height="1" alt="*"><br> </td>
+</tr>
+<tr>
+<td colspan="6"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td valign="top"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td valign="top" align="right" colspan="2"><input type="hidden" name="type_destination" id="type_destination" value="stop"><span class="labelTextBold">Haltestelle</span></td>
+<td rowspan="1" valign="top"><img src="images/dummy.gif" width="1" height="1" alt="*"></td><input type="hidden" name="name_destination" id="name_destination" value="20018235:1"><td rowspan="1" valign="top"><span class="labelTextBold">Hbf</span></td>
+</tr>
+<tr>
+<td valign="top" width="2%"><img src="images/dummy.gif" width="1" height="1" border="0" alt="*"></td>
+<td valign="top" colspan="3"><span class="errorTextBold"><img src="images/dummy.gif" width="1" height="1" border="0" alt="*"></span></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<tr>
+<td></td>
+<td>
+<div id="mapHolder_destination" style="display:none;">
+<div style="width:98%;text-align:right"><span class="labelTextBold"><a href="javascript:hideMap('destination');">Karte ausblenden</a></span></div><input type="hidden" name="itdLPxx_id_destination" id="itdLPxx_id_destination" value="20018235:destination"><div id="mdvMap_destination" style="position:relative;width:605px; height:445px;border:1px solid black; margin-top:5px;margin-bottom:5px;">
+<div id="mdvMiniMap_destination" style="width:160px;height:150px;z-index:500;" class="miniMap"></div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr style="display:none" id="viaTable">
+<td valign="top" class="bgColor"><input type="hidden" name="placeInfo_via" id="placeInfo_via" value="invalid"><input type="hidden" name="typeInfo_via" id="typeInfo_via" value="invalid"><input type="hidden" name="nameInfo_via" id="nameInfo_via" value="invalid"><input type="hidden" name="placeState_via" id="placeState_via" value="empty"><input type="hidden" name="nameState_via" id="nameState_via" value="empty"><table width="100%" cellspacing="0" cellpadding="0">
+<tr>
+<td>
+<table width="100%" height="100%" cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td colspan="6"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td valign="top" rowspan="1" width="2%" class="kaestchen"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td valign="top" width="9%"><span class="labelTextBold"> über:</span><span class="redLabelTextBold"> *</span></td>
+<td valign="top" width="18%" align="right"><span class="labelTextBold">Stadt/Ort</span></td>
+<td rowspan="1" width="2%"><img src="images/dummy.gif" width="10" height="1" alt="*"></td>
+<td valign="top" rowspan="1" width="44%"><input type="text" name="place_via" size="30" maxlength="50" style="width:240px;"></td>
+<td valign="top" rowspan="4"><img src="images/dummy.gif" width="1" height="1" alt="*"><br><span id="mapButton_via" style="display:block;"><a href="javascript:;" onclick="showMap('via');onLoadMapHandler('via');"><img src="minimap.gif" alt="Suche über Karte" border="0"><br><span class="labelTextBold">Suche über Karte</span></a></span></td>
+</tr>
+<tr>
+<td colspan="6"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td valign="top"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td valign="top" align="right" colspan="2"><input type="hidden" name="type_via" id="type_via" value="stop"><span class="labelTextBold">Haltestelle</span></td>
+<td rowspan="1" valign="top"><img src="images/dummy.gif" width="1" height="1" alt="*"></td>
+<td rowspan="1" valign="top"><input type="text" name="name_via" id="name_via" size="30" maxlength="50" style="width:240px;"></td>
+</tr>
+<tr>
+<td valign="top" width="2%"><img src="images/dummy.gif" width="1" height="1" border="0" alt="*"></td>
+<td valign="top" colspan="3"><span class="errorTextBold"><img src="images/dummy.gif" width="1" height="1" border="0" alt="*"></span></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/dummy.gif" width="1" height="1" border="0" alt="*"></td>
+<td colspan="3"><span class="redLabelText">(* Diese Felder müssen nicht ausgefüllt werden)</span></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<tr>
+<td></td>
+<td>
+<div id="mapHolder_via" style="display:none;">
+<div style="width:98%;text-align:right"><span class="labelTextBold"><a href="javascript:hideMap('via');">Karte ausblenden</a></span></div><input type="hidden" name="itdLPxx_id_via" id="itdLPxx_id_via" value=":via"><div id="mdvMap_via" style="position:relative;width:605px; height:445px;border:1px solid black; margin-top:5px;margin-bottom:5px;">
+<div id="mdvMiniMap_via" style="width:160px;height:150px;z-index:500;" class="miniMap"></div>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr style="display:none" id="viaTableSpace">
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign="top" class="bgColor" width="630">
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top">
+<table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td colspan="2"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td width="7" class="kaestchen"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td><span class="labelTextBold"> Linienauswahl</span></td>
+</tr>
+<tr>
+<td colspan="2"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td width="7"><img src="images/dummy.gif" width="7" height="1" alt="*"></td>
+<td><input type="radio" name="lineRestriction" value="400"><span class="labelText">alle Linien</span></td>
+</tr>
+<tr>
+<td width="7"><img src="images/dummy.gif" width="7" height="1" alt="*"></td>
+<td><input type="radio" name="lineRestriction" value="401"><span class="labelText">alle Linien ohne ICE</span></td>
+</tr>
+<tr>
+<td width="7"><img src="images/dummy.gif" width="7" height="1" alt="*"></td>
+<td><input type="radio" name="lineRestriction" value="403" checked><span class="labelText">nur Verbund-/Nahverkehrslinien</span></td>
+</tr>
+</table>
+</td>
+<td valign="top">
+<table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td colspan="5"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td width="7"><img src="images/dummy.gif" width="5" height="13" border="0" alt="*"></td>
+<td colspan="4"><span class="labelTextBold"> Umsteigen / Fußwege</span></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="5" height="1" alt="*"></td>
+<td colspan="4"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="radio" name="routeType" value="LEASTTIME" checked><span class="labelText">zeitkürzeste Verbindungen</span></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="radio" name="routeType" value="LEASTINTERCHANGE"><span class="labelText">Verbindungen mit wenig Umsteigen</span></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="radio" name="routeType" value="LEASTWALKING"><span class="labelText">Verbindungen mit kurzen Fußwegen</span></td>
+</tr>
+</table>
+</td>
+<td width="25%" valign="top">
+<table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td colspan="4"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td></td>
+<td><span class="labelTextBold"> Gehgeschwindigkeit </span></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="5" height="1" alt="*"></td>
+<td colspan="4"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="radio" name="changeSpeed" value="normal" checked><span class="labelText">normal</span></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="radio" name="changeSpeed" value="fast"><span class="labelText">schnell</span></td>
+</tr>
+<tr>
+<td></td>
+<td><input type="radio" name="changeSpeed" value="slow"><span class="labelText">langsam</span></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td valign="top" colspan="3">
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td valign="top">  <input type="checkbox" name="useProxFootSearch"></td>
+<td><span class="labelText">Berücksichtigung von Nachbarhaltestellen bei Start und Ziel	</span></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan="3"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td width="630" valign="top">
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tr>
+<td valign="top" class="bgColor">
+<table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td colspan="12"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td width="7" class="kaestchen"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td colspan="11"><span class="labelTextBold"> Zeit:</span></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="5" height="1" alt="*"></td>
+<td><input type="radio" name="itdTripDateTimeDepArr" value="dep" checked="1"><span class="labelText"> Abfahrt</span></td>
+<td rowspan="2"><img src="images/dummy.gif" height="1" alt="*" width="30"></td>
+<td colspan="3"><span class="labelText">Uhr</span></td>
+<td rowspan="2"><img src="images/dummy.gif" height="1" alt="*" width="50"></td>
+<td colspan="5"><span class="labelText">Datum</span></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="3" height="1" alt="*"></td>
+<td><input type="radio" name="itdTripDateTimeDepArr" value="arr"><span class="labelText"> Ankunft</span></td>
+<td><input type="text" name="itdTimeHour" size="2" value="25" style="width:40px" maxlength="2"></td>
+<td> </td>
+<td><input type="text" name="itdTimeMinute" size="2" value="23" style="width:40px" maxlength="2"></td>
+<td><input type="text" name="itdDateDay" size="2" value="06" style="width:40px" maxlength="2"></td>
+<td> </td>
+<td><input type="text" name="itdDateMonth" size="2" value="06" style="width:40px" maxlength="2"></td>
+<td> </td>
+<td><input type="text" name="itdDateYear" size="2" value="10" style="width:40px" maxlength="2"></td>
+<td> </td>
+<td><a href="javascript:;" onclick="document.getElementById('calendar-border').style.display='';"><img alt="" src="images/calendar.gif" border="0"></a></td>
+<td>
+
+		 <div id="calendar-border" style="position:absolute;z-index:800;display:none">
+			 <div class="calendar-innerborder">
+				<div class="calendar-month">
+						<div class="calendar-header">
+	
+							<input type="hidden" size="4" value="1993" name="text" id="hiddenYear">
+							<input size="9" type="hidden" value="January " id="hiddenMonth">
+								<div style="float:left;width:15px;" class="nextPrevDay">
+									<span onclick="javascript:IncDecYear('prev');" style="cursor:hand;">&lt;</span>
+								</div>
+							<div style="width:125px;text-align:center;float:left">
+								<span id="month" class="calendarText">Jan</span> <span id="year" class="calendarText">2008</span>
+							</div>
+							<div style="float:left;width:15px;" class="nextPrevDay">
+									<span onclick="javascript:IncDecYear('next');" style="cursor:hand;">&gt;</span>
+							</div>
+						</div>
+					</div>
+					<div class="calendar-weekday" style="clear:both">
+						
+						<div class="day">Mo</div>
+						<div class="day">Di</div>
+						<div class="day">Mi</div>
+						<div class="day">Do</div>
+						<div class="day">Fr</div>
+						<div class="day">Sa</div>
+						<div class="day">So</div>
+					</div>
+					<div class="calendar-day">
+					<div class="row1">
+					<div class="row11" id="w1-1"> </div>
+					<div class="row11" id="w1-2"> </div>
+					<div class="row11" id="w1-3"> </div>
+					<div class="row11" id="w1-4"> </div>
+					<div class="row11" id="w1-5"> </div>
+					<div class="row11" id="w1-6"> </div>
+					<div class="row11" id="w1-7"> </div>
+					</div>
+					<div class="row1">
+					<div class="row11" id="w2-1"> </div>
+					<div class="row11" id="w2-2"> </div>
+					<div class="row11" id="w2-3"> </div>
+					<div class="row11" id="w2-4"> </div>
+					<div class="row11" id="w2-5"> </div>
+					<div class="row11" id="w2-6"> </div>
+					<div class="row11" id="w2-7"> </div>
+					</div>
+					<div class="row1">
+					<div class="row11" id="w3-1"> </div>
+					<div class="row11" id="w3-2"> </div>
+					<div class="row11" id="w3-3"> </div>
+					<div class="row11" id="w3-4"> </div>
+					<div class="row11" id="w3-5"> </div>
+					<div class="row11" id="w3-6"> </div>
+					<div class="row11" id="w3-7"> </div>
+					</div>
+					<div class="row1">
+					<div class="row11" id="w4-1"> </div>
+					<div class="row11" id="w4-2"> </div>
+					<div class="row11" id="w4-3"> </div>
+					<div class="row11" id="w4-4"> </div>
+					<div class="row11" id="w4-5"> </div>
+					<div class="row11" id="w4-6"> </div>
+					<div class="row11" id="w4-7"> </div>
+					</div>
+					<div class="row1">
+					<div class="row11" id="w5-1"> </div>
+					<div class="row11" id="w5-2"> </div>
+					<div class="row11" id="w5-3"> </div>
+					<div class="row11" id="w5-4"> </div>
+					<div class="row11" id="w5-5"> </div>
+					<div class="row11" id="w5-6"> </div>
+					<div class="row11" id="w5-7"> </div>
+					</div>
+					<div class="row1">
+					<div class="row11" id="w6-1"> </div>
+					<div class="row11" id="w6-2"> </div>
+					<div class="row11" id="w6-3"> </div>
+					<div class="row11" id="w6-4"> </div>
+					<div class="row11" id="w6-5"> </div>
+					<div class="row11" id="w6-6"> </div>
+					<div class="row11" id="w6-7"> </div>
+					</div>
+					</div>
+				
+					<div id="calendar-close" onclick="document.getElementById('calendar-border').style.display='none'" style="margin-bottom:5px">Schließen</div>
+			  </div>
+		  </div>
+
+
+        <script type="text/javascript">
+		
+			//set calendar to today's date
+		   myDate = new Date();
+			var Month = parseInt(myDate.getMonth());
+	
+			if (myDate.getYear() > 1900){ 
+                document.getElementById('hiddenYear').value = myDate.getYear();
+                document.getElementById('year').innerHTML = myDate.getYear();
+			}
+			else
+			{
+				document.getElementById('hiddenYear').value = 1900 + myDate.getYear();
+				document.getElementById('year').innerHTML = 1900 + myDate.getYear();
+			}
+			
+			document.getElementById('hiddenMonth').value = PadSpaces(Months[Month]);
+			document.getElementById('month').innerHTML = PadSpaces(Months[Month]);
+	
+		   FillCalendar();
+        
+		</script>
+
+</td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="3" height="1" alt="*"></td>
+<td colspan="11"><span class="errorTextBold">Uhrzeit unbrauchbar</span></td>
+</tr>
+<tr>
+<td colspan="12"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td align="center" class="buttonBgColor">
+<table cellspacing="0" cellpadding="0" border="0">
+<tr>
+<td colspan="5"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td><input type="submit" name="submitButton" value="anfordern"></td>
+<td><img src="images/dummy.gif" width="20" height="1" alt="*"></td>
+<td width="190"><input id="fewerOptionsButton" type="button" name="reset" value="Weniger Einstellungen" onclick="advancedOptions('hidden');" style="display:none"><input id="moreOptionsButton" type="button" name="reset" value="Weitere Einstellungen" onclick="advancedOptions('visible');"></td>
+<td><img src="images/dummy.gif" width="20" height="1" alt="*"></td>
+<td><input type="button" name="reset" value="neue Anfrage" onClick="document.location.href='XSLT_TRIP_REQUEST2?language=de&amp;itdLPxx_transpCompany=vrr'"></td>
+<td><img src="images/dummy.gif" width="50" height="1" alt="*"></td>
+<td><input type="button" name="help" value="Hilfe" onclick="window.open('Bedienungshinweise_de.htm', 'help', '');"></td>
+</tr>
+<tr>
+<td colspan="5"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<div id="advancedOptionsDummy"><img src="images/dummy.gif" width="1" height="5" alt="*"></div>
+</td>
+</tr><input type="hidden" name="imparedOptionsActive" value="1"><tr>
+<td colspan="3" valign="top">
+<div id="advancedOptions" style="display:none;">
+<table cellspacing="0" cellpadding="0" width="100%" border="0" class="bgColor">
+<tr>
+<td colspan="5"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td class="kaestchen"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td colspan="4"><span class="labelTextBold"> Mobilitätseinstellungen</span></td>
+</tr>
+<tr>
+<td rowspan="5"><img src="images/dummy.gif" width="7" height="1" alt="*"></td>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+<td align="center"><span class="labelTextBold">Abfahrt</span></td>
+<td align="center"><span class="labelTextBold">Ankunft</span></td>
+<td> </td>
+</tr>
+<tr>
+<td><span class="labelText">Fußweg</span></td>
+<td><input type="radio" name="trITDepMOT" value="100" checked> <input type="text" name="trITDepMOTvalue100" value="8" size="2"></td>
+<td><input type="radio" name="trITArrMOT" value="100" checked> <input type="text" name="trITArrMOTvalue100" value="8" size="2"></td>
+<td rowspan="4"><span class="labelText"><input type="checkbox" name="noSolidStairs"> Keine festen Treppen<br><input type="checkbox" name="noEscalators"> Keine Rolltreppen<br><input type="checkbox" name="noElevators"> Keine Aufzüge<br><input type="checkbox" name="lowPlatformVhcl"> Niederflurfahrzeuge<br><input type="checkbox" name="wheelchair"> Hublift oder niveaugleicher Einstieg</span></td>
+</tr>
+<tr>
+<td><span class="labelText">Fahrrad mit Bike &amp; Ride</span></td>
+<td><input type="radio" name="trITDepMOT" value="101"> <input type="text" name="trITDepMOTvalue101" value="10" size="2"></td>
+<td><input type="radio" name="trITArrMOT" value="101"> <input type="text" name="trITArrMOTvalue101" value="10" size="2"></td>
+</tr>
+<tr>
+<td><span class="labelText">Park &amp; Ride</span></td>
+<td><input type="radio" name="trITDepMOT" value="104"> <input type="text" name="trITDepMOTvalue104" value="10" size="2"></td>
+<td><input type="radio" name="trITArrMOT" value="104"> <input type="text" name="trITArrMOTvalue104" value="10" size="2"></td>
+</tr>
+<tr>
+<td><span class="labelText">Taxi</span></td>
+<td><input type="radio" name="trITDepMOT" value="105"> <input type="text" name="trITDepMOTvalue105" value="10" size="2"></td>
+<td><input type="radio" name="trITArrMOT" value="105"> <input type="text" name="trITArrMOTvalue105" value="10" size="2"></td>
+</tr>
+<tr>
+<td colspan="5"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan="3" valign="top">
+<div id="advancedOptionsMeansOfTransport" style="display:none;"><input type="hidden" name="includedMeans" value="checkbox"><table cellspacing="0" cellpadding="0" width="100%" border="0" class="bgColor">
+<tr>
+<td colspan="5"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td colspan="4"><span class="labelTextBold">ausgewählte Verkehrsmittel</span></td>
+</tr>
+<tr>
+<td width="1%" rowspan="1"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td><input type="checkbox" name="inclMOT_0" checked="1"><span class="labelText">Zug</span></td>
+<td><input type="checkbox" name="inclMOT_3" checked="1"><span class="labelText">Stadtbahn</span></td>
+<td><input type="checkbox" name="inclMOT_6" checked="1"><span class="labelText">Regionalbus</span></td>
+<td><input type="checkbox" name="inclMOT_9" checked="1"><span class="labelText">Schiff</span></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td><input type="checkbox" name="inclMOT_1" checked="1"><span class="labelText">S-Bahn</span></td>
+<td><input type="checkbox" name="inclMOT_4" checked="1"><span class="labelText">Straßen-/Trambahn</span></td>
+<td><input type="checkbox" name="inclMOT_7" checked="1"><span class="labelText">Schnellbus</span></td>
+<td><input type="checkbox" name="inclMOT_10" checked="1"><span class="labelText">AST/Rufbus</span></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td><input type="checkbox" name="inclMOT_2" checked="1"><span class="labelText">U-Bahn</span></td>
+<td><input type="checkbox" name="inclMOT_5" checked="1"><span class="labelText">Stadtbus</span></td>
+<td><input type="checkbox" name="inclMOT_8" checked="1"><span class="labelText">Seil-/Zahnradbahn</span></td>
+<td><input type="checkbox" name="inclMOT_11" checked="1"><span class="labelText">sonstige</span></td>
+</tr>
+<tr>
+<td colspan="5"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan="3" valign="top">
+<div id="advancedOptionsBike" style="display:none;">
+<table cellspacing="0" cellpadding="0" width="100%" border="0" class="bgColor">
+<tr>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="5" height="13" border="0" alt="*"></td>
+<td width="165"><span class="labelTextBold">Fahrradmitnahme</span></td>
+<td colspan="3"><input type="checkbox" name="bikeTakeAlong"><span class="labelText">gewünscht</span></td>
+</tr>
+<tr>
+<td width="1%"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+<tr>
+<td colspan="3" valign="top">
+<div id="advancedOptionsChanges" style="display:none;">
+<table cellspacing="0" cellpadding="0" width="100%" border="0" class="bgColor">
+<tr>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="5" height="13" border="0" alt="*"></td>
+<td width="165"><span class="labelTextBold">Umsteigen</span></td>
+<td><input type="radio" name="maxChanges" value="0"><span class="labelText">ohne</span></td>
+<td><input type="radio" name="maxChanges" value="1"><span class="labelText">1x</span></td>
+<td><input type="radio" name="maxChanges" value="2"><span class="labelText">2x</span></td>
+<td><input type="radio" name="maxChanges" value="9" checked><span class="labelText">beliebig</span></td>
+</tr>
+<tr>
+<td width="1%"><img src="images/dummy.gif" width="7" height="13" border="0" alt="*"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan="3">
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<td height="40" valign="middle" align="left"><img src="images/dummy.gif" width="1" height="5" alt="*"></td>
+<td width="220" valign="bottom"><img src="images/ein-Service-des-VRR.gif" width="220" height="36" alt="*" align="right"></td>
+</table>
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>

@@ -223,7 +223,7 @@ sub opt_timeout {
 sub parse_tree {
 	my ($full_tree) = @_;
 	my $con_part = 0;
-	my $con_no = 0;
+	my $con_no;
 	my $cons;
 
 	my $xp_td = XML::LibXML::XPathExpression->new('//table//table/tr/td');
@@ -255,11 +255,22 @@ sub parse_tree {
 			}
 		}
 
-		if (not $td->exists($xp_img) and $td->textContent() !~ /^\s*$/) {
+		if (
+			defined $con_no and not $td->exists($xp_img)
+			and $td->textContent() !~ /^\s*$/
+			)
+		{
 			push(@{$cons->[$con_no]->[$con_part]}, $td->textContent());
 		}
 	}
-	return $cons;
+
+	if (defined $con_no) {
+		return $cons;
+	}
+	else {
+		say "efa.vrr.de returned no connections, check your input data.";
+		exit 3;
+	}
 }
 
 GetOptions(
@@ -361,10 +372,6 @@ check_ambiguous($tree);
 check_no_connections($tree);
 
 $connections = parse_tree($tree);
-
-if (@{$connections} == 0) {
-	die("Got no connections, parse error?\n");
-}
 
 for my $i (0 .. $#{$connections}) {
 	display_connection($connections->[$i]);
@@ -523,7 +530,8 @@ Print version information
 
     0    Everything went well
     1    Ambiguous input, re-run efa with different arguments
-    2    efa.vrr.de error
+    2    efa.vrr.de error (i.e. unable to find matching connections)
+    3    efa.vrr.de error (usually invalid input data)
     255  Any other kind of error
 
 =head1 CONFIGURATION

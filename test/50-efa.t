@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test::Command tests => 82;
+use Test::Command tests => 85;
 
 my $efa     = 'bin/efa';
 my $testarg = "E HBf MH HBf";
@@ -151,4 +151,12 @@ $cmd = Test::Command->new(
 
 $cmd->exit_is_num(2);
 $cmd->stdout_is_file('test/parse_no_connections');
+$cmd->stderr_is_eq($EMPTY);
+
+$cmd = Test::Command->new(
+	cmd => "$efa $test_parse < test/dump_invalid_input"
+);
+
+$cmd->exit_is_num(3);
+$cmd->stdout_is_file('test/parse_invalid_input');
 $cmd->stderr_is_eq($EMPTY);
