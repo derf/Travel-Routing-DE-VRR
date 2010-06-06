@@ -29,13 +29,10 @@ binmode(STDOUT, ':utf8');
 
 sub check_ambiguous {
 	my ($full_tree) = @_;
-	my $xp_select = '//select';
+	my $ambiguous = 0;
 
-	if (not $full_tree->exists($xp_select)) {
-		return;
-	}
-
-	foreach my $select (@{$full_tree->findnodes($xp_select)}) {
+	foreach my $select (@{$full_tree->findnodes('//select')}) {
+		$ambiguous = 1;
 		printf(
 			"Ambiguous input for %s\n",
 			$select->attr('name'),
@@ -44,7 +41,9 @@ sub check_ambiguous {
 			say "\t$val";
 		}
 	}
-	exit 1;
+	if ($ambiguous) {
+		exit 1;
+	}
 }
 
 sub display_connection {
@@ -198,30 +197,36 @@ sub parse_tree {
 	my $con_no = 0;
 	my $cons;
 
-	foreach my $row (@{$full_tree->findnodes('//table//table/tr')}) {
-		foreach (@{$row->findnodes(
-			'./td[@class="bgColor"] | '.
-			'./td[@class="bgColor2"] | '.
-			'./td[@colspan="8"]')})
-		{
-			if (defined $_->attr('colspan') and $_->attr('colspan') == 8) {
-				if ($_->as_text() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
-					$con_no = $+{'no'} - 1;
-					$con_part = 0;
-					next;
-				}
+	foreach my $td (@{$full_tree->findnodes('//table//table/tr/td')}) {
+
+		my $colspan = $td->attr('colspan') // 0;
+		my $class   = $td->attr('class')   // q{};
+
+		# Putting these into the XPath expression would lead to noticable (1
+		# to 2 seconds) performance penalties
+		if ( $colspan != 8 and $class !~ /^bgColor2?$/ ) {
+			next;
+		}
+
+		if ($colspan == 8) {
+			if ($td->as_text() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
+				$con_no = $+{'no'} - 1;
+				$con_part = 0;
+				next;
 			}
-			if (defined $_->attr('class') and $_->attr('class') =~ /^bgColor2?$/) {
-				if ($_->attr('class') eq 'bgColor' and ($con_part % 2) == 1) {
-					$con_part++;
-				}
-				elsif ($_->attr('class') eq 'bgColor2' and ($con_part % 2) == 0) {
-					$con_part++;
-				}
+		}
+
+		if ($class =~ /^bgColor2?$/) {
+			if ($class eq 'bgColor' and ($con_part % 2) == 1) {
+				$con_part++;
 			}
-			if (not $_->exists('./img') and $_->as_text() !~ /^\s*$/) {
-				push(@{$cons->[$con_no]->[$con_part]}, $_->as_text());
+			elsif ($class eq 'bgColor2' and ($con_part % 2) == 0) {
+				$con_part++;
 			}
+		}
+
+		if (not $td->exists('./img') and $td->as_text() !~ /^\s*$/) {
+			push(@{$cons->[$con_no]->[$con_part]}, $td->as_text());
 		}
 	}
 	return $cons;
