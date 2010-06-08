@@ -4,7 +4,6 @@ Requires:
  - perl version 5.10 or newer
  - The perl modules WWW::Mechanize and XML::LibXML
 
-
 Installation
 
 > make
@@ -12,3 +11,9 @@ Installation
 > sudo make install
 
 You can skip "make test" if you want.
+
+Extra modules required for testing:
+ - Test::More
+ - Test::Compile
+ - Test::Pod
+ - Test::Command
