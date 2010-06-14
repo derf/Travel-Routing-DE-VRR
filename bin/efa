@@ -282,7 +282,6 @@ GetOptions(
 	'depart=s'       => \&opt_time_dep,
 	'e|exclude=s'    => \&opt_exclude,
 	'from=s{2}'      => \@from,
-	'from-type=s'    => \$from_type,
 	'h|help'         => sub {exec('perldoc', '-F', $0)},
 	'I|ignore-info=s{0,1}' => \$ignore_info,
 	'm|max-change=i' => \&opt_maxinter,
@@ -295,10 +294,8 @@ GetOptions(
 	't|time=s'       => \&opt_time,
 	'timeout=i'      => \&opt_timeout,
 	'to=s{2}'        => \@to,
-	'to-type=s'      => \$to_type,
 	'v|version'      => sub {print "efa version $version\n"; exit 0},
 	'via=s{2}'       => \@via,
-	'via-type=s'     => \$via_type,
 	'w|walk-speed=s' => \&opt_walk_speed,
 
 ) or die("Please see $0 --help\n");
@@ -322,9 +319,13 @@ for my $pair (
 	[$to[1]  , \$to_type  ],
 ) {
 	next if (not defined $pair->[0]);
-	for my $type (['addr', 'address'], ['poi', 'poi']) {
-		if ($pair->[0] =~ s/ ^ $type->[0] : \s* (.+) $ /$1/x) {
-			${$pair->[1]} = $type->[1];
+
+	if ($pair->[0] =~ s{ ^ (?<type> [^:]+ ) : \s* (?<target> .+ ) $ }
+		{$+{target}}x)
+	{
+		given($+{type}) {
+			when('addr') { ${$pair->[1]} = 'address' }
+			default      { ${$pair->[1]} = $+{type}  }
 		}
 	}
 }
@@ -337,7 +338,7 @@ if (@via == 2) {
 
 foreach my $type ($from_type, $to_type, $via_type) {
 	if (not ($type ~~ ['stop', 'address', 'poi'])) {
-		die("from/to/via type: Must be stop, address or poi, not '$type'\n");
+		die("from/to/via type: Must be stop, addr or poi, not '$type'\n");
 	}
 }
 
@@ -419,13 +420,8 @@ Arrival place
 
 Travel via this place
 
-=item B<--from-type>, B<--to-type>, B<--via-type> I<type>
-
-Designate type of the I<stop> for from/to/via.
-Possible I<type>s: B<stop> (default), B<address>, B<poi> (point of interest)
-
-Alternatively, you can specify the I<stop> of the from/to/via options as
-"addr:I<stop>" or "poi:I<stop>", respectively
+In case you want I<stop> to be an address or "point of interest", you can set
+it to 'addr:something' or 'poi:something'.
 
 =item B<-t>|B<--time>|B<--depart> I<hh>:I<mm>
 
