@@ -1,24 +1,52 @@
 #compdef efa
 
 typeset -a arguments
+typeset -A argument_pairs argument_postfix
+typeset arg
+
+argument_pairs=(
+	time        t+
+	arrive      a+
+	date        d+
+	bike        b
+	exclude     e+
+	max-change  m+
+	prefer      P+
+	proximity   p
+	include     i+
+	walk-speed  w+
+	ignore-info I+
+	version     v
+)
+
+argument_postfix=(
+	time        '[Journey start time]:timestamp'
+	arrive      '[Journey end time]:timestamp'
+	date        '[Journey date]:date'
+	bike        '[Prefer connections where you can take a bike with you]'
+	exclude     '[Exclude transport types]:transport type:_efa_transports'
+	max-change  '[Maximum interchanges]:maximum interchange number'
+	prefer      '[Prefer connections]:connection type:(speed nowait nowalk)'
+	proximity   '[Take close stops into account]'
+	include     '[Include extra connection types]:connection type:(local ic ice)'
+	walk-speed  '[Walk speed]:walk speed:(normal fast slow)'
+	ignore-info '[Ignore additional information]:regex'
+	verison     '[Print version information]'
+)
+
 arguments=(
 	'--'{from,to,via}':city: :stop: '
 	'--'{from,to,via}'-type:type:(stop address poi)'
-	'--bike'
-	'--debug'
 	'(--depart --arrive)--time:time'
 	'(--depart --time)--arrive:time'
 	'(--arrive --time)--depart:time'
-	'--date:date'
-	'*--exclude:transports:_efa_transports'
-	'--max-change:number'
-	'--prefer:type:(speed nowait nowalk)'
-	'--proximity'
-	'--include:type:(local ic ice)'
-	'--walk-speed:speed:(normal fast slow)'
-	'--ignore-info:regex'
 	'*--post:POST key=value'
 )
+
+for arg in ${(k)argument_pairs}; {
+	arguments+='(--'${arg}')-'${argument_pairs[$arg]}${argument_postfix[$arg]}
+	arguments+='(-'${${argument_pairs[$arg]}[1]}')--'${arg}${argument_postfix[$arg]}
+}
 
 function _efa_transports {
 	typeset -a keys used_prefixes
