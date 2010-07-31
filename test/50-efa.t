@@ -14,7 +14,7 @@ my $EMPTY = '';
 my $re_usage = qr{Insufficient to/from arguments, see \S*efa --help for usage};
 my $re_version = qr{\S*efa version \S+};
 
-my $err_exclude    = "exclude: Invalid argument.\n";
+my $err_exclude    = "exclude: Invalid argument: invalid\n";
 my $err_prefer     = "prefer: Invalid argument. Use speed|nowait|nowalk\n";
 my $err_include    = "include: Invalid argument. Use local|ic|ice\n";
 my $err_time       = "time: Invalid argument. Use HH:MM\n";

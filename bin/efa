@@ -147,20 +147,20 @@ sub opt_exclude {
 		zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus
 		schnellbus seilbahn schiff ast sonstige
 	/;
-	my $ok = 0;
 	my (undef, $str) = @_;
 	my @exclude = split(/,/, $str);
 
 	foreach my $exclude_type (@exclude) {
+		my $ok = 0;
 		for my $map_id (0 .. $#mapping) {
 			if ($exclude_type eq $mapping[$map_id]) {
 				$post{"inclMOT_$map_id"} = undef;
 				$ok = 1;
 			}
 		}
-	}
-	if (not $ok) {
-		die("exclude: Invalid argument.\n");
+		if (not $ok) {
+			die("exclude: Invalid argument: $exclude_type\n");
+		}
 	}
 }
 
