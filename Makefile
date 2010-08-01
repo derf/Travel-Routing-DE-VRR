@@ -18,7 +18,7 @@ uninstall:
 	rm -f ${basedir}/share/man/man1/efa.1
 
 test:
-	@prove test
+	prove
 
 clean:
 	rm -rf build

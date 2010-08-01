@@ -114,49 +114,49 @@ for my $file (qw{
 	e_martinstr_e_florastr
 	})
 {
-	$cmd = Test::Command->new(cmd => "$efa $test_parse < test/dump_$file");
+	$cmd = Test::Command->new(cmd => "$efa $test_parse < t/in/$file");
 
 	$cmd->exit_is_num(0);
-	$cmd->stdout_is_file("test/parse_$file");
+	$cmd->stdout_is_file("t/out/$file");
 	$cmd->stderr_is_eq($EMPTY);
 }
 
 $cmd = Test::Command->new(
-	cmd => "$efa $test_parse --ignore-info '.*' < test/dump_e_hbf_b_hbf.ice"
+	cmd => "$efa $test_parse --ignore-info '.*' < t/in/e_hbf_b_hbf.ice"
 );
 
 $cmd->exit_is_num(0);
-$cmd->stdout_is_file("test/parse_e_hbf_b_hbf.ice.ignore_all");
+$cmd->stdout_is_file("t/out/e_hbf_b_hbf.ice.ignore_all");
 $cmd->stderr_is_eq($EMPTY);
 
 $cmd = Test::Command->new(
-	cmd => "$efa $test_parse --ignore-info < test/dump_e_hbf_mh_hbf"
+	cmd => "$efa $test_parse --ignore-info < t/in/e_hbf_mh_hbf"
 );
 
 $cmd->exit_is_num(0);
-$cmd->stdout_is_file("test/parse_e_hbf_mh_hbf.ignore_none");
+$cmd->stdout_is_file("t/out/e_hbf_mh_hbf.ignore_none");
 $cmd->stderr_is_eq($EMPTY);
 
 $cmd = Test::Command->new(
-	cmd => "$efa $test_parse < test/dump_ambiguous"
+	cmd => "$efa $test_parse < t/in/ambiguous"
 );
 
 $cmd->exit_is_num(1);
 $cmd->stdout_is_eq($EMPTY);
-$cmd->stderr_is_file('test/parse_ambiguous');
+$cmd->stderr_is_file('t/out/ambiguous');
 
 $cmd = Test::Command->new(
-	cmd => "$efa $test_parse < test/dump_no_connections"
+	cmd => "$efa $test_parse < t/in/no_connections"
 );
 
 $cmd->exit_is_num(2);
 $cmd->stdout_is_eq($EMPTY);
-$cmd->stderr_is_file('test/parse_no_connections');
+$cmd->stderr_is_file('t/out/no_connections');
 
 $cmd = Test::Command->new(
-	cmd => "$efa $test_parse < test/dump_invalid_input"
+	cmd => "$efa $test_parse < t/in/invalid_input"
 );
 
 $cmd->exit_is_num(3);
 $cmd->stdout_is_eq($EMPTY);
-$cmd->stderr_is_file('test/parse_invalid_input');
+$cmd->stderr_is_file('t/out/invalid_input');
