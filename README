@@ -6,11 +6,12 @@ Requires:
 
 Installation
 
-> make
-> make test
-> sudo make install
+> perl Build.PL
+> ./Build
+> ./Build test
+> sudo ./Build install
 
-You can skip "make test" if you want.
+See also the Module::Build documentation.
 
 Extra modules required for testing:
  - Test::More

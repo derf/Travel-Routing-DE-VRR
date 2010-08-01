@@ -13,7 +13,7 @@ use WWW::Mechanize;
 my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
 my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
 
-my $version = '1.3+git';
+my $VERSION = '1.3+git';
 my $content;
 my $connections;
 my %post;
@@ -294,7 +294,7 @@ GetOptions(
 	't|time=s'       => \&opt_time,
 	'timeout=i'      => \&opt_timeout,
 	'to=s{2}'        => \@to,
-	'v|version'      => sub {print "efa version $version\n"; exit 0},
+	'v|version'      => sub {print "efa version $VERSION\n"; exit 0},
 	'via=s{2}'       => \@via,
 	'w|walk-speed=s' => \&opt_walk_speed,
 
