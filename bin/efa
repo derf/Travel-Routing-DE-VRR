@@ -7,111 +7,18 @@ use warnings;
 use 5.010;
 
 use Getopt::Long qw/:config no_ignore_case/;
-use XML::LibXML;
-use WWW::Mechanize;
-
-my $firsturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
-my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
+use WWW::Efa;
 
 my $VERSION = '1.3+git';
-my $content;
-my $connections;
 my %post;
-my $www = WWW::Mechanize->new(
-	autocheck => 1,
-);
 my (@from, @to, @via);
 my ($from_type, $to_type, $via_type) = ('stop') x 3;
 my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
+my $efa;
 
 binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
-
-sub check_ambiguous {
-	my ($full_tree) = @_;
-	my $ambiguous = 0;
-
-	my $xp_select = XML::LibXML::XPathExpression->new('//select');
-	my $xp_option = XML::LibXML::XPathExpression->new('./option');
-
-	foreach my $select (@{$full_tree->findnodes($xp_select)}) {
-		$ambiguous = 1;
-		printf {*STDERR} (
-			"Ambiguous input for %s\n",
-			$select->getAttribute('name'),
-		);
-		foreach my $val ($select->findnodes($xp_option)) {
-			print {*STDERR} "\t";
-			say {*STDERR} $val->textContent();
-		}
-	}
-	if ($ambiguous) {
-		exit 1;
-	}
-}
-
-sub check_no_connections {
-	my ($full_tree) = @_;
-
-	my $xp_err_img = XML::LibXML::XPathExpression->new(
-		'//td/img[@src="images/ausrufezeichen.jpg"]');
-
-	my $err_node = $full_tree->findnodes($xp_err_img)->[0];
-
-	if ($err_node) {
-		say {*STDERR} 'Looks like efa.vrr.de showed an error.';
-		say {*STDERR} 'I will now try to dump the error message:';
-
-		say {*STDERR} $err_node->parentNode()->parentNode()->textContent();
-
-		exit 2;
-	}
-}
-
-sub display_connection {
-	my ($con_parts) = @_;
-
-	for my $con (@{$con_parts}) {
-
-		# Note: Changes @{$con} elements
-		foreach my $str (@{$con}) {
-			$str =~ s/[\s\n\t]+/ /gs;
-			$str =~ s/^ //;
-			$str =~ s/ $//;
-		}
-
-		if (@{$con} < 5) {
-			foreach my $str (@{$con}) {
-				say "# $str";
-			}
-			next;
-		}
-
-		if ($con->[0] !~ / \d{2} : \d{2} /ox) {
-			splice(@{$con}, 0, 0, q{});
-			splice(@{$con}, 4, 0, q{});
-			$con->[7] = q{};
-		}
-		elsif ($con->[4] =~ / Plan: \s ab /ox) {
-			printf(
-				"# %s\n",
-				splice(@{$con}, 4, 1),
-			);
-		}
-
-		foreach my $extra (splice(@{$con}, 8, -1)) {
-			if (not (length($ignore_info) and $extra =~ /$ignore_info/i)) {
-				say "# $extra";
-			}
-		}
-
-		printf(
-			"%-5s %-2s  %-30s %-20s %s\n%-5s %-2s  %-30s\n\n",
-			@{$con}[0, 1, 2, 3, 7, 4, 5, 6],
-		)
-	}
-}
 
 sub opt_time_arr {
 	$post{itdTripDateTimeDepArr} = 'arr';
@@ -218,61 +125,7 @@ sub opt_bike {
 
 sub opt_timeout {
 	my (undef, $timeout) = @_;
-	$www->timeout($timeout);
-}
-
-sub parse_tree {
-	my ($full_tree) = @_;
-	my $con_part = 0;
-	my $con_no;
-	my $cons;
-
-	my $xp_td = XML::LibXML::XPathExpression->new('//table//table/tr/td');
-	my $xp_img = XML::LibXML::XPathExpression->new('./img');
-
-	foreach my $td (@{$full_tree->findnodes($xp_td)}) {
-
-		my $colspan = $td->getAttribute('colspan') // 0;
-		my $class   = $td->getAttribute('class')   // q{};
-
-		if ( $colspan != 8 and $class !~ /^bgColor2?$/ ) {
-			next;
-		}
-
-		if ($colspan == 8) {
-			if ($td->textContent() =~ / (?<no> \d+ ) \. .+ Fahrt /x) {
-				$con_no = $+{'no'} - 1;
-				$con_part = 0;
-				next;
-			}
-		}
-
-		if ($class =~ /^bgColor2?$/) {
-			if ($class eq 'bgColor' and ($con_part % 2) == 1) {
-				$con_part++;
-			}
-			elsif ($class eq 'bgColor2' and ($con_part % 2) == 0) {
-				$con_part++;
-			}
-		}
-
-		if (
-			defined $con_no and not $td->exists($xp_img)
-			and $td->textContent() !~ /^\s*$/
-			)
-		{
-			push(@{$cons->[$con_no]->[$con_part]}, $td->textContent());
-		}
-	}
-
-	if (defined $con_no) {
-		return $cons;
-	}
-	else {
-		say {*STDERR}
-			'efa.vrr.de returned no connections, check your input data.';
-		exit 3;
-	}
+	# XXX
 }
 
 GetOptions(
@@ -348,37 +201,40 @@ $post{type_via} = $via_type;
 
 if ($test_parse) {
 	local $/ = undef;
-	$content = <STDIN>;
+	$efa = WWW::Efa->new_from_html(<STDIN>);
 }
 else {
-	$www->get($firsturl);
-	$www->submit_form(
-		form_name => 'jp',
-		fields => \%post,
-	);
-
-	# XXX (workaround)
-	# The content actually is iso-8859-1. But HTML::Message doesn't actually
-	# decode character strings when they have that encoding. However, it
-	# doesn't check for latin-1, which is an alias for iso-8859-1.
-	$content = $www->response()->decoded_content(charset => 'latin-1');
+	$efa = WWW::Efa->new(\%post);
 }
 
-if ($test_dump) {
-	print $content;
-	exit 0
-}
+$efa->parse();
 
-my $tree = XML::LibXML->load_html(string => $content);
+$efa->check_ambiguous();
+$efa->check_no_connections();
 
-check_ambiguous($tree);
-check_no_connections($tree);
+my @connections = $efa->connections();
 
-$connections = parse_tree($tree);
+for my $i (0 .. $#connections) {
+	for my $c (@{$connections[$i]}) {
 
-for my $i (0 .. $#{$connections}) {
-	display_connection($connections->[$i]);
-	if ($i != $#{$connections}) {
+		for my $extra (@{$c->{'extra'}}) {
+
+			if (not (length $ignore_info and $extra =~ /$ignore_info/i)) {
+				say "# $extra";
+			}
+		}
+
+		printf(
+			"%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",
+			$c->{'dep_time'},
+			$c->{'dep_stop'},
+			$c->{'train_line'},
+			$c->{'train_dest'},
+			$c->{'arr_time'},
+			$c->{'arr_stop'},
+		);
+	}
+	if ($i != $#connections) {
 		print "------\n\n";
 	}
 }

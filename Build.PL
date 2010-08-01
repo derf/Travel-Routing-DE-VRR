@@ -11,8 +11,7 @@ my $build = Module::Build->new(
 		'Test::Pod' => 0,
 		'Test::Command' => 0,
 	},
-	dist_name => 'efa',
-	dist_version_from => 'bin/efa',
+	module_name => 'WWW::Efa',
 	license => 'unrestricted',
 	requires => {
 		'perl' => '5.10.0',
@@ -20,6 +19,5 @@ my $build = Module::Build->new(
 		'XML::LibXML' => 0,
 		'WWW::Mechanize' => 0,
 	},
-	script_files => 'bin/',
 );
 $build->create_build_script;
