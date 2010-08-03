@@ -11,147 +11,50 @@ use WWW::Efa;
 
 my $VERSION = '1.3+git';
 my %post;
-my (@from, @to, @via);
-my ($from_type, $to_type, $via_type) = ('stop') x 3;
 my $ignore_info = 'Fahrradmitnahme';
 my ($test_dump, $test_parse);
 my $efa;
+my (@from, @to, @via, $from_type, $to_type, $via_type);
+my $opt = {
+	'ignore-info' => \$ignore_info,
+	'from'        => \@from,
+	'to'          => \@to,
+	'via'         => \@via,
+};
 
 binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
 
-sub opt_time_arr {
-	$post{itdTripDateTimeDepArr} = 'arr';
-	opt_time(@_);
-}
-
-sub opt_time_dep {
-	$post{itdTripDateTimeDepArr} = 'dep';
-	opt_time(@_);
-}
-
-sub opt_time {
-	my (undef, $time) = @_;
-
-	if ($time !~ /^ [0-2]? \d : [0-5]? \d $/x) {
-		die("time: Invalid argument. Use HH:MM\n");
-	}
-	@post{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
-}
-
-sub opt_date {
-	my (undef, $date) = @_;
-
-	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
-		die("date: Invalid argument: Use DD.MM.[YYYY]\n");
-	}
-	@post{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
-	$post{itdDateYear} //= (localtime(time))[5] + 1900;
-}
-
-sub opt_exclude {
-	my @mapping = qw/
-		zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus
-		schnellbus seilbahn schiff ast sonstige
-	/;
-	my (undef, $str) = @_;
-	my @exclude = split(/,/, $str);
-
-	foreach my $exclude_type (@exclude) {
-		my $ok = 0;
-		for my $map_id (0 .. $#mapping) {
-			if ($exclude_type eq $mapping[$map_id]) {
-				$post{"inclMOT_$map_id"} = undef;
-				$ok = 1;
-			}
-		}
-		if (not $ok) {
-			die("exclude: Invalid argument: $exclude_type\n");
-		}
-	}
-}
-
-sub opt_maxinter {
-	my (undef, $opt) = @_;
-	$post{maxChanges} = $opt;
-}
-
-sub opt_prefer {
-	my (undef, $prefer) = @_;
-
-	given ($prefer) {
-		when ('speed')  { $post{routeType} = 'LEASTTIME' }
-		when ('nowait') { $post{routeType} = 'LEASTINTERCHANGE' }
-		when ('nowalk') { $post{routeType} = 'LEASTWALKING' }
-		default {
-			die("prefer: Invalid argument. Use speed|nowait|nowalk\n");
-		}
-	}
-}
-
-sub opt_proximity {
-	$post{useProxFootSearch} = 1;
-}
-
-sub opt_include {
-	my (undef, $include) = @_;
-
-	given ($include) {
-		when ('local') { $post{lineRestriction} = 403 }
-		when ('ic')    { $post{lineRestriction} = 401 }
-		when ('ice')   { $post{lineRestriction} = 400 }
-		when (/\d+/)   { $post{lineRestriction} = $include }
-		default {
-			die("include: Invalid argument. Use local|ic|ice\n");
-		}
-	}
-}
-
-sub opt_walk_speed {
-	my (undef, $walk_speed) = @_;
-
-	if ($walk_speed ~~ ['normal', 'fast', 'slow']) {
-		$post{changeSpeed} = $walk_speed;
-	}
-	else {
-		die("walk-speed: Invalid argument. Use normal|fast|slow\n");
-	}
-}
-
-sub opt_bike {
-	$ignore_info = undef;
-	$post{bikeTakeAlong} = 1;
-}
-
-sub opt_timeout {
-	my (undef, $timeout) = @_;
-	# XXX
-}
-
 GetOptions(
-	'a|arrive=s'     => \&opt_time_arr,
-	'b|bike'         => \&opt_bike,
-	'd|date=s'       => \&opt_date,
-	'depart=s'       => \&opt_time_dep,
-	'e|exclude=s'    => \&opt_exclude,
-	'from=s{2}'      => \@from,
-	'h|help'         => sub {exec('perldoc', '-F', $0)},
-	'I|ignore-info=s{0,1}' => \$ignore_info,
-	'm|max-change=i' => \&opt_maxinter,
-	'post=s'         => \%post,
-	'P|prefer=s'     => \&opt_prefer,
-	'p|proximity'    => \&opt_proximity,
-	'i|include=s'    => \&opt_include,
-	'test-dump'      => \$test_dump,
-	'test-parse'     => \$test_parse,
-	't|time=s'       => \&opt_time,
-	'timeout=i'      => \&opt_timeout,
-	'to=s{2}'        => \@to,
-	'v|version'      => sub {print "efa version $VERSION\n"; exit 0},
-	'via=s{2}'       => \@via,
-	'w|walk-speed=s' => \&opt_walk_speed,
-
+	$opt,
+	qw{
+		arrive|a=s
+		bike|b
+		date|d=s
+		depart=s
+		exclude|e=s@
+		from=s@{2}
+		help|h
+		ignore-info|I=s
+		max-change|m=i
+		prefer|P=s
+		proximity|p
+		include|i=s
+		test-dump
+		test-parse
+		time|t=s
+		timeout=i
+		to=s@{2}
+		version|v
+		via=s@{2}
+		walk-speed|w=s
+	},
 ) or die("Please see $0 --help\n");
+
+if ($opt->{'version'}) {
+	say "efa version $VERSION";
+	exit 0;
+}
 
 if (not (@from and @to)) {
 	if (@ARGV == 4) {
@@ -160,10 +63,6 @@ if (not (@from and @to)) {
 	elsif (@ARGV == 6) {
 		(@from[0,1], @via[0,1], @to[0,1]) = @ARGV;
 	}
-}
-
-if (@to != 2 or @from != 2) {
-	die("Insufficient to/from arguments, see $0 --help for usage\n");
 }
 
 for my $pair (
@@ -183,31 +82,36 @@ for my $pair (
 	}
 }
 
-@post{'place_origin', 'name_origin'} = @from;
-@post{'place_destination', 'name_destination'} = @to;
-if (@via == 2) {
-	@post{'place_via', 'name_via'} = @via;
-}
+$efa = WWW::Efa->new(
+	from => [@from, $from_type],
+	to   => [@to, $to_type],
+	via  => (@via ? [@via, $via_type] : undef),
 
-foreach my $type ($from_type, $to_type, $via_type) {
-	if (not ($type ~~ ['stop', 'address', 'poi'])) {
-		die("from/to/via type: Must be stop, addr or poi, not '$type'\n");
-	}
-}
+	arrive  => $opt->{'arrive'},
+	depart  => $opt->{'depart'},
+	date    => $opt->{'date'},
+	exclude => $opt->{'exclude'},
+	prefer  => $opt->{'prefer'},
+	include => $opt->{'include'},
+	bike    => $opt->{'bike'},
 
-$post{type_origin} = $from_type;
-$post{type_destination} = $to_type;
-$post{type_via} = $via_type;
+	proximity  => $opt->{'proximity'},
+	walk_speed => $opt->{'walk-speed'},
+	max_interchanges  => $opt->{'max-change'},
+);
 
-if ($test_parse) {
+if ($opt->{'test-parse'}) {
 	local $/ = undef;
-	$efa = WWW::Efa->new_from_html(<STDIN>);
+	$efa->{'html_reply'} = <STDIN>;
 }
 else {
-	$efa = WWW::Efa->new(\%post);
+	$efa->submit(
+		timeout => $opt->{'timeout'}
+	);
 }
 
 $efa->parse();
+
 
 $efa->check_ambiguous();
 $efa->check_no_connections();

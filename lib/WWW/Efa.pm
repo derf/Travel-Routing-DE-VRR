@@ -10,43 +10,149 @@ use WWW::Mechanize;
 
 my $VERSION = '1.3+git';
 
-sub new {
-	my ($obj, $post) = @_;
-	my $ref = {};
+sub post_time {
+	my ($post, $conf) = @_;
+	my $time;
 
-	my $firsturl
-		= 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
-	my $posturl = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
+	if ($conf->{'depart'} || $conf->{'time'}) {
+		$post->{'itdTripDateTimeDepArr'} = 'dep';
+		$time = $conf->{'depart'} || $conf->{'time'};
+	}
+	else {
+		$post->{'itdTripDateTimeDepArr'} = 'arr';
+		$time = $conf->{'arrive'};
+	}
 
-	$ref->{'mech'} = WWW::Mechanize->new(
-		autocheck => 1,
-	);
-
-	$ref->{'mech'}->get($firsturl);
-	$ref->{'mech'}->submit_form(
-		form_name => 'jp',
-		fields    => $post,
-	);
-
-	# XXX (workaround)
-	# The content actually is iso-8859-1. But HTML::Message doesn't actually
-	# decode character strings when they have that encoding. However, it
-	# doesn't check for latin-1, which is an alias for iso-8859-1.
-
-	$ref->{'html_reply'} = $ref->{'mech'}->response()->decoded_content(
-		charset => 'latin-1'
-	);
-
-	return bless($ref, $obj);
+	if ($time !~ / ^ [0-2]? \d : [0-5]? \d $ /x) {
+		confess('conf: time invalid. Use HH:MM');
+	}
+	@{$post}{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
 }
 
-sub new_from_html {
-	my ($obj, $html) = @_;
-	my $ref = {};
+sub post_date {
+	my ($post, $date) = @_;
 
-	$ref->{'html_reply'} = $html;
+	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
+		confess('conf: date invalid DD.MM.[YYYY]');
+	}
+	@{$post}{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
+	$post->{'itdDateYear'} //= (localtime(time))[5] + 1900;
+}
 
-	return bless($ref, $obj);
+sub post_exclude {
+	my ($post, @exclude) = @_;
+	my @mapping = qw{
+		zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus
+		schnellbus seilbahn schiff ast sonstige
+	};
+
+	foreach my $exclude_type (@exclude) {
+		my $ok = 0;
+		for my $map_id (0 .. $#mapping) {
+			if ($exclude_type eq $mapping[$map_id]) {
+				$post->{"inclMOT_${map_id}"} = undef;
+				$ok = 1;
+			}
+		}
+		if (not $ok) {
+			confess("conf: exclude: Invalid element $exclude_type");
+		}
+	}
+}
+
+sub post_prefer {
+	my ($post, $prefer) = (@_);
+
+	given($prefer) {
+		when('speed')  { $post->{'routeType'} = 'LEASTTIME' }
+		when('nowait') { $post->{'routeType'} = 'LEASTINTERCHANGE' }
+		when('nowalk') { $post->{'routeType'} = 'LEASTWALKING' }
+		default {
+			confess("conf: prefer: Invalid argument $prefer");
+		}
+	}
+}
+
+sub post_include {
+	my ($post, $include) = @_;
+
+	given ($include) {
+		when ('local') { $post->{'lineRestriction'} = 403 }
+		when ('ic')    { $post->{'lineRestriction'} = 401 }
+		when ('ice')   { $post->{'lineRestriction'} = 400 }
+		default {
+			confess('conf: invalid include');
+		}
+	}
+}
+
+sub post_walk_speed {
+	my ($post, $walk_speed) = @_;
+
+	if ($walk_speed ~~ ['normal', 'fast', 'slow']) {
+		$post->{'changeSpeed'} = $walk_speed;
+	}
+	else {
+		confess('conf: walk_speed invalid');
+	}
+}
+
+sub post_place {
+	my ($post, $which, $place, $stop, $type) = @_;
+
+	if (not ($place and $stop)) {
+		confess("conf: ${which}: Need at least two elements");
+	}
+
+	$type //= 'stop';
+
+	@{$post}{"place_${which}", "name_${which}"} = ($place, $stop);
+
+	if ($type ~~ [qw[address poi stop]]) {
+		$post->{"type_${which}"} = $type;
+	}
+}
+
+sub create_post {
+	my ($conf) = @_;
+	my $post = {};
+
+	post_place($post, 'origin', @{$conf->{'from'}});
+
+	post_place($post, 'destination', @{$conf->{'to'}});
+
+	if ($conf->{'via'}) {
+		post_place($post, 'via', @{$conf->{'via'}});
+	}
+	if ($conf->{'arrive'} || $conf->{'depart'} || $conf->{'time'}) {
+		post_time($post, $conf);
+	}
+	if ($conf->{'date'}) {
+		post_date($post, $conf->{'date'});
+	}
+	if ($conf->{'exclude'}) {
+		post_exclude($post, @{$conf->{'exclude'}});
+	}
+	if ($conf->{'max_interchanges'}) {
+		$post->{'maxChanges'} = $conf->{'max_interchanges'};
+	}
+	if ($conf->{'prefer'}) {
+		post_prefer($post, $conf->{'prefer'});
+	}
+	if ($conf->{'proximity'}) {
+		$post->{'useProxFootSearch'} = 1;
+	}
+	if ($conf->{'include'}) {
+		post_include($post, $conf->{'include'});
+	}
+	if ($conf->{'walk_speed'}) {
+		post_walk_speed($post, $conf->{'walk_speed'});
+	}
+	if ($conf->{'bike'}) {
+		$post->{'bikeTakeAlong'} = 1;
+	}
+
+	return $post;
 }
 
 sub parse_initial {
@@ -156,6 +262,43 @@ sub parse_pretty {
 		push(@{$elements}, $hash);
 	}
 	return($elements);
+}
+
+sub new {
+	my ($obj, %conf) = @_;
+	my $ref = {};
+
+	$ref->{'config'} = \%conf;
+	$ref->{'post'}  = create_post(\%conf);
+
+	return bless($ref, $obj);
+}
+
+sub submit {
+	my ($self, %conf) = @_;
+
+	my $firsturl
+		= 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
+
+	$self->{'mech'} = WWW::Mechanize->new(
+		autocheck => 1,
+		timeout   => $conf{'timeout'} // 10,
+	);
+
+	$self->{'mech'}->get($firsturl);
+	$self->{'mech'}->submit_form(
+		form_name => 'jp',
+		fields    => $self->{'post'},
+	);
+
+	# XXX (workaround)
+	# The content actually is iso-8859-1. But HTML::Message doesn't actually
+	# decode character strings when they have that encoding. However, it
+	# doesn't check for latin-1, which is an alias for iso-8859-1.
+
+	$self->{'html_reply'} = $self->{'mech'}->response()->decoded_content(
+		charset => 'latin-1'
+	);
 }
 
 sub parse {
