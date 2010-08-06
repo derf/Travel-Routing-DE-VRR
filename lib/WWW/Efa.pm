@@ -4,10 +4,12 @@ use strict;
 use warnings;
 use 5.010;
 
-use Carp qw/croak confess/;
+use base 'Exporter';
+
 use XML::LibXML;
 use WWW::Mechanize;
 
+our @EXPORT_OK = ();
 my $VERSION = '1.3+git';
 
 sub post_time {
@@ -24,7 +26,9 @@ sub post_time {
 	}
 
 	if ($time !~ / ^ [0-2]? \d : [0-5]? \d $ /x) {
-		confess('conf: time invalid. Use HH:MM');
+		return WWW::Efa::Error->new(
+			'internal', 'conf', ['time', $time, 'Must match HH:MM']
+		);
 	}
 	@{$post}{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
 }
@@ -33,7 +37,9 @@ sub post_date {
 	my ($post, $date) = @_;
 
 	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
-		confess('conf: date invalid DD.MM.[YYYY]');
+		return WWW::Efa::Error->new(
+			'internal', 'conf', ['date', $date, 'Must match DD.MM.[YYYY]']
+		);
 	}
 	@{$post}{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
 	$post->{'itdDateYear'} //= (localtime(time))[5] + 1900;
@@ -55,7 +61,14 @@ sub post_exclude {
 			}
 		}
 		if (not $ok) {
-			confess("conf: exclude: Invalid element $exclude_type");
+			return WWW::Efa::Error->new(
+				'internal', 'conf',
+				[
+					'exclude',
+					join(q{ }, @exclude),
+					'Must consist of ' . join(q{ }, @mapping)
+				]
+			);
 		}
 	}
 }
@@ -68,7 +81,10 @@ sub post_prefer {
 		when('nowait') { $post->{'routeType'} = 'LEASTINTERCHANGE' }
 		when('nowalk') { $post->{'routeType'} = 'LEASTWALKING' }
 		default {
-			confess("conf: prefer: Invalid argument $prefer");
+			return WWW::Efa::Error->new(
+				'internal', 'conf',
+				['prefer', $prefer, 'Must be either speed, nowait or nowalk']
+			);
 		}
 	}
 }
@@ -81,7 +97,10 @@ sub post_include {
 		when ('ic')    { $post->{'lineRestriction'} = 401 }
 		when ('ice')   { $post->{'lineRestriction'} = 400 }
 		default {
-			confess('conf: invalid include');
+			return WWW::Efa::Error->new(
+				'internal', 'conf',
+				['include', $include, 'Must be one of local/ic/ice']
+			);
 		}
 	}
 }
@@ -93,7 +112,10 @@ sub post_walk_speed {
 		$post->{'changeSpeed'} = $walk_speed;
 	}
 	else {
-		confess('conf: walk_speed invalid');
+		return WWW::Efa::Error->new(
+			'internal', 'conf',
+			['walk_speed', $walk_speed, 'Must be normal, fast or slow']
+		);
 	}
 }
 
@@ -101,7 +123,10 @@ sub post_place {
 	my ($post, $which, $place, $stop, $type) = @_;
 
 	if (not ($place and $stop)) {
-		confess("conf: ${which}: Need at least two elements");
+		return WWW::Efa::Error->new(
+			'internal', 'conf',
+			['place', "'$place' '$stop'", "Need at least two elements for ${which}"]
+		);
 	}
 
 	$type //= 'stop';
@@ -204,7 +229,9 @@ sub parse_initial {
 		return $cons;
 	}
 	else {
-		confess('efa.vrr.de returned no connections, check your input data');
+		return WWW::Efa::Error->new(
+			'efa.vrr.de', 'no data'
+		);
 	}
 }
 
@@ -318,25 +345,23 @@ sub parse {
 
 sub check_ambiguous {
 	my ($self) = @_;
-	my $ambiguous = 0;
 	my $tree = $self->{'tree'};
 
 	my $xp_select = XML::LibXML::XPathExpression->new('//select');
 	my $xp_option = XML::LibXML::XPathExpression->new('./option');
 
 	foreach my $select (@{$tree->findnodes($xp_select)}) {
-		$ambiguous = 1;
-		printf {*STDERR} (
-			"Ambiguous input for %s\n",
-			$select->getAttribute('name'),
-		);
+
+		my @possible = ($select->getAttribute('name'));
+
 		foreach my $val ($select->findnodes($xp_option)) {
-			print {*STDERR} "\t";
-			say {*STDERR} $val->textContent();
+			push(@possible, $val->textContent());
 		}
-	}
-	if ($ambiguous) {
-		exit 1;
+
+		return WWW::Efa::Error->new(
+			'efa.vrr.de', 'ambiguous',
+			\@possible
+		);
 	}
 }
 
@@ -350,12 +375,10 @@ sub check_no_connections {
 	my $err_node = $tree->findnodes($xp_err_img)->[0];
 
 	if ($err_node) {
-		say {*STDERR} 'Looks like efa.vrr.de showed an error.';
-		say {*STDERR} 'I will now try to dump the error message:';
-
-		say {*STDERR} $err_node->parentNode()->parentNode()->textContent();
-
-		exit 2;
+		return WWW::Efa::Error->new(
+			'efa.vrr.de', 'error',
+			$err_node->parentNode()->parentNode()->textContent()
+		);
 	}
 }
 
