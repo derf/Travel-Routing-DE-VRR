@@ -28,7 +28,7 @@ sub as_string {
 
 	if ($self->{'source'} eq 'internal') {
 		$ret = sprintf(
-			"WWW::Efa config error: Wrong args for option %s. %s\n",
+			"WWW::Efa config error: Wrong arg for option %s: %s\n%s\n",
 			@{$self->{'data'}}
 		);
 	}

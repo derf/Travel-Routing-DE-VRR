@@ -88,7 +88,7 @@ $efa = WWW::Efa->new(
 	via  => (@via ? [@via, $via_type] : undef),
 
 	arrive  => $opt->{'arrive'},
-	depart  => $opt->{'depart'},
+	depart  => $opt->{'depart'} // $opt->{'time'},
 	date    => $opt->{'date'},
 	exclude => $opt->{'exclude'},
 	prefer  => $opt->{'prefer'},
@@ -99,6 +99,14 @@ $efa = WWW::Efa->new(
 	walk_speed => $opt->{'walk-speed'},
 	max_interchanges  => $opt->{'max-change'},
 );
+
+if ($efa->{'error'}) {
+	die $efa->{'error'}->as_string();
+}
+
+if (ref($efa) eq 'WWW::Efa::Error') {
+	die($efa->as_string);
+}
 
 if ($opt->{'test-parse'}) {
 	local $/ = undef;

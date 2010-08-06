@@ -7,6 +7,7 @@ use 5.010;
 use base 'Exporter';
 
 use XML::LibXML;
+use WWW::Efa::Error;
 use WWW::Mechanize;
 
 our @EXPORT_OK = ();
@@ -26,7 +27,7 @@ sub post_time {
 	}
 
 	if ($time !~ / ^ [0-2]? \d : [0-5]? \d $ /x) {
-		return WWW::Efa::Error->new(
+		die WWW::Efa::Error->new(
 			'internal', 'conf', ['time', $time, 'Must match HH:MM']
 		);
 	}
@@ -37,7 +38,7 @@ sub post_date {
 	my ($post, $date) = @_;
 
 	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
-		return WWW::Efa::Error->new(
+		die WWW::Efa::Error->new(
 			'internal', 'conf', ['date', $date, 'Must match DD.MM.[YYYY]']
 		);
 	}
@@ -61,7 +62,7 @@ sub post_exclude {
 			}
 		}
 		if (not $ok) {
-			return WWW::Efa::Error->new(
+			die WWW::Efa::Error->new(
 				'internal', 'conf',
 				[
 					'exclude',
@@ -74,14 +75,14 @@ sub post_exclude {
 }
 
 sub post_prefer {
-	my ($post, $prefer) = (@_);
+	my ($post, $prefer) = @_;
 
-	given($prefer) {
-		when('speed')  { $post->{'routeType'} = 'LEASTTIME' }
-		when('nowait') { $post->{'routeType'} = 'LEASTINTERCHANGE' }
-		when('nowalk') { $post->{'routeType'} = 'LEASTWALKING' }
+	given ($prefer) {
+		when ('speed')  { $post->{'routeType'} = 'LEASTTIME' }
+		when ('nowait') { $post->{'routeType'} = 'LEASTINTERCHANGE' }
+		when ('nowalk') { $post->{'routeType'} = 'LEASTWALKING' }
 		default {
-			return WWW::Efa::Error->new(
+			die WWW::Efa::Error->new(
 				'internal', 'conf',
 				['prefer', $prefer, 'Must be either speed, nowait or nowalk']
 			);
@@ -97,7 +98,7 @@ sub post_include {
 		when ('ic')    { $post->{'lineRestriction'} = 401 }
 		when ('ice')   { $post->{'lineRestriction'} = 400 }
 		default {
-			return WWW::Efa::Error->new(
+			die WWW::Efa::Error->new(
 				'internal', 'conf',
 				['include', $include, 'Must be one of local/ic/ice']
 			);
@@ -112,7 +113,7 @@ sub post_walk_speed {
 		$post->{'changeSpeed'} = $walk_speed;
 	}
 	else {
-		return WWW::Efa::Error->new(
+		die WWW::Efa::Error->new(
 			'internal', 'conf',
 			['walk_speed', $walk_speed, 'Must be normal, fast or slow']
 		);
@@ -123,9 +124,9 @@ sub post_place {
 	my ($post, $which, $place, $stop, $type) = @_;
 
 	if (not ($place and $stop)) {
-		return WWW::Efa::Error->new(
+		die WWW::Efa::Error->new(
 			'internal', 'conf',
-			['place', "'$place' '$stop'", "Need at least two elements for ${which}"]
+			['place', $which, "Need at least two elements"]
 		);
 	}
 
@@ -296,7 +297,13 @@ sub new {
 	my $ref = {};
 
 	$ref->{'config'} = \%conf;
-	$ref->{'post'}  = create_post(\%conf);
+
+	eval {
+		$ref->{'post'} = create_post(\%conf);
+	};
+	if ($@ and ref($@) eq 'WWW::Efa::Error') {
+		$ref->{'error'} = $@;
+	}
 
 	return bless($ref, $obj);
 }
