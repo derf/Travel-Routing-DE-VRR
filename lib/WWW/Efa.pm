@@ -10,7 +10,7 @@ WWW::Efa - inofficial interface to the efa.vrr.de German itinerary service
 
     my $efa = WWW::Efa->new(
         from => ['Essen', 'HBf'],
-        to   => ['Muelheim', 'HBf'],
+        to   => ['Duisburg', 'HBf'],
     );
 
     $efa->submit();
@@ -20,10 +20,11 @@ WWW::Efa - inofficial interface to the efa.vrr.de German itinerary service
         for my $c (@{$con}) {
             printf(
                 "%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",,
-                @{$c}->{'dep_time', 'dep_stop', 'train_line', 'train_dest'},
-                @{$c}->{'arr_time', 'arr_stop'},
+                @{$c}{'dep_time', 'dep_stop', 'train_line', 'train_dest'},
+                @{$c}{'arr_time', 'arr_stop'},
             );
         }
+        print "\n\n";
     }
 
 =head1 DESCRIPTION
