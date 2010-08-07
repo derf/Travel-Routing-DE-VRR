@@ -104,7 +104,7 @@ if ($efa->{'error'}) {
 	die $efa->{'error'}->as_string();
 }
 
-if (ref($efa) eq 'WWW::Efa::Error') {
+if ($efa->isa('WWW::Efa::Error')) {
 	die($efa->as_string);
 }
 
