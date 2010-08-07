@@ -1,5 +1,37 @@
 package WWW::Efa;
 
+=head1 NAME
+
+WWW::Efa - inofficial interface to the efa.vrr.de German itinerary service
+
+=head1 SYNOPSIS
+
+    use WWW::Efa;
+
+    my $efa = WWW::Efa->new(
+        from => ['Essen', 'HBf'],
+        to   => ['Muelheim', 'HBf'],
+    );
+
+    $efa->submit();
+    $efa->parse();
+
+    for my $con ($efa->connections()) {
+        for my $c (@{$con}) {
+            printf(
+                "%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",,
+                @{$c}->{'dep_time', 'dep_stop', 'train_line', 'train_dest'},
+                @{$c}->{'arr_time', 'arr_stop'},
+            );
+        }
+    }
+
+=head1 DESCRIPTION
+
+Foo bar
+
+=cut
+
 use strict;
 use warnings;
 use 5.010;

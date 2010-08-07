@@ -10,6 +10,7 @@ my $build = Module::Build->new(
 		'Test::Compile' => 0,
 		'Test::Pod' => 0,
 		'Test::Command' => 0,
+		'Test::Synopsis' => 0,
 	},
 	module_name => 'WWW::Efa',
 	license => 'unrestricted',
