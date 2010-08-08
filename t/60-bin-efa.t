@@ -16,7 +16,7 @@ my $re_version = qr{\S*efa version \S+};
 sub mk_err {
 	my ($arg, $value, $message) = @_;
 	return sprintf(
-		"WWW::Efa config error: Wrong arg for option %s: %s\n%s\n",
+		"WWW::Efa setup error: Wrong arg for option %s: %s\n%s\n",
 		$arg, $value, $message
 	);
 }

@@ -40,7 +40,8 @@ use 5.010;
 use base 'Exporter';
 
 use XML::LibXML;
-use WWW::Efa::Error;
+use WWW::Efa::Error::Setup;
+use WWW::Efa::Error::Backend;
 use WWW::Mechanize;
 
 our @EXPORT_OK = ();
@@ -60,8 +61,8 @@ sub post_time {
 	}
 
 	if ($time !~ / ^ [0-2]? \d : [0-5]? \d $ /x) {
-		die WWW::Efa::Error->new(
-			'internal', 'conf', ['time', $time, 'Must match HH:MM']
+		die WWW::Efa::Error::Setup->new(
+			'time', $time, 'Must match HH:MM'
 		);
 	}
 	@{$post}{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
@@ -71,8 +72,8 @@ sub post_date {
 	my ($post, $date) = @_;
 
 	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
-		die WWW::Efa::Error->new(
-			'internal', 'conf', ['date', $date, 'Must match DD.MM.[YYYY]']
+		die WWW::Efa::Error::Setup->new(
+			'date', $date, 'Must match DD.MM.[YYYY]'
 		);
 	}
 	@{$post}{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
@@ -95,13 +96,10 @@ sub post_exclude {
 			}
 		}
 		if (not $ok) {
-			die WWW::Efa::Error->new(
-				'internal', 'conf',
-				[
-					'exclude',
-					join(q{ }, @exclude),
-					'Must consist of ' . join(q{ }, @mapping)
-				]
+			die WWW::Efa::Error::Setup->new(
+				'exclude',
+				join(q{ }, @exclude),
+				'Must consist of ' . join(q{ }, @mapping)
 			);
 		}
 	}
@@ -115,9 +113,8 @@ sub post_prefer {
 		when ('nowait') { $post->{'routeType'} = 'LEASTINTERCHANGE' }
 		when ('nowalk') { $post->{'routeType'} = 'LEASTWALKING' }
 		default {
-			die WWW::Efa::Error->new(
-				'internal', 'conf',
-				['prefer', $prefer, 'Must be either speed, nowait or nowalk']
+			die WWW::Efa::Error::Setup->new(
+				'prefer', $prefer, 'Must be either speed, nowait or nowalk'
 			);
 		}
 	}
@@ -131,9 +128,8 @@ sub post_include {
 		when ('ic')    { $post->{'lineRestriction'} = 401 }
 		when ('ice')   { $post->{'lineRestriction'} = 400 }
 		default {
-			die WWW::Efa::Error->new(
-				'internal', 'conf',
-				['include', $include, 'Must be one of local/ic/ice']
+			die WWW::Efa::Error::Setup->new(
+				'include', $include, 'Must be one of local/ic/ice'
 			);
 		}
 	}
@@ -146,9 +142,8 @@ sub post_walk_speed {
 		$post->{'changeSpeed'} = $walk_speed;
 	}
 	else {
-		die WWW::Efa::Error->new(
-			'internal', 'conf',
-			['walk_speed', $walk_speed, 'Must be normal, fast or slow']
+		die WWW::Efa::Error::Setup->new(
+			'walk_speed', $walk_speed, 'Must be normal, fast or slow'
 		);
 	}
 }
@@ -157,9 +152,8 @@ sub post_place {
 	my ($post, $which, $place, $stop, $type) = @_;
 
 	if (not ($place and $stop)) {
-		die WWW::Efa::Error->new(
-			'internal', 'conf',
-			['place', $which, "Need at least two elements"]
+		die WWW::Efa::Error::Setup->new(
+			'place', $which, "Need at least two elements"
 		);
 	}
 
@@ -263,8 +257,8 @@ sub parse_initial {
 		return $cons;
 	}
 	else {
-		return WWW::Efa::Error->new(
-			'efa.vrr.de', 'no data'
+		return WWW::Efa::Error::Backend->new(
+			'no data'
 		);
 	}
 }
@@ -334,7 +328,7 @@ sub new {
 	eval {
 		$ref->{'post'} = create_post(\%conf);
 	};
-	if ($@ and ref($@) eq 'WWW::Efa::Error') {
+	if ($@ and ref($@) eq 'WWW::Efa::Error::Setup') {
 		$ref->{'error'} = $@;
 	}
 
@@ -398,8 +392,8 @@ sub check_ambiguous {
 			push(@possible, $val->textContent());
 		}
 
-		return WWW::Efa::Error->new(
-			'efa.vrr.de', 'ambiguous',
+		return WWW::Efa::Error::Backend->new(
+			'ambiguous',
 			\@possible
 		);
 	}
@@ -415,8 +409,8 @@ sub check_no_connections {
 	my $err_node = $tree->findnodes($xp_err_img)->[0];
 
 	if ($err_node) {
-		return WWW::Efa::Error->new(
-			'efa.vrr.de', 'error',
+		return WWW::Efa::Error::Backend->new(
+			'error',
 			$err_node->parentNode()->parentNode()->textContent()
 		);
 	}

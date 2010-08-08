@@ -104,10 +104,6 @@ if ($efa->{'error'}) {
 	die $efa->{'error'}->as_string();
 }
 
-if ($efa->isa('WWW::Efa::Error')) {
-	die($efa->as_string);
-}
-
 if ($opt->{'test-parse'}) {
 	local $/ = undef;
 	$efa->{'html_reply'} = <STDIN>;

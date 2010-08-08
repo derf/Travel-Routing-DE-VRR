@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test::More tests => 127;
+use Test::More tests => 135;
 
 BEGIN {
 	use_ok('WWW::Efa');
@@ -77,28 +77,29 @@ sub is_efa_err {
 		"conf ok: $key => $val",
 	);
 
-	is(
-		$efa->{'error'}->{'source'}, 'internal',
-		"$key => $val: Error source is internal",
-	);
-	is(
-		$efa->{'error'}->{'type'}, 'conf',
-		"$key => $val: Error type is conf",
-	);
+	isa_ok($efa->{'error'}, 'WWW::Efa::Error::Setup');
 
-	is_deeply(
-		$efa->{'error'}->{'data'}, [$key, $val_want, $str],
-		"$key => $val: Error data is [$key, $val_want, $str]",
+	is(
+		$efa->{'error'}->{'key'}, $key,
+		"$key => $val: Error: Correct key",
+	);
+	is(
+		$efa->{'error'}->{'value'}, $val_want,
+		"$key => $val: Error: Correct valuef",
+	);
+	is(
+		$efa->{'error'}->{'message'}, $str,
+		"$key => $val: Error: String is '$str'",
 	);
 }
 
 is_efa_post('ignored', 'ignored');
 
 my $efa = new_ok('WWW::Efa' => []);
-isa_ok($efa->{'error'}, 'WWW::Efa::Error');
-is($efa->{'error'}->{'source'}, 'internal');
-is($efa->{'error'}->{'type'},   'conf'    );
-is_deeply($efa->{'error'}->{'data'},   ['place', 'origin', 'Need at least two elements']);
+isa_ok($efa->{'error'}, 'WWW::Efa::Error::Setup');
+is($efa->{'error'}->{'key'}, 'place');
+is($efa->{'error'}->{'value'}, 'origin');
+is($efa->{'error'}->{'message'}, 'Need at least two elements');
 
 is_efa_post(
 	'via', ['MH', 'HBf'],
