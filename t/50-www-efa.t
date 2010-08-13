@@ -80,15 +80,15 @@ sub is_efa_err {
 	isa_ok($efa->{'error'}, 'WWW::Efa::Error::Setup');
 
 	is(
-		$efa->{'error'}->{'key'}, $key,
+		$efa->{'error'}->option(), $key,
 		"$key => $val: Error: Correct key",
 	);
 	is(
-		$efa->{'error'}->{'value'}, $val_want,
+		$efa->{'error'}->value(), $val_want,
 		"$key => $val: Error: Correct valuef",
 	);
 	is(
-		$efa->{'error'}->{'message'}, $str,
+		$efa->{'error'}->message(), $str,
 		"$key => $val: Error: String is '$str'",
 	);
 }

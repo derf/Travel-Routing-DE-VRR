@@ -60,4 +60,22 @@ sub as_string {
 	);
 }
 
+=head2 $error->option()
+
+Returns the option which caused the error.
+
+=head2 $error->value()
+
+Returns the value which caused the error.
+
+=head2 $error->message()
+
+Returns a message describing what went wrong and how to fix it.
+
+=cut
+
+sub option  { return $_[0]->{'key'}     }
+sub value   { return $_[0]->{'value'}   }
+sub message { return $_[0]->{'message'} }
+
 1;
