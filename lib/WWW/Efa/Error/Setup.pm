@@ -42,6 +42,14 @@ sub new {
 	return bless($ref, $obj);
 }
 
+=head1 METHODS
+
+=head2 $error->as_string()
+
+Return the error as string, can directly be displayed to the user
+
+=cut
+
 sub as_string {
 	my ($self) = @_;
 	my $ret;
