@@ -319,6 +319,78 @@ sub parse_pretty {
 	return($elements);
 }
 
+=head1 METHODS
+
+=head2 new(%conf)
+
+Returns a new WWW::Efa object and sets up its POST data via %conf.
+
+Valid hash keys and their values are:
+
+=over
+
+=item B<from> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
+
+Mandatory.  Sets the origin, which is the start of the journey.
+I<type> is optional and may be one of B<stop> (default), B<address> (street
+and house number) or B<poi> ("point of interest").
+
+=item B<to> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
+
+Mandatory.  Sets the destination, see B<from>.
+
+=item B<via> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
+
+Optional.  Specifies a intermediate stop which the resulting itinerary must
+contain.  See B<from> for arguments.
+
+=item B<arrive> => I<HH:MM>
+
+Sets the journey end time
+
+=item B<depart>|B<time> => I<HH:MM>
+
+Sets the journey start time
+
+=item B<date> => I<DD.MM.>[I<YYYY>]
+
+Set journey date, in case it is not today
+
+=item B<exclude> => \@exclude
+
+Do not use certain transport types for itinerary.  Acceptep arguments:
+zug, s-bahn, u-bahn, stadtbahn, tram, stadtbus, regionalbus, schnellbus,
+seilbahn, schiff, ast, sonstige
+
+=item B<max_interchanges> => I<num>
+
+Set maximum number of interchanges
+
+=item B<prefer> => B<speed>|B<nowait>|B<nowalk>
+
+Prefer either fast connections (default), connections with low wait time or
+connections with little distance to walk
+
+=item B<proximity> => I<int>
+
+Try using near stops instead of the given start/stop one if I<int> is true.
+
+=item B<include> => B<local>|B<ic>|B<ice>
+
+Include only local trains into itinarery (default), or all but ICEs, or all.
+
+=item B<walk_speed> => B<slow>|B<fast>|B<normal>
+
+Set walk speed.  Default: B<normal>
+
+=item B<bike> => I<int>
+
+If true: Prefer connections allowing to take a bike along
+
+=back
+
+=cut
+
 sub new {
 	my ($obj, %conf) = @_;
 	my $ref = {};
@@ -335,16 +407,22 @@ sub new {
 	return bless($ref, $obj);
 }
 
+=head2 $efa->submit(%opts)
+
+Submit the query to B<http://efa.vrr.de>.
+B<%opts> is passed on to WWW::Mechanize->new(%opts).
+
+=cut
+
 sub submit {
 	my ($self, %conf) = @_;
+
+	$conf{'autocheck'} = 1;
 
 	my $firsturl
 		= 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
 
-	$self->{'mech'} = WWW::Mechanize->new(
-		autocheck => 1,
-		timeout   => $conf{'timeout'} // 10,
-	);
+	$self->{'mech'} = WWW::Mechanize->new(%conf);
 
 	$self->{'mech'}->get($firsturl);
 	$self->{'mech'}->submit_form(
@@ -361,6 +439,12 @@ sub submit {
 		charset => 'latin-1'
 	);
 }
+
+=head2 $efa->parse()
+
+Parse the B<efa.vrr.de> reply
+
+=cut
 
 sub parse {
 	my ($self) = @_;
