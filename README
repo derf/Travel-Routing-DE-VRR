@@ -14,7 +14,8 @@ Installation
 See also the Module::Build documentation.
 
 Extra modules required for testing:
- - Test::More
- - Test::Compile
- - Test::Pod
  - Test::Command
+ - Test::Compile
+ - Test::More
+ - Test::Pod
+ - Test::Synopsis

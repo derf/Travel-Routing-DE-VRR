@@ -1,5 +1,28 @@
 package WWW::Efa::Error::Setup;
 
+=head1 NAME
+
+WWW::Efa::Error::Setup - WWW::Efa error, happened in ->new()
+
+=head1 SYNOPSIS
+
+    use WWW::Efa::Error::Setup;
+
+    my $error = WWW::Efa::Error::Setup->new(
+        'max_interchanges', '-1', 'Must be positive'
+    );
+
+    die $error->as_string();
+    # WWW::Efa setup error: Wrong arg for option max_interchanges: -1
+    # Must be positive
+
+=head1 DESCRIPTION
+
+Class for all WWW::Efa-internal errors occuring during initialization. Usually
+caused by missing or invalid setup arguments.
+
+=cut
+
 use strict;
 use warnings;
 use 5.010;
