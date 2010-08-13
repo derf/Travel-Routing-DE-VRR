@@ -100,8 +100,8 @@ $efa = WWW::Efa->new(
 	max_interchanges  => $opt->{'max-change'},
 );
 
-if ($efa->{'error'}) {
-	die $efa->{'error'}->as_string();
+if (my $err = $efa->setup_error()) {
+	die $err->as_string();
 }
 
 if ($opt->{'test-parse'}) {

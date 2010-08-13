@@ -407,6 +407,23 @@ sub new {
 	return bless($ref, $obj);
 }
 
+=head2 $efa->setup_error()
+
+In case WWW::Efa->new() encountered an error (usually invalid options), this
+returns a B<WWW::Efa::Error::Setup> object describing the exact error.
+Otherwise, returns nothing.
+
+=cut
+
+sub setup_error {
+	my ($self) = @_;
+
+	if ($self->{'error'}) {
+		return $self->{'error'};
+	}
+	return;
+}
+
 =head2 $efa->submit(%opts)
 
 Submit the query to B<http://efa.vrr.de>.
