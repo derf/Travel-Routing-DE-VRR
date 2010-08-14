@@ -155,7 +155,7 @@ sub post_place {
 
 	if (not ($place and $stop)) {
 		die WWW::Efa::Error::Setup->new(
-			'place', $which, "Need at least two elements"
+			'place', $which, 'Need at least two elements'
 		);
 	}
 
