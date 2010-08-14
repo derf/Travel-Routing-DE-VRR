@@ -114,11 +114,11 @@ else {
 	);
 }
 
-$efa->parse();
+my $err = $efa->parse();
 
-
-$efa->check_ambiguous();
-$efa->check_no_connections();
+if ($err and $err->isa('WWW::Efa::Error')) {
+	die $err->as_string();
+}
 
 my @connections = $efa->connections();
 

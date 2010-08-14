@@ -40,8 +40,10 @@ use 5.010;
 use base 'Exporter';
 
 use XML::LibXML;
-use WWW::Efa::Error::Setup;
+use WWW::Efa::Error::Ambiguous;
 use WWW::Efa::Error::Backend;
+use WWW::Efa::Error::NoData;
+use WWW::Efa::Error::Setup;
 use WWW::Mechanize;
 
 our @EXPORT_OK = ();
@@ -213,7 +215,7 @@ sub parse_initial {
 
 	my $con_part = 0;
 	my $con_no;
-	my $cons;
+	my $cons = [];
 
 	my $xp_td = XML::LibXML::XPathExpression->new('//table//table/tr/td');
 	my $xp_img = XML::LibXML::XPathExpression->new('./img');
@@ -253,14 +255,7 @@ sub parse_initial {
 		}
 	}
 
-	if (defined $con_no) {
-		return $cons;
-	}
-	else {
-		return WWW::Efa::Error::Backend->new(
-			'no data'
-		);
-	}
+	return $cons;
 }
 
 sub parse_pretty {
@@ -465,6 +460,7 @@ Parse the B<efa.vrr.de> reply
 
 sub parse {
 	my ($self) = @_;
+	my $err;
 
 	my $tree = XML::LibXML->load_html(
 		string => $self->{'html_reply'},
@@ -472,10 +468,28 @@ sub parse {
 
 	my $raw_cons = parse_initial($tree);
 
+	if (@{$raw_cons} == 0) {
+		$self->{'error'} = WWW::Efa::Error::NoData->new();
+	}
+
 	for my $raw_con (@{$raw_cons}) {
 		push(@{$self->{'connections'}}, parse_pretty($raw_con));
 	}
 	$self->{'tree'} = $tree;
+
+	if ($err = $self->check_ambiguous()) {
+		$self->{'error'} = $err;
+		return $err;
+	}
+	elsif ($err = $self->check_no_connections()) {
+		$self->{'error'} = $err;
+		return $err;
+	}
+	elsif ($self->{'error'}) {
+		return $self->{'error'};
+	}
+
+	return $self->{'error'};
 }
 
 sub check_ambiguous {
@@ -487,15 +501,16 @@ sub check_ambiguous {
 
 	foreach my $select (@{$tree->findnodes($xp_select)}) {
 
-		my @possible = ($select->getAttribute('name'));
+		my $post_key = $select->getAttribute('name');
+		my @possible;
 
 		foreach my $val ($select->findnodes($xp_option)) {
 			push(@possible, $val->textContent());
 		}
 
-		return WWW::Efa::Error::Backend->new(
-			'ambiguous',
-			\@possible
+		return WWW::Efa::Error::Ambiguous->new(
+			$post_key,
+			@possible,
 		);
 	}
 }
@@ -511,7 +526,6 @@ sub check_no_connections {
 
 	if ($err_node) {
 		return WWW::Efa::Error::Backend->new(
-			'error',
 			$err_node->parentNode()->parentNode()->textContent()
 		);
 	}

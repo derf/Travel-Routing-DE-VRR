@@ -52,7 +52,6 @@ Return the error as string, can directly be displayed to the user
 
 sub as_string {
 	my ($self) = @_;
-	my $ret;
 
 	return sprintf(
 		"WWW::Efa setup error: Wrong arg for option %s: %s\n%s\n",
