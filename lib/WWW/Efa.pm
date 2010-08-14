@@ -53,7 +53,7 @@ sub post_time {
 	my ($post, $conf) = @_;
 	my $time;
 
-	if ($conf->{'depart'} || $conf->{'time'}) {
+	if ($conf->{'depart'}) {
 		$post->{'itdTripDateTimeDepArr'} = 'dep';
 		$time = $conf->{'depart'} || $conf->{'time'};
 	}
@@ -64,7 +64,8 @@ sub post_time {
 
 	if ($time !~ / ^ [0-2]? \d : [0-5]? \d $ /x) {
 		die WWW::Efa::Error::Setup->new(
-			'time', $time, 'Must match HH:MM'
+			($conf->{'depart'} ? 'depart' : 'arrive'),
+			$time, 'Must match HH:MM'
 		);
 	}
 	@{$post}{'itdTimeHour', 'itdTimeMinute'} = split(/:/, $time);
@@ -179,7 +180,7 @@ sub create_post {
 	if ($conf->{'via'}) {
 		post_place($post, 'via', @{$conf->{'via'}});
 	}
-	if ($conf->{'arrive'} || $conf->{'depart'} || $conf->{'time'}) {
+	if ($conf->{'arrive'} || $conf->{'depart'}) {
 		post_time($post, $conf);
 	}
 	if ($conf->{'date'}) {
@@ -343,7 +344,7 @@ contain.  See B<from> for arguments.
 
 Sets the journey end time
 
-=item B<depart>|B<time> => I<HH:MM>
+=item B<depart> => I<HH:MM>
 
 Sets the journey start time
 

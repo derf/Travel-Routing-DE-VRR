@@ -94,13 +94,23 @@ for my $opt (qw/-w --walk-speed/) {
 	);
 }
 
-for my $opt (qw/-t --time --depart -a --arrive/) {
+for my $opt (qw/-t --time --depart/) {
 	$cmd = Test::Command->new(cmd => "$efa $opt 35:12 $testarg");
 
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq($EMPTY);
 	$cmd->stderr_is_eq(
-		mk_err('time', '35:12', 'Must match HH:MM')
+		mk_err('depart', '35:12', 'Must match HH:MM')
+	);
+}
+
+for my $opt (qw/-a --arrive/) {
+	$cmd = Test::Command->new(cmd => "$efa $opt 35:12 $testarg");
+
+	$cmd->exit_isnt_num(0);
+	$cmd->stdout_is_eq($EMPTY);
+	$cmd->stderr_is_eq(
+		mk_err('arrive', '35:12', 'Must match HH:MM')
 	);
 }
 

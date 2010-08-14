@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test::More tests => 135;
+use Test::More tests => 131;
 
 BEGIN {
 	use_ok('WWW::Efa');
@@ -116,13 +116,6 @@ is_efa_post(
 );
 
 is_efa_post(
-	'time', '22:23',
-	['itdTripDateTimeDepArr', 'dep'],
-	['itdTimeHour', '22'],
-	['itdTimeMinute', '23'],
-);
-
-is_efa_post(
 	'depart', '22:23',
 	['itdTripDateTimeDepArr', 'dep'],
 	['itdTimeHour', '22'],
@@ -137,12 +130,12 @@ is_efa_post(
 );
 
 is_efa_err(
-	'time', '37:00',
+	'depart', '37:00',
 	'Must match HH:MM',
 );
 
 is_efa_err(
-	'time', '07',
+	'depart', '07',
 	'Must match HH:MM',
 );
 
