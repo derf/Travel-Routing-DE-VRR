@@ -63,13 +63,13 @@ if (not (@from and @to)) {
 }
 
 for my $pair (
-	[$from[1], \$from_type],
-	[$via[1] , \$via_type ],
-	[$to[1]  , \$to_type  ],
+	[\@from, \$from_type],
+	[\@via , \$via_type ],
+	[\@to  , \$to_type  ],
 ) {
-	next if (not defined $pair->[0]);
+	next if (not defined $pair->[0]->[1]);
 
-	if ($pair->[0] =~ s{ ^ (?<type> [^:]+ ) : \s* (?<target> .+ ) $ }
+	if ($pair->[0]->[1] =~ s{ ^ (?<type> [^:]+ ) : \s* (?<target> .+ ) $ }
 		{$+{target}}x)
 	{
 		given($+{type}) {
