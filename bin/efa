@@ -16,9 +16,11 @@ my ($test_dump, $test_parse);
 my $efa;
 my (@from, @to, @via, $from_type, $to_type, $via_type);
 my $opt = {
+	'help'        => sub { exec('perldoc', '-F', $0) },
 	'ignore-info' => \$ignore_info,
 	'from'        => \@from,
 	'to'          => \@to,
+	'version'     => sub { say "efa version $VERSION"; exit 0 },
 	'via'         => \@via,
 };
 
@@ -49,12 +51,7 @@ GetOptions(
 		via=s@{2}
 		walk-speed|w=s
 	},
-) or die("Please see $0 --help\n");
-
-if ($opt->{'version'}) {
-	say "efa version $VERSION";
-	exit 0;
-}
+) or die("Please see perldoc -F $0\n");
 
 if (not (@from and @to)) {
 	if (@ARGV == 4) {
