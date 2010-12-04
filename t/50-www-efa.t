@@ -21,21 +21,6 @@ sub efa_conf {
 	return $ret;
 }
 
-sub efa_post {
-	my $ret = {
-		place_origin => 'Essen',
-		name_origin => 'HBf',
-		type_origin => 'stop',
-		place_destination => 'Koeln',
-		name_destination => 'HBf',
-		type_destination => 'stop',
-	};
-	foreach my $p (@_) {
-		$ret->{$p->[0]} = $p->[1];
-	}
-	return $ret;
-}
-
 sub efa_new {
 	return new_ok(
 		'WWW::Efa' => [%{efa_conf(@_)}]
@@ -46,6 +31,8 @@ sub is_efa_post {
 	my ($ck, $cv, @post) = @_;
 	my $efa = efa_new([$ck, $cv]);
 
+	my $ok = 1;
+
 	is_deeply(
 		$efa->{'config'}, efa_conf([$ck, $cv]),
 		"$ck => $cv: conf ok",
@@ -55,10 +42,21 @@ sub is_efa_post {
 		$efa->{'error'}, undef,
 		"$ck => $cv: No error",
 	);
-	
-	is_deeply(
-		$efa->{'post'}, efa_post(@post),
-		"$ck => $cv: POST ok",
+
+	foreach my $ref (@post) {
+		my ($key, $value) = @{$ref};
+		if (not defined $efa->{'post'}->{"key"} and
+				not defined $value) {
+			next;
+		}
+		if ($efa->{'post'}->{"$key"} ne $value) {
+			$ok = 0;
+			last;
+		}
+	}
+	ok(
+		$ok,
+		"$ck => $cv: POST okay",
 	);
 }
 
