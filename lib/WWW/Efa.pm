@@ -39,12 +39,12 @@ use 5.010;
 
 use base 'Exporter';
 
+use LWP::UserAgent;
 use XML::LibXML;
 use WWW::Efa::Error::Ambiguous;
 use WWW::Efa::Error::Backend;
 use WWW::Efa::Error::NoData;
 use WWW::Efa::Error::Setup;
-use WWW::Mechanize;
 
 our @EXPORT_OK = ();
 my $VERSION = '1.3+git';
@@ -171,7 +171,94 @@ sub post_place {
 
 sub create_post {
 	my ($conf) = @_;
-	my $post = {};
+	my $post = {
+      changeSpeed => "normal",
+      command => "",
+      execInst => "",
+      imparedOptionsActive => 1,
+      inclMOT_0 => "on",
+      inclMOT_1 => "on",
+      inclMOT_10 => "on",
+      inclMOT_11 => "on",
+      inclMOT_2 => "on",
+      inclMOT_3 => "on",
+      inclMOT_4 => "on",
+      inclMOT_5 => "on",
+      inclMOT_6 => "on",
+      inclMOT_7 => "on",
+      inclMOT_8 => "on",
+      inclMOT_9 => "on",
+      includedMeans => "checkbox",
+      itOptionsActive => 1,
+      itdDateDay => "03",
+      itdDateMonth => 12,
+      itdDateYear => 10,
+      itdLPxx_ShowFare => " ",
+      itdLPxx_command => "",
+      itdLPxx_enableMobilityRestrictionOptionsWithButton => "",
+      itdLPxx_id_destination => ":destination",
+      itdLPxx_id_origin => ":origin",
+      itdLPxx_id_via => ":via",
+      itdLPxx_mapState_destination => "",
+      itdLPxx_mapState_origin => "",
+      itdLPxx_mapState_via => "",
+      itdLPxx_mdvMap2_destination => "",
+      itdLPxx_mdvMap2_origin => "",
+      itdLPxx_mdvMap2_via => "",
+      itdLPxx_mdvMap_destination => "::",
+      itdLPxx_mdvMap_origin => "::",
+      itdLPxx_mdvMap_via => "::",
+      itdLPxx_priceCalculator => "",
+      itdLPxx_transpCompany => "vrr",
+      itdLPxx_view => "",
+      itdTimeHour => 23,
+      itdTimeMinute => 38,
+      itdTripDateTimeDepArr => "dep",
+      language => "de",
+      lineRestriction => 403,
+      maxChanges => 9,
+      nameInfo_destination => "invalid",
+      nameInfo_origin => "invalid",
+      nameInfo_via => "invalid",
+      nameState_destination => "empty",
+      nameState_origin => "empty",
+      nameState_via => "empty",
+      name_destination => "",
+      name_origin => "",
+      name_via => "",
+      placeInfo_destination => "invalid",
+      placeInfo_origin => "invalid",
+      placeInfo_via => "invalid",
+      placeState_destination => "empty",
+      placeState_origin => "empty",
+      placeState_via => "empty",
+      place_destination => "",
+      place_origin => "",
+      place_via => "",
+      ptOptionsActive => 1,
+      requestID => 0,
+      routeType => "LEASTTIME",
+      sessionID => 0,
+      text => 1993,
+      trITArrMOT => 100,
+      trITArrMOTvalue100 => 8,
+      trITArrMOTvalue101 => 10,
+      trITArrMOTvalue104 => 10,
+      trITArrMOTvalue105 => 10,
+      trITDepMOT => 100,
+      trITDepMOTvalue100 => 8,
+      trITDepMOTvalue101 => 10,
+      trITDepMOTvalue104 => 10,
+      trITDepMOTvalue105 => 10,
+      typeInfo_destination => "invalid",
+      typeInfo_origin => "invalid",
+      typeInfo_via => "invalid",
+      type_destination => "stop",
+      type_origin => "stop",
+      type_via => "stop",
+      useRealtime => 1
+    };
+
 
 	post_place($post, 'origin', @{$conf->{'from'}});
 
@@ -423,7 +510,7 @@ sub setup_error {
 =head2 $efa->submit(%opts)
 
 Submit the query to B<http://efa.vrr.de>.
-B<%opts> is passed on to WWW::Mechanize->new(%opts).
+B<%opts> is passed on to LWP::UserAgent->new(%opts).
 
 =cut
 
@@ -432,23 +519,18 @@ sub submit {
 
 	$conf{'autocheck'} = 1;
 
-	my $firsturl
-		= 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_transpCompany=vrr';
+	$self->{'ua'} = LWP::UserAgent->new(%conf);
 
-	$self->{'mech'} = WWW::Mechanize->new(%conf);
-
-	$self->{'mech'}->get($firsturl);
-	$self->{'mech'}->submit_form(
-		form_name => 'jp',
-		fields    => $self->{'post'},
-	);
+	my $response
+		= $self->{'ua'}->post('http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
+		                      $self->{post});
 
 	# XXX (workaround)
 	# The content actually is iso-8859-1. But HTML::Message doesn't actually
 	# decode character strings when they have that encoding. However, it
 	# doesn't check for latin-1, which is an alias for iso-8859-1.
 
-	$self->{'html_reply'} = $self->{'mech'}->response()->decoded_content(
+	$self->{'html_reply'} = $response->decoded_content(
 		charset => 'latin-1'
 	);
 }
