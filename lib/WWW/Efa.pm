@@ -477,6 +477,9 @@ If true: Prefer connections allowing to take a bike along
 
 =back
 
+When encountering invalid hash keys, a WWW::Efa::Error object is stored to be
+retrieved by $efa->error();
+
 =cut
 
 sub new {
@@ -495,15 +498,15 @@ sub new {
 	return bless($ref, $obj);
 }
 
-=head2 $efa->setup_error()
+=head2 $efa->error()
 
-In case WWW::Efa->new() encountered an error (usually invalid options), this
-returns a B<WWW::Efa::Error::Setup> object describing the exact error.
-Otherwise, returns nothing.
+In case a WWW::Efa operation encountered an error, this returns a
+B<WWW::Efa::Error> object related to the exact error. Otherwise, returns
+undef.
 
 =cut
 
-sub setup_error {
+sub error {
 	my ($self) = @_;
 
 	if ($self->{'error'}) {
@@ -543,7 +546,8 @@ sub submit {
 =head2 $efa->parse()
 
 Parse the B<efa.vrr.de> reply.
-Returns undef on success and a WWW::Efa::Error object upon failure.
+returns a true value on success. Upon failure, returns undef and sets
+$efa->error() to a WWW::Efa::Error object.
 
 =cut
 
@@ -568,17 +572,16 @@ sub parse {
 
 	if ($err = $self->check_ambiguous()) {
 		$self->{'error'} = $err;
-		return $err;
 	}
 	elsif ($err = $self->check_no_connections()) {
 		$self->{'error'} = $err;
-		return $err;
-	}
-	elsif ($self->{'error'}) {
-		return $self->{'error'};
 	}
 
-	return $self->{'error'};
+	if ($self->{'error'}) {
+		return;
+	}
+
+	return 1;
 }
 
 sub check_ambiguous {

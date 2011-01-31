@@ -97,8 +97,8 @@ $efa = WWW::Efa->new(
 	max_interchanges  => $opt->{'max-change'},
 );
 
-if (my $err = $efa->setup_error()) {
-	die $err->as_string();
+if ($efa->error()) {
+	die $efa->error()->as_string();
 }
 
 if ($opt->{'test-parse'}) {
@@ -111,11 +111,7 @@ else {
 	);
 }
 
-my $err = $efa->parse();
-
-if ($err and $err->isa('WWW::Efa::Error')) {
-	die $err->as_string();
-}
+$efa->parse or die $efa->error()->as_string();
 
 my @connections = $efa->connections();
 
