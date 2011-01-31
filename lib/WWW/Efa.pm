@@ -29,7 +29,12 @@ WWW::Efa - inofficial interface to the efa.vrr.de German itinerary service
 
 =head1 DESCRIPTION
 
-Foo bar
+B<WWW::Efa> is a client for the efa.vrr.de web interface.
+You pass it the start/stop of your journey, maybe a time and a date and more
+details, and it returns the up-to-date scheduled connections between those two
+stops.
+
+It uses B<LWP::USerAgent> and B<XML::LibXML> for this.
 
 =cut
 
@@ -537,7 +542,8 @@ sub submit {
 
 =head2 $efa->parse()
 
-Parse the B<efa.vrr.de> reply
+Parse the B<efa.vrr.de> reply.
+Returns undef on success and a WWW::Efa::Error object upon failure.
 
 =cut
 
@@ -613,6 +619,38 @@ sub check_no_connections {
 		);
 	}
 }
+
+=head2 $efa->connections()
+
+Returns an array of connection elements. Each connection element is an
+arrayref of connection part, and each connecton part is a hash containing the
+following elements:
+
+=over
+
+=item * dep_time
+
+Departure time as a string in HH:MM format
+
+=item * dep_stop
+
+Departure stop, e.g. "Essen HBf"
+
+=item * train_line
+
+Name of the train line, e.g. "S-Bahn S6"
+
+=item * arr_time
+
+Arrival time as a string in HH:MM format
+
+=item * arr_stop
+
+Arrival stop, e.g. "Berlin HBf"
+
+=back
+
+=cut
 
 sub connections {
 	my ($self) = @_;
