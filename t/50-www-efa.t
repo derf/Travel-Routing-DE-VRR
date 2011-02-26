@@ -153,12 +153,12 @@ is_efa_post(
 
 is_efa_err(
 	'date', '42.5.2003',
-	'Must match DD.MM.[YYYY]'
+	'Invalid day',
 );
 
 is_efa_err(
 	'date', '7.',
-	'Must match DD.MM.[YYYY]'
+	'Invalid month',
 );
 
 is_efa_post(

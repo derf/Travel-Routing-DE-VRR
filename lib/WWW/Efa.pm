@@ -78,14 +78,24 @@ sub post_time {
 
 sub post_date {
 	my ($post, $date) = @_;
+	my ($day, $month, $year) = split(/\./, $date);
 
-	if ($date !~ /^ [0-3]? \d \. [01]? \d (?: | \. | \. (?: \d{4} ))? $/x) {
+	if (not defined $day or not length($day) or $day < 1 or $day > 31) {
 		die WWW::Efa::Error::Setup->new(
-			'date', $date, 'Must match DD.MM.[YYYY]'
+			'date', $date, 'Invalid day'
 		);
 	}
-	@{$post}{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = split(/\./, $date);
-	$post->{'itdDateYear'} //= (localtime(time))[5] + 1900;
+	if (not defined $month or not length($month) or $month < 1 or $month > 12) {
+		die WWW::Efa::Error::Setup->new(
+			'date', $date, 'Invalid month'
+		);
+	}
+
+	if (not defined $year or not length($year)) {
+		$year = (localtime(time))[5] + 1900;
+	}
+
+	@{$post}{'itdDateDay', 'itdDateMonth', 'itdDateYear'} = ($day, $month, $year);
 }
 
 sub post_exclude {

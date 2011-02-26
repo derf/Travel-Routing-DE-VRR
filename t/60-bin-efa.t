@@ -120,7 +120,7 @@ for my $opt (qw/-d --date/) {
 	$cmd->exit_isnt_num(0);
 	$cmd->stdout_is_eq($EMPTY);
 	$cmd->stderr_is_eq(
-		mk_err('date', '11.23.2010', 'Must match DD.MM.[YYYY]')
+		mk_err('date', '11.23.2010', 'Invalid month')
 	);
 }
 
