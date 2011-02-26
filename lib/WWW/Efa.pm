@@ -79,7 +79,7 @@ sub post_time {
 sub post_date {
 	my ($post, $date) = @_;
 
-	if ($date !~ /^ [0-3]? \d \. [01]? \d \. (?: \d{4} )? $/x) {
+	if ($date !~ /^ [0-3]? \d \. [01]? \d (?: | \. | \. (?: \d{4} ))? $/x) {
 		die WWW::Efa::Error::Setup->new(
 			'date', $date, 'Must match DD.MM.[YYYY]'
 		);
