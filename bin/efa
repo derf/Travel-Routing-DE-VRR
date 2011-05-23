@@ -9,24 +9,23 @@ use 5.010;
 use Getopt::Long qw/:config no_ignore_case/;
 use WWW::Efa;
 
-my $VERSION = '1.3+git';
-my %post;
+our $VERSION = '1.3';
 my $ignore_info = 'Fahrradmitnahme';
-my ($test_dump, $test_parse);
 my $efa;
-my (@from, @to, @via, $from_type, $to_type, $via_type);
+my ( @from, @to, @via, $from_type, $to_type, $via_type );
 my $opt = {
-	'help'        => sub { exec('perldoc', '-F', $0) },
+	'help'        => sub { exec( 'perldoc', '-F', $0 ) },
 	'ignore-info' => \$ignore_info,
 	'from'        => \@from,
 	'to'          => \@to,
-	'version'     => sub { say "efa version $VERSION"; exit 0 },
-	'via'         => \@via,
+	'version' => sub { say "efa version $VERSION"; exit 0 },
+	'via' => \@via,
 };
 
-binmode(STDOUT, ':utf8');
-binmode(STDERR, ':utf8');
+binmode( STDOUT, ':encoding(utf-8)' );
+binmode( STDERR, ':encoding(utf-8)' );
 
+#<<<
 GetOptions(
 	$opt,
 	qw{
@@ -52,37 +51,37 @@ GetOptions(
 		walk-speed|w=s
 	},
 ) or die("Please see perldoc -F $0\n");
-
-if (not (@from and @to)) {
-	if (@ARGV == 4) {
-		(@from[0,1], @to[0,1]) = @ARGV;
+#>>>
+if ( not( @from and @to ) ) {
+	if ( @ARGV == 4 ) {
+		( @from[ 0, 1 ], @to[ 0, 1 ] ) = @ARGV;
 	}
-	elsif (@ARGV == 6) {
-		(@from[0,1], @via[0,1], @to[0,1]) = @ARGV;
+	elsif ( @ARGV == 6 ) {
+		( @from[ 0, 1 ], @via[ 0, 1 ], @to[ 0, 1 ] ) = @ARGV;
 	}
 }
 
-for my $pair (
-	[\@from, \$from_type],
-	[\@via , \$via_type ],
-	[\@to  , \$to_type  ],
-) {
-	next if (not defined $pair->[0]->[1]);
+for my $pair ( [ \@from, \$from_type ], [ \@via, \$via_type ],
+	[ \@to, \$to_type ], )
+{
+	next if ( not defined $pair->[0]->[1] );
 
-	if ($pair->[0]->[1] =~ s{ ^ (?<type> [^:]+ ) : \s* (?<target> .+ ) $ }
-		{$+{target}}x)
+	if (
+		$pair->[0]->[1] =~ s{ ^ (?<type> [^:]+ ) : \s* (?<target> .+ ) $ }
+		{$+{target}}x
+	  )
 	{
-		given($+{type}) {
-			when('addr') { ${$pair->[1]} = 'address' }
-			default      { ${$pair->[1]} = $+{type}  }
+		given ( $+{type} ) {
+			when ('addr') { ${ $pair->[1] } = 'address' }
+			default       { ${ $pair->[1] } = $+{type} }
 		}
 	}
 }
 
 $efa = WWW::Efa->new(
-	from => [@from, $from_type],
-	to   => [@to, $to_type],
-	via  => (@via ? [@via, $via_type] : undef),
+	from => [ @from, $from_type ],
+	to   => [ @to,   $to_type ],
+	via => ( @via ? [ @via, $via_type ] : undef ),
 
 	arrive  => $opt->{'arrive'},
 	depart  => $opt->{'depart'} // $opt->{'time'},
@@ -92,50 +91,34 @@ $efa = WWW::Efa->new(
 	include => $opt->{'include'},
 	bike    => $opt->{'bike'},
 
-	proximity  => $opt->{'proximity'},
-	walk_speed => $opt->{'walk-speed'},
-	max_interchanges  => $opt->{'max-change'},
+	proximity        => $opt->{'proximity'},
+	walk_speed       => $opt->{'walk-speed'},
+	max_interchanges => $opt->{'max-change'},
 );
 
-if ($efa->error()) {
-	die $efa->error()->as_string();
-}
+$efa->submit( timeout => $opt->{'timeout'} );
 
-if ($opt->{'test-parse'}) {
-	local $/ = undef;
-	$efa->{'html_reply'} = <STDIN>;
-}
-else {
-	$efa->submit(
-		timeout => $opt->{'timeout'}
-	);
-}
-
-$efa->parse or die $efa->error()->as_string();
+$efa->parse();
 
 my @connections = $efa->connections();
 
-for my $i (0 .. $#connections) {
-	for my $c (@{$connections[$i]}) {
+for my $i ( 0 .. $#connections ) {
+	for my $c ( @{ $connections[$i] } ) {
 
-		for my $extra (@{$c->{'extra'}}) {
+		for my $extra ( @{ $c->{'extra'} } ) {
 
-			if (not (length $ignore_info and $extra =~ /$ignore_info/i)) {
+			if ( not( length $ignore_info and $extra =~ /$ignore_info/i ) ) {
 				say "# $extra";
 			}
 		}
 
 		printf(
 			"%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",
-			$c->{'dep_time'},
-			$c->{'dep_stop'},
-			$c->{'train_line'},
-			$c->{'train_dest'},
-			$c->{'arr_time'},
-			$c->{'arr_stop'},
+			$c->{'dep_time'},   $c->{'dep_stop'}, $c->{'train_line'},
+			$c->{'train_dest'}, $c->{'arr_time'}, $c->{'arr_stop'},
 		);
 	}
-	if ($i != $#connections) {
+	if ( $i != $#connections ) {
 		print "------\n\n";
 	}
 }
@@ -155,6 +138,10 @@ efa - unofficial efa.vrr.de command line client
 =item B<efa> [ I<options> ] I<from-city> I<from-stop> [ I<via-city> I<via-stop> ] I<to-city> I<to-stop>
 
 =back
+
+=head1 VERSION
+
+version 1.3
 
 =head1 DESCRIPTION
 
