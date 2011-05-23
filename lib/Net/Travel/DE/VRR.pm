@@ -1,4 +1,4 @@
-package WWW::Efa;
+package Net::Travel::DE::VRR;
 
 use strict;
 use warnings;
@@ -482,13 +482,13 @@ __END__
 
 =head1 NAME
 
-WWW::Efa - inofficial interface to the efa.vrr.de German itinerary service
+Net::Travel::DE::VRR - inofficial interface to the efa.vrr.de German itinerary service
 
 =head1 SYNOPSIS
 
-	use WWW::Efa;
+	use Net::Travel::DE::VRR;
 
-	my $efa = WWW::Efa->new(
+	my $efa = Net::Travel::DE::VRR->new(
 		from => ['Essen', 'HBf'],
 		to   => ['Duisburg', 'HBf'],
 	);
@@ -513,7 +513,7 @@ version 1.3
 
 =head1 DESCRIPTION
 
-B<WWW::Efa> is a client for the efa.vrr.de web interface.
+B<Net::Travel::DE::VRR> is a client for the efa.vrr.de web interface.
 You pass it the start/stop of your journey, maybe a time and a date and more
 details, and it returns the up-to-date scheduled connections between those two
 stops.
@@ -524,9 +524,9 @@ It uses B<LWP::USerAgent> and B<XML::LibXML> for this.
 
 =over
 
-=item $efa = WWW::Efa->new(I<%conf>)
+=item $efa = Net::Travel::DE::VRR->new(I<%conf>)
 
-Returns a new WWW::Efa object and sets up its POST data via %conf.
+Returns a new Net::Travel::DE::VRR object and sets up its POST data via %conf.
 
 Valid hash keys and their values are:
 
@@ -652,7 +652,7 @@ Dies with a backtrace when anything goes wrong.
 
 The parser is still somewhat fragile and has no proper error handling.
 
-It is best not to pass Unicode characters to B<WWW::Efa>.
+It is best not to pass Unicode characters to B<Net::Travel::DE::VRR>.
 
 =head1 AUTHOR
 

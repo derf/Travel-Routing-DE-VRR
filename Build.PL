@@ -12,7 +12,7 @@ my %opts = (
 		'Test::Command' => 0,
 		'Test::Synopsis' => 0,
 	},
-	module_name => 'WWW::Efa',
+	module_name => 'Net::Travel::DE::VRR',
 	license => 'unrestricted',
 	requires => {
 		'perl' => '5.10.0',
