@@ -15,6 +15,7 @@ my %opts = (
 	module_name => 'Net::Travel::DE::VRR',
 	license => 'unrestricted',
 	requires => {
+		'Class::Accessor' => 0,
 		'perl' => '5.10.0',
 		'Getopt::Long' => 0,
 		'XML::LibXML' => 0,

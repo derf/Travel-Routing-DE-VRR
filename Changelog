@@ -2,6 +2,7 @@ git HEAD
 
     * Remove --foo-type options, use --to city type:stop etc. instead
     * Introducing Net::Travel::DE::VRR
+    * New dependency: Class::Accessor
 
 efa 1.3 - Sun Jun 6 2010
 

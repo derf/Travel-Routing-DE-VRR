@@ -5,6 +5,7 @@ use warnings;
 use 5.010;
 
 use Carp qw(confess);
+use Net::Travel::DE::VRR::Route;
 use LWP::UserAgent;
 use XML::LibXML;
 
@@ -319,7 +320,7 @@ sub parse_initial {
 sub parse_pretty {
 	my ($con_parts) = @_;
 
-	my $elements;
+	my @elements;
 	my @next_extra;
 
 	for my $con ( @{$con_parts} ) {
@@ -370,10 +371,10 @@ sub parse_pretty {
 		$hash->{arr_stop}   = $con->[6];
 		$hash->{train_dest} = $con->[7];
 
-		push( @{$elements}, $hash );
+		push( @elements, $hash );
 	}
 
-	return $elements;
+	return Net::Travel::DE::VRR::Route->new(@elements);
 }
 
 sub new {
@@ -416,7 +417,7 @@ sub parse {
 	my $raw_cons = parse_initial($tree);
 
 	for my $raw_con ( @{$raw_cons} ) {
-		push( @{ $self->{connections} }, parse_pretty($raw_con) );
+		push( @{ $self->{routes} }, parse_pretty($raw_con) );
 	}
 	$self->{tree} = $tree;
 
@@ -470,10 +471,10 @@ sub check_no_connections {
 	return;
 }
 
-sub connections {
+sub routes {
 	my ($self) = @_;
 
-	return @{ $self->{connections} };
+	return @{ $self->{routes} };
 }
 
 1;
@@ -496,12 +497,12 @@ Net::Travel::DE::VRR - inofficial interface to the efa.vrr.de German itinerary s
 	$efa->submit();
 	$efa->parse();
 
-	for my $con ($efa->connections()) {
-		for my $c (@{$con}) {
+	for my $route ($efa->routes()) {
+		for my $part (@{$route}) {
 			printf(
-				"%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",,
-				@{$c}{'dep_time', 'dep_stop', 'train_line', 'train_dest'},
-				@{$c}{'arr_time', 'arr_stop'},
+				"%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",
+				$part->dep_time, $part->dep_stop, $part->train_line,
+				$part->train_dest, $part->arr_time, $part->arr_stop,
 			);
 		}
 		print "\n\n";
@@ -602,7 +603,7 @@ I<%opts> is passed on to LWP::UserAgent->new(%opts).
 Parse the B<efa.vrr.de> reply.
 returns a true value on success.
 
-=item $efa->connections()
+=item $efa->routes()
 
 Returns an array of connection elements. Each connection element is an
 arrayref of connection part, and each connecton part is a hash containing the

@@ -100,12 +100,12 @@ $efa->submit( timeout => $opt->{'timeout'} );
 
 $efa->parse();
 
-my @connections = $efa->connections();
+my @routes = $efa->routes();
 
-for my $i ( 0 .. $#connections ) {
-	for my $c ( @{ $connections[$i] } ) {
+for my $i ( 0 .. $#routes ) {
+	for my $c ( $routes[$i]->parts() ) {
 
-		for my $extra ( @{ $c->{'extra'} } ) {
+		for my $extra ( $c->extra() ) {
 
 			if ( not( length $ignore_info and $extra =~ /$ignore_info/i ) ) {
 				say "# $extra";
@@ -114,11 +114,13 @@ for my $i ( 0 .. $#connections ) {
 
 		printf(
 			"%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",
-			$c->{'dep_time'},   $c->{'dep_stop'}, $c->{'train_line'},
-			$c->{'train_dest'}, $c->{'arr_time'}, $c->{'arr_stop'},
+			$c->get(
+				qw(dep_time dep_stop train_line train_dest arr_time
+				  arr_stop)
+			),
 		);
 	}
-	if ( $i != $#connections ) {
+	if ( $i != $#routes ) {
 		print "------\n\n";
 	}
 }
