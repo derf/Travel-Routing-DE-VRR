@@ -360,16 +360,16 @@ sub parse_pretty {
 			push( @{ $hash->{extra} }, $extra );
 		}
 
-		$hash->{dep_time} = $con->[0];
+		$hash->{departure_time} = $con->[0];
 
 		# always "ab"           $con->[1];
-		$hash->{dep_stop}   = $con->[2];
-		$hash->{train_line} = $con->[3];
-		$hash->{arr_time}   = $con->[4];
+		$hash->{departure_stop} = $con->[2];
+		$hash->{train_line}     = $con->[3];
+		$hash->{arrival_time}   = $con->[4];
 
-		# always "an"           $con->[5];
-		$hash->{arr_stop}   = $con->[6];
-		$hash->{train_dest} = $con->[7];
+		# always "an"                $con->[5];
+		$hash->{arrival_stop}      = $con->[6];
+		$hash->{train_destination} = $con->[7];
 
 		push( @elements, $hash );
 	}
@@ -605,33 +605,8 @@ returns a true value on success.
 
 =item $efa->routes()
 
-Returns an array of connection elements. Each connection element is an
-arrayref of connection part, and each connecton part is a hash containing the
-following elements:
-
-=over
-
-=item * dep_time
-
-Departure time as a string in HH:MM format
-
-=item * dep_stop
-
-Departure stop, e.g. "Essen HBf"
-
-=item * train_line
-
-Name of the train line, e.g. "S-Bahn S6"
-
-=item * arr_time
-
-Arrival time as a string in HH:MM format
-
-=item * arr_stop
-
-Arrival stop, e.g. "Berlin HBf"
-
-=back
+Returns a list of Net::Travel::DE::VRR::Route(3pm) elements. Each one contains
+one method of getting from start to stop.
 
 =back
 

@@ -115,8 +115,8 @@ for my $i ( 0 .. $#routes ) {
 		printf(
 			"%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",
 			$c->get(
-				qw(dep_time dep_stop train_line train_dest arr_time
-				  arr_stop)
+				qw(departure_time departure_stop train_line
+				  train_destination arrival_time arrival_stop)
 			),
 		);
 	}
