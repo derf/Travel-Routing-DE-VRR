@@ -41,8 +41,6 @@ GetOptions(
 		prefer|P=s
 		proximity|p
 		include|i=s
-		test-dump
-		test-parse
 		time|t=s
 		timeout=i
 		to=s@{2}
@@ -97,8 +95,6 @@ $efa = Net::Travel::DE::VRR->new(
 );
 
 $efa->submit( timeout => $opt->{'timeout'} );
-
-$efa->parse();
 
 my @routes = $efa->routes();
 

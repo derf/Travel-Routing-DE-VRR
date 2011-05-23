@@ -406,6 +406,8 @@ sub submit {
 
 	$self->{html_reply} = $response->decoded_content( charset => 'latin-1' );
 
+	$self->parse();
+
 	return;
 }
 
@@ -495,7 +497,6 @@ Net::Travel::DE::VRR - inofficial interface to the efa.vrr.de German itinerary s
 	);
 
 	$efa->submit();
-	$efa->parse();
 
 	for my $route ($efa->routes()) {
 		for my $part (@{$route}) {
@@ -597,11 +598,6 @@ If true: Prefer connections allowing to take a bike along
 
 Submit the query to B<http://efa.vrr.de>.
 I<%opts> is passed on to LWP::UserAgent->new(%opts).
-
-=item $efa->parse()
-
-Parse the B<efa.vrr.de> reply.
-returns a true value on success.
 
 =item $efa->routes()
 
