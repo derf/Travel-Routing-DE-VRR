@@ -12,16 +12,16 @@ use XML::LibXML;
 our $VERSION = '1.3';
 
 sub post_time {
-	my ( $post, $conf ) = @_;
+	my ( $self, $conf ) = @_;
 
 	my $time;
 
 	if ( $conf->{departure_time} ) {
-		$post->{itdTripDateTimeDepArr} = 'dep';
+		$self->{post}->{itdTripDateTimeDepArr} = 'dep';
 		$time = $conf->{departure_time} || $conf->{time};
 	}
 	else {
-		$post->{itdTripDateTimeDepArr} = 'arr';
+		$self->{post}->{itdTripDateTimeDepArr} = 'arr';
 		$time = $conf->{arrival_time};
 	}
 
@@ -29,13 +29,13 @@ sub post_time {
 		confess("time: must match HH:MM - '${time}'");
 	}
 
-	@{$post}{ 'itdTimeHour', 'itdTimeMinute' } = split( /:/, $time );
+	@{ $self->{post} }{ 'itdTimeHour', 'itdTimeMinute' } = split( /:/, $time );
 
 	return;
 }
 
 sub post_date {
-	my ( $post, $date ) = @_;
+	my ( $self, $date ) = @_;
 
 	my ( $day, $month, $year ) = split( /[.]/, $date );
 
@@ -51,14 +51,14 @@ sub post_date {
 		$year = ( localtime(time) )[5] + 1900;
 	}
 
-	@{$post}{ 'itdDateDay', 'itdDateMonth', 'itdDateYear' }
+	@{ $self->{post} }{ 'itdDateDay', 'itdDateMonth', 'itdDateYear' }
 	  = ( $day, $month, $year );
 
 	return;
 }
 
 sub post_exclude {
-	my ( $post, @exclude ) = @_;
+	my ( $self, @exclude ) = @_;
 
 	my @mapping = qw{
 	  zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus
@@ -69,7 +69,7 @@ sub post_exclude {
 		my $ok = 0;
 		for my $map_id ( 0 .. $#mapping ) {
 			if ( $exclude_type eq $mapping[$map_id] ) {
-				$post->{"inclMOT_${map_id}"} = undef;
+				$self->{post}->{"inclMOT_${map_id}"} = undef;
 				$ok = 1;
 			}
 		}
@@ -82,12 +82,12 @@ sub post_exclude {
 }
 
 sub post_prefer {
-	my ( $post, $prefer ) = @_;
+	my ( $self, $prefer ) = @_;
 
 	given ($prefer) {
-		when ('speed')    { $post->{routeType} = 'LEASTTIME' }
-		when ('waittime') { $post->{routeType} = 'LEASTINTERCHANGE' }
-		when ('distance') { $post->{routeType} = 'LEASTWALKING' }
+		when ('speed')    { $self->{post}->{routeType} = 'LEASTTIME' }
+		when ('waittime') { $self->{post}->{routeType} = 'LEASTINTERCHANGE' }
+		when ('distance') { $self->{post}->{routeType} = 'LEASTWALKING' }
 		default {
 			confess(
 "select_interchange_by: Must be speed/waittime/distance: '${prefer}'"
@@ -99,12 +99,12 @@ sub post_prefer {
 }
 
 sub post_include {
-	my ( $post, $include ) = @_;
+	my ( $self, $include ) = @_;
 
 	given ($include) {
-		when ('local') { $post->{lineRestriction} = 403 }
-		when ('ic')    { $post->{lineRestriction} = 401 }
-		when ('ice')   { $post->{lineRestriction} = 400 }
+		when ('local') { $self->{post}->{lineRestriction} = 403 }
+		when ('ic')    { $self->{post}->{lineRestriction} = 401 }
+		when ('ice')   { $self->{post}->{lineRestriction} = 400 }
 		default {
 			confess("train_type: Must be local/ic/ice: '${include}'");
 		}
@@ -114,10 +114,10 @@ sub post_include {
 }
 
 sub post_walk_speed {
-	my ( $post, $walk_speed ) = @_;
+	my ( $self, $walk_speed ) = @_;
 
 	if ( $walk_speed ~~ [ 'normal', 'fast', 'slow' ] ) {
-		$post->{changeSpeed} = $walk_speed;
+		$self->{post}->{changeSpeed} = $walk_speed;
 	}
 	else {
 		confess("walk_speed: Must be normal/fast/slow: '${walk_speed}'");
@@ -127,7 +127,7 @@ sub post_walk_speed {
 }
 
 sub post_place {
-	my ( $post, $which, $place, $stop, $type ) = @_;
+	my ( $self, $which, $place, $stop, $type ) = @_;
 
 	if ( not( $place and $stop ) ) {
 		confess('place: Need two elements');
@@ -135,19 +135,22 @@ sub post_place {
 
 	$type //= 'stop';
 
-	@{$post}{ "place_${which}", "name_${which}" } = ( $place, $stop );
+	@{ $self->{post} }{ "place_${which}", "name_${which}" } = ( $place, $stop );
 
 	if ( $type ~~ [qw[address poi stop]] ) {
-		$post->{"type_${which}"} = $type;
+		$self->{post}->{"type_${which}"} = $type;
 	}
 
 	return;
 }
 
 sub create_post {
-	my ($conf) = @_;
-	my @now    = localtime( time() );
-	my $post   = {
+	my ($self) = @_;
+
+	my $conf = $self->{config};
+	my @now  = localtime( time() );
+
+	$self->{post} = {
 		changeSpeed                                        => 'normal',
 		command                                            => q{},
 		execInst                                           => q{},
@@ -235,41 +238,41 @@ sub create_post {
 		useRealtime                                        => 1
 	};
 
-	post_place( $post, 'origin',      @{ $conf->{origin} } );
-	post_place( $post, 'destination', @{ $conf->{destination} } );
+	$self->post_place( 'origin',      @{ $conf->{origin} } );
+	$self->post_place( 'destination', @{ $conf->{destination} } );
 
 	if ( $conf->{via} ) {
-		post_place( $post, 'via', @{ $conf->{via} } );
+		$self->post_place( 'via', @{ $conf->{via} } );
 	}
 	if ( $conf->{arrival_time} || $conf->{departure_time} ) {
-		post_time( $post, $conf );
+		$self->post_time($conf);
 	}
 	if ( $conf->{date} ) {
-		post_date( $post, $conf->{date} );
+		$self->post_date( $conf->{date} );
 	}
 	if ( $conf->{exclude} ) {
-		post_exclude( $post, @{ $conf->{exclude} } );
+		$self->post_exclude( @{ $conf->{exclude} } );
 	}
 	if ( $conf->{max_interchanges} ) {
-		$post->{maxChanges} = $conf->{max_interchanges};
+		$self->{post}->{maxChanges} = $conf->{max_interchanges};
 	}
 	if ( $conf->{select_interchange_by} ) {
-		post_prefer( $post, $conf->{select_interchange_by} );
+		$self->post_prefer( $conf->{select_interchange_by} );
 	}
 	if ( $conf->{use_near_stops} ) {
-		$post->{useProxFootSearch} = 1;
+		$self->{post}->{useProxFootSearch} = 1;
 	}
 	if ( $conf->{train_type} ) {
-		post_include( $post, $conf->{train_type} );
+		$self->post_include( $conf->{train_type} );
 	}
 	if ( $conf->{walk_speed} ) {
-		post_walk_speed( $post, $conf->{walk_speed} );
+		$self->post_walk_speed( $conf->{walk_speed} );
 	}
 	if ( $conf->{with_bike} ) {
-		$post->{bikeTakeAlong} = 1;
+		$self->{post}->{bikeTakeAlong} = 1;
 	}
 
-	return $post;
+	return;
 }
 
 sub parse_initial {
@@ -386,9 +389,11 @@ sub new {
 
 	$ref->{config} = \%conf;
 
-	$ref->{post} = create_post( \%conf );
+	bless( $ref, $obj );
 
-	return bless( $ref, $obj );
+	$ref->create_post();
+
+	return $ref;
 }
 
 sub submit {
