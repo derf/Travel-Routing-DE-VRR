@@ -12,8 +12,8 @@ require_ok('Net::Travel::DE::VRR');
 
 sub efa_conf {
 	my $ret = {
-		from => ['Essen', 'HBf'],
-		to   => ['Koeln', 'HBf'],
+		origin      => ['Essen', 'HBf'],
+		destination => ['Koeln', 'HBf'],
 	};
 	foreach my $p (@_) {
 		$ret->{$p->[0]} = $p->[1];
@@ -87,33 +87,33 @@ is_efa_post(
 );
 
 is_efa_post(
-	'from', ['D', 'Fuerstenwall 232', 'address'],
+	'origin', ['D', 'Fuerstenwall 232', 'address'],
 	['place_origin', 'D'],
 	['name_origin', 'Fuerstenwall 232'],
 	['type_origin', 'address'],
 );
 
 is_efa_post(
-	'depart', '22:23',
+	'departure_time', '22:23',
 	['itdTripDateTimeDepArr', 'dep'],
 	['itdTimeHour', '22'],
 	['itdTimeMinute', '23'],
 );
 
 is_efa_post(
-	'arrive', '16:38',
+	'arrival_time', '16:38',
 	['itdTripDateTimeDepArr', 'arr'],
 	['itdTimeHour', '16'],
 	['itdTimeMinute', '38'],
 );
 
 is_efa_err(
-	'depart', '37:00',
+	'departure_time', '37:00',
 	'Must match HH:MM',
 );
 
 is_efa_err(
-	'depart', '07',
+	'departure_time', '07',
 	'Must match HH:MM',
 );
 
@@ -161,42 +161,42 @@ is_efa_err(
 );
 
 is_efa_post(
-	'prefer', 'speed',
+	'select_interchange_by', 'speed',
 	['routeType', 'LEASTTIME'],
 );
 
 is_efa_post(
-	'prefer', 'nowait',
+	'select_interchange_by', 'waittime',
 	['routeType', 'LEASTINTERCHANGE'],
 );
 
 is_efa_post(
-	'prefer', 'nowalk',
+	'select_interchange_by', 'distance',
 	['routeType', 'LEASTWALKING'],
 );
 
 is_efa_err(
-	'prefer', 'invalid',
+	'select_interchange_by', 'invalid',
 	'Must be either speed, nowait or nowalk',
 );
 
 is_efa_post(
-	'include', 'local',
+	'train_type', 'local',
 	['lineRestriction', 403],
 );
 
 is_efa_post(
-	'include', 'ic',
+	'train_type', 'ic',
 	['lineRestriction', 401],
 );
 
 is_efa_post(
-	'include', 'ice',
+	'train_type', 'ice',
 	['lineRestriction', 400],
 );
 
 is_efa_err(
-	'include', 'invalid',
+	'train_type', 'invalid',
 	'Must be one of local/ic/ice',
 );
 
@@ -216,11 +216,11 @@ is_efa_post(
 );
 
 is_efa_post(
-	'proximity', 1,
+	'use_near_stops', 1,
 	['useProxFootSearch', 1],
 );
 
 is_efa_post(
-	'bike', 1,
+	'with_bike', 1,
 	['bikeTakeAlong', 1],
 );

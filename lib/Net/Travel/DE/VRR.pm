@@ -16,13 +16,13 @@ sub post_time {
 
 	my $time;
 
-	if ( $conf->{depart} ) {
+	if ( $conf->{departure_time} ) {
 		$post->{itdTripDateTimeDepArr} = 'dep';
-		$time = $conf->{depart} || $conf->{time};
+		$time = $conf->{departure_time} || $conf->{time};
 	}
 	else {
 		$post->{itdTripDateTimeDepArr} = 'arr';
-		$time = $conf->{arrive};
+		$time = $conf->{arrival_time};
 	}
 
 	if ( $time !~ / ^ [0-2]? \d : [0-5]? \d $ /x ) {
@@ -85,11 +85,13 @@ sub post_prefer {
 	my ( $post, $prefer ) = @_;
 
 	given ($prefer) {
-		when ('speed')  { $post->{routeType} = 'LEASTTIME' }
-		when ('nowait') { $post->{routeType} = 'LEASTINTERCHANGE' }
-		when ('nowalk') { $post->{routeType} = 'LEASTWALKING' }
+		when ('speed')    { $post->{routeType} = 'LEASTTIME' }
+		when ('waittime') { $post->{routeType} = 'LEASTINTERCHANGE' }
+		when ('distance') { $post->{routeType} = 'LEASTWALKING' }
 		default {
-			confess("prefer: Must be speed/nowait/nowalk: '${prefer}'");
+			confess(
+"select_interchange_by: Must be speed/waittime/distance: '${prefer}'"
+			);
 		}
 	}
 
@@ -104,7 +106,7 @@ sub post_include {
 		when ('ic')    { $post->{lineRestriction} = 401 }
 		when ('ice')   { $post->{lineRestriction} = 400 }
 		default {
-			confess("include: Must be local/ic/ice: '${include}'");
+			confess("train_type: Must be local/ic/ice: '${include}'");
 		}
 	}
 
@@ -233,13 +235,13 @@ sub create_post {
 		useRealtime                                        => 1
 	};
 
-	post_place( $post, 'origin',      @{ $conf->{from} } );
-	post_place( $post, 'destination', @{ $conf->{to} } );
+	post_place( $post, 'origin',      @{ $conf->{origin} } );
+	post_place( $post, 'destination', @{ $conf->{destination} } );
 
 	if ( $conf->{via} ) {
 		post_place( $post, 'via', @{ $conf->{via} } );
 	}
-	if ( $conf->{arrive} || $conf->{depart} ) {
+	if ( $conf->{arrival_time} || $conf->{departure_time} ) {
 		post_time( $post, $conf );
 	}
 	if ( $conf->{date} ) {
@@ -251,19 +253,19 @@ sub create_post {
 	if ( $conf->{max_interchanges} ) {
 		$post->{maxChanges} = $conf->{max_interchanges};
 	}
-	if ( $conf->{prefer} ) {
-		post_prefer( $post, $conf->{prefer} );
+	if ( $conf->{select_interchange_by} ) {
+		post_prefer( $post, $conf->{select_interchange_by} );
 	}
-	if ( $conf->{proximity} ) {
+	if ( $conf->{use_near_stops} ) {
 		$post->{useProxFootSearch} = 1;
 	}
-	if ( $conf->{include} ) {
-		post_include( $post, $conf->{include} );
+	if ( $conf->{train_type} ) {
+		post_include( $post, $conf->{train_type} );
 	}
 	if ( $conf->{walk_speed} ) {
 		post_walk_speed( $post, $conf->{walk_speed} );
 	}
-	if ( $conf->{bike} ) {
+	if ( $conf->{with_bike} ) {
 		$post->{bikeTakeAlong} = 1;
 	}
 
@@ -535,28 +537,28 @@ Valid hash keys and their values are:
 
 =over
 
-=item B<from> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
+=item B<origin> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
 
-Mandatory.  Sets the origin, which is the start of the journey.
+Mandatory.  Sets the start of the journey.
 I<type> is optional and may be one of B<stop> (default), B<address> (street
 and house number) or B<poi> ("point of interest").
 
-=item B<to> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
+=item B<destination> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
 
-Mandatory.  Sets the destination, see B<from>.
+Mandatory.  Sets the end of the journey, see B<origin>.
 
 =item B<via> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
 
-Optional.  Specifies a intermediate stop which the resulting itinerary must
-contain.  See B<from> for arguments.
+Optional.  Specifies an intermediate stop which the resulting itinerary must
+contain.  See B<origin> for arguments.
 
-=item B<arrive> => I<HH:MM>
+=item B<arrival_time> => I<HH:MM>
 
 Sets the journey end time
 
-=item B<depart> => I<HH:MM>
+=item B<departure_time> => I<HH:MM>
 
-Sets the journey start time
+Sets the journey start time.  Can not be used together with B<arrival_time>
 
 =item B<date> => I<DD.MM.>[I<YYYY>]
 
@@ -564,7 +566,7 @@ Set journey date, in case it is not today
 
 =item B<exclude> => \@exclude
 
-Do not use certain transport types for itinerary.  Acceptep arguments:
+Do not use certain transport types for itinerary.  Accepted arguments:
 zug, s-bahn, u-bahn, stadtbahn, tram, stadtbus, regionalbus, schnellbus,
 seilbahn, schiff, ast, sonstige
 
@@ -572,26 +574,28 @@ seilbahn, schiff, ast, sonstige
 
 Set maximum number of interchanges
 
-=item B<prefer> => B<speed>|B<nowait>|B<nowalk>
+=item B<select_interchange_by> => B<speed>|B<waittime>|B<distance>
 
 Prefer either fast connections (default), connections with low wait time or
 connections with little distance to walk
 
-=item B<proximity> => I<int>
+=item B<use_near_stops> => B<0>|B<1>
 
-Try using near stops instead of the given start/stop one if I<int> is true.
+If true: Try using near stops instead of the specified origin/destination ones
 
-=item B<include> => B<local>|B<ic>|B<ice>
+=item B<train_type> => B<local>|B<ic>|B<ice>
 
-Include only local trains into itinarery (default), or all but ICEs, or all.
+Include only local trains into itinarery (default), all but ICEs, or all.
+
+The latter two are usually way more expensive for short routes.
 
 =item B<walk_speed> => B<slow>|B<fast>|B<normal>
 
 Set walk speed.  Default: B<normal>
 
-=item B<bike> => I<int>
+=item B<with_bike> => B<0>|B<1>
 
-If true: Prefer connections allowing to take a bike along
+If true: Prefer connections allowing passengers with bikes
 
 =back
 

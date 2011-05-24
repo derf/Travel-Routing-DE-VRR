@@ -77,21 +77,21 @@ for my $pair ( [ \@from, \$from_type ], [ \@via, \$via_type ],
 }
 
 $efa = Net::Travel::DE::VRR->new(
-	from => [ @from, $from_type ],
-	to   => [ @to,   $to_type ],
+	origin      => [ @from, $from_type ],
+	destination => [ @to,   $to_type ],
 	via => ( @via ? [ @via, $via_type ] : undef ),
 
-	arrive  => $opt->{'arrive'},
-	depart  => $opt->{'depart'} // $opt->{'time'},
-	date    => $opt->{'date'},
-	exclude => $opt->{'exclude'},
-	prefer  => $opt->{'prefer'},
-	include => $opt->{'include'},
-	bike    => $opt->{'bike'},
+	arrival_time   => $opt->{'arrive'},
+	departure_time => $opt->{'depart'} // $opt->{'time'},
+	date           => $opt->{'date'},
+	exclude        => $opt->{'exclude'},
+	train_type     => $opt->{'include'},
+	with_bike      => $opt->{'bike'},
 
-	proximity        => $opt->{'proximity'},
-	walk_speed       => $opt->{'walk-speed'},
-	max_interchanges => $opt->{'max-change'},
+	select_interchange_by => $opt->{'prefer'},
+	use_near_stops        => $opt->{'proximity'},
+	walk_speed            => $opt->{'walk-speed'},
+	max_interchanges      => $opt->{'max-change'},
 );
 
 $efa->submit( timeout => $opt->{'timeout'} );
