@@ -492,18 +492,19 @@ Net::Travel::DE::VRR - inofficial interface to the efa.vrr.de German itinerary s
 	use Net::Travel::DE::VRR;
 
 	my $efa = Net::Travel::DE::VRR->new(
-		from => ['Essen', 'HBf'],
-		to   => ['Duisburg', 'HBf'],
+		from => [ 'Essen',    'HBf' ],
+		to   => [ 'Duisburg', 'HBf' ],
 	);
 
 	$efa->submit();
 
-	for my $route ($efa->routes()) {
-		for my $part (@{$route}) {
+	for my $route ( $efa->routes() ) {
+		for my $part ( $route->parts() ) {
 			printf(
-				"%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",
-				$part->dep_time, $part->dep_stop, $part->train_line,
-				$part->train_dest, $part->arr_time, $part->arr_stop,
+				"%s at %s -> %s at %s, via %s to %s",
+				$part->departure_time, $part->departure_stop,
+				$part->arrival_time,   $part->arrival_stop,
+				$part->train_line,     $part->train_destination,
 			);
 		}
 		print "\n\n";
