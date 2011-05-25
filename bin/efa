@@ -146,6 +146,9 @@ version 1.3
 B<efa> is a command line client for the L<http://efa.vrr.de> web interface.
 It sends the specified information to the online form and displays the results.
 
+It should be noted that B<efa>, although using the web interface of a local
+transport association, is able to look up connections all over Germany.
+
 =head1 OPTIONS
 
 =over
