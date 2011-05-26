@@ -276,7 +276,10 @@ sub create_post {
 }
 
 sub parse_initial {
-	my ($tree) = @_;
+	my ($self) = @_;
+
+	my $tree = $self->{tree}
+	  = XML::LibXML->load_html( string => $self->{html_reply}, );
 
 	my $con_part = 0;
 	my $con_no;
@@ -323,7 +326,7 @@ sub parse_initial {
 }
 
 sub parse_pretty {
-	my ($con_parts) = @_;
+	my ( $self, $con_parts ) = @_;
 
 	my @elements;
 	my @next_extra;
@@ -421,14 +424,11 @@ sub submit {
 sub parse {
 	my ($self) = @_;
 
-	my $tree = XML::LibXML->load_html( string => $self->{html_reply}, );
-
-	my $raw_cons = parse_initial($tree);
+	my $raw_cons = $self->parse_initial();
 
 	for my $raw_con ( @{$raw_cons} ) {
-		push( @{ $self->{routes} }, parse_pretty($raw_con) );
+		push( @{ $self->{routes} }, $self->parse_pretty($raw_con) );
 	}
-	$self->{tree} = $tree;
 
 	$self->check_ambiguous();
 	$self->check_no_connections();
