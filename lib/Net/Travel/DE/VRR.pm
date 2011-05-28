@@ -11,18 +11,21 @@ use XML::LibXML;
 
 our $VERSION = '1.3';
 
-sub post_time {
-	my ( $self, $conf ) = @_;
+sub set_time {
+	my ( $self, %conf ) = @_;
 
 	my $time;
 
-	if ( $conf->{departure_time} ) {
+	if ( $conf{departure_time} ) {
 		$self->{post}->{itdTripDateTimeDepArr} = 'dep';
-		$time = $conf->{departure_time} || $conf->{time};
+		$time = $conf{departure_time};
+	}
+	elsif ( $conf{arrival_time} ) {
+		$self->{post}->{itdTripDateTimeDepArr} = 'arr';
+		$time = $conf{arrival_time};
 	}
 	else {
-		$self->{post}->{itdTripDateTimeDepArr} = 'arr';
-		$time = $conf->{arrival_time};
+		confess('time: Specify either departure_time or arrival_time');
 	}
 
 	if ( $time !~ / ^ [0-2]? \d : [0-5]? \d $ /x ) {
@@ -34,7 +37,19 @@ sub post_time {
 	return;
 }
 
-sub post_date {
+sub departure_time {
+	my ( $self, $time ) = @_;
+
+	return $self->set_time( departure_time => $time );
+}
+
+sub arrival_time {
+	my ( $self, $time ) = @_;
+
+	return $self->set_time( arrival_time => $time );
+}
+
+sub date {
 	my ( $self, $date ) = @_;
 
 	my ( $day, $month, $year ) = split( /[.]/, $date );
@@ -57,7 +72,7 @@ sub post_date {
 	return;
 }
 
-sub post_exclude {
+sub exclude {
 	my ( $self, @exclude ) = @_;
 
 	my @mapping = qw{
@@ -81,7 +96,15 @@ sub post_exclude {
 	return;
 }
 
-sub post_prefer {
+sub max_interchanges {
+	my ( $self, $max ) = @_;
+
+	$self->{post}->{maxChanges} = $max;
+
+	return;
+}
+
+sub select_interchange_by {
 	my ( $self, $prefer ) = @_;
 
 	given ($prefer) {
@@ -98,7 +121,7 @@ sub post_prefer {
 	return;
 }
 
-sub post_include {
+sub train_type {
 	my ( $self, $include ) = @_;
 
 	given ($include) {
@@ -113,7 +136,15 @@ sub post_include {
 	return;
 }
 
-sub post_walk_speed {
+sub use_near_stops {
+	my ( $self, $toggle ) = @_;
+
+	$self->{post}->{useProxFootSearch} = $toggle;
+
+	return;
+}
+
+sub walk_speed {
 	my ( $self, $walk_speed ) = @_;
 
 	if ( $walk_speed ~~ [ 'normal', 'fast', 'slow' ] ) {
@@ -126,11 +157,19 @@ sub post_walk_speed {
 	return;
 }
 
-sub post_place {
+sub with_bike {
+	my ( $self, $bike ) = @_;
+
+	$self->{post}->{bikeTakeAlong} = $bike;
+
+	return;
+}
+
+sub place {
 	my ( $self, $which, $place, $stop, $type ) = @_;
 
 	if ( not( $place and $stop ) ) {
-		confess('place: Need two elements');
+		confess('place: Need >= three elements');
 	}
 
 	$type //= 'stop';
@@ -238,38 +277,38 @@ sub create_post {
 		useRealtime                                        => 1
 	};
 
-	$self->post_place( 'origin',      @{ $conf->{origin} } );
-	$self->post_place( 'destination', @{ $conf->{destination} } );
+	$self->place( 'origin',      @{ $conf->{origin} } );
+	$self->place( 'destination', @{ $conf->{destination} } );
 
 	if ( $conf->{via} ) {
-		$self->post_place( 'via', @{ $conf->{via} } );
+		$self->place( 'via', @{ $conf->{via} } );
 	}
 	if ( $conf->{arrival_time} || $conf->{departure_time} ) {
-		$self->post_time($conf);
+		$self->set_time( %{$conf} );
 	}
 	if ( $conf->{date} ) {
-		$self->post_date( $conf->{date} );
+		$self->date( $conf->{date} );
 	}
 	if ( $conf->{exclude} ) {
-		$self->post_exclude( @{ $conf->{exclude} } );
+		$self->exclude( @{ $conf->{exclude} } );
 	}
 	if ( $conf->{max_interchanges} ) {
-		$self->{post}->{maxChanges} = $conf->{max_interchanges};
+		$self->max_interchanges( $conf->{max_interchanges} );
 	}
 	if ( $conf->{select_interchange_by} ) {
-		$self->post_prefer( $conf->{select_interchange_by} );
+		$self->select_interchange_by( $conf->{select_interchange_by} );
 	}
 	if ( $conf->{use_near_stops} ) {
-		$self->{post}->{useProxFootSearch} = 1;
+		$self->use_near_stops(1);
 	}
 	if ( $conf->{train_type} ) {
-		$self->post_include( $conf->{train_type} );
+		$self->train_type( $conf->{train_type} );
 	}
 	if ( $conf->{walk_speed} ) {
-		$self->post_walk_speed( $conf->{walk_speed} );
+		$self->walk_speed( $conf->{walk_speed} );
 	}
 	if ( $conf->{with_bike} ) {
-		$self->{post}->{bikeTakeAlong} = 1;
+		$self->with_bike(1);
 	}
 
 	return;
