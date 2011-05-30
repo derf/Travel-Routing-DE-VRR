@@ -538,8 +538,8 @@ Net::Travel::DE::VRR - inofficial interface to the efa.vrr.de German itinerary s
 	use Net::Travel::DE::VRR;
 
 	my $efa = Net::Travel::DE::VRR->new(
-		from => [ 'Essen',    'HBf' ],
-		to   => [ 'Duisburg', 'HBf' ],
+		origin      => [ 'Essen',    'HBf' ],
+		destination => [ 'Duisburg', 'HBf' ],
 	);
 
 	$efa->submit();
@@ -598,15 +598,15 @@ contain.  See B<origin> for arguments.
 
 =item B<arrival_time> => I<HH:MM>
 
-Sets the journey end time
+Journey end time
 
 =item B<departure_time> => I<HH:MM>
 
-Sets the journey start time.  Can not be used together with B<arrival_time>
+Journey start time.  Default: now
 
 =item B<date> => I<DD.MM.>[I<YYYY>]
 
-Set journey date, in case it is not today
+Journey date.  Default: tdoay
 
 =item B<exclude> => \@exclude
 
@@ -646,12 +646,40 @@ If true: Prefer connections allowing passengers with bikes
 =item $efa->submit(I<%opts>)
 
 Submit the query to B<http://efa.vrr.de>.
-I<%opts> is passed on to LWP::UserAgent->new(%opts).
+I<%opts> is passed on to C<< LWP::UserAgent->new(%opts) >>.
 
 =item $efa->routes()
 
 Returns a list of Net::Travel::DE::VRR::Route(3pm) elements. Each one contains
 one method of getting from start to stop.
+
+=back
+
+=head2 ACCESSORS
+
+The following methods act like the arguments to B<new>. See there.
+
+=over
+
+=item $efa->departure_time(I<$time>)
+
+=item $efa->arrival_time(I<$time>)
+
+=item $efa->date(I<$date>)
+
+=item $efa->exclude(I<@exclude>)
+
+=item $efa->max_interchanges(I<$num>)
+
+=item $efa->select_interchange_by(I<$selection>)
+
+=item $efa->train_type(I<$type>)
+
+=item $efa->use_near_stops(I<$bool>)
+
+=item $efa->walk_speed(I<$speed>)
+
+=item $efa->with_bike(I<$bool>)
 
 =back
 
