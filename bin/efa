@@ -36,7 +36,7 @@ GetOptions(
 		exclude|e=s@
 		from=s@{2}
 		help|h
-		ignore-info|I=s
+		ignore-info|I:s
 		max-change|m=i
 		prefer|P=s
 		proximity|p
@@ -76,20 +76,24 @@ for my $pair ( [ \@from, \$from_type ], [ \@via, \$via_type ],
 	}
 }
 
+if ( defined $opt->{'ignore-info'} and length( $opt->{'ignore-info'} ) == 0 ) {
+	$opt->{'ignore-info'} = undef;
+}
+
 $efa = Net::Travel::DE::VRR->new(
 	origin      => [ @from, $from_type ],
 	destination => [ @to,   $to_type ],
 	via => ( @via ? [ @via, $via_type ] : undef ),
 
-	arrival_time   => $opt->{'arrive'},
-	departure_time => $opt->{'depart'} // $opt->{'time'},
-	date           => $opt->{'date'},
-	exclude        => $opt->{'exclude'},
-	train_type     => $opt->{'include'},
-	with_bike      => $opt->{'bike'},
+	arrival_time   => $opt->{arrive},
+	departure_time => $opt->{depart} // $opt->{time},
+	date           => $opt->{date},
+	exclude        => $opt->{exclude},
+	train_type     => $opt->{include},
+	with_bike      => $opt->{bike},
 
-	select_interchange_by => $opt->{'prefer'},
-	use_near_stops        => $opt->{'proximity'},
+	select_interchange_by => $opt->{prefer},
+	use_near_stops        => $opt->{proximity},
 	walk_speed            => $opt->{'walk-speed'},
 	max_interchanges      => $opt->{'max-change'},
 );
