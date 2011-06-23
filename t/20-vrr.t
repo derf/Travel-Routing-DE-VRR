@@ -6,9 +6,9 @@ use 5.010;
 use Test::More tests => 59;
 
 BEGIN {
-	use_ok('Net::Travel::DE::VRR');
+	use_ok('Travel::Routing::DE::VRR');
 }
-require_ok('Net::Travel::DE::VRR');
+require_ok('Travel::Routing::DE::VRR');
 
 sub efa_conf {
 	my $ret = {
@@ -23,7 +23,7 @@ sub efa_conf {
 
 sub efa_new {
 	return new_ok(
-		'Net::Travel::DE::VRR' => [%{efa_conf(@_)}]
+		'Travel::Routing::DE::VRR' => [%{efa_conf(@_)}]
 	);
 }
 

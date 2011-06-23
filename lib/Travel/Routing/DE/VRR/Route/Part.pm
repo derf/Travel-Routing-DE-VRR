@@ -1,4 +1,4 @@
-package Net::Travel::DE::VRR::Route::Part;
+package Travel::Routing::DE::VRR::Route::Part;
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use parent 'Class::Accessor';
 
 our $VERSION = '1.3';
 
-Net::Travel::DE::VRR::Route::Part->mk_ro_accessors(
+Travel::Routing::DE::VRR::Route::Part->mk_ro_accessors(
 	qw(arrival_stop arrival_time departure_stop departure_time train_line
 	  train_destination)
 );
@@ -33,7 +33,7 @@ __END__
 
 =head1 NAME
 
-Net::Travel::DE::VRR::Route::Part - Describes one connection between two
+Travel::Routing::DE::VRR::Route::Part - Describes one connection between two
 points, without interchanges
 
 =head1 SYNOPSIS
@@ -58,20 +58,20 @@ version 0.3
 
 =head1 DESCRIPTION
 
-B<Net::Travel::DE::VRR::Route::Part> holds one specific connection (without
+B<Travel::Routing::DE::VRR::Route::Part> holds one specific connection (without
 interchanges) between two points.  It specifies the start/stop point and time,
 the train line and its destination, and optional additional data.
 
-It is usually obtained by a call to Net::Travel::DE::VRR::Route(3pm)'s
+It is usually obtained by a call to Travel::Routing::DE::VRR::Route(3pm)'s
 B<parts> method.
 
 =head1 METHODS
 
 =over
 
-=item $part = Net::Travel::DE::VRR::Route::Part->new(I<%data>)
+=item $part = Travel::Routing::DE::VRR::Route::Part->new(I<%data>)
 
-Creates a new Net::Travel::DE::VRR::Route::Part object. I<data> consists of:
+Creates a new Travel::Routing::DE::VRR::Route::Part object. I<data> consists of:
 
 =over
 
@@ -139,7 +139,7 @@ None known.
 
 =head1 SEE ALSO
 
-Net::Travel::DE::VRR(3pm).
+Travel::Routing::DE::VRR(3pm).
 
 =head1 AUTHOR
 

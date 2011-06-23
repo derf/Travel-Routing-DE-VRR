@@ -1,11 +1,11 @@
-package Net::Travel::DE::VRR;
+package Travel::Routing::DE::VRR;
 
 use strict;
 use warnings;
 use 5.010;
 
 use Carp qw(confess);
-use Net::Travel::DE::VRR::Route;
+use Travel::Routing::DE::VRR::Route;
 use LWP::UserAgent;
 use XML::LibXML;
 
@@ -421,7 +421,7 @@ sub parse_pretty {
 		push( @elements, $hash );
 	}
 
-	return Net::Travel::DE::VRR::Route->new(@elements);
+	return Travel::Routing::DE::VRR::Route->new(@elements);
 }
 
 sub new {
@@ -531,13 +531,13 @@ __END__
 
 =head1 NAME
 
-Net::Travel::DE::VRR - inofficial interface to the efa.vrr.de German itinerary service
+Travel::Routing::DE::VRR - inofficial interface to the efa.vrr.de German itinerary service
 
 =head1 SYNOPSIS
 
-	use Net::Travel::DE::VRR;
+	use Travel::Routing::DE::VRR;
 
-	my $efa = Net::Travel::DE::VRR->new(
+	my $efa = Travel::Routing::DE::VRR->new(
 		origin      => [ 'Essen',    'HBf' ],
 		destination => [ 'Duisburg', 'HBf' ],
 	);
@@ -562,7 +562,7 @@ version 1.3
 
 =head1 DESCRIPTION
 
-B<Net::Travel::DE::VRR> is a client for the efa.vrr.de web interface.
+B<Travel::Routing::DE::VRR> is a client for the efa.vrr.de web interface.
 You pass it the start/stop of your journey, maybe a time and a date and more
 details, and it returns the up-to-date scheduled connections between those two
 stops.
@@ -573,9 +573,9 @@ It uses B<LWP::USerAgent> and B<XML::LibXML> for this.
 
 =over
 
-=item $efa = Net::Travel::DE::VRR->new(I<%conf>)
+=item $efa = Travel::Routing::DE::VRR->new(I<%conf>)
 
-Returns a new Net::Travel::DE::VRR object and sets up its POST data via %conf.
+Returns a new Travel::Routing::DE::VRR object and sets up its POST data via %conf.
 
 Valid hash keys and their values are:
 
@@ -650,7 +650,7 @@ I<%opts> is passed on to C<< LWP::UserAgent->new(%opts) >>.
 
 =item $efa->routes()
 
-Returns a list of Net::Travel::DE::VRR::Route(3pm) elements. Each one contains
+Returns a list of Travel::Routing::DE::VRR::Route(3pm) elements. Each one contains
 one method of getting from start to stop.
 
 =back
@@ -701,7 +701,7 @@ Dies with a backtrace when anything goes wrong.
 
 The parser is still somewhat fragile and has no proper error handling.
 
-It is best not to pass Unicode characters to B<Net::Travel::DE::VRR>.
+It is best not to pass Unicode characters to B<Travel::Routing::DE::VRR>.
 
 =head1 AUTHOR
 

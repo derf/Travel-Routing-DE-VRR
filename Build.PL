@@ -11,7 +11,7 @@ my %opts = (
 		'Test::Pod' => 0,
 		'Test::Command' => 0,
 	},
-	module_name => 'Net::Travel::DE::VRR',
+	module_name => 'Travel::Routing::DE::VRR',
 	license => 'unrestricted',
 	requires => {
 		'Class::Accessor' => 0,
