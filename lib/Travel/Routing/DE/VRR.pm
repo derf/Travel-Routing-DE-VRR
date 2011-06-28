@@ -9,22 +9,30 @@ use LWP::UserAgent;
 use XML::LibXML;
 
 use Exception::Class (
+	'Travel::Routing::DE::VRR::Exception',
 	'Travel::Routing::DE::VRR::Exception::Setup' => {
+		isa         => 'Travel::Routing::DE::VRR::Exception',
 		description => 'invalid argument on setup',
 		fields      => [ 'option', 'have', 'want' ],
 	},
 	'Travel::Routing::DE::VRR::Exception::Net' => {
+		isa         => 'Travel::Routing::DE::VRR::Exception',
 		description => 'could not submit POST request',
 		fields      => 'http_response',
 	},
-	'Travel::Routing::DE::VRR::Exception::NoData' =>
-	  { description => 'got no data to parse', },
+	'Travel::Routing::DE::VRR::Exception::NoData' => {
+		isa         => 'Travel::Routing::DE::VRR::Exception',
+		description => 'got no data to parse',
+	},
 	'Travel::Routing::DE::VRR::Exception::Ambiguous' => {
+		isa         => 'Travel::Routing::DE::VRR::Exception',
 		description => 'ambiguous input',
 		fields      => [ 'post_key', 'possibilities' ],
 	},
-	'Travel::Routing::DE::VRR::Exception::NoConnections' =>
-	  { description => 'got no connections', },
+	'Travel::Routing::DE::VRR::Exception::NoConnections' => {
+		isa         => 'Travel::Routing::DE::VRR::Exception',
+		description => 'got no connections',
+	},
 );
 
 our $VERSION = '1.3';
@@ -758,6 +766,9 @@ The following methods act like the arguments to B<new>. See there.
 =back
 
 =head1 DIAGNOSTICS
+
+When encountering an error, Travel::Routing::DE::VRR returns a
+Travel::Routing::DE::VRR::Exception object.
 
 Dies with a backtrace when anything goes wrong.
 

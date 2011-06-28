@@ -72,8 +72,9 @@ sub check_for_error {
 	my ($eval_error) = @_;
 
 	if ( not defined $efa ) {
-		if ( $eval_error
-			and ref($eval_error) =~ m{^Travel::Routing::DE::VRR::Exception}x )
+		if (    $eval_error
+			and ref($eval_error)
+			and $eval_error->isa('Travel::Routing::DE::VRR::Exception') )
 		{
 			handle_efa_exception($eval_error);
 		}
