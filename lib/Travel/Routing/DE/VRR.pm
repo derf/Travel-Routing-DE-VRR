@@ -448,6 +448,11 @@ sub submit {
 	my $response = $self->{ua}
 	  ->post( 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2', $self->{post} );
 
+	if ( $response->is_error ) {
+		my $errstr = $response->status_line;
+		confess("Could not submit POST request: ${errstr}");
+	}
+
 	# XXX (workaround)
 	# The content actually is iso-8859-1. But HTML::Message doesn't actually
 	# decode character strings when they have that encoding. However, it
