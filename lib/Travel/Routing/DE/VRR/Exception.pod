@@ -1,0 +1,57 @@
+=head1 NAME
+
+Travel::Routing::DE::VRR::Exception - Travel::Routing::DE::VRR Exceptions
+
+=head1 DESCRIPTION
+
+All Exceptions throws by Travel::Routing::DE::VRR::Exception are
+Travel::Routing::DE::VRR::Exception objects created by Exception::Class(3pm).
+
+See Exception::Class::Base(3pm) for their common methods.
+
+=head1 LIST OF EXCEPTIONS
+
+=head2 Travel::Routing::DE::VRR::Exception::Setup
+
+An argument to B<new> had an invalid format.
+
+Additional methods:
+
+=over
+
+=item $exception->option
+
+The option in which the error occured.
+
+=item $exception->have
+
+The argument we got.
+
+=item $exception->want
+
+What kind of argument we want.
+
+=back
+
+=head2 Travel::Routing::DE::VRR::Exception::Net
+
+The HTTP request to the efa interface failed. Contains an HTTP::Response(3pm)
+object describing the error in B<http_response>.
+
+=head2 Travel::Routing::DE::VRR::Exception::NoData
+
+We got no parsable data from efa.vrr.de
+
+=head2 Travel::Routing::DE::VRR::Exception::Ambiguous
+
+Our request contained ambiguous data. B<post_key> contains the relevant POST
+key, B<possibilities> is a comma-separated string of possible key values (as
+reported by efa.vrr.de).
+
+=head2 Travel::Routing::DE::VRR::Exception::NoConnections
+
+efa.vrr.de found no connections for our request.
+
+=head1 SEE ALSO
+
+Travel::Status::DE::VRR(3pm)

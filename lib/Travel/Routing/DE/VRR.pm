@@ -768,9 +768,7 @@ The following methods act like the arguments to B<new>. See there.
 =head1 DIAGNOSTICS
 
 When encountering an error, Travel::Routing::DE::VRR returns a
-Travel::Routing::DE::VRR::Exception object.
-
-Dies with a backtrace when anything goes wrong.
+Travel::Routing::DE::VRR::Exception(3pm) object.
 
 =head1 DEPENDENCIES
 
@@ -787,6 +785,16 @@ Dies with a backtrace when anything goes wrong.
 The parser is still somewhat fragile and has no proper error handling.
 
 It is best not to pass Unicode characters to B<Travel::Routing::DE::VRR>.
+
+=head1 SEE ALSO
+
+=over
+
+=item * Travel::Status::DE::VRR::Exception(3pm)
+
+=item * Travel::Status::DE::VRR::Route(3pm)
+
+=back
 
 =head1 AUTHOR
 
