@@ -4,7 +4,7 @@ Travel::Routing::DE::VRR::Exception - Travel::Routing::DE::VRR Exceptions
 
 =head1 DESCRIPTION
 
-All Exceptions throws by Travel::Routing::DE::VRR::Exception are
+All Exceptions throws by Travel::Routing::DE::VRR are
 Travel::Routing::DE::VRR::Exception objects created by Exception::Class(3pm).
 
 See Exception::Class::Base(3pm) for their common methods.

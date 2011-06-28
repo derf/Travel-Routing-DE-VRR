@@ -38,10 +38,10 @@ points, without interchanges
 
 =head1 SYNOPSIS
 
-	for my $part ( $route->parts() ) {
+	for my $part ( $route->parts ) {
 
-		if ( $part->extra() ) {
-			say join( "\n", $part->extra() );
+		if ( $part->extra ) {
+			say join( "\n", $part->extra );
 		}
 
 		printf(

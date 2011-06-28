@@ -39,8 +39,8 @@ Travel::Routing::DE::VRR::Route - Single route (connection) between two points
 
 =head1 SYNOPSIS
 
-	for my $route ( $efa->routes() ) {
-		for my $part ( $route->parts() ) {
+	for my $route ( $efa->routes ) {
+		for my $part ( $route->parts ) {
 			# $part is a Travel::Routing::DE::VRR::Route::Part object
 		}
 	}
