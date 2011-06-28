@@ -1,8 +1,8 @@
 git HEAD
 
     * Remove --foo-type options, use --to city type:stop etc. instead
-    * Introducing Net::Travel::DE::VRR
-    * New dependency: Class::Accessor
+    * Introducing Travel::Routing::DE::VRR
+    * New dependencies: Class::Accessor, Exception::Class
 
 efa 1.3 - Sun Jun 6 2010
 
