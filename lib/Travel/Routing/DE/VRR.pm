@@ -613,10 +613,8 @@ Travel::Routing::DE::VRR - inofficial interface to the efa.vrr.de German itinera
 		destination => [ 'Duisburg', 'HBf' ],
 	);
 
-	$efa->submit();
-
-	for my $route ( $efa->routes() ) {
-		for my $part ( $route->parts() ) {
+	for my $route ( $efa->routes ) {
+		for my $part ( $route->parts ) {
 			printf(
 				"%s at %s -> %s at %s, via %s to %s",
 				$part->departure_time, $part->departure_stop,
