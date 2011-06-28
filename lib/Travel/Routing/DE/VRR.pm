@@ -636,9 +636,10 @@ It uses B<LWP::USerAgent> and B<XML::LibXML> for this.
 
 =over
 
-=item $efa = Travel::Routing::DE::VRR->new(I<%conf>)
+=item $efa = Travel::Routing::DE::VRR->new(I<%opts>)
 
-Returns a new Travel::Routing::DE::VRR object and sets up its POST data via %conf.
+Returns a new Travel::Routing::DE::VRR object and sets up its POST data via
+%opts.
 
 Valid hash keys and their values are:
 
@@ -704,12 +705,22 @@ Set walk speed.  Default: B<normal>
 
 If true: Prefer connections allowing passengers with bikes
 
+=item B<lwp_options> => I<\%hashref>
+
+Options to pass to C<< LWP::UserAgent->new >>.
+
+=item B<submit> => B<0>|B<1>
+
+By default, B<new> will create a POST request and submit it to
+L<http://efa.vrr.de>. If you do not want it to be submitted yet, set this to
+B<0>.
+
 =back
 
 =item $efa->submit(I<%opts>)
 
-Submit the query to B<http://efa.vrr.de>.
-I<%opts> is passed on to C<< LWP::UserAgent->new(%opts) >>.
+Submit the query to L<http://efa.vrr.de>.
+I<%opts> is passed on to C<< LWP::UserAgent->new >>.
 
 =item $efa->routes()
 
