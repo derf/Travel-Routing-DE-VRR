@@ -14,6 +14,8 @@ sub efa_conf {
 	my $ret = {
 		origin      => ['Essen', 'HBf'],
 		destination => ['Koeln', 'HBf'],
+		lwp_options => {},
+		submit      => 0,
 	};
 	foreach my $p (@_) {
 		$ret->{$p->[0]} = $p->[1];

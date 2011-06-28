@@ -4,10 +4,28 @@ use strict;
 use warnings;
 use 5.010;
 
-use Carp qw(confess);
 use Travel::Routing::DE::VRR::Route;
 use LWP::UserAgent;
 use XML::LibXML;
+
+use Exception::Class (
+	'Travel::Routing::DE::VRR::Exception::Setup' => {
+		description => 'invalid argument on setup',
+		fields      => [ 'option', 'have', 'want' ],
+	},
+	'Travel::Routing::DE::VRR::Exception::Net' => {
+		description => 'could not submit POST request',
+		fields      => 'http_response',
+	},
+	'Travel::Routing::DE::VRR::Exception::NoData' =>
+	  { description => 'got no data to parse', },
+	'Travel::Routing::DE::VRR::Exception::Ambiguous' => {
+		description => 'ambiguous input',
+		fields      => [ 'post_key', 'possibilities' ],
+	},
+	'Travel::Routing::DE::VRR::Exception::NoConnections' =>
+	  { description => 'got no connections', },
+);
 
 our $VERSION = '1.3';
 
@@ -25,11 +43,18 @@ sub set_time {
 		$time = $conf{arrival_time};
 	}
 	else {
-		confess('time: Specify either departure_time or arrival_time');
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'time',
+			error  => 'Specify either departure_time or arrival_time'
+		);
 	}
 
 	if ( $time !~ / ^ [0-2]? \d : [0-5]? \d $ /x ) {
-		confess("time: must match HH:MM - '${time}'");
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'time',
+			have   => $time,
+			want   => 'HH:MM',
+		);
 	}
 
 	@{ $self->{post} }{ 'itdTimeHour', 'itdTimeMinute' } = split( /:/, $time );
@@ -54,12 +79,22 @@ sub date {
 
 	my ( $day, $month, $year ) = split( /[.]/, $date );
 
-	if ( not defined $day or not length($day) or $day < 1 or $day > 31 ) {
-		confess("date: invalid day, must match DD.MM[.[YYYY]] - '${date}'");
-	}
-	if ( not defined $month or not length($month) or $month < 1 or $month > 12 )
+	if (
+		not(    defined $day
+			and length($day)
+			and $day >= 1
+			and $day <= 31
+			and defined $month
+			and length($month)
+			and $month >= 1
+			and $month <= 12 )
+	  )
 	{
-		confess("date: invalid month, must match DD.MM[.[YYYY]] - '${date}'");
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'date',
+			have   => $date,
+			want   => 'DD.MM[.[YYYY]]'
+		);
 	}
 
 	if ( not defined $year or not length($year) ) {
@@ -89,7 +124,11 @@ sub exclude {
 			}
 		}
 		if ( not $ok ) {
-			confess("exclude: Unsupported type '${exclude_type}'");
+			Travel::Routing::DE::VRR::Exception::Setup->throw(
+				option => 'exclude',
+				have   => $exclude_type,
+				want   => join( ' / ', @mapping ),
+			);
 		}
 	}
 
@@ -112,8 +151,10 @@ sub select_interchange_by {
 		when ('waittime') { $self->{post}->{routeType} = 'LEASTINTERCHANGE' }
 		when ('distance') { $self->{post}->{routeType} = 'LEASTWALKING' }
 		default {
-			confess(
-"select_interchange_by: Must be speed/waittime/distance: '${prefer}'"
+			Travel::Routing::DE::VRR::Exception::Setup->throw(
+				option => 'select_interchange_by',
+				have   => $prefer,
+				want   => 'speed / waittime / distance',
 			);
 		}
 	}
@@ -129,7 +170,11 @@ sub train_type {
 		when ('ic')    { $self->{post}->{lineRestriction} = 401 }
 		when ('ice')   { $self->{post}->{lineRestriction} = 400 }
 		default {
-			confess("train_type: Must be local/ic/ice: '${include}'");
+			Travel::Routing::DE::VRR::Exception::Setup->throw(
+				option => 'train_type',
+				have   => $include,
+				want   => 'local / ic / ice',
+			);
 		}
 	}
 
@@ -151,7 +196,11 @@ sub walk_speed {
 		$self->{post}->{changeSpeed} = $walk_speed;
 	}
 	else {
-		confess("walk_speed: Must be normal/fast/slow: '${walk_speed}'");
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'walk_speed',
+			have   => $walk_speed,
+			want   => 'normal / fast / slow',
+		);
 	}
 
 	return;
@@ -169,7 +218,10 @@ sub place {
 	my ( $self, $which, $place, $stop, $type ) = @_;
 
 	if ( not( $place and $stop ) ) {
-		confess('place: Need >= three elements');
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'place',
+			error  => 'Need >= three elements'
+		);
 	}
 
 	$type //= 'stop';
@@ -435,13 +487,15 @@ sub new {
 
 	$ref->create_post();
 
+	if ( not( defined $conf{submit} and $conf{submit} == 0 ) ) {
+		$ref->submit( %{ $conf{lwp_options} } );
+	}
+
 	return $ref;
 }
 
 sub submit {
 	my ( $self, %conf ) = @_;
-
-	$conf{autocheck} = 1;
 
 	$self->{ua} = LWP::UserAgent->new(%conf);
 
@@ -449,8 +503,8 @@ sub submit {
 	  ->post( 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2', $self->{post} );
 
 	if ( $response->is_error ) {
-		my $errstr = $response->status_line;
-		confess("Could not submit POST request: ${errstr}");
+		Travel::Routing::DE::VRR::Exception::Net->throw(
+			http_response => $response, );
 	}
 
 	# XXX (workaround)
@@ -478,7 +532,7 @@ sub parse {
 	$self->check_no_connections();
 
 	if ( @{$raw_cons} == 0 ) {
-		confess('Got no data to parse');
+		Travel::Routing::DE::VRR::Exception::NoData->throw();
 	}
 
 	return 1;
@@ -501,7 +555,10 @@ sub check_ambiguous {
 		}
 		my $err_text = join( q{, }, @possible );
 
-		confess("Ambiguous input for '${post_key}': '${err_text}'");
+		Travel::Routing::DE::VRR::Exception::Ambiguous->throw(
+			post_key      => $post_key,
+			possibilities => $err_text,
+		);
 	}
 
 	return;
@@ -518,7 +575,8 @@ sub check_no_connections {
 
 	if ($err_node) {
 		my $text = $err_node->parentNode()->parentNode()->textContent();
-		confess("Got no connections: '${text}'");
+		Travel::Routing::DE::VRR::Exception::NoConnections->throw(
+			error => $text, );
 	}
 
 	return;
