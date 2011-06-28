@@ -15,16 +15,23 @@ my $ignore_info = 'Fahrradmitnahme';
 my $efa;
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
 my $opt = {
-	'help'        => sub { exec( 'perldoc', '-F', $0 ) },
+	'help' => \&show_help,
+	,
 	'ignore-info' => \$ignore_info,
 	'from'        => \@from,
 	'to'          => \@to,
-	'version' => sub { say "efa version $VERSION"; exit 0 },
-	'via' => \@via,
+	'version'     => sub { say "efa version $VERSION"; exit 0 },
+	'via'         => \@via,
 };
 
 binmode( STDOUT, ':encoding(utf-8)' );
 binmode( STDERR, ':encoding(utf-8)' );
+
+sub show_help {
+	say 'Usage: efa [options] <from-city> <from-stop> <to-city> <to-stop>';
+	say 'See also: man efa';
+	exit 0;
+}
 
 sub handle_efa_exception {
 	my ($e) = @_;
