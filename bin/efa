@@ -15,22 +15,24 @@ my $ignore_info = 'Fahrradmitnahme';
 my $efa;
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
 my $opt = {
-	'help' => \&show_help,
-	,
+	'help'        => sub { show_help(0) },
 	'ignore-info' => \$ignore_info,
 	'from'        => \@from,
 	'to'          => \@to,
-	'version'     => sub { say "efa version $VERSION"; exit 0 },
-	'via'         => \@via,
+	'version' => sub { say "efa version $VERSION"; exit 0 },
+	'via' => \@via,
 };
 
 binmode( STDOUT, ':encoding(utf-8)' );
 binmode( STDERR, ':encoding(utf-8)' );
 
 sub show_help {
+	my ($exit_status) = @_;
+
 	say 'Usage: efa [options] <from-city> <from-stop> <to-city> <to-stop>';
 	say 'See also: man efa';
-	exit 0;
+
+	exit $exit_status;
 }
 
 sub handle_efa_exception {
@@ -122,7 +124,7 @@ GetOptions(
 		via=s@{2}
 		walk-speed|w=s
 	},
-) or die("Please see perldoc -F $0\n");
+) or show_help(1);
 #>>>
 if ( not( @from and @to ) ) {
 	if ( @ARGV == 4 ) {
