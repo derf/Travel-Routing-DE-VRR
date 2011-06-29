@@ -185,12 +185,12 @@ $efa = eval {
 
 check_for_error($@);
 
-my @routes = $efa->routes();
+my @routes = $efa->routes;
 
 for my $i ( 0 .. $#routes ) {
-	for my $c ( $routes[$i]->parts() ) {
+	for my $c ( $routes[$i]->parts ) {
 
-		for my $extra ( $c->extra() ) {
+		for my $extra ( $c->extra ) {
 
 			if ( not( length $ignore_info and $extra =~ /$ignore_info/i ) ) {
 				say "# $extra";

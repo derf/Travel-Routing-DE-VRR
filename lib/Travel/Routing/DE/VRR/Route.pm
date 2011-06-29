@@ -56,7 +56,7 @@ point to another.  It holds a bunch of Travel::Routing::DE::VRR::Route::Part(3pm
 objects describing the parts of the route in detail.  Each part depends on the
 previous one.
 
-You usually want to acces it via C<< $efa->routes() >>.
+You usually want to acces it via C<< $efa->routes >>.
 
 =head1 METHODS
 
@@ -67,7 +67,7 @@ You usually want to acces it via C<< $efa->routes() >>.
 Creates a new Travel::Routing::DE::VRR::Route elements consisting of I<parts>,
 which are Travel::Routing::DE::VRR::Route::Part elements.
 
-=item $route->parts()
+=item $route->parts
 
 Returns a list of Travel::Routing::DE::VRR::Route::Part(3pm) elements describing
 the actual route.

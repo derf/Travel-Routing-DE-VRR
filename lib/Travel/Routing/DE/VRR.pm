@@ -397,7 +397,7 @@ sub parse_initial {
 		}
 
 		if ( $colspan == 8 ) {
-			if ( $td->textContent() =~ m{ (?<no> \d+ ) [.] .+ Fahrt }x ) {
+			if ( $td->textContent =~ m{ (?<no> \d+ ) [.] .+ Fahrt }x ) {
 				$con_no   = $+{no} - 1;
 				$con_part = 0;
 				next;
@@ -415,9 +415,9 @@ sub parse_initial {
 
 		if (    defined $con_no
 			and not $td->exists($xp_img)
-			and $td->textContent() !~ /^\s*$/ )
+			and $td->textContent !~ /^\s*$/ )
 		{
-			push( @{ $cons->[$con_no]->[$con_part] }, $td->textContent() );
+			push( @{ $cons->[$con_no]->[$con_part] }, $td->textContent );
 		}
 	}
 
@@ -530,7 +530,7 @@ sub submit {
 sub parse {
 	my ($self) = @_;
 
-	my $raw_cons = $self->parse_initial();
+	my $raw_cons = $self->parse_initial;
 
 	for my $raw_con ( @{$raw_cons} ) {
 		push( @{ $self->{routes} }, $self->parse_pretty($raw_con) );
@@ -559,7 +559,7 @@ sub check_ambiguous {
 		my @possible;
 
 		foreach my $val ( $select->findnodes($xp_option) ) {
-			push( @possible, $val->textContent() );
+			push( @possible, $val->textContent );
 		}
 		my $err_text = join( q{, }, @possible );
 
@@ -582,7 +582,7 @@ sub check_no_connections {
 	my $err_node = $tree->findnodes($xp_err_img)->[0];
 
 	if ($err_node) {
-		my $text = $err_node->parentNode()->parentNode()->textContent();
+		my $text = $err_node->parentNode->parentNode->textContent;
 		Travel::Routing::DE::VRR::Exception::NoConnections->throw(
 			error => $text, );
 	}
