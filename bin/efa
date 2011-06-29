@@ -354,10 +354,13 @@ Print version information
 =head1 EXIT STATUS
 
     0    Everything went well
-    1    Ambiguous input, re-run efa with different arguments
-    2    efa.vrr.de error (i.e. unable to find matching connections)
-    3    efa.vrr.de error (usually invalid input data)
-    255  Any other kind of error
+    1    Invalid arguments, see error message
+    2    Network error, unable to send request
+    3    efa.vrr.de did not return any parsable data
+    4    efa.vrr.de error: ambiguous input
+    5    efa.vrr.de error: no connections found
+    10   Unknown Travel::Status::DE::VRR error
+    255  Other internal error
 
 =head1 CONFIGURATION
 
