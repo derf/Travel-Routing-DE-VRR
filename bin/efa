@@ -40,8 +40,10 @@ sub handle_efa_exception {
 
 	if ( $e->isa('Travel::Routing::DE::VRR::Exception::Setup') ) {
 		if ( $e->message ) {
-			printf STDERR ( "Error: %s (option '%s'): %s\n", $e->description,
-				$e->message );
+			printf STDERR (
+				"Error: %s (option '%s'): %s\n",
+				$e->description, $e->option, $e->message
+			);
 		}
 		else {
 			printf STDERR (
@@ -132,6 +134,9 @@ if ( not( @from and @to ) ) {
 	}
 	elsif ( @ARGV == 6 ) {
 		( @from[ 0, 1 ], @via[ 0, 1 ], @to[ 0, 1 ] ) = @ARGV;
+	}
+	else {
+		show_help(1);
 	}
 }
 
