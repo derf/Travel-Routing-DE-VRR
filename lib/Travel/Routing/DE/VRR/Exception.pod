@@ -54,4 +54,4 @@ efa.vrr.de found no connections for our request.
 
 =head1 SEE ALSO
 
-Travel::Status::DE::VRR(3pm)
+Travel::Routing::DE::VRR(3pm)

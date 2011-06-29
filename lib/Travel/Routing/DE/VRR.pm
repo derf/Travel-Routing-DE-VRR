@@ -786,9 +786,9 @@ It is best not to pass Unicode characters to B<Travel::Routing::DE::VRR>.
 
 =over
 
-=item * Travel::Status::DE::VRR::Exception(3pm)
+=item * Travel::Routing::DE::VRR::Exception(3pm)
 
-=item * Travel::Status::DE::VRR::Route(3pm)
+=item * Travel::Routing::DE::VRR::Route(3pm)
 
 =back
 

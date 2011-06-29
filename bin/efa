@@ -366,7 +366,7 @@ Print version information
     3    efa.vrr.de did not return any parsable data
     4    efa.vrr.de error: ambiguous input
     5    efa.vrr.de error: no connections found
-    10   Unknown Travel::Status::DE::VRR error
+    10   Unknown Travel::Routing::DE::VRR error
     255  Other internal error
 
 =head1 CONFIGURATION
