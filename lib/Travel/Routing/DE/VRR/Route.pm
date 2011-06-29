@@ -6,7 +6,7 @@ use 5.010;
 
 use Travel::Routing::DE::VRR::Route::Part;
 
-our $VERSION = '1.3';
+our $VERSION = '1.04';
 
 sub new {
 	my ( $obj, @parts ) = @_;
@@ -47,7 +47,7 @@ Travel::Routing::DE::VRR::Route - Single route (connection) between two points
 
 =head1 VERSION
 
-version 1.3
+version 1.04
 
 =head1 DESCRIPTION
 

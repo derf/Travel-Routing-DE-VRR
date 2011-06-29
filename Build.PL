@@ -10,7 +10,6 @@ Module::Build->new(
 		'Test::More' => 0,
 		'Test::Compile' => 0,
 		'Test::Pod' => 0,
-		'Test::Command' => 0,
 	},
 	module_name => 'Travel::Routing::DE::VRR',
 	license => 'unrestricted',
@@ -22,5 +21,6 @@ Module::Build->new(
 		'XML::LibXML' => 0,
 		'WWW::Mechanize' => 0,
 	},
+	sign => 1,
 
 )->create_build_script();

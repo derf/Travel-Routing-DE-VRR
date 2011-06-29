@@ -1,6 +1,6 @@
-git HEAD
+Travel::Routing::DE::VRR 1.04 - Wed Jun 29 2011
 
-    * Remove --foo-type options, use --to city type:stop etc. instead
+    * efa: Remove --foo-type options, use --to city type:stop etc. instead
     * Introducing Travel::Routing::DE::VRR
     * New dependencies: Class::Accessor, Exception::Class
 

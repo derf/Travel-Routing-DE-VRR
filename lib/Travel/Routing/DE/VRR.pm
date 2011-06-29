@@ -35,7 +35,7 @@ use Exception::Class (
 	},
 );
 
-our $VERSION = '1.3';
+our $VERSION = '1.04';
 
 sub set_time {
 	my ( $self, %conf ) = @_;
@@ -627,7 +627,7 @@ Travel::Routing::DE::VRR - inofficial interface to the efa.vrr.de German itinera
 
 =head1 VERSION
 
-version 1.3
+version 1.04
 
 =head1 DESCRIPTION
 
@@ -765,7 +765,7 @@ The following methods act like the arguments to B<new>. See there.
 
 =head1 DIAGNOSTICS
 
-When encountering an error, Travel::Routing::DE::VRR returns a
+When encountering an error, Travel::Routing::DE::VRR throws a
 Travel::Routing::DE::VRR::Exception(3pm) object.
 
 =head1 DEPENDENCIES
