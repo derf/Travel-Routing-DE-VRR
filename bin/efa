@@ -370,10 +370,7 @@ WWW::Mechanize and XML::LibXML.
 
 =head1 BUGS AND LIMITATIONS
 
-B<efa> cannot handle Unicode in its arguments, so use plain ASCII.
-
-The Parser is quite new and may not yet cover all corner cases, use with
-caution.
+B<efa> cannot handle Unicode in its arguments, use plain ASCII.
 
 =head1 AUTHOR
 

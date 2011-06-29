@@ -780,8 +780,6 @@ Travel::Routing::DE::VRR::Exception(3pm) object.
 
 =head1 BUGS AND LIMITATIONS
 
-The parser is still somewhat fragile and has no proper error handling.
-
 It is best not to pass Unicode characters to B<Travel::Routing::DE::VRR>.
 
 =head1 SEE ALSO
