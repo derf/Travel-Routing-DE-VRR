@@ -56,7 +56,7 @@ sub handle_efa_exception {
 	}
 	if ( $e->isa('Travel::Routing::DE::VRR::Exception::Net') ) {
 		printf STDERR ( "Error: %s: %s\n", $e->description,
-			$e->http_errstr->as_string );
+			$e->http_response->as_string );
 		exit 2;
 	}
 	if ( $e->isa('Travel::Routing::DE::VRR::Exception::NoData') ) {
