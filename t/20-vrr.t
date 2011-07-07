@@ -3,7 +3,8 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test::More tests => 59;
+use Test::More tests => 67;
+use Test::Fatal;
 
 BEGIN {
 	use_ok('Travel::Routing::DE::VRR');
@@ -58,23 +59,13 @@ sub is_efa_post {
 }
 
 sub is_efa_err {
-	my ($key, $val, $str) = @_;
-	return; # FIXME error handling
-	my $efa = efa_new([$key, $val]);
+	my ($ck, $cv, $exception) = @_;
 
-	my $val_want = $val;
-
-	if (ref $val eq 'ARRAY') {
-		$val_want = join(q{ }, @{$val});
-	}
-
-	is_deeply(
-		$efa->{'config'}, efa_conf([$key, $val]),
-		"conf ok: $key => $val",
+	isa_ok(
+		exception { Travel::Routing::DE::VRR->new(%{efa_conf([$ck, $cv])}) },
+		$exception,
+		"$ck => $cv"
 	);
-
-	# FIXME actual error tests
-
 }
 
 is_efa_post('ignored', 'ignored');
@@ -109,16 +100,6 @@ is_efa_post(
 	['itdTimeMinute', '38'],
 );
 
-is_efa_err(
-	'departure_time', '37:00',
-	'Must match HH:MM',
-);
-
-is_efa_err(
-	'departure_time', '07',
-	'Must match HH:MM',
-);
-
 is_efa_post(
 	'date', '2.10.2009',
 	['itdDateDay', '2'],
@@ -133,16 +114,6 @@ is_efa_post(
 	['itdDateYear', (localtime(time))[5] + 1900],
 );
 
-is_efa_err(
-	'date', '42.5.2003',
-	'Invalid day',
-);
-
-is_efa_err(
-	'date', '7.',
-	'Invalid month',
-);
-
 is_efa_post(
 	'exclude', [qw[zug]],
 	['inclMOT_0', undef],
@@ -153,13 +124,6 @@ is_efa_post(
 	['inclMOT_5',  undef],
 	['inclMOT_9',  undef],
 	['inclMOT_10', undef],
-);
-
-is_efa_err(
-	'exclude', [qw[sonstige invalid]],
-	'Must consist of '
-	. 'zug s-bahn u-bahn stadtbahn tram stadtbus regionalbus '
-	. 'schnellbus seilbahn schiff ast sonstige',
 );
 
 is_efa_post(
@@ -177,11 +141,6 @@ is_efa_post(
 	['routeType', 'LEASTWALKING'],
 );
 
-is_efa_err(
-	'select_interchange_by', 'invalid',
-	'Must be either speed, nowait or nowalk',
-);
-
 is_efa_post(
 	'train_type', 'local',
 	['lineRestriction', 403],
@@ -197,19 +156,9 @@ is_efa_post(
 	['lineRestriction', 400],
 );
 
-is_efa_err(
-	'train_type', 'invalid',
-	'Must be one of local/ic/ice',
-);
-
 is_efa_post(
 	'walk_speed', 'normal',
 	['changeSpeed', 'normal'],
-);
-
-is_efa_err(
-	'walk_speed', 'invalid',
-	'Must be normal, fast or slow',
 );
 
 is_efa_post(
@@ -225,4 +174,44 @@ is_efa_post(
 is_efa_post(
 	'with_bike', 1,
 	['bikeTakeAlong', 1],
+);
+
+is_efa_err(
+	'departure_time', '37:00',
+	'Travel::Routing::DE::VRR::Exception::Setup',
+);
+
+is_efa_err(
+	'departure_time', '07',
+	'Travel::Routing::DE::VRR::Exception::Setup',
+);
+
+is_efa_err(
+	'train_type', 'invalid',
+	'Travel::Routing::DE::VRR::Exception::Setup',
+);
+
+is_efa_err(
+	'walk_speed', 'invalid',
+	'Travel::Routing::DE::VRR::Exception::Setup',
+);
+
+is_efa_err(
+	'select_interchange_by', 'invalid',
+	'Travel::Routing::DE::VRR::Exception::Setup',
+);
+
+is_efa_err(
+	'exclude', [qw[sonstige invalid]],
+	'Travel::Routing::DE::VRR::Exception::Setup',
+);
+
+is_efa_err(
+	'date', '42.5.2003',
+	'Travel::Routing::DE::VRR::Exception::Setup',
+);
+
+is_efa_err(
+	'date', '7.',
+	'Travel::Routing::DE::VRR::Exception::Setup',
 );

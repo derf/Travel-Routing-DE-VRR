@@ -7,8 +7,9 @@ use Module::Build;
 Module::Build->new(
 
 	build_requires => {
-		'Test::More' => 0,
 		'Test::Compile' => 0,
+		'Test::Fatal' => 0,
+		'Test::More' => 0,
 		'Test::Pod' => 0,
 	},
 	module_name => 'Travel::Routing::DE::VRR',
