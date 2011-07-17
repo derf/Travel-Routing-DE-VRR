@@ -15,7 +15,7 @@ Module::Build->new(
 	module_name => 'Travel::Routing::DE::VRR',
 	license => 'unrestricted',
 	requires => {
-		'perl' => '5.10.0',
+		'perl' => '5.10.1',
 		'Class::Accessor' => 0,
 		'Exception::Class' => 0,
 		'Getopt::Long' => 0,

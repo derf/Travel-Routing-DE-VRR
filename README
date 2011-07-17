@@ -7,7 +7,7 @@ efa - unofficial efa.vrr.de command line client
 Dependencies
 ------------
 
- * perl version 5.10 or newer
+ * perl version 5.10.1 or newer
  * Class::Accessor
  * Exception::Class
  * XML::LibXML
