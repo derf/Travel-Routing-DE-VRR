@@ -20,7 +20,6 @@ Module::Build->new(
 		'Exception::Class' => 0,
 		'Getopt::Long' => 0,
 		'XML::LibXML' => 0,
-		'WWW::Mechanize' => 0,
 	},
 	sign => 1,
 

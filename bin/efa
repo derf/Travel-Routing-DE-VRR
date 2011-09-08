@@ -375,8 +375,8 @@ None.
 
 =head1 DEPENDENCIES
 
-This script requires perl 5.10 (or higher) with the modules
-WWW::Mechanize and XML::LibXML.
+This script requires perl 5.10 (or higher) with the XML::LibXML module
+installed.
 
 =head1 BUGS AND LIMITATIONS
 
