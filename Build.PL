@@ -19,6 +19,7 @@ Module::Build->new(
 		'Class::Accessor' => 0,
 		'Exception::Class' => 0,
 		'Getopt::Long' => 0,
+		'LWP::UserAgent' => 0,
 		'XML::LibXML' => 0,
 	},
 	sign => 1,
