@@ -6,7 +6,7 @@ use 5.010;
 
 use parent 'Class::Accessor';
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 
 Travel::Routing::DE::VRR::Route::Part->mk_ro_accessors(
 	qw(arrival_stop arrival_time departure_stop departure_time train_line
@@ -54,7 +54,7 @@ points, without interchanges
 
 =head1 VERSION
 
-version 1.05
+version 1.06
 
 =head1 DESCRIPTION
 

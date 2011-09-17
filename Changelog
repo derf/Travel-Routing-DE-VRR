@@ -1,3 +1,8 @@
+Travel::Routing::DE::VRR 1.06 - Sat Sep 17 2011
+
+    * Fix dependencies.  We claimed to use WWW::Mechanize but in fact only
+      need LWP::UserAgent
+
 Travel::Routing::DE::VRR 1.05 - Sun Jul 17 2011
 
     * Documentation fixes (in a few places, the module was prefixed
