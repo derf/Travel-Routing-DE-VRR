@@ -602,7 +602,7 @@ __END__
 
 =head1 NAME
 
-Travel::Routing::DE::VRR - inofficial interface to the efa.vrr.de German itinerary service
+Travel::Routing::DE::VRR - unofficial interface to the efa.vrr.de German itinerary service
 
 =head1 SYNOPSIS
 
