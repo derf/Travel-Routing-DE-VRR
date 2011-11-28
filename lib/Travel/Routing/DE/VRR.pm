@@ -430,7 +430,9 @@ sub itdtime_str {
 }
 
 sub parse_part {
-	my ($self, $tree) = @_;
+	my ($self, $route) = @_;
+
+	my $info;
 
 	my $xp_route = XML::LibXML::XPathExpression->new('./itdPartialRouteList/itdPartialRoute');
 	my $xp_dep = XML::LibXML::XPathExpression->new('./itdPoint[@usage="departure"]');
@@ -440,10 +442,15 @@ sub parse_part {
 #	my $xp_tdate = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdDate');
 #	my $xp_ttime = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdTime');
 	my $xp_mot   = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
+	my $xp_info  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
+
 
 	my @route_parts;
 
-	for my $e ( $tree->findnodes($xp_route) ) {
+	$info->{vehicle_time} = $route->getAttribute('vehicleTime');
+	$info->{duration} = $route->getAttribute('publicDuration');
+
+	for my $e ( $route->findnodes($xp_route) ) {
 
 		my $e_dep = ( $e->findnodes($xp_dep) )[0];
 		my $e_arr = ( $e->findnodes($xp_arr) )[0];
@@ -452,6 +459,7 @@ sub parse_part {
 		my $e_adate = ( $e_arr->findnodes($xp_date) )[0];
 		my $e_atime = ( $e_arr->findnodes($xp_time) )[0];
 		my $e_mot  = ( $e->findnodes($xp_mot) )[0];
+		my @e_info = $e->findnodes($xp_info);
 
 		my $hash = {
 			departure_time => $self->itdtime_str($e_dtime),
@@ -470,10 +478,12 @@ sub parse_part {
 			$hash->{$key} = decode('UTF-8', $hash->{$key} );
 		}
 
+		$hash->{extra} = [ map { decode('UTF-8', $_->textContent) } @e_info ];
+
 		push(@route_parts, $hash);
 	}
 
-	push(@{$self->{routes}}, Travel::Routing::DE::VRR::Route->new(@route_parts));
+	push(@{$self->{routes}}, Travel::Routing::DE::VRR::Route->new($info, @route_parts));
 
 	return;
 }

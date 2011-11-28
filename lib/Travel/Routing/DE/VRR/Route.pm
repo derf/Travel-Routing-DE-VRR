@@ -9,9 +9,9 @@ use Travel::Routing::DE::VRR::Route::Part;
 our $VERSION = '1.06';
 
 sub new {
-	my ( $obj, @parts ) = @_;
+	my ( $obj, $info, @parts ) = @_;
 
-	my $ref = {};
+	my $ref = $info;
 
 	for my $part (@parts) {
 		push(
