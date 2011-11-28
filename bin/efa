@@ -114,7 +114,7 @@ GetOptions(
 		date|d=s
 		depart=s
 		exclude|e=s@
-		extended-info|E
+		extended-info|E+
 		from=s@{2}
 		help|h
 		ignore-info|I:s
@@ -215,10 +215,19 @@ for my $i ( 0 .. $#routes ) {
 		}
 
 		printf(
-			"%-5s ab  %-30s %-20s %s\n%-5s an  %s\n\n",
+			"%-5s ab  %-30s %-20s %s\n",
 			$c->departure_time, $c->departure_stop_and_platform,
 			$c->train_line,     $c->train_destination,
-			$c->arrival_time,   $c->arrival_stop_and_platform,
+		);
+
+		if ( $opt->{'extended-info'} and $opt->{'extended-info'} == 2 ) {
+			for my $via ( @{ $c->{via} } ) {
+				printf( "%-5s     %-22s %s\n", @{$via}[ 1 .. 3 ] );
+			}
+		}
+
+		printf( "%-5s an  %s\n\n",
+			$c->arrival_time, $c->arrival_stop_and_platform,
 		);
 	}
 	if ( $i != $#routes ) {

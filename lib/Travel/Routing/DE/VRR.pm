@@ -443,6 +443,7 @@ sub parse_part {
 	  = XML::LibXML::XPathExpression->new('./itdPoint[@usage="arrival"]');
 	my $xp_date = XML::LibXML::XPathExpression->new('./itdDateTime/itdDate');
 	my $xp_time = XML::LibXML::XPathExpression->new('./itdDateTime/itdTime');
+	my $xp_via  = XML::LibXML::XPathExpression->new('./itdStopSeq/itdPoint');
 
 #	my $xp_tdate = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdDate');
 #	my $xp_ttime = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdTime');
@@ -495,6 +496,34 @@ sub parse_part {
 
 		for my $key ( keys %{$hash} ) {
 			$hash->{$key} = decode( 'UTF-8', $hash->{$key} );
+		}
+
+		for my $ve ( $e->findnodes($xp_via) ) {
+			my $e_vdate = ( $ve->findnodes($xp_date) )[-1];
+			my $e_vtime = ( $ve->findnodes($xp_time) )[-1];
+
+			if ( not( $e_vdate and $e_vtime )
+				or ( $e_vdate->getAttribute('weekday') == -1 ) )
+			{
+				next;
+			}
+
+			my $name = decode( 'UTF-8', $ve->getAttribute('name') );
+			my $platform = $ve->getAttribute('platformName');
+
+			if ( $name ~~ [ $hash->{departure_stop}, $hash->{arrival_stop} ] ) {
+				next;
+			}
+
+			push(
+				@{ $hash->{via} },
+				[
+					$self->itddate_str($e_vdate),
+					$self->itdtime_str($e_vtime),
+					$name,
+					$platform
+				]
+			);
 		}
 
 		$hash->{extra} = [ map { decode( 'UTF-8', $_->textContent ) } @e_info ];
