@@ -1,0 +1,2048 @@
+<?xml version="1.0" encoding="utf-8"?>
+<itdRequest version="9.16.27.66" language="de" lengthUnit="METER" sessionID="efa10.vrr.de_63445312" client="libwww-perl/6.03" clientIP="93.213.91.108" serverID="efa10.vrr.de_" virtDir="vrr" now="2011-11-28T21:00:34" nowWD="2">
+  <itdLayoutParams>
+    <itdLayoutParam name="mdvMap_destination" value="::" />
+    <itdLayoutParam name="id_destination" value=":destination" />
+    <itdLayoutParam name="ShowFare" value=" " />
+    <itdLayoutParam name="mdvMap2_destination" value="" />
+    <itdLayoutParam name="view" value="" />
+    <itdLayoutParam name="mapState_origin" value="" />
+    <itdLayoutParam name="mdvMap2_origin" value="" />
+    <itdLayoutParam name="mapState_destination" value="" />
+    <itdLayoutParam name="enableMobilityRestrictionOptionsWithButton" value="" />
+    <itdLayoutParam name="id_via" value=":via" />
+    <itdLayoutParam name="mdvMap_origin" value="::" />
+    <itdLayoutParam name="id_origin" value=":origin" />
+    <itdLayoutParam name="command" value="" />
+    <itdLayoutParam name="mdvMap2_via" value="" />
+    <itdLayoutParam name="mdvMap_via" value="::" />
+    <itdLayoutParam name="mapState_via" value="" />
+    <itdLayoutParam name="transpCompany" value="vrr" />
+    <itdLayoutParam name="priceCalculator" value="" />
+  </itdLayoutParams>
+  <itdTripRequest requestID="1">
+    <itdPrintConfiguration active="-1" printerDirect="0" layout="" outputFormat="pdf" fontSizeNormal="1" shading="1" commuterFaresOutput="0" fareUnitOrientation="left" serverAddress="" serverInfo="" />
+    <itdAddress name="" street="" place="" addressExt1="" addressExt2="" />
+    <itdOdv type="stop" usage="origin">
+      <itdOdvPlace state="identified" method="itp">
+        <odvPlaceElem omc="5113000" placeID="18" value="5113000:18" span="0" type="remote" mainPlace="1">Essen</odvPlaceElem>
+        <odvPlaceInput>Essen</odvPlaceInput>
+      </itdOdvPlace>
+      <itdOdvName state="identified" method="itp">
+        <odvNameElem x="3361949" y="456292" mapName="NAV3" stopID="20009289" value="20009289:1" isTransferStop="0" matchQuality="0">Hauptbahnhof</odvNameElem>
+        <odvNameInput>hbf</odvNameInput>
+      </itdOdvName>
+    </itdOdv>
+    <itdOdv type="stop" usage="destination">
+      <itdOdvPlace state="identified" method="itp">
+        <odvPlaceElem omc="5315000" placeID="1" value="5315000:1" span="0" type="remote" mainPlace="1">Köln</odvPlaceElem>
+        <odvPlaceInput>Koeln</odvPlaceInput>
+      </itdOdvPlace>
+      <itdOdvName state="identified" method="itp">
+        <odvNameElem x="3356602" y="512714" mapName="NAV3" stopID="22000751" value="22000751:1" isTransferStop="0" matchQuality="0">Dom/Hbf</odvNameElem>
+        <odvNameInput>Dom/Hbf</odvNameInput>
+      </itdOdvName>
+    </itdOdv>
+    <itdOdv type="stop" usage="via">
+      <itdOdvPlace state="empty">
+        <odvPlaceElem />
+      </itdOdvPlace>
+      <itdOdvName state="empty">
+        <odvNameElem />
+      </itdOdvName>
+    </itdOdv>
+    <itdTripDateTime deparr="dep" ttpFrom="20110901" ttpTo="20120531">
+      <itdDateTime ttpFrom="20110901" ttpTo="20120531">
+        <itdDate weekday="2" year="2011" month="11" day="28" />
+        <itdTime hour="21" minute="0" />
+      </itdDateTime>
+      <itdDateRange>
+        <itdDate day="28" month="11" year="2011" weekday="2" />
+        <itdDate day="29" month="11" year="2011" weekday="3" />
+        <itdDate day="30" month="11" year="2011" weekday="4" />
+        <itdDate day="01" month="12" year="2011" weekday="5" />
+        <itdDate day="02" month="12" year="2011" weekday="6" />
+        <itdDate day="03" month="12" year="2011" weekday="7" />
+        <itdDate day="04" month="12" year="2011" weekday="1" />
+        <itdDate day="05" month="12" year="2011" weekday="2" />
+        <itdDate day="06" month="12" year="2011" weekday="3" />
+        <itdDate day="07" month="12" year="2011" weekday="4" />
+        <itdDate day="08" month="12" year="2011" weekday="5" />
+        <itdDate day="09" month="12" year="2011" weekday="6" />
+        <itdDate day="10" month="12" year="2011" weekday="7" />
+        <itdDate day="11" month="12" year="2011" weekday="1" />
+        <itdDate day="12" month="12" year="2011" weekday="2" />
+      </itdDateRange>
+    </itdTripDateTime>
+    <itdTripOptions userDefined="0">
+      <itdPtOptions active="1" maxChanges="9" maxTime="360" maxWait="120" routeType="LEASTTIME" changeSpeed="normal" lineRestriction="403" useProxFootSearch="0" useProxFootSearchOrigin="0" useProxFootSearchDestination="0" bike="0" plane="0" noCrowded="0" noSolidStairs="0" noEscalators="0" noElevators="0" lowPlatformVhcl="0" wheelchair="0" SOSAvail="0" noLonelyTransfer="0" illumTransfer="0" overgroundTransfer="0" noInsecurePlaces="0" privateTransport="0">
+        <excludedMeans>
+          <meansElem value="0" selected="0">Zug</meansElem>
+          <meansElem value="1" selected="0">S-Bahn</meansElem>
+          <meansElem value="2" selected="0">U-Bahn</meansElem>
+          <meansElem value="3" selected="0">Stadtbahn</meansElem>
+          <meansElem value="4" selected="0">Straßen-/Trambahn</meansElem>
+          <meansElem value="5" selected="0">Stadtbus</meansElem>
+          <meansElem value="6" selected="0">Regionalbus</meansElem>
+          <meansElem value="7" selected="0">Schnellbus</meansElem>
+          <meansElem value="8" selected="0">Seil-/Zahnradbahn</meansElem>
+          <meansElem value="9" selected="0">Schiff</meansElem>
+          <meansElem value="10" selected="0">AST/Rufbus</meansElem>
+          <meansElem value="11" selected="0">Sonstige</meansElem>
+        </excludedMeans>
+        <specialTickets />
+      </itdPtOptions>
+      <itdItOptions>
+        <itRouter logASCII="false" logSVG="false" />
+        <itPedestrian computeMonomodalTrip="false" computationType="PT_AND_IT" itIncidentData="false" useElevation="false" speedFactor="100" costFactor="0" distanceFactor="50" traveltimeFactor="50" noTunnel="false" noBridge="false" noFerry="false" maxTime="20" maxLength="2147483647" ignoreRestrictions="false" />
+        <itBicycle preferAsphaltTracks="false" preferGreenTracks="false" usePseudoRouting="false" useSignedRoute="false" cycleSpeed="20" prefHikePath="false" elevFac="50" bikeProf="UNKNOWN" computeMonomodalTrip="false" computationType="PT_AND_IT" itIncidentData="false" useElevation="false" speedFactor="100" costFactor="0" distanceFactor="50" traveltimeFactor="50" noTunnel="false" noBridge="false" noFerry="false" maxTime="15" maxLength="2147483647" ignoreRestrictions="false" />
+        <mitCar computeMonomodalTrip="false" computationType="PT_AND_IT" itIncidentData="false" useElevation="false" speedFactor="100" costFactor="0" distanceFactor="10" traveltimeFactor="90" noTunnel="false" noBridge="false" noFerry="false" maxTime="90" maxLength="2147483647" ignoreRestrictions="false" mitProfileData="false" mitIncidentData="false" mitOnlineData="false" noHighway="false" noTollRoad="false" />
+        <departureTransport>
+          <individualTransport meansCode="100" value="8" speed="normal" selected="1" />
+          <individualTransport meansCode="101" value="10" speed="normal" selected="0" />
+          <individualTransport meansCode="102" value="15" speed="normal" selected="0" />
+          <individualTransport meansCode="103" value="10" speed="normal" selected="0" />
+          <individualTransport meansCode="104" value="10" speed="normal" selected="0" />
+          <individualTransport meansCode="105" value="10" speed="normal" selected="0" />
+          <individualTransport meansCode="106" value="15" speed="normal" selected="0" />
+          <individualTransport meansCode="107" value="15" speed="normal" selected="0" />
+        </departureTransport>
+        <arrivalTransport>
+          <individualTransport meansCode="100" value="8" speed="normal" selected="1" />
+          <individualTransport meansCode="101" value="10" speed="normal" selected="0" />
+          <individualTransport meansCode="102" value="15" speed="normal" selected="0" />
+          <individualTransport meansCode="103" value="10" speed="normal" selected="0" />
+          <individualTransport meansCode="104" value="10" speed="normal" selected="0" />
+          <individualTransport meansCode="105" value="10" speed="normal" selected="0" />
+          <individualTransport meansCode="106" value="15" speed="normal" selected="0" />
+          <individualTransport meansCode="107" value="15" speed="normal" selected="0" />
+        </arrivalTransport>
+      </itdItOptions>
+      <itdUsedOptions calcNumberOfTrips="4" dwellTime="00:00" nextDepsPerLeg="0" calcCO2="0" itemType="STOPLINK" />
+    </itdTripOptions>
+    <itdItinerary>
+      <itdRouteList>
+        <itdRoute active="1" selected="1" changes="1" distance="-3" routeIndex="1" routeTripIndex="1" alternative="0" print="0" delete="0" searchMode="1" cTime="20111128210034000" method="itp" vehicleTime="63" publicDuration="01:08">
+          <itdMapItemList />
+          <itdPartialRouteList>
+            <itdPartialRoute type="PT" active="1" timeMinute="24" bookingCode="Sefa10.vrr.de_63445312R1T0PR0" partialRouteType="normalPartialRoute">
+              <itdPoint stopID="20009289" area="90" platform="#2" name="Essen Hauptbahnhof" nameWO="Hauptbahnhof" platformName="Gleis 2" usage="departure" x="3362045" y="456187" mapName="NAV3" omc="5113000" placeID="18" locality="Essen">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8620.pdf" />
+                  </itdMapItem>
+                  <itdMapItem text="" type="SM">
+                    <itdImage src="vrr/09289_e_hbf_1.htm" size="3" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="20" minute="21" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="20" minute="21" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdPoint stopID="20018488" area="90" platform="#6" name="Düsseldorf Flughafen Bahnhof" nameWO="Flughafen Bahnhof" platformName="Gleis 6" usage="arrival" x="3345726" y="473565" mapName="NAV3" omc="5111000" placeID="6" locality="Düsseldorf">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8621.pdf" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="20" minute="45" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="20" minute="45" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdMeansOfTransport name="R-Bahn RE2" shortname="RE2" symbol="" type="6" motType="0" productName="R-Bahn" destination="Düsseldorf Hbf" network="ddb" TTB="0" STT="0" ROP="0" destID="20018235" spTr="" tC="10230">
+                <motDivaParams line="90425" project="j11" direction="R" supplement="B" network="ddb" />
+                <itdOperator>
+                  <code>00</code>
+                  <name>Daten DB AG</name>
+                </itdOperator>
+              </itdMeansOfTransport>
+              <itdInfoTextList>
+                <infoTextListElem>Fahrradmitnahme begrenzt möglich</infoTextListElem>
+              </itdInfoTextList>
+            </itdPartialRoute>
+            <itdPartialRoute type="PT" active="1" timeMinute="39" bookingCode="Sefa10.vrr.de_63445312R1T0PR1" partialRouteType="normalPartialRoute">
+              <itdPoint stopID="20018488" area="90" platform="#4" name="Düsseldorf Flughafen Bahnhof" nameWO="Flughafen Bahnhof" platformName="Gleis 4" usage="departure" x="3345726" y="473565" mapName="NAV3" omc="5111000" placeID="6" locality="Düsseldorf">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8621.pdf" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="20" minute="50" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="20" minute="50" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdPoint stopID="22000751" area="90" platform="#9" name="Köln, Dom/Hbf" nameWO="Dom/Hbf" platformName="Gleis 9" usage="arrival" x="3356602" y="512714" mapName="NAV3" omc="5315000" placeID="1" locality="Köln">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8622.pdf" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="29" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="29" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdMeansOfTransport name="R-Bahn RE5" shortname="RE5" symbol="" type="6" motType="0" productName="R-Bahn" destination="Köln, Dom/Hbf" network="ddb" TTB="0" STT="0" ROP="0" destID="22000751" spTr="" tC="10533">
+                <motDivaParams line="90420" project="j11" direction="R" supplement=" " network="ddb" />
+                <itdOperator>
+                  <code>00</code>
+                  <name>Daten DB AG</name>
+                </itdOperator>
+              </itdMeansOfTransport>
+              <itdInfoTextList>
+                <infoTextListElem>Fahrradmitnahme begrenzt möglich</infoTextListElem>
+              </itdInfoTextList>
+            </itdPartialRoute>
+          </itdPartialRouteList>
+          <itdFare>
+            <itdSingleTicket net="NRW" toPR="1" fromPR="0" currency="EUR" unitName="" fareAdult="" fareChild="" unitsAdult="" unitsChild="" fareBikeAdult="" fareBikeChild="" unitsBikeAdult="" unitsBikeChild="" levelAdult="" levelChild=""> NRW-Tarif: 17,00 ? (2.Kl) / PauschalpreisTickets gültig<itdGenericTicketList>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneReiseTicket NRW Einzelfahrt</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>26.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>17.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value>13.25</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>8.50</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneFahrtTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>16.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>8.30</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW 5 Personen</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>36.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW Single</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>26.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneWocheTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>118.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>80.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>370.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>253.70</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>303.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>207.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>223.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>183.30</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>3675.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>2600.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>320.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>225.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>FahrradTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>4.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+              </itdGenericTicketList>
+            </itdSingleTicket>
+          </itdFare>
+          <itdDaysOfService />
+          <seqRoutes>
+            <seqRoute publicDuration="01:08">1-2</seqRoute>
+          </seqRoutes>
+        </itdRoute>
+        <itdRoute active="1" selected="1" changes="0" distance="-2" routeIndex="2" routeTripIndex="1" alternative="0" print="0" delete="0" searchMode="0" cTime="20111128210031984" method="itp" vehicleTime="63" publicDuration="01:03">
+          <itdMapItemList />
+          <itdPartialRouteList>
+            <itdPartialRoute type="PT" active="1" timeMinute="63" bookingCode="Sefa10.vrr.de_63445312R1T1PR0" partialRouteType="normalPartialRoute">
+              <itdPoint stopID="20009289" area="90" platform="#2" name="Essen Hauptbahnhof" nameWO="Hauptbahnhof" platformName="Gleis 2" usage="departure" x="3362045" y="456187" mapName="NAV3" omc="5113000" placeID="18" locality="Essen">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8623.pdf" />
+                  </itdMapItem>
+                  <itdMapItem text="" type="SM">
+                    <itdImage src="vrr/09289_e_hbf_1.htm" size="3" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="9" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="9" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdPoint stopID="22000751" area="90" platform="#9" name="Köln, Dom/Hbf" nameWO="Dom/Hbf" platformName="Gleis 9" usage="arrival" x="3356602" y="512714" mapName="NAV3" omc="5315000" placeID="1" locality="Köln">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8624.pdf" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="12" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="12" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdMeansOfTransport name="R-Bahn RE1" shortname="RE1" symbol="" type="6" motType="0" productName="R-Bahn" destination="Aachen, Hbf" network="ddb" TTB="0" STT="0" ROP="0" destID="21001008" spTr="" tC="10140">
+                <motDivaParams line="90415" project="j11" direction="H" supplement=" " network="ddb" />
+                <itdOperator>
+                  <code>00</code>
+                  <name>Daten DB AG</name>
+                </itdOperator>
+              </itdMeansOfTransport>
+              <itdInfoTextList>
+                <infoTextListElem>Fahrradmitnahme begrenzt möglich</infoTextListElem>
+              </itdInfoTextList>
+            </itdPartialRoute>
+          </itdPartialRouteList>
+          <itdFare>
+            <itdSingleTicket net="NRW" toPR="0" fromPR="0" currency="EUR" unitName="" fareAdult="" fareChild="" unitsAdult="" unitsChild="" fareBikeAdult="" fareBikeChild="" unitsBikeAdult="" unitsBikeChild="" levelAdult="" levelChild=""> NRW-Tarif: 17,00 ? (2.Kl) / PauschalpreisTickets gültig<itdGenericTicketList>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneReiseTicket NRW Einzelfahrt</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>26.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>17.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value>13.25</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>8.50</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneFahrtTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>16.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>8.30</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW 5 Personen</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>36.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW Single</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>26.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneWocheTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>118.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>80.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>370.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>253.70</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>303.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>207.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>223.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>183.30</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>3675.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>2600.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>320.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>225.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>FahrradTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>4.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+              </itdGenericTicketList>
+            </itdSingleTicket>
+          </itdFare>
+          <itdDaysOfService />
+          <seqRoutes>
+            <seqRoute publicDuration="01:03">1-1</seqRoute>
+          </seqRoutes>
+        </itdRoute>
+        <itdRoute active="1" selected="1" changes="0" distance="-2" routeIndex="2" routeTripIndex="2" alternative="1" print="0" delete="0" searchMode="0" cTime="20111128210032843" method="itp" vehicleTime="95" publicDuration="01:35">
+          <itdMapItemList />
+          <itdPartialRouteList>
+            <itdPartialRoute type="PT" active="1" timeMinute="95" bookingCode="Sefa10.vrr.de_63445312R1T2PR0" partialRouteType="normalPartialRoute">
+              <itdPoint stopID="20009289" area="98" platform="#12" name="Essen Hauptbahnhof" nameWO="Hauptbahnhof" platformName="Gleis 12" usage="departure" x="3362053" y="456277" mapName="NAV3" omc="5113000" placeID="18" locality="Essen">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8625.pdf" />
+                  </itdMapItem>
+                  <itdMapItem text="" type="SM">
+                    <itdImage src="vrr/09289_e_hbf_1.htm" size="3" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="18" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="18" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdPoint stopID="22000751" area="98" platform="#11" name="Köln, Dom/Hbf" nameWO="Dom/Hbf" platformName="Gleis 11" usage="arrival" x="3356602" y="512714" mapName="NAV3" omc="5315000" placeID="1" locality="Köln">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8626.pdf" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="53" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="53" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdMeansOfTransport name="S-Bahn S6" shortname="S6" symbol="S6" type="2" motType="1" productName="S-Bahn" destination="Nippes, Nippes S-Bahn" network="ddb" TTB="0" STT="0" ROP="0" destID="22000750" spTr="" tC="31638">
+                <motDivaParams line="92E06" project="j11" direction="H" supplement=" " network="ddb" />
+                <itdOperator>
+                  <code>00</code>
+                  <name>Daten DB AG</name>
+                </itdOperator>
+              </itdMeansOfTransport>
+              <itdInfoTextList>
+                <infoTextListElem>Linie S6: Fahrradmitnahme begrenzt möglich</infoTextListElem>
+              </itdInfoTextList>
+            </itdPartialRoute>
+          </itdPartialRouteList>
+          <itdFare>
+            <itdSingleTicket net="NRW" toPR="0" fromPR="0" currency="EUR" unitName="" fareAdult="" fareChild="" unitsAdult="" unitsChild="" fareBikeAdult="" fareBikeChild="" unitsBikeAdult="" unitsBikeChild="" levelAdult="" levelChild=""> NRW-Tarif: 15,10 ? (2.Kl) / PauschalpreisTickets gültig<itdGenericTicketList>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneReiseTicket NRW Einzelfahrt</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>23.40</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>15.10</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value>11.70</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>7.55</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW 5 Personen</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>36.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW Single</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>26.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneWocheTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>117.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>80.10</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>368.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>252.10</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>301.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>206.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>217.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>178.30</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>3675.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>2600.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>320.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>225.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>FahrradTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>4.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+              </itdGenericTicketList>
+            </itdSingleTicket>
+          </itdFare>
+          <itdDaysOfService />
+          <seqRoutes>
+            <seqRoute publicDuration="01:35">1-1</seqRoute>
+          </seqRoutes>
+        </itdRoute>
+        <itdRoute active="1" selected="1" changes="1" distance="-3" routeIndex="0" routeTripIndex="0" alternative="0" print="0" delete="0" searchMode="0" cTime="20111128210032843" method="itp" vehicleTime="83" publicDuration="01:32">
+          <itdMapItemList />
+          <itdPartialRouteList>
+            <itdPartialRoute type="PT" active="1" timeMinute="32" bookingCode="Sefa10.vrr.de_63445312R1T3PR0" partialRouteType="normalPartialRoute">
+              <itdPoint stopID="20009289" area="90" platform="#2" name="Essen Hauptbahnhof" nameWO="Hauptbahnhof" platformName="Gleis 2" usage="departure" x="3362045" y="456187" mapName="NAV3" omc="5113000" placeID="18" locality="Essen">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8627.pdf" />
+                  </itdMapItem>
+                  <itdMapItem text="" type="SM">
+                    <itdImage src="vrr/09289_e_hbf_1.htm" size="3" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="21" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="21" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdPoint stopID="20018235" area="90" platform="#9" name="Düsseldorf Hbf" nameWO="Hbf" platformName="Gleis 9" usage="arrival" x="3345974" y="481458" mapName="NAV3" omc="5111000" placeID="6" locality="Düsseldorf">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8628.pdf" />
+                  </itdMapItem>
+                  <itdMapItem text="" type="SM">
+                    <itdImage src="vrr/18235_d_hbf_1.htm" size="3" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="53" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="21" minute="53" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdMeansOfTransport name="R-Bahn RE2" shortname="RE2" symbol="" type="6" motType="0" productName="R-Bahn" destination="Düsseldorf Hbf" network="ddb" TTB="0" STT="0" ROP="0" destID="20018235" spTr="" tC="10232">
+                <motDivaParams line="90425" project="j11" direction="R" supplement="B" network="ddb" />
+                <itdOperator>
+                  <code>00</code>
+                  <name>Daten DB AG</name>
+                </itdOperator>
+              </itdMeansOfTransport>
+              <itdInfoTextList>
+                <infoTextListElem>Fahrradmitnahme begrenzt möglich</infoTextListElem>
+              </itdInfoTextList>
+            </itdPartialRoute>
+            <itdPartialRoute type="PT" active="1" timeMinute="51" bookingCode="Sefa10.vrr.de_63445312R1T3PR1" partialRouteType="normalPartialRoute">
+              <itdPoint stopID="20018235" area="98" platform="#11" name="Düsseldorf Hbf" nameWO="Hbf" platformName="Gleis 11" usage="departure" x="3346062" y="481506" mapName="NAV3" omc="5111000" placeID="6" locality="Düsseldorf">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8628.pdf" />
+                  </itdMapItem>
+                  <itdMapItem text="" type="SM">
+                    <itdImage src="vrr/18235_d_hbf_1.htm" size="3" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="2" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="2" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdPoint stopID="22000751" area="98" platform="#11" name="Köln, Dom/Hbf" nameWO="Dom/Hbf" platformName="Gleis 11" usage="arrival" x="3356602" y="512714" mapName="NAV3" omc="5315000" placeID="1" locality="Köln">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E8629.pdf" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="53" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="53" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdMeansOfTransport name="S-Bahn S6" shortname="S6" symbol="S6" type="2" motType="1" productName="S-Bahn" destination="Nippes, Nippes S-Bahn" network="ddb" TTB="0" STT="0" ROP="0" destID="22000750" spTr="" tC="31638">
+                <motDivaParams line="92E06" project="j11" direction="H" supplement=" " network="ddb" />
+                <itdOperator>
+                  <code>00</code>
+                  <name>Daten DB AG</name>
+                </itdOperator>
+              </itdMeansOfTransport>
+              <itdInfoTextList>
+                <infoTextListElem>Linie S6: Fahrradmitnahme begrenzt möglich</infoTextListElem>
+              </itdInfoTextList>
+            </itdPartialRoute>
+          </itdPartialRouteList>
+          <itdFare>
+            <itdSingleTicket net="NRW" toPR="1" fromPR="0" currency="EUR" unitName="" fareAdult="" fareChild="" unitsAdult="" unitsChild="" fareBikeAdult="" fareBikeChild="" unitsBikeAdult="" unitsBikeChild="" levelAdult="" levelChild=""> NRW-Tarif: 17,00 ? (2.Kl) / PauschalpreisTickets gültig<itdGenericTicketList>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneReiseTicket NRW Einzelfahrt</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>26.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>17.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value>13.25</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>8.50</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneFahrtTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>16.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>8.30</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW 5 Personen</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>36.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW Single</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>26.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneWocheTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>118.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>80.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>370.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>253.70</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>303.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>207.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>223.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>183.30</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>3675.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>2600.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>320.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>225.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>FahrradTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>4.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+              </itdGenericTicketList>
+            </itdSingleTicket>
+          </itdFare>
+          <itdDaysOfService />
+          <seqRoutes>
+            <seqRoute publicDuration="01:32">1-2</seqRoute>
+          </seqRoutes>
+        </itdRoute>
+        <itdRoute active="1" selected="1" changes="0" distance="-2" routeIndex="2" routeTripIndex="3" alternative="0" print="0" delete="0" searchMode="0" cTime="20111128210033437" method="itp" vehicleTime="63" publicDuration="01:03">
+          <itdMapItemList />
+          <itdPartialRouteList>
+            <itdPartialRoute type="PT" active="1" timeMinute="63" bookingCode="Sefa10.vrr.de_63445312R1T4PR0" partialRouteType="normalPartialRoute">
+              <itdPoint stopID="20009289" area="90" platform="#2" name="Essen Hauptbahnhof" nameWO="Hauptbahnhof" platformName="Gleis 2" usage="departure" x="3362045" y="456187" mapName="NAV3" omc="5113000" placeID="18" locality="Essen">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E862A.pdf" />
+                  </itdMapItem>
+                  <itdMapItem text="" type="SM">
+                    <itdImage src="vrr/09289_e_hbf_1.htm" size="3" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="9" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="22" minute="9" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdPoint stopID="22000751" area="90" platform="#9" name="Köln, Dom/Hbf" nameWO="Dom/Hbf" platformName="Gleis 9" usage="arrival" x="3356602" y="512714" mapName="NAV3" omc="5315000" placeID="1" locality="Köln">
+                <itdMapItemList>
+                  <itdMapItem text="" type="RM">
+                    <itdImage src="FILELOAD?Filename=dwa_4ED3E862B.pdf" />
+                  </itdMapItem>
+                </itdMapItemList>
+                <itdDateTime>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="23" minute="12" />
+                </itdDateTime>
+                <itdDateTimeTarget>
+                  <itdDate year="2011" month="11" day="28" weekday="2" />
+                  <itdTime hour="23" minute="12" />
+                </itdDateTimeTarget>
+              </itdPoint>
+              <itdMeansOfTransport name="R-Bahn RE1" shortname="RE1" symbol="" type="6" motType="0" productName="R-Bahn" destination="Aachen, Hbf" network="ddb" TTB="0" STT="0" ROP="0" destID="21001008" spTr="" tC="10142">
+                <motDivaParams line="90415" project="j11" direction="H" supplement="X" network="ddb" />
+                <itdOperator>
+                  <code>00</code>
+                  <name>Daten DB AG</name>
+                </itdOperator>
+              </itdMeansOfTransport>
+              <itdInfoTextList>
+                <infoTextListElem>Fahrradmitnahme begrenzt möglich</infoTextListElem>
+              </itdInfoTextList>
+            </itdPartialRoute>
+          </itdPartialRouteList>
+          <itdFare>
+            <itdSingleTicket net="NRW" toPR="0" fromPR="0" currency="EUR" unitName="" fareAdult="" fareChild="" unitsAdult="" unitsChild="" fareBikeAdult="" fareBikeChild="" unitsBikeAdult="" unitsBikeChild="" levelAdult="" levelChild=""> NRW-Tarif: 17,00 ? (2.Kl) / PauschalpreisTickets gültig<itdGenericTicketList>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneReiseTicket NRW Einzelfahrt</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>26.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>17.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value>13.25</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>8.50</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneFahrtTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>16.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value>8.30</value>
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW 5 Personen</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>36.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerTagTicket NRW Single</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>26.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchöneWocheTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>118.60</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>80.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>370.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>253.70</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>303.80</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>207.90</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>223.50</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönerMonatTicket NRW Azubi Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>183.30</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>3675.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>2600.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>SchönesJahrTicket NRW Abo</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value>320.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>225.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+                <itdGenericTicketGroup>
+                  <itdGenericTicket>
+                    <ticket>TicketType</ticket>
+                    <value>NRW-Tarif</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>TicketName</ticket>
+                    <value>FahrradTicket NRW</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_ERW</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_ERW</ticket>
+                    <value>4.00</value>
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_1KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                  <itdGenericTicket>
+                    <ticket>PREIS_2KL_KIND</ticket>
+                    <value />
+                  </itdGenericTicket>
+                </itdGenericTicketGroup>
+              </itdGenericTicketList>
+            </itdSingleTicket>
+          </itdFare>
+          <itdDaysOfService />
+          <seqRoutes>
+            <seqRoute publicDuration="01:03">1-1</seqRoute>
+          </seqRoutes>
+        </itdRoute>
+      </itdRouteList>
+    </itdItinerary>
+  </itdTripRequest>
+</itdRequest>
+
