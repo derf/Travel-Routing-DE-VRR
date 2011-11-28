@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
+use Carp qw(cluck);
 use Encode qw(decode);
 use Travel::Routing::DE::VRR::Route;
 use LWP::UserAgent;
@@ -407,11 +408,6 @@ sub submit {
 			http_response => $response, );
 	}
 
-	# XXX (workaround)
-	# The content actually is iso-8859-1. But HTML::Message doesn't actually
-	# decode character strings when they have that encoding. However, it
-	# doesn't check for latin-1, which is an alias for iso-8859-1.
-
 	$self->{xml_reply} = $response->decoded_content;
 
 	$self->parse();
@@ -489,61 +485,72 @@ sub parse {
 	  = XML::LibXML->load_xml( string => $self->{xml_reply}, );
 
 	my $xp_element = XML::LibXML::XPathExpression->new('//itdItinerary/itdRouteList/itdRoute');
+	my $xp_odv = XML::LibXML::XPathExpression->new('//itdOdv');
+
+	for my $odv ($tree->findnodes($xp_odv)) {
+		$self->check_ambiguous($odv);
+	}
 
 	for my $part ($tree->findnodes($xp_element)) {
 		$self->parse_part($part);
 	}
 
-#	$self->check_ambiguous();
-#	$self->check_no_connections();
-
-#	if ( @{$raw_cons} == 0 ) {
-#		Travel::Routing::DE::VRR::Exception::NoData->throw();
-#	}
+	if ( @{$self->{routes}} == 0 ) {
+		Travel::Routing::DE::VRR::Exception::NoData->throw();
+	}
 
 	return 1;
 }
 
 sub check_ambiguous {
-	my ($self) = @_;
-	my $tree = $self->{tree};
+	my ($self, $tree) = @_;
 
-	my $xp_select = XML::LibXML::XPathExpression->new('//select');
-	my $xp_option = XML::LibXML::XPathExpression->new('./option');
+	my $xp_place = XML::LibXML::XPathExpression->new('./itdOdvPlace');
+	my $xp_name  = XML::LibXML::XPathExpression->new('./itdOdvName');
 
-	foreach my $select ( @{ $tree->findnodes($xp_select) } ) {
+	my $xp_place_elem = XML::LibXML::XPathExpression->new('./odvPlaceElem');
+	my $xp_name_elem = XML::LibXML::XPathExpression->new('./odvNameElem');
 
-		my $post_key = $select->getAttribute('name');
-		my @possible;
+	my $e_place =  ( $tree->findnodes($xp_place) )[0];
+	my $e_name  = ( $tree->findnodes($xp_name) )[0];
 
-		foreach my $val ( $select->findnodes($xp_option) ) {
-			push( @possible, $val->textContent );
-		}
-		my $err_text = join( q{, }, @possible );
+	if (not($e_place and $e_name)) {
+		cluck('skipping ambiguity check - itdOdvPlace/itdOdvName missing');
+		return;
+	}
 
+	my $s_place = $e_place->getAttribute('state');
+	my $s_name  = $e_name->getAttribute('state');
+
+	if ($s_place eq 'list') {
 		Travel::Routing::DE::VRR::Exception::Ambiguous->throw(
-			post_key      => $post_key,
-			possibilities => $err_text,
+			post_key => 'place',
+			possibilities => join( q{ | }, map { decode('UTF-8', $_->textContent ) }
+			@{ $e_place->findnodes($xp_place_elem) } )
+		);
+	}
+	if ($s_name eq 'list') {
+		Travel::Routing::DE::VRR::Exception::Ambiguous->throw(
+			post_key => 'name',
+			possibilities => join( q{ | }, map { decode('UTF-8', $_->textContent ) }
+			@{ $e_name->findnodes($xp_name_elem) } )
 		);
 	}
 
-	return;
-}
-
-sub check_no_connections {
-	my ($self) = @_;
-	my $tree = $self->{tree};
-
-	my $xp_err_img = XML::LibXML::XPathExpression->new(
-		'//td/img[@src="images/ausrufezeichen.jpg"]');
-
-	my $err_node = $tree->findnodes($xp_err_img)->[0];
-
-	if ($err_node) {
-		my $text = $err_node->parentNode->parentNode->textContent;
-		Travel::Routing::DE::VRR::Exception::NoConnections->throw(
-			error => $text, );
+	if ($s_place eq 'notidentified' ) {
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'place',
+			error => 'unknown place (typo?)'
+		);
 	}
+	if ($s_name eq 'notidentified' ) {
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'name',
+			error => 'unknown name (typo?)'
+		);
+	}
+
+	# 'identified' and 'empty' are ok
 
 	return;
 }
