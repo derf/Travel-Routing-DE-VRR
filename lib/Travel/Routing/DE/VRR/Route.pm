@@ -11,8 +11,7 @@ use Travel::Routing::DE::VRR::Route::Part;
 our $VERSION = '1.06';
 
 Travel::Routing::DE::VRR::Route->mk_ro_accessors(
-	qw(duration ticket_text ticket_type fare_adult fare_child vehicle_time)
-);
+	qw(duration ticket_text ticket_type fare_adult fare_child vehicle_time));
 
 sub new {
 	my ( $obj, $info, @parts ) = @_;

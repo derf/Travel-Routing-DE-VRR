@@ -194,13 +194,11 @@ for my $i ( 0 .. $#routes ) {
 
 	my $route = $routes[$i];
 
-	if ($opt->{'extended-info'}) {
+	if ( $opt->{'extended-info'} ) {
 		print '# ' . $route->duration;
-		if ($route->ticket_type) {
-			printf(", class %s (%s€ / %s€)\n\n",
-				$route->ticket_type,
-				$route->fare_adult, $route->fare_child,
-			);
+		if ( $route->ticket_type ) {
+			printf( ", class %s (%s€ / %s€)\n\n",
+				$route->ticket_type, $route->fare_adult, $route->fare_child, );
 		}
 		else {
 			print "\n\n";
@@ -218,12 +216,9 @@ for my $i ( 0 .. $#routes ) {
 
 		printf(
 			"%-5s ab  %-30s %-20s %s\n%-5s an  %s\n\n",
-			$c->departure_time,
-			$c->departure_stop_and_platform,
-			$c->train_line,
-			$c->train_destination,
-			$c->arrival_time,
-			$c->arrival_stop_and_platform,
+			$c->departure_time, $c->departure_stop_and_platform,
+			$c->train_line,     $c->train_destination,
+			$c->arrival_time,   $c->arrival_stop_and_platform,
 		);
 	}
 	if ( $i != $#routes ) {

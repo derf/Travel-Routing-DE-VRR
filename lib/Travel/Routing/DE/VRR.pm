@@ -416,38 +416,47 @@ sub submit {
 }
 
 sub itddate_str {
-	my ($self, $node) = @_;
+	my ( $self, $node ) = @_;
 
-	return sprintf('%02d.%02d.%04d', $node->getAttribute('day'),
-	$node->getAttribute('month'), $node->getAttribute('year'));
+	return sprintf( '%02d.%02d.%04d',
+		$node->getAttribute('day'),
+		$node->getAttribute('month'),
+		$node->getAttribute('year') );
 }
 
 sub itdtime_str {
-	my ($self, $node) = @_;
+	my ( $self, $node ) = @_;
 
-	return sprintf('%02d:%02d', $node->getAttribute('hour'),
-	$node->getAttribute('minute'));
+	return sprintf( '%02d:%02d',
+		$node->getAttribute('hour'),
+		$node->getAttribute('minute') );
 }
 
 sub parse_part {
-	my ($self, $route) = @_;
+	my ( $self, $route ) = @_;
 
-	my $xp_route = XML::LibXML::XPathExpression->new('./itdPartialRouteList/itdPartialRoute');
-	my $xp_dep = XML::LibXML::XPathExpression->new('./itdPoint[@usage="departure"]');
-	my $xp_arr = XML::LibXML::XPathExpression->new('./itdPoint[@usage="arrival"]');
+	my $xp_route = XML::LibXML::XPathExpression->new(
+		'./itdPartialRouteList/itdPartialRoute');
+	my $xp_dep
+	  = XML::LibXML::XPathExpression->new('./itdPoint[@usage="departure"]');
+	my $xp_arr
+	  = XML::LibXML::XPathExpression->new('./itdPoint[@usage="arrival"]');
 	my $xp_date = XML::LibXML::XPathExpression->new('./itdDateTime/itdDate');
 	my $xp_time = XML::LibXML::XPathExpression->new('./itdDateTime/itdTime');
+
 #	my $xp_tdate = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdDate');
 #	my $xp_ttime = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdTime');
-	my $xp_mot   = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
-	my $xp_info  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
+	my $xp_mot = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
+	my $xp_info
+	  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
 
-	my $xp_fare  = XML::LibXML::XPathExpression->new('./itdFare/itdSingleTicket');
+	my $xp_fare
+	  = XML::LibXML::XPathExpression->new('./itdFare/itdSingleTicket');
 
 	my @route_parts;
 
 	my $info = {
-		duration => $route->getAttribute('publicDuration'),
+		duration     => $route->getAttribute('publicDuration'),
 		vehicle_time => $route->getAttribute('vehicleTime'),
 	};
 
@@ -455,45 +464,48 @@ sub parse_part {
 
 	if ($e_fare) {
 		$info->{ticket_type} = $e_fare->getAttribute('unitsAdult');
-		$info->{fare_adult} = $e_fare->getAttribute('fareAdult');
-		$info->{fare_child} = $e_fare->getAttribute('fareChild');
+		$info->{fare_adult}  = $e_fare->getAttribute('fareAdult');
+		$info->{fare_child}  = $e_fare->getAttribute('fareChild');
 		$info->{ticket_text} = $e_fare->textContent;
 	}
 
 	for my $e ( $route->findnodes($xp_route) ) {
 
-		my $e_dep = ( $e->findnodes($xp_dep) )[0];
-		my $e_arr = ( $e->findnodes($xp_arr) )[0];
+		my $e_dep   = ( $e->findnodes($xp_dep) )[0];
+		my $e_arr   = ( $e->findnodes($xp_arr) )[0];
 		my $e_ddate = ( $e_dep->findnodes($xp_date) )[0];
 		my $e_dtime = ( $e_dep->findnodes($xp_time) )[0];
 		my $e_adate = ( $e_arr->findnodes($xp_date) )[0];
 		my $e_atime = ( $e_arr->findnodes($xp_time) )[0];
-		my $e_mot  = ( $e->findnodes($xp_mot) )[0];
-		my @e_info = $e->findnodes($xp_info);
+		my $e_mot   = ( $e->findnodes($xp_mot) )[0];
+		my @e_info  = $e->findnodes($xp_info);
 
 		my $hash = {
-			departure_time => $self->itdtime_str($e_dtime),
-			departure_date => $self->itddate_str($e_ddate),
-			departure_stop => $e_dep->getAttribute('name'),
+			departure_time     => $self->itdtime_str($e_dtime),
+			departure_date     => $self->itddate_str($e_ddate),
+			departure_stop     => $e_dep->getAttribute('name'),
 			departure_platform => $e_dep->getAttribute('platformName'),
-			train_line => $e_mot->getAttribute('name'),
-			train_destination => $e_mot->getAttribute('destination'),
-			arrival_time => $self->itdtime_str($e_atime),
-			arrival_date => $self->itddate_str($e_adate),
-			arrival_stop => $e_arr->getAttribute('name'),
-			arrival_platform => $e_arr->getAttribute('platformName'),
+			train_line         => $e_mot->getAttribute('name'),
+			train_destination  => $e_mot->getAttribute('destination'),
+			arrival_time       => $self->itdtime_str($e_atime),
+			arrival_date       => $self->itddate_str($e_adate),
+			arrival_stop       => $e_arr->getAttribute('name'),
+			arrival_platform   => $e_arr->getAttribute('platformName'),
 		};
 
-		for my $key (keys %{$hash}) {
-			$hash->{$key} = decode('UTF-8', $hash->{$key} );
+		for my $key ( keys %{$hash} ) {
+			$hash->{$key} = decode( 'UTF-8', $hash->{$key} );
 		}
 
-		$hash->{extra} = [ map { decode('UTF-8', $_->textContent) } @e_info ];
+		$hash->{extra} = [ map { decode( 'UTF-8', $_->textContent ) } @e_info ];
 
-		push(@route_parts, $hash);
+		push( @route_parts, $hash );
 	}
 
-	push(@{$self->{routes}}, Travel::Routing::DE::VRR::Route->new($info, @route_parts));
+	push(
+		@{ $self->{routes} },
+		Travel::Routing::DE::VRR::Route->new( $info, @route_parts )
+	);
 
 	return;
 }
@@ -504,18 +516,19 @@ sub parse {
 	my $tree = $self->{tree}
 	  = XML::LibXML->load_xml( string => $self->{xml_reply}, );
 
-	my $xp_element = XML::LibXML::XPathExpression->new('//itdItinerary/itdRouteList/itdRoute');
+	my $xp_element = XML::LibXML::XPathExpression->new(
+		'//itdItinerary/itdRouteList/itdRoute');
 	my $xp_odv = XML::LibXML::XPathExpression->new('//itdOdv');
 
-	for my $odv ($tree->findnodes($xp_odv)) {
+	for my $odv ( $tree->findnodes($xp_odv) ) {
 		$self->check_ambiguous($odv);
 	}
 
-	for my $part ($tree->findnodes($xp_element)) {
+	for my $part ( $tree->findnodes($xp_element) ) {
 		$self->parse_part($part);
 	}
 
-	if ( @{$self->{routes}} == 0 ) {
+	if ( @{ $self->{routes} } == 0 ) {
 		Travel::Routing::DE::VRR::Exception::NoData->throw();
 	}
 
@@ -523,18 +536,18 @@ sub parse {
 }
 
 sub check_ambiguous {
-	my ($self, $tree) = @_;
+	my ( $self, $tree ) = @_;
 
 	my $xp_place = XML::LibXML::XPathExpression->new('./itdOdvPlace');
 	my $xp_name  = XML::LibXML::XPathExpression->new('./itdOdvName');
 
 	my $xp_place_elem = XML::LibXML::XPathExpression->new('./odvPlaceElem');
-	my $xp_name_elem = XML::LibXML::XPathExpression->new('./odvNameElem');
+	my $xp_name_elem  = XML::LibXML::XPathExpression->new('./odvNameElem');
 
-	my $e_place =  ( $tree->findnodes($xp_place) )[0];
+	my $e_place = ( $tree->findnodes($xp_place) )[0];
 	my $e_name  = ( $tree->findnodes($xp_name) )[0];
 
-	if (not($e_place and $e_name)) {
+	if ( not( $e_place and $e_name ) ) {
 		cluck('skipping ambiguity check - itdOdvPlace/itdOdvName missing');
 		return;
 	}
@@ -542,31 +555,33 @@ sub check_ambiguous {
 	my $s_place = $e_place->getAttribute('state');
 	my $s_name  = $e_name->getAttribute('state');
 
-	if ($s_place eq 'list') {
+	if ( $s_place eq 'list' ) {
 		Travel::Routing::DE::VRR::Exception::Ambiguous->throw(
-			post_key => 'place',
-			possibilities => join( q{ | }, map { decode('UTF-8', $_->textContent ) }
-			@{ $e_place->findnodes($xp_place_elem) } )
+			post_key      => 'place',
+			possibilities => join( q{ | },
+				map { decode( 'UTF-8', $_->textContent ) }
+				  @{ $e_place->findnodes($xp_place_elem) } )
 		);
 	}
-	if ($s_name eq 'list') {
+	if ( $s_name eq 'list' ) {
 		Travel::Routing::DE::VRR::Exception::Ambiguous->throw(
-			post_key => 'name',
-			possibilities => join( q{ | }, map { decode('UTF-8', $_->textContent ) }
-			@{ $e_name->findnodes($xp_name_elem) } )
+			post_key      => 'name',
+			possibilities => join( q{ | },
+				map { decode( 'UTF-8', $_->textContent ) }
+				  @{ $e_name->findnodes($xp_name_elem) } )
 		);
 	}
 
-	if ($s_place eq 'notidentified' ) {
+	if ( $s_place eq 'notidentified' ) {
 		Travel::Routing::DE::VRR::Exception::Setup->throw(
 			option => 'place',
-			error => 'unknown place (typo?)'
+			error  => 'unknown place (typo?)'
 		);
 	}
-	if ($s_name eq 'notidentified' ) {
+	if ( $s_name eq 'notidentified' ) {
 		Travel::Routing::DE::VRR::Exception::Setup->throw(
 			option => 'name',
-			error => 'unknown name (typo?)'
+			error  => 'unknown name (typo?)'
 		);
 	}
 
