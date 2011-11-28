@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
+use Encode qw(decode);
 use Travel::Routing::DE::VRR::Route;
 use LWP::UserAgent;
 use XML::LibXML;
@@ -304,6 +305,7 @@ sub create_post {
 		name_destination                                   => q{},
 		name_origin                                        => q{},
 		name_via                                           => q{},
+		outputFormat                                       => 'XML',
 		placeInfo_destination                              => 'invalid',
 		placeInfo_origin                                   => 'invalid',
 		placeInfo_via                                      => 'invalid',
@@ -374,116 +376,6 @@ sub create_post {
 	return;
 }
 
-sub parse_initial {
-	my ($self) = @_;
-
-	my $tree = $self->{tree}
-	  = XML::LibXML->load_html( string => $self->{html_reply}, );
-
-	my $con_part = 0;
-	my $con_no;
-	my $cons = [];
-
-	my $xp_td  = XML::LibXML::XPathExpression->new('//table//table/tr/td');
-	my $xp_img = XML::LibXML::XPathExpression->new('./img');
-
-	foreach my $td ( @{ $tree->findnodes($xp_td) } ) {
-
-		my $colspan = $td->getAttribute('colspan') // 0;
-		my $class   = $td->getAttribute('class')   // q{};
-
-		if ( $colspan != 8 and $class !~ /^bgColor2?$/ ) {
-			next;
-		}
-
-		if ( $colspan == 8 ) {
-			if ( $td->textContent =~ m{ (?<no> \d+ ) [.] .+ Fahrt }x ) {
-				$con_no   = $+{no} - 1;
-				$con_part = 0;
-				next;
-			}
-		}
-
-		if ( $class =~ /^bgColor2?$/ ) {
-			if ( $class eq 'bgColor' and ( $con_part % 2 ) == 1 ) {
-				$con_part++;
-			}
-			elsif ( $class eq 'bgColor2' and ( $con_part % 2 ) == 0 ) {
-				$con_part++;
-			}
-		}
-
-		if (    defined $con_no
-			and not $td->exists($xp_img)
-			and $td->textContent !~ /^\s*$/ )
-		{
-			push( @{ $cons->[$con_no]->[$con_part] }, $td->textContent );
-		}
-	}
-
-	return $cons;
-}
-
-sub parse_pretty {
-	my ( $self, $con_parts ) = @_;
-
-	my @elements;
-	my @next_extra;
-
-	for my $con ( @{$con_parts} ) {
-
-		my $hash;
-
-		# Note: Changes @{$con} elements
-		foreach my $str ( @{$con} ) {
-			$str =~ s/[\s\n\t]+/ /gs;
-			$str =~ s/^ //;
-			$str =~ s/ $//;
-		}
-
-		if ( @{$con} < 5 ) {
-			@next_extra = @{$con};
-			next;
-		}
-
-		# @extra may contain undef values
-		foreach my $extra (@next_extra) {
-			if ($extra) {
-				push( @{ $hash->{extra} }, $extra );
-			}
-		}
-		@next_extra = undef;
-
-		if ( $con->[0] !~ / \d{2} : \d{2} /ox ) {
-			splice( @{$con}, 0, 0, q{} );
-			splice( @{$con}, 4, 0, q{} );
-			$con->[7] = q{};
-		}
-		elsif ( $con->[4] =~ / Plan: \s ab /ox ) {
-			push( @{ $hash->{extra} }, splice( @{$con}, 4, 1 ) );
-		}
-
-		foreach my $extra ( splice( @{$con}, 8, -1 ) ) {
-			push( @{ $hash->{extra} }, $extra );
-		}
-
-		$hash->{departure_time} = $con->[0];
-
-		# always "ab"           $con->[1];
-		$hash->{departure_stop} = $con->[2];
-		$hash->{train_line}     = $con->[3];
-		$hash->{arrival_time}   = $con->[4];
-
-		# always "an"                $con->[5];
-		$hash->{arrival_stop}      = $con->[6];
-		$hash->{train_destination} = $con->[7];
-
-		push( @elements, $hash );
-	}
-
-	return Travel::Routing::DE::VRR::Route->new(@elements);
-}
-
 sub new {
 	my ( $obj, %conf ) = @_;
 
@@ -520,9 +412,72 @@ sub submit {
 	# decode character strings when they have that encoding. However, it
 	# doesn't check for latin-1, which is an alias for iso-8859-1.
 
-	$self->{html_reply} = $response->decoded_content( charset => 'latin-1' );
+	$self->{xml_reply} = $response->decoded_content;
 
 	$self->parse();
+
+	return;
+}
+
+sub itddate_str {
+	my ($self, $node) = @_;
+
+	return sprintf('%02d.%02d.%04d', $node->getAttribute('day'),
+	$node->getAttribute('month'), $node->getAttribute('year'));
+}
+
+sub itdtime_str {
+	my ($self, $node) = @_;
+
+	return sprintf('%02d:%02d', $node->getAttribute('hour'),
+	$node->getAttribute('minute'));
+}
+
+sub parse_part {
+	my ($self, $tree) = @_;
+
+	my $xp_route = XML::LibXML::XPathExpression->new('./itdPartialRouteList/itdPartialRoute');
+	my $xp_dep = XML::LibXML::XPathExpression->new('./itdPoint[@usage="departure"]');
+	my $xp_arr = XML::LibXML::XPathExpression->new('./itdPoint[@usage="arrival"]');
+	my $xp_date = XML::LibXML::XPathExpression->new('./itdDateTime/itdDate');
+	my $xp_time = XML::LibXML::XPathExpression->new('./itdDateTime/itdTime');
+#	my $xp_tdate = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdDate');
+#	my $xp_ttime = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdTime');
+	my $xp_mot   = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
+
+	my @route_parts;
+
+	for my $e ( $tree->findnodes($xp_route) ) {
+
+		my $e_dep = ( $e->findnodes($xp_dep) )[0];
+		my $e_arr = ( $e->findnodes($xp_arr) )[0];
+		my $e_ddate = ( $e_dep->findnodes($xp_date) )[0];
+		my $e_dtime = ( $e_dep->findnodes($xp_time) )[0];
+		my $e_adate = ( $e_arr->findnodes($xp_date) )[0];
+		my $e_atime = ( $e_arr->findnodes($xp_time) )[0];
+		my $e_mot  = ( $e->findnodes($xp_mot) )[0];
+
+		my $hash = {
+			departure_time => $self->itdtime_str($e_dtime),
+			departure_date => $self->itddate_str($e_ddate),
+			departure_stop => $e_dep->getAttribute('name'),
+			departure_platform => $e_dep->getAttribute('platformName'),
+			train_line => $e_mot->getAttribute('name'),
+			train_destination => $e_mot->getAttribute('destination'),
+			arrival_time => $self->itdtime_str($e_atime),
+			arrival_date => $self->itddate_str($e_adate),
+			arrival_stop => $e_arr->getAttribute('name'),
+			arrival_platform => $e_arr->getAttribute('platformName'),
+		};
+
+		for my $key (keys %{$hash}) {
+			$hash->{$key} = decode('UTF-8', $hash->{$key} );
+		}
+
+		push(@route_parts, $hash);
+	}
+
+	push(@{$self->{routes}}, Travel::Routing::DE::VRR::Route->new(@route_parts));
 
 	return;
 }
@@ -530,18 +485,21 @@ sub submit {
 sub parse {
 	my ($self) = @_;
 
-	my $raw_cons = $self->parse_initial;
+	my $tree = $self->{tree}
+	  = XML::LibXML->load_xml( string => $self->{xml_reply}, );
 
-	for my $raw_con ( @{$raw_cons} ) {
-		push( @{ $self->{routes} }, $self->parse_pretty($raw_con) );
+	my $xp_element = XML::LibXML::XPathExpression->new('//itdItinerary/itdRouteList/itdRoute');
+
+	for my $part ($tree->findnodes($xp_element)) {
+		$self->parse_part($part);
 	}
 
-	$self->check_ambiguous();
-	$self->check_no_connections();
+#	$self->check_ambiguous();
+#	$self->check_no_connections();
 
-	if ( @{$raw_cons} == 0 ) {
-		Travel::Routing::DE::VRR::Exception::NoData->throw();
-	}
+#	if ( @{$raw_cons} == 0 ) {
+#		Travel::Routing::DE::VRR::Exception::NoData->throw();
+#	}
 
 	return 1;
 }

@@ -198,11 +198,13 @@ for my $i ( 0 .. $#routes ) {
 		}
 
 		printf(
-			"%-5s ab  %-30s %-20s %s\n%-5s an  %-30s\n\n",
-			$c->get(
-				qw(departure_time departure_stop train_line
-				  train_destination arrival_time arrival_stop)
-			),
+			"%-5s ab  %-30s %-20s %s\n%-5s an  %s\n\n",
+			$c->departure_time,
+			$c->departure_stop_and_platform,
+			$c->train_line,
+			$c->train_destination,
+			$c->arrival_time,
+			$c->arrival_stop_and_platform,
 		);
 	}
 	if ( $i != $#routes ) {
