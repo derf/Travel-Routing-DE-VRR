@@ -6,6 +6,8 @@ use strict;
 use warnings;
 use 5.010;
 
+use utf8;
+
 use Travel::Routing::DE::VRR;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
@@ -112,6 +114,7 @@ GetOptions(
 		date|d=s
 		depart=s
 		exclude|e=s@
+		extended-info|E
 		from=s@{2}
 		help|h
 		ignore-info|I:s
@@ -188,7 +191,23 @@ check_for_error($@);
 my @routes = $efa->routes;
 
 for my $i ( 0 .. $#routes ) {
-	for my $c ( $routes[$i]->parts ) {
+
+	my $route = $routes[$i];
+
+	if ($opt->{'extended-info'}) {
+		print '# ' . $route->duration;
+		if ($route->ticket_type) {
+			printf(", class %s (%s€ / %s€)\n\n",
+				$route->ticket_type,
+				$route->fare_adult, $route->fare_child,
+			);
+		}
+		else {
+			print "\n\n";
+		}
+	}
+
+	for my $c ( $route->parts ) {
 
 		for my $extra ( $c->extra ) {
 

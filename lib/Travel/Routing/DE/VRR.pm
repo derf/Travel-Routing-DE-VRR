@@ -432,8 +432,6 @@ sub itdtime_str {
 sub parse_part {
 	my ($self, $route) = @_;
 
-	my $info;
-
 	my $xp_route = XML::LibXML::XPathExpression->new('./itdPartialRouteList/itdPartialRoute');
 	my $xp_dep = XML::LibXML::XPathExpression->new('./itdPoint[@usage="departure"]');
 	my $xp_arr = XML::LibXML::XPathExpression->new('./itdPoint[@usage="arrival"]');
@@ -444,11 +442,23 @@ sub parse_part {
 	my $xp_mot   = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
 	my $xp_info  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
 
+	my $xp_fare  = XML::LibXML::XPathExpression->new('./itdFare/itdSingleTicket');
 
 	my @route_parts;
 
-	$info->{vehicle_time} = $route->getAttribute('vehicleTime');
-	$info->{duration} = $route->getAttribute('publicDuration');
+	my $info = {
+		duration => $route->getAttribute('publicDuration'),
+		vehicle_time => $route->getAttribute('vehicleTime'),
+	};
+
+	my $e_fare = ( $route->findnodes($xp_fare) )[0];
+
+	if ($e_fare) {
+		$info->{ticket_type} = $e_fare->getAttribute('unitsAdult');
+		$info->{fare_adult} = $e_fare->getAttribute('fareAdult');
+		$info->{fare_child} = $e_fare->getAttribute('fareChild');
+		$info->{ticket_text} = $e_fare->textContent;
+	}
 
 	for my $e ( $route->findnodes($xp_route) ) {
 
