@@ -9,8 +9,12 @@ use parent 'Class::Accessor';
 our $VERSION = '1.06';
 
 Travel::Routing::DE::VRR::Route::Part->mk_ro_accessors(
-	qw(arrival_platform arrival_stop arrival_time departure_platform departure_stop departure_time train_line
-	  train_destination)
+	qw(arrival_platform arrival_stop
+	  arrival_date arrival_time arrival_sdate arrival_stime
+	  delay departure_platform departure_stop
+	  departure_date departure_time departure_sdate departure_stime
+	  train_line train_destination
+	  )
 );
 
 sub new {
@@ -24,13 +28,14 @@ sub new {
 sub arrival_stop_and_platform {
 	my ($self) = @_;
 
-	return sprintf('%s: %s', $self->get(qw(arrival_stop arrival_platform)));
+	return sprintf( '%s: %s', $self->get(qw(arrival_stop arrival_platform)) );
 }
 
 sub departure_stop_and_platform {
 	my ($self) = @_;
 
-	return sprintf('%s: %s', $self->get(qw(departure_stop departure_platform)));
+	return
+	  sprintf( '%s: %s', $self->get(qw(departure_stop departure_platform)) );
 }
 
 sub extra {

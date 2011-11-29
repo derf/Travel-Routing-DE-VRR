@@ -105,6 +105,40 @@ sub check_for_error {
 	return;
 }
 
+sub display_connection {
+	my ($c) = @_;
+
+	if ( $c->delay ) {
+		printf( "# +%d,  scheduled: %s -> %s\n",
+			$c->delay, $c->departure_stime, $c->arrival_stime );
+	}
+
+	for my $extra ( $c->extra ) {
+
+		if ( not( length $ignore_info and $extra =~ /$ignore_info/i ) ) {
+			say "# $extra";
+		}
+	}
+
+	printf(
+		"%-5s ab  %-30s %-20s %s\n",
+		$c->departure_time, $c->departure_stop_and_platform,
+		$c->train_line,     $c->train_destination,
+	);
+
+	if ( $opt->{'extended-info'} and $opt->{'extended-info'} == 2 ) {
+		for my $via ( @{ $c->{via} } ) {
+			printf( "%-5s     %-22s %s\n", @{$via}[ 1 .. 3 ] );
+		}
+	}
+
+	printf( "%-5s an  %s\n\n",
+		$c->arrival_time, $c->arrival_stop_and_platform,
+	);
+
+	return;
+}
+
 #<<<
 GetOptions(
 	$opt,
@@ -206,29 +240,7 @@ for my $i ( 0 .. $#routes ) {
 	}
 
 	for my $c ( $route->parts ) {
-
-		for my $extra ( $c->extra ) {
-
-			if ( not( length $ignore_info and $extra =~ /$ignore_info/i ) ) {
-				say "# $extra";
-			}
-		}
-
-		printf(
-			"%-5s ab  %-30s %-20s %s\n",
-			$c->departure_time, $c->departure_stop_and_platform,
-			$c->train_line,     $c->train_destination,
-		);
-
-		if ( $opt->{'extended-info'} and $opt->{'extended-info'} == 2 ) {
-			for my $via ( @{ $c->{via} } ) {
-				printf( "%-5s     %-22s %s\n", @{$via}[ 1 .. 3 ] );
-			}
-		}
-
-		printf( "%-5s an  %s\n\n",
-			$c->arrival_time, $c->arrival_stop_and_platform,
-		);
+		display_connection($c);
 	}
 	if ( $i != $#routes ) {
 		print "------\n\n";

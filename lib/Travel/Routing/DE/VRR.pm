@@ -445,9 +445,12 @@ sub parse_part {
 	my $xp_time = XML::LibXML::XPathExpression->new('./itdDateTime/itdTime');
 	my $xp_via  = XML::LibXML::XPathExpression->new('./itdStopSeq/itdPoint');
 
-#	my $xp_tdate = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdDate');
-#	my $xp_ttime = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdTime');
-	my $xp_mot = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
+	my $xp_sdate
+	  = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdDate');
+	my $xp_stime
+	  = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdTime');
+	my $xp_mot   = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
+	my $xp_delay = XML::LibXML::XPathExpression->new('./itdRBLControlled');
 	my $xp_info
 	  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
 
@@ -472,24 +475,36 @@ sub parse_part {
 
 	for my $e ( $route->findnodes($xp_route) ) {
 
-		my $e_dep   = ( $e->findnodes($xp_dep) )[0];
-		my $e_arr   = ( $e->findnodes($xp_arr) )[0];
-		my $e_ddate = ( $e_dep->findnodes($xp_date) )[0];
-		my $e_dtime = ( $e_dep->findnodes($xp_time) )[0];
-		my $e_adate = ( $e_arr->findnodes($xp_date) )[0];
-		my $e_atime = ( $e_arr->findnodes($xp_time) )[0];
-		my $e_mot   = ( $e->findnodes($xp_mot) )[0];
-		my @e_info  = $e->findnodes($xp_info);
+		my $e_dep    = ( $e->findnodes($xp_dep) )[0];
+		my $e_arr    = ( $e->findnodes($xp_arr) )[0];
+		my $e_ddate  = ( $e_dep->findnodes($xp_date) )[0];
+		my $e_dtime  = ( $e_dep->findnodes($xp_time) )[0];
+		my $e_dsdate = ( $e_dep->findnodes($xp_sdate) )[0];
+		my $e_dstime = ( $e_dep->findnodes($xp_stime) )[0];
+		my $e_adate  = ( $e_arr->findnodes($xp_date) )[0];
+		my $e_atime  = ( $e_arr->findnodes($xp_time) )[0];
+		my $e_asdate = ( $e_arr->findnodes($xp_sdate) )[0];
+		my $e_astime = ( $e_arr->findnodes($xp_stime) )[0];
+		my $e_mot    = ( $e->findnodes($xp_mot) )[0];
+		my $e_delay  = ( $e->findnodes($xp_delay) )[0];
+		my @e_info   = $e->findnodes($xp_info);
+
+		my $delay = $e_delay ? $e_delay->getAttribute('delayMinutes') : 0;
 
 		my $hash = {
-			departure_time     => $self->itdtime_str($e_dtime),
+			delay              => $delay,
 			departure_date     => $self->itddate_str($e_ddate),
+			departure_time     => $self->itdtime_str($e_dtime),
+			departure_sdate    => $self->itddate_str($e_dsdate),
+			departure_stime    => $self->itdtime_str($e_dstime),
 			departure_stop     => $e_dep->getAttribute('name'),
 			departure_platform => $e_dep->getAttribute('platformName'),
 			train_line         => $e_mot->getAttribute('name'),
 			train_destination  => $e_mot->getAttribute('destination'),
-			arrival_time       => $self->itdtime_str($e_atime),
 			arrival_date       => $self->itddate_str($e_adate),
+			arrival_time       => $self->itdtime_str($e_atime),
+			arrival_sdate      => $self->itddate_str($e_asdate),
+			arrival_stime      => $self->itdtime_str($e_astime),
 			arrival_stop       => $e_arr->getAttribute('name'),
 			arrival_platform   => $e_arr->getAttribute('platformName'),
 		};
