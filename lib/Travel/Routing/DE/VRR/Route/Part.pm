@@ -47,7 +47,7 @@ sub extra {
 sub via {
 	my ($self) = @_;
 
-	return ${ $self->{via} // [] };
+	return @{ $self->{via} // [] };
 }
 
 1;
