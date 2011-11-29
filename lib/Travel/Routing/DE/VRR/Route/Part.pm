@@ -44,6 +44,12 @@ sub extra {
 	return @{ $self->{extra} // [] };
 }
 
+sub via {
+	my ($self) = @_;
+
+	return ${ $self->{via} // [] };
+}
+
 1;
 
 __END__

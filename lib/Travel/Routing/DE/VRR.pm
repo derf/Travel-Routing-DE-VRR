@@ -395,6 +395,18 @@ sub new {
 	return $ref;
 }
 
+sub new_from_xml {
+	my ( $class, %opt ) = @_;
+
+	my $self = { xml_reply => $opt{xml} };
+
+	bless( $self, $class );
+
+	$self->parse();
+
+	return $self;
+}
+
 sub submit {
 	my ( $self, %conf ) = @_;
 

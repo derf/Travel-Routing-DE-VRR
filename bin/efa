@@ -127,7 +127,7 @@ sub display_connection {
 	);
 
 	if ( $opt->{'extended-info'} and $opt->{'extended-info'} == 2 ) {
-		for my $via ( @{ $c->{via} } ) {
+		for my $via ( $c->via ) {
 			printf( "%-5s     %-22s %s\n", @{$via}[ 1 .. 3 ] );
 		}
 	}
