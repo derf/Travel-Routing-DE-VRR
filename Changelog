@@ -1,3 +1,24 @@
+git HEAD
+
+    * Now uses the efa.vrr.de XML interface
+    * properly decode UTF-8 strings
+
+    [Travel::Routing::DE::VRR::Route]
+    * new accessors: duration, ticket_type, fare_adult, fare_child and
+      vehicle_time
+
+    [Travel::Routing::DE::VRR::Route::Part]
+    * arrival_stop and departure_stop no longer include the platform,
+      use arrival_stop_and_platform / departure_stop_and_platform instead
+    * New accessors: arrival_date, arrival_platform, arrival_sdate,
+      arrival_stime, arrival_stop_and_platform, delay, departure_date,
+      departure_platform, departure_sdate, departure_stime,
+      departure_stop_and_platform, via
+    * ->extra no longer contains information about delays, use ->delay instead
+
+    [efa]
+    * New -E / --extended-info option to display travel fares
+
 Travel::Routing::DE::VRR 1.06 - Sat Sep 17 2011
 
     * Fix dependencies.  We claimed to use WWW::Mechanize but in fact only
