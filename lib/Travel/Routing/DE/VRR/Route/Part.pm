@@ -170,6 +170,13 @@ destination of the line providing the connection
 
 name / number of the line
 
+=item $part->via
+
+List of stops passed between departure_stop and arrival_stop, as
+C<< [ "DD.MM.YYYY", "HH:MM", stop, platform ] >> hashrefs.
+
+May be empty, these are not always reported by efa.vrr.de.
+
 =back
 
 =head1 DIAGNOSTICS
@@ -186,7 +193,7 @@ None.
 
 =head1 BUGS AND LIMITATIONS
 
-None known.
+$part->via does not work reliably.
 
 =head1 SEE ALSO
 
