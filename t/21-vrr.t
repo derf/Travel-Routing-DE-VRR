@@ -7,7 +7,7 @@ use utf8;
 
 use Encode qw(decode);
 use File::Slurp qw(slurp);
-use Test::More tests => 73;
+use Test::More tests => 74;
 
 BEGIN {
 	use_ok('Travel::Routing::DE::VRR');
@@ -73,6 +73,10 @@ is( $c0->arrival_date,  '27.11.2011', 'r0,0: ardate' );
 is( $c0->arrival_sdate, '27.11.2011', 'r0,0: asdate' );
 is( $c0->arrival_time,  '14:02',      'r0,0: artime' );
 is( $c0->arrival_stime, '14:02',      'r0,0: astime' );
+
+is_deeply( ($c0->via)[0],
+	['27.11.2011', '13:56', 'Essen Florastr.', 'Bstg. 1'],
+	'r0,0: via[0]');
 
 is( $c1->delay, 3, 'r0,1: delay' );
 is_deeply(
