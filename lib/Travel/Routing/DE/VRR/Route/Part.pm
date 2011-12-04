@@ -28,14 +28,23 @@ sub new {
 sub arrival_stop_and_platform {
 	my ($self) = @_;
 
-	return sprintf( '%s: %s', $self->get(qw(arrival_stop arrival_platform)) );
+	if ( length( $self->arrival_platform ) ) {
+		return
+		  sprintf( '%s: %s', $self->get(qw(arrival_stop arrival_platform)) );
+	}
+	return $self->arrival_stop;
 }
 
 sub departure_stop_and_platform {
 	my ($self) = @_;
 
-	return
-	  sprintf( '%s: %s', $self->get(qw(departure_stop departure_platform)) );
+	if ( length( $self->departure_platform ) ) {
+
+		return
+		  sprintf( '%s: %s',
+			$self->get(qw(departure_stop departure_platform)) );
+	}
+	return $self->arrival_stop;
 }
 
 sub extra {
