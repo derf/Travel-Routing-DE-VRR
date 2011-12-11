@@ -12,7 +12,7 @@ use Travel::Routing::DE::VRR;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
 
-our $VERSION = '1.06';
+our $VERSION = '2.00';
 my $ignore_info = 'Fahrradmitnahme';
 my $efa;
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
@@ -259,7 +259,7 @@ efa - unofficial efa.vrr.de command line client
 
 =head1 VERSION
 
-version 1.06
+version 2.00
 
 =head1 DESCRIPTION
 

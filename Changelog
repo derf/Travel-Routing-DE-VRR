@@ -1,4 +1,4 @@
-git HEAD
+Travel::Routing::DE::VRR 2.00 - Sun Dec 11 2011
 
     * Now uses the efa.vrr.de XML interface
     * properly decode UTF-8 strings

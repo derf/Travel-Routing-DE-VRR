@@ -6,7 +6,7 @@ use 5.010;
 
 use parent 'Class::Accessor';
 
-our $VERSION = '1.06';
+our $VERSION = '2.00';
 
 Travel::Routing::DE::VRR::Route::Part->mk_ro_accessors(
 	qw(arrival_platform arrival_stop
@@ -86,7 +86,7 @@ points, without interchanges
 
 =head1 VERSION
 
-version 1.06
+version 2.00
 
 =head1 DESCRIPTION
 

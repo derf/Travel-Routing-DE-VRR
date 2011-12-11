@@ -37,7 +37,7 @@ use Exception::Class (
 	},
 );
 
-our $VERSION = '1.06';
+our $VERSION = '2.00';
 
 sub set_time {
 	my ( $self, %conf ) = @_;
@@ -683,7 +683,7 @@ Travel::Routing::DE::VRR - unofficial interface to the efa.vrr.de German itinera
 
 =head1 VERSION
 
-version 1.06
+version 2.00
 
 =head1 DESCRIPTION
 
@@ -692,7 +692,7 @@ You pass it the start/stop of your journey, maybe a time and a date and more
 details, and it returns the up-to-date scheduled connections between those two
 stops.
 
-It uses B<LWP::USerAgent> and B<XML::LibXML> for this.
+It uses B<LWP::UserAgent> and B<XML::LibXML> for this.
 
 =head1 METHODS
 
