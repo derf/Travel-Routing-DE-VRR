@@ -44,7 +44,7 @@ sub departure_stop_and_platform {
 		  sprintf( '%s: %s',
 			$self->get(qw(departure_stop departure_platform)) );
 	}
-	return $self->arrival_stop;
+	return $self->departure_stop;
 }
 
 sub extra {
