@@ -37,7 +37,7 @@ use Exception::Class (
 	},
 );
 
-our $VERSION = '2.00';
+our $VERSION = '2.01';
 
 sub set_time {
 	my ( $self, %conf ) = @_;
@@ -683,7 +683,7 @@ Travel::Routing::DE::VRR - unofficial interface to the efa.vrr.de German itinera
 
 =head1 VERSION
 
-version 2.00
+version 2.01
 
 =head1 DESCRIPTION
 

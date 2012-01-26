@@ -1,7 +1,8 @@
-git HEAD
+Travel::Routing::DE::VRR 2.01 - Thu Jan 26 2012
 
     * Fix bug in departure_stop_and_platform where the arrival_stop was used
       in case of unknown platforms
+    * Document -E / --extended-info in efa(1)
 
 Travel::Routing::DE::VRR 2.00 - Sun Dec 11 2011
 
