@@ -846,6 +846,8 @@ It is best not to pass Unicode characters to B<Travel::Routing::DE::VRR>.
 
 =item * Travel::Routing::DE::VRR::Route(3pm)
 
+=item * L<WWW::EFA> is another implementation, using L<Moose>.
+
 =back
 
 =head1 AUTHOR
