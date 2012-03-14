@@ -2,11 +2,10 @@ package Travel::Routing::DE::VRR::Route::Part;
 
 use strict;
 use warnings;
-use 5.010;
 
 use parent 'Class::Accessor';
 
-our $VERSION = '2.01';
+our $VERSION = '2.010_5008';
 
 Travel::Routing::DE::VRR::Route::Part->mk_ro_accessors(
 	qw(arrival_platform arrival_stop
@@ -73,7 +72,7 @@ points, without interchanges
 	for my $part ( $route->parts ) {
 
 		if ( $part->extra ) {
-			say join( "\n", $part->extra );
+			print join( "\n", $part->extra ) . "\n";
 		}
 
 		printf(
@@ -86,7 +85,7 @@ points, without interchanges
 
 =head1 VERSION
 
-version 2.01
+version 2.010_5008
 
 =head1 DESCRIPTION
 

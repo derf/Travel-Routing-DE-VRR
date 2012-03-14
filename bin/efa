@@ -4,7 +4,6 @@
 ##   0. You just DO WHAT THE FUCK YOU WANT TO.
 use strict;
 use warnings;
-use 5.010;
 
 use utf8;
 
@@ -12,7 +11,7 @@ use Travel::Routing::DE::VRR;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
 
-our $VERSION = '2.01';
+our $VERSION = '2.010_5008';
 my $ignore_info = 'Fahrradmitnahme';
 my $efa;
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
@@ -21,7 +20,7 @@ my $opt = {
 	'ignore-info' => \$ignore_info,
 	'from'        => \@from,
 	'to'          => \@to,
-	'version' => sub { say "efa version $VERSION"; exit 0 },
+	'version' => sub { print "efa version $VERSION\n"; exit 0 },
 	'via' => \@via,
 };
 
@@ -31,8 +30,8 @@ binmode( STDERR, ':encoding(utf-8)' );
 sub show_help {
 	my ($exit_status) = @_;
 
-	say 'Usage: efa [options] <from-city> <from-stop> <to-city> <to-stop>';
-	say 'See also: man efa';
+	print "Usage: efa [options] <from-city> <from-stop> <to-city> <to-stop>\n";
+	print "See also: man efa\n";
 
 	exit $exit_status;
 }
@@ -97,7 +96,7 @@ sub check_for_error {
 			exit 10;
 		}
 		else {
-			say STDERR 'Travel::Routing::DE::VRR failed to return an object';
+			print STDERR "Travel::Routing::DE::VRR failed to return an object\n";
 			exit 10;
 		}
 	}
@@ -116,7 +115,7 @@ sub display_connection {
 	for my $extra ( $c->extra ) {
 
 		if ( not( length $ignore_info and $extra =~ /$ignore_info/i ) ) {
-			say "# $extra";
+			print "# $extra\n";
 		}
 	}
 
@@ -181,9 +180,11 @@ for my $pair ( [ \@from, \$from_type ], [ \@via, \$via_type ],
 		{$+{target}}x
 	  )
 	{
-		given ( $+{type} ) {
-			when ('addr') { ${ $pair->[1] } = 'address' }
-			default       { ${ $pair->[1] } = $+{type} }
+		if ($+{type} eq 'addr') {
+			${ $pair->[1] } = 'address';
+		}
+		else {
+			${ $pair->[1] } = $+{type};
 		}
 	}
 }
@@ -259,7 +260,7 @@ efa - unofficial efa.vrr.de command line client
 
 =head1 VERSION
 
-version 2.01
+version 2.010_5008
 
 =head1 DESCRIPTION
 

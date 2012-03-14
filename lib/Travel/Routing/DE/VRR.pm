@@ -2,7 +2,6 @@ package Travel::Routing::DE::VRR;
 
 use strict;
 use warnings;
-use 5.010;
 
 use Carp qw(cluck);
 use Encode qw(decode);
@@ -37,7 +36,7 @@ use Exception::Class (
 	},
 );
 
-our $VERSION = '2.01';
+our $VERSION = '2.010_5008';
 
 sub set_time {
 	my ( $self, %conf ) = @_;
@@ -156,17 +155,21 @@ sub max_interchanges {
 sub select_interchange_by {
 	my ( $self, $prefer ) = @_;
 
-	given ($prefer) {
-		when ('speed')    { $self->{post}->{routeType} = 'LEASTTIME' }
-		when ('waittime') { $self->{post}->{routeType} = 'LEASTINTERCHANGE' }
-		when ('distance') { $self->{post}->{routeType} = 'LEASTWALKING' }
-		default {
-			Travel::Routing::DE::VRR::Exception::Setup->throw(
-				option => 'select_interchange_by',
-				have   => $prefer,
-				want   => 'speed / waittime / distance',
-			);
-		}
+	if ($prefer eq 'speed') {
+		$self->{post}->{routeType} = 'LEASTTIME';
+	}
+	elsif ($prefer eq 'waittime') {
+		$self->{post}->{routeType} = 'LEASTINTERCHANGE';
+	}
+	elsif ($prefer eq 'distance') {
+		$self->{post}->{routeType} = 'LEASTWALKING';
+	}
+	else {
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'select_interchange_by',
+			have   => $prefer,
+			want   => 'speed / waittime / distance',
+		);
 	}
 
 	return;
@@ -175,17 +178,21 @@ sub select_interchange_by {
 sub train_type {
 	my ( $self, $include ) = @_;
 
-	given ($include) {
-		when ('local') { $self->{post}->{lineRestriction} = 403 }
-		when ('ic')    { $self->{post}->{lineRestriction} = 401 }
-		when ('ice')   { $self->{post}->{lineRestriction} = 400 }
-		default {
-			Travel::Routing::DE::VRR::Exception::Setup->throw(
-				option => 'train_type',
-				have   => $include,
-				want   => 'local / ic / ice',
-			);
-		}
+	if ($include eq 'local') {
+		$self->{post}->{lineRestriction} = 403;
+	}
+	elsif ($include eq 'ic') {
+		$self->{post}->{lineRestriction} = 401;
+	}
+	elsif ($include eq 'ice') {
+		$self->{post}->{lineRestriction} = 400;
+	}
+	else {
+		Travel::Routing::DE::VRR::Exception::Setup->throw(
+			option => 'train_type',
+			have   => $include,
+			want   => 'local / ic / ice',
+		);
 	}
 
 	return;
@@ -683,7 +690,7 @@ Travel::Routing::DE::VRR - unofficial interface to the efa.vrr.de German itinera
 
 =head1 VERSION
 
-version 2.01
+version 2.010_5008
 
 =head1 DESCRIPTION
 
