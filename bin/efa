@@ -237,7 +237,7 @@ for my $i ( 0 .. $#routes ) {
 		display_connection($c);
 	}
 	if ( $i != $#routes ) {
-		print "------\n\n";
+		print "---------\n\n";
 	}
 }
 
