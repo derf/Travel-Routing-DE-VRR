@@ -411,6 +411,7 @@ sub submit {
 	my ( $self, %conf ) = @_;
 
 	$self->{ua} = LWP::UserAgent->new(%conf);
+	$self->{ua}->env_proxy;
 
 	my $response = $self->{ua}
 	  ->post( 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2', $self->{post} );
