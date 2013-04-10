@@ -1,3 +1,7 @@
+Travel::RoutinG::DE::VRR 2.02 - Wed Apr 10 2012
+
+    * Patch by Roland Hieber: respect proxy environment variables
+
 Travel::Routing::DE::VRR 2.01 - Thu Jan 26 2012
 
     * Fix bug in departure_stop_and_platform where the arrival_stop was used
