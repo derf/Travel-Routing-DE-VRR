@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-## Copyright © 2009,2010 by Daniel Friesel <derf@derf.homelinux.org>
+## Copyright © 2009,2010 by Daniel Friesel <derf@finalrewind.org>
 ## License: WTFPL <http://sam.zoy.org/wtfpl>
 ##   0. You just DO WHAT THE FUCK YOU WANT TO.
 use strict;
@@ -430,7 +430,7 @@ B<efa> cannot handle Unicode in its arguments, use plain ASCII.
 
 =head1 AUTHOR
 
-Copyright (C) 2009,2010 by Daniel Friesel E<lt>derf@derf.homelinux.orgE<gt>
+Copyright (C) 2009,2010 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 
