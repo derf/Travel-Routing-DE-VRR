@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use 5.010;
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 use Carp qw(cluck);
 use Encode qw(decode);
 use Travel::Routing::DE::VRR::Route;
@@ -37,7 +39,7 @@ use Exception::Class (
 	},
 );
 
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 
 sub set_time {
 	my ( $self, %conf ) = @_;
@@ -684,7 +686,7 @@ Travel::Routing::DE::VRR - unofficial interface to the efa.vrr.de German itinera
 
 =head1 VERSION
 
-version 2.02
+version 2.03
 
 =head1 DESCRIPTION
 

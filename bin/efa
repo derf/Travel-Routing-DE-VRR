@@ -6,13 +6,15 @@ use strict;
 use warnings;
 use 5.010;
 
+no if $] >= 5.018, warnings => "experimental::smartmatch";
+
 use utf8;
 
 use Travel::Routing::DE::VRR;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
 
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 my $ignore_info = 'Fahrradmitnahme';
 my $efa;
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
@@ -259,7 +261,7 @@ efa - unofficial efa.vrr.de command line client
 
 =head1 VERSION
 
-version 2.02
+version 2.03
 
 =head1 DESCRIPTION
 

@@ -1,4 +1,8 @@
-Travel::RoutinG::DE::VRR 2.02 - Wed Apr 10 2013
+Travel::Routing::DE::VRR 2.03 - Thu Jul 4 2013
+
+    * Disable smartmatch warnings on perl >= 5.018
+
+Travel::Routing::DE::VRR 2.02 - Wed Apr 10 2013
 
     * Patch by Roland Hieber: respect proxy environment variables
 

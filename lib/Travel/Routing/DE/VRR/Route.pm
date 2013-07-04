@@ -8,7 +8,7 @@ use parent 'Class::Accessor';
 
 use Travel::Routing::DE::VRR::Route::Part;
 
-our $VERSION = '2.02';
+our $VERSION = '2.03';
 
 Travel::Routing::DE::VRR::Route->mk_ro_accessors(
 	qw(duration ticket_text ticket_type fare_adult fare_child vehicle_time));
@@ -52,7 +52,7 @@ Travel::Routing::DE::VRR::Route - Single route (connection) between two points
 
 =head1 VERSION
 
-version 2.02
+version 2.03
 
 =head1 DESCRIPTION
 
