@@ -13,6 +13,9 @@ Module::Build->new(
 		'Test::More' => 0,
 		'Test::Pod' => 0,
 	},
+	configure_requires => {
+		'Module::Build' => 0.40,
+	},
 	module_name => 'Travel::Routing::DE::VRR',
 	license => 'unrestricted',
 	requires => {
