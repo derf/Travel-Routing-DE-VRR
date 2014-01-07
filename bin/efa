@@ -136,6 +136,8 @@ sub display_connection {
 	return;
 }
 
+@ARGV = map { decode( 'UTF-8', $_ ) } @ARGV;
+
 #<<<
 GetOptions(
 	$opt,
@@ -177,11 +179,6 @@ if ( not( @from and @to ) ) {
 for my $pair ( [ \@from, \$from_type ], [ \@via, \$via_type ],
 	[ \@to, \$to_type ], )
 {
-
-	if ( @{ $pair->[0] } ) {
-		$pair->[0]->[0] = decode( 'UTF-8', $pair->[0]->[0] );
-		$pair->[0]->[1] = decode( 'UTF-8', $pair->[0]->[1] );
-	}
 
 	next if ( not defined $pair->[0]->[1] );
 
