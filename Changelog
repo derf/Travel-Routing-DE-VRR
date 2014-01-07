@@ -1,3 +1,8 @@
+git HEAD
+
+    * efa: Handle UTF8 in place/stop input
+    * Travel::Routing::DE::VRR: Handle decoded input with non-ASCII characters
+
 Travel::Routing::DE::VRR 2.03 - Thu Jul 4 2013
 
     * Disable smartmatch warnings on perl >= 5.018

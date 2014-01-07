@@ -7,7 +7,7 @@ use 5.010;
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 use Carp qw(cluck);
-use Encode qw(decode);
+use Encode qw(decode encode);
 use Travel::Routing::DE::VRR::Route;
 use LWP::UserAgent;
 use XML::LibXML;
@@ -235,6 +235,9 @@ sub place {
 			error  => 'Need >= three elements'
 		);
 	}
+
+	$place = encode( 'ISO-8859-15', $place );
+	$stop  = encode( 'ISO-8859-15', $stop );
 
 	$type //= 'stop';
 
