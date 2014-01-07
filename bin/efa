@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-## Copyright © 2009,2010 by Daniel Friesel <derf@finalrewind.org>
+## Copyright © 2009-2014 by Daniel Friesel <derf@finalrewind.org>
 ## License: WTFPL <http://sam.zoy.org/wtfpl>
 ##   0. You just DO WHAT THE FUCK YOU WANT TO.
 use strict;
@@ -15,7 +15,7 @@ use Travel::Routing::DE::VRR;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
 
-our $VERSION = '2.03';
+our $VERSION = '2.04';
 my $ignore_info = 'Fahrradmitnahme';
 my $efa;
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
@@ -265,7 +265,7 @@ efa - unofficial efa.vrr.de command line client
 
 =head1 VERSION
 
-version 2.03
+version 2.04
 
 =head1 DESCRIPTION
 
@@ -432,11 +432,11 @@ This script requires perl 5.10 (or higher) with the following modules:
 
 =head1 BUGS AND LIMITATIONS
 
-B<efa> cannot handle Unicode in its arguments, use plain ASCII.
+None known.
 
 =head1 AUTHOR
 
-Copyright (C) 2009,2010 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
+Copyright (C) 2009-2014 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 
