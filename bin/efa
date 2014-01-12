@@ -75,8 +75,8 @@ sub handle_efa_exception {
 		);
 		exit 4;
 	}
-	if ( $e->isa('Travel::Routing::DE::VRR::Exception::NoConnections') ) {
-		printf STDERR ( "Error: %s: %s\n", $e->description, $e->error );
+	if ( $e->isa('Travel::Routing::DE::VRR::Exception::Other') ) {
+		printf STDERR ( "Error: %s: %s\n", $e->description, $e->message );
 		exit 5;
 	}
 

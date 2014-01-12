@@ -33,9 +33,10 @@ use Exception::Class (
 		description => 'ambiguous input',
 		fields      => [ 'post_key', 'possibilities' ],
 	},
-	'Travel::Routing::DE::VRR::Exception::NoConnections' => {
+	'Travel::Routing::DE::VRR::Exception::Other' => {
 		isa         => 'Travel::Routing::DE::VRR::Exception',
-		description => 'got no connections',
+		description => 'EFA backend returned an error',
+		fields      => ['message'],
 	},
 );
 
@@ -580,10 +581,18 @@ sub parse {
 
 	my $xp_element = XML::LibXML::XPathExpression->new(
 		'//itdItinerary/itdRouteList/itdRoute');
+	my $xp_err = XML::LibXML::XPathExpression->new(
+		'//itdTripRequest/itdMessage[@type="error"]');
 	my $xp_odv = XML::LibXML::XPathExpression->new('//itdOdv');
 
 	for my $odv ( $tree->findnodes($xp_odv) ) {
 		$self->check_ambiguous($odv);
+	}
+
+	my $err = ( $tree->findnodes($xp_err) )[0];
+	if ($err) {
+		Travel::Routing::DE::VRR::Exception::Other->throw(
+			message => $err->textContent );
 	}
 
 	for my $part ( $tree->findnodes($xp_element) ) {
