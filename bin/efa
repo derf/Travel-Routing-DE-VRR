@@ -65,7 +65,7 @@ sub handle_efa_exception {
 		exit 2;
 	}
 	if ( $e->isa('Travel::Routing::DE::VRR::Exception::NoData') ) {
-		printf STDERR ( 'Error: %s', $e->description );
+		printf STDERR ( "Error: %s\n", $e->description );
 		exit 3;
 	}
 	if ( $e->isa('Travel::Routing::DE::VRR::Exception::Ambiguous') ) {
@@ -431,6 +431,13 @@ This script requires perl 5.10 (or higher) with the following modules:
 =back
 
 =head1 BUGS AND LIMITATIONS
+
+The EFA backend is not able to calculate "two-way" routes, i.e. from -> via ->
+to routes with from == to. If from and to are the same stop, it doesn't even
+try to calculate a route ("we recommend walking instead"), if they are close to
+each other it may or may not work.  Workaround: Request from -> via using the
+normal four-argument efa invocation, read the time, use efa -t time via via to
+to to request via -> to.
 
 None known.
 

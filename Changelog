@@ -1,3 +1,7 @@
+git HEAD
+
+    * Improve error message for unparsable (or missing) route data
+
 Travel::Routing::DE::VRR 2.04 - Tue Jan 07 2014
 
     * efa: Handle UTF8 in place/stop input

@@ -26,7 +26,7 @@ use Exception::Class (
 	},
 	'Travel::Routing::DE::VRR::Exception::NoData' => {
 		isa         => 'Travel::Routing::DE::VRR::Exception',
-		description => 'got no data to parse',
+		description => 'backend returned no parsable route',
 	},
 	'Travel::Routing::DE::VRR::Exception::Ambiguous' => {
 		isa         => 'Travel::Routing::DE::VRR::Exception',
@@ -590,7 +590,7 @@ sub parse {
 		$self->parse_part($part);
 	}
 
-	if ( @{ $self->{routes} } == 0 ) {
+	if ( not defined $self->{routes} or @{ $self->{routes} } == 0 ) {
 		Travel::Routing::DE::VRR::Exception::NoData->throw();
 	}
 
