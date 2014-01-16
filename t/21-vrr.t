@@ -10,24 +10,24 @@ use File::Slurp qw(slurp);
 use Test::More tests => 74;
 
 BEGIN {
-	use_ok('Travel::Routing::DE::VRR');
+	use_ok('Travel::Routing::DE::EFA');
 }
-require_ok('Travel::Routing::DE::VRR');
+require_ok('Travel::Routing::DE::EFA');
 
 my $xml = slurp('t/in/e_alf_d_hbf.xml');
 
-my $routing = Travel::Routing::DE::VRR->new_from_xml( xml => $xml );
+my $routing = Travel::Routing::DE::EFA->new_from_xml( xml => $xml );
 
-isa_ok( $routing, 'Travel::Routing::DE::VRR' );
+isa_ok( $routing, 'Travel::Routing::DE::EFA' );
 can_ok( $routing, 'routes' );
 
 for my $r ( $routing->routes ) {
-	isa_ok( $r, 'Travel::Routing::DE::VRR::Route' );
+	isa_ok( $r, 'Travel::Routing::DE::EFA::Route' );
 	can_ok( $r,
 		qw(duration parts ticket_type fare_adult fare_child vehicle_time) );
 
 	for my $c ( $r->parts ) {
-		isa_ok( $c, 'Travel::Routing::DE::VRR::Route::Part' );
+		isa_ok( $c, 'Travel::Routing::DE::EFA::Route::Part' );
 		can_ok(
 			$c, qw(
 			  arrival_stop arrival_platform arrival_stop_and_platform

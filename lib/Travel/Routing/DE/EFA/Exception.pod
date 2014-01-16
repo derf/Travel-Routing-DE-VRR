@@ -1,17 +1,17 @@
 =head1 NAME
 
-Travel::Routing::DE::VRR::Exception - Travel::Routing::DE::VRR Exceptions
+Travel::Routing::DE::EFA::Exception - Travel::Routing::DE::EFA Exceptions
 
 =head1 DESCRIPTION
 
-All Exceptions throws by Travel::Routing::DE::VRR are
-Travel::Routing::DE::VRR::Exception objects created by Exception::Class(3pm).
+All Exceptions thrown by Travel::Routing::DE::EFA are
+Travel::Routing::DE::EFA::Exception objects created by Exception::Class(3pm).
 
 See Exception::Class::Base(3pm) for their common methods.
 
 =head1 LIST OF EXCEPTIONS
 
-=head2 Travel::Routing::DE::VRR::Exception::Setup
+=head2 Travel::Routing::DE::EFA::Exception::Setup
 
 An argument to B<new> had an invalid format.
 
@@ -33,25 +33,25 @@ What kind of argument we want.
 
 =back
 
-=head2 Travel::Routing::DE::VRR::Exception::Net
+=head2 Travel::Routing::DE::EFA::Exception::Net
 
 The HTTP request to the efa interface failed. Contains an HTTP::Response(3pm)
 object describing the error in B<http_response>.
 
-=head2 Travel::Routing::DE::VRR::Exception::NoData
+=head2 Travel::Routing::DE::EFA::Exception::NoData
 
-We got no parsable data from efa.vrr.de
+We got no parsable data from the EFA service
 
-=head2 Travel::Routing::DE::VRR::Exception::Ambiguous
+=head2 Travel::Routing::DE::EFA::Exception::Ambiguous
 
 Our request contained ambiguous data. B<post_key> contains the relevant POST
 key, B<possibilities> is a comma-separated string of possible key values (as
-reported by efa.vrr.de).
+reported by the EFA service).
 
-=head2 Travel::Routing::DE::VRR::Exception::NoConnections
+=head2 Travel::Routing::DE::EFA::Exception::NoConnections
 
-efa.vrr.de found no connections for our request.
+The EFA service found no connections for our request.
 
 =head1 SEE ALSO
 
-Travel::Routing::DE::VRR(3pm)
+Travel::Routing::DE::EFA(3pm)

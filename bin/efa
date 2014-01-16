@@ -43,7 +43,7 @@ sub show_help {
 sub handle_efa_exception {
 	my ($e) = @_;
 
-	if ( $e->isa('Travel::Routing::DE::VRR::Exception::Setup') ) {
+	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Setup') ) {
 		if ( $e->message ) {
 			printf STDERR (
 				"Error: %s (option '%s'): %s\n",
@@ -59,23 +59,23 @@ sub handle_efa_exception {
 
 		exit 1;
 	}
-	if ( $e->isa('Travel::Routing::DE::VRR::Exception::Net') ) {
+	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Net') ) {
 		printf STDERR ( "Error: %s: %s\n", $e->description,
 			$e->http_response->as_string );
 		exit 2;
 	}
-	if ( $e->isa('Travel::Routing::DE::VRR::Exception::NoData') ) {
+	if ( $e->isa('Travel::Routing::DE::EFA::Exception::NoData') ) {
 		printf STDERR ( "Error: %s\n", $e->description );
 		exit 3;
 	}
-	if ( $e->isa('Travel::Routing::DE::VRR::Exception::Ambiguous') ) {
+	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Ambiguous') ) {
 		printf STDERR (
 			"Error: %s for key %s. Specify one of %s\n",
 			$e->description, $e->post_key, $e->possibilities
 		);
 		exit 4;
 	}
-	if ( $e->isa('Travel::Routing::DE::VRR::Exception::Other') ) {
+	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Other') ) {
 		printf STDERR ( "Error: %s: %s\n", $e->description, $e->message );
 		exit 5;
 	}
@@ -90,17 +90,17 @@ sub check_for_error {
 	if ( not defined $efa ) {
 		if (    $eval_error
 			and ref($eval_error)
-			and $eval_error->isa('Travel::Routing::DE::VRR::Exception') )
+			and $eval_error->isa('Travel::Routing::DE::EFA::Exception') )
 		{
 			handle_efa_exception($eval_error);
 		}
 		elsif ($eval_error) {
 			printf STDERR
-			  "Unknown Travel::Routing::DE::VRR error:\n${eval_error}";
+			  "Unknown Travel::Routing::DE::EFA error:\n${eval_error}";
 			exit 10;
 		}
 		else {
-			say STDERR 'Travel::Routing::DE::VRR failed to return an object';
+			say STDERR 'Travel::Routing::DE::EFA failed to return an object';
 			exit 10;
 		}
 	}

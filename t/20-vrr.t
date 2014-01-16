@@ -13,6 +13,7 @@ require_ok('Travel::Routing::DE::VRR');
 
 sub efa_conf {
 	my $ret = {
+		efa_url     => 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
 		origin      => ['Essen', 'HBf'],
 		destination => ['Koeln', 'HBf'],
 		lwp_options => {},
@@ -178,40 +179,40 @@ is_efa_post(
 
 is_efa_err(
 	'departure_time', '37:00',
-	'Travel::Routing::DE::VRR::Exception::Setup',
+	'Travel::Routing::DE::EFA::Exception::Setup',
 );
 
 is_efa_err(
 	'departure_time', '07',
-	'Travel::Routing::DE::VRR::Exception::Setup',
+	'Travel::Routing::DE::EFA::Exception::Setup',
 );
 
 is_efa_err(
 	'train_type', 'invalid',
-	'Travel::Routing::DE::VRR::Exception::Setup',
+	'Travel::Routing::DE::EFA::Exception::Setup',
 );
 
 is_efa_err(
 	'walk_speed', 'invalid',
-	'Travel::Routing::DE::VRR::Exception::Setup',
+	'Travel::Routing::DE::EFA::Exception::Setup',
 );
 
 is_efa_err(
 	'select_interchange_by', 'invalid',
-	'Travel::Routing::DE::VRR::Exception::Setup',
+	'Travel::Routing::DE::EFA::Exception::Setup',
 );
 
 is_efa_err(
 	'exclude', [qw[sonstige invalid]],
-	'Travel::Routing::DE::VRR::Exception::Setup',
+	'Travel::Routing::DE::EFA::Exception::Setup',
 );
 
 is_efa_err(
 	'date', '42.5.2003',
-	'Travel::Routing::DE::VRR::Exception::Setup',
+	'Travel::Routing::DE::EFA::Exception::Setup',
 );
 
 is_efa_err(
 	'date', '7.',
-	'Travel::Routing::DE::VRR::Exception::Setup',
+	'Travel::Routing::DE::EFA::Exception::Setup',
 );

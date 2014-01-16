@@ -1,4 +1,4 @@
-package Travel::Routing::DE::VRR::Route;
+package Travel::Routing::DE::EFA::Route;
 
 use strict;
 use warnings;
@@ -6,11 +6,11 @@ use 5.010;
 
 use parent 'Class::Accessor';
 
-use Travel::Routing::DE::VRR::Route::Part;
+use Travel::Routing::DE::EFA::Route::Part;
 
 our $VERSION = '2.04';
 
-Travel::Routing::DE::VRR::Route->mk_ro_accessors(
+Travel::Routing::DE::EFA::Route->mk_ro_accessors(
 	qw(duration ticket_text ticket_type fare_adult fare_child vehicle_time));
 
 sub new {
@@ -21,7 +21,7 @@ sub new {
 	for my $part (@parts) {
 		push(
 			@{ $ref->{parts} },
-			Travel::Routing::DE::VRR::Route::Part->new( %{$part} )
+			Travel::Routing::DE::EFA::Route::Part->new( %{$part} )
 		);
 	}
 
@@ -40,13 +40,13 @@ __END__
 
 =head1 NAME
 
-Travel::Routing::DE::VRR::Route - Single route (connection) between two points
+Travel::Routing::DE::EFA::Route - Single route (connection) between two points
 
 =head1 SYNOPSIS
 
 	for my $route ( $efa->routes ) {
 		for my $part ( $route->parts ) {
-			# $part is a Travel::Routing::DE::VRR::Route::Part object
+			# $part is a Travel::Routing::DE::EFA::Route::Part object
 		}
 	}
 
@@ -56,8 +56,8 @@ version 2.04
 
 =head1 DESCRIPTION
 
-Travel::Routing::DE::VRR::Route describes a single method of getting from one
-point to another.  It holds a bunch of Travel::Routing::DE::VRR::Route::Part(3pm)
+Travel::Routing::DE::EFA::Route describes a single method of getting from one
+point to another.  It holds a bunch of Travel::Routing::DE::EFA::Route::Part(3pm)
 objects describing the parts of the route in detail.  Each part depends on the
 previous one.
 
@@ -75,7 +75,7 @@ route duration as string in HH:MM format
 
 =item $route->parts
 
-Returns a list of Travel::Routing::DE::VRR::Route::Part(3pm) elements describing
+Returns a list of Travel::Routing::DE::EFA::Route::Part(3pm) elements describing
 the actual route
 
 =item $route->ticket_type
@@ -110,7 +110,7 @@ None known.
 
 =head1 SEE ALSO
 
-Travel::Routing::DE::VRR(3pm), Travel::Routing::DE::VRR::Route::Part(3pm).
+Travel::Routing::DE::EFA(3pm), Travel::Routing::DE::EFA::Route::Part(3pm).
 
 =head1 AUTHOR
 

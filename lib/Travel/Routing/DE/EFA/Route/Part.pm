@@ -1,4 +1,4 @@
-package Travel::Routing::DE::VRR::Route::Part;
+package Travel::Routing::DE::EFA::Route::Part;
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use parent 'Class::Accessor';
 
 our $VERSION = '2.04';
 
-Travel::Routing::DE::VRR::Route::Part->mk_ro_accessors(
+Travel::Routing::DE::EFA::Route::Part->mk_ro_accessors(
 	qw(arrival_platform arrival_stop
 	  arrival_date arrival_time arrival_sdate arrival_stime
 	  delay departure_platform departure_stop
@@ -65,7 +65,7 @@ __END__
 
 =head1 NAME
 
-Travel::Routing::DE::VRR::Route::Part - Describes one connection between two
+Travel::Routing::DE::EFA::Route::Part - Describes one connection between two
 points, without interchanges
 
 =head1 SYNOPSIS
@@ -90,11 +90,11 @@ version 2.04
 
 =head1 DESCRIPTION
 
-B<Travel::Routing::DE::VRR::Route::Part> holds one specific connection (without
+B<Travel::Routing::DE::EFA::Route::Part> holds one specific connection (without
 interchanges) between two points.  It specifies the start/stop point and time,
 the train line and its destination, and optional additional data.
 
-It is usually obtained by a call to Travel::Routing::DE::VRR::Route(3pm)'s
+It is usually obtained by a call to Travel::Routing::DE::EFA::Route(3pm)'s
 B<parts> method.
 
 =head1 METHODS
@@ -206,7 +206,7 @@ $part->via does not work reliably.
 
 =head1 SEE ALSO
 
-Travel::Routing::DE::VRR(3pm), Class::Accessor(3pm).
+Travel::Routing::DE::EFA(3pm), Class::Accessor(3pm).
 
 =head1 AUTHOR
 
