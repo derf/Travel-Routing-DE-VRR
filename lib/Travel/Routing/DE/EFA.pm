@@ -392,7 +392,7 @@ sub new {
 
 	bless( $ref, $obj );
 
-	if (not $ref->{config}->{efa_url}) {
+	if ( not $ref->{config}->{efa_url} ) {
 		Travel::Routing::DE::EFA::Exception::Setup->throw(
 			option => 'efa_url',
 			error  => 'must be set'
@@ -426,8 +426,8 @@ sub submit {
 	$self->{ua} = LWP::UserAgent->new(%conf);
 	$self->{ua}->env_proxy;
 
-	my $response = $self->{ua}
-	  ->post( $self->{config}->{efa_url}, $self->{post} );
+	my $response
+	  = $self->{ua}->post( $self->{config}->{efa_url}, $self->{post} );
 
 	if ( $response->is_error ) {
 		Travel::Routing::DE::EFA::Exception::Net->throw(
@@ -737,11 +737,11 @@ Known URLs are:
 
 =over
 
-=item * L<http://212.114.197.7/vgnExt_oeffi/XML_DM_REQUEST> (Verkehrsverbund GroE<szlig>raum NE<uuml>rnberg)
+=item * L<http://212.114.197.7/vgnExt_oeffi/XML_TRIP_REQUEST2> (Verkehrsverbund GroE<szlig>raum NE<uuml>rnberg)
 
-=item * L<http://efa.vrr.de/vrr/XSLT_DM_REQUEST> (Verkehrsverbund Rhein-Ruhr)
+=item * L<http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2> (Verkehrsverbund Rhein-Ruhr)
 
-=item * L<http://www2.vvs.de/vvs/XSLT_DM_REQUEST> (Verkehrsverbund Stuttgart)
+=item * L<http://www2.vvs.de/vvs/XSLT_TRIP_REQUEST2> (Verkehrsverbund Stuttgart)
 
 =back
 

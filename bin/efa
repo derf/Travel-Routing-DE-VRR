@@ -11,21 +11,23 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 use utf8;
 
 use Encode qw(decode);
-use Travel::Routing::DE::VRR;
+use Travel::Routing::DE::EFA;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
 
 our $VERSION = '2.04';
 my $ignore_info = 'Fahrradmitnahme';
 my $efa;
+my $efa_url = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
 my $opt = {
+	'efa-url'     => \$efa_url,
 	'help'        => sub { show_help(0) },
 	'ignore-info' => \$ignore_info,
 	'from'        => \@from,
 	'to'          => \@to,
-	'version' => sub { say "efa version $VERSION"; exit 0 },
-	'via' => \@via,
+	'version'     => sub { say "efa version $VERSION"; exit 0 },
+	'via'         => \@via,
 };
 
 binmode( STDOUT, ':encoding(utf-8)' );
@@ -146,6 +148,7 @@ GetOptions(
 		bike|b
 		date|d=s
 		depart=s
+		efa-url|u=s
 		exclude|e=s@
 		extended-info|E
 		from=s@{2}
@@ -199,7 +202,9 @@ if ( defined $opt->{'ignore-info'} and length( $opt->{'ignore-info'} ) == 0 ) {
 }
 
 $efa = eval {
-	Travel::Routing::DE::VRR->new(
+	Travel::Routing::DE::EFA->new(
+		efa_url => $efa_url,
+
 		origin      => [ @from, $from_type ],
 		destination => [ @to,   $to_type ],
 		via => ( @via ? [ @via, $via_type ] : undef ),
@@ -381,6 +386,13 @@ Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
 
 If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be ignored)
 
+=item B<-u>|B<--efa-url> I<url>
+
+URL to the EFA entry point, defaults to
+L<http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2>.  Depending on your location, some
+I<url>s may contain more specific data than others. See
+Travel::Routing::DE::EFA(3pm) for alternatives.
+
 =item B<--timeout> I<seconds>
 
 Set timeout for HTTP requests. Default: 60 seconds.
@@ -407,7 +419,7 @@ Print version information
     3    efa.vrr.de did not return any parsable data
     4    efa.vrr.de error: ambiguous input
     5    efa.vrr.de error: no connections found
-    10   Unknown Travel::Routing::DE::VRR error
+    10   Unknown Travel::Routing::DE::EFA error
     255  Other internal error
 
 =head1 CONFIGURATION
