@@ -399,7 +399,7 @@ sub new {
 		);
 	}
 
-	$ref->create_post();
+	$ref->create_post;
 
 	if ( not( defined $conf{submit} and $conf{submit} == 0 ) ) {
 		$ref->submit( %{ $conf{lwp_options} } );
@@ -415,7 +415,7 @@ sub new_from_xml {
 
 	bless( $self, $class );
 
-	$self->parse();
+	$self->parse_xml;
 
 	return $self;
 }
@@ -436,7 +436,7 @@ sub submit {
 
 	$self->{xml_reply} = $response->decoded_content;
 
-	$self->parse();
+	$self->parse_xml;
 
 	return;
 }
@@ -458,7 +458,7 @@ sub itdtime_str {
 		$node->getAttribute('minute') );
 }
 
-sub parse_part {
+sub parse_xml_part {
 	my ( $self, $route ) = @_;
 
 	my $xp_route = XML::LibXML::XPathExpression->new(
@@ -580,7 +580,7 @@ sub parse_part {
 	return;
 }
 
-sub parse {
+sub parse_xml {
 	my ($self) = @_;
 
 	my $tree = $self->{tree}
@@ -593,7 +593,7 @@ sub parse {
 	my $xp_odv = XML::LibXML::XPathExpression->new('//itdOdv');
 
 	for my $odv ( $tree->findnodes($xp_odv) ) {
-		$self->check_ambiguous($odv);
+		$self->check_ambiguous_xml($odv);
 	}
 
 	my $err = ( $tree->findnodes($xp_err) )[0];
@@ -603,17 +603,17 @@ sub parse {
 	}
 
 	for my $part ( $tree->findnodes($xp_element) ) {
-		$self->parse_part($part);
+		$self->parse_xml_part($part);
 	}
 
 	if ( not defined $self->{routes} or @{ $self->{routes} } == 0 ) {
-		Travel::Routing::DE::EFA::Exception::NoData->throw();
+		Travel::Routing::DE::EFA::Exception::NoData->throw;
 	}
 
 	return 1;
 }
 
-sub check_ambiguous {
+sub check_ambiguous_xml {
 	my ( $self, $tree ) = @_;
 
 	my $xp_place = XML::LibXML::XPathExpression->new('./itdOdvPlace');
@@ -824,7 +824,7 @@ want it to be submitted yet, set this to B<0>.
 Submit the query to I<efa_url>.
 I<%opts> is passed on to C<< LWP::UserAgent->new >>.
 
-=item $efa->routes()
+=item $efa->routes
 
 Returns a list of Travel::Routing::DE::EFA::Route(3pm) elements. Each one contains
 one method of getting from start to stop.
