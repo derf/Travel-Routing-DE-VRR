@@ -155,6 +155,7 @@ GetOptions(
 		help|h
 		ignore-info|I:s
 		max-change|m=i
+		num-connections|n=i
 		prefer|P=s
 		proximity|p
 		include|i=s
@@ -220,6 +221,7 @@ $efa = eval {
 		use_near_stops        => $opt->{proximity},
 		walk_speed            => $opt->{'walk-speed'},
 		max_interchanges      => $opt->{'max-change'},
+		num_results           => $opt->{'num-connections'},
 
 		lwp_options => { timeout => $opt->{timeout} },
 	);
@@ -329,6 +331,11 @@ Display duration, ticket class and price for each route (if available)
 =item B<-m>|B<--max-change> I<number>
 
 Print connections with at most I<number> interchanges
+
+=item B<-n>|B<--num-connections> I<number>
+
+Return up to I<number> connections.  If unset, the default of the respective
+EFA server is used (usually 4 or 5).
 
 =item B<-P>|B<--prefer> I<type>
 

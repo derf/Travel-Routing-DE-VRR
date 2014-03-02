@@ -1,6 +1,7 @@
 git HEAD
 
     * Improve error message for unparsable (or missing) route data
+    * Add option to specify maximum number of connections
 
 Travel::Routing::DE::VRR 2.04 - Tue Jan 07 2014
 

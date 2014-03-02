@@ -156,6 +156,14 @@ sub max_interchanges {
 	return;
 }
 
+sub number_of_trips {
+	my ( $self, $num ) = @_;
+
+	$self->{post}->{calcNumberOfTrips} = $num;
+
+	return;
+}
+
 sub select_interchange_by {
 	my ( $self, $prefer ) = @_;
 
@@ -312,6 +320,7 @@ sub create_post {
 		name_destination                                   => q{},
 		name_origin                                        => q{},
 		name_via                                           => q{},
+		nextDepsPerLeg                                     => 1,
 		outputFormat                                       => 'XML',
 		placeInfo_destination                              => 'invalid',
 		placeInfo_origin                                   => 'invalid',
@@ -363,6 +372,9 @@ sub create_post {
 	}
 	if ( $conf->{max_interchanges} ) {
 		$self->max_interchanges( $conf->{max_interchanges} );
+	}
+	if ( $conf->{num_results} ) {
+		$self->number_of_trips( $conf->{num_results} );
 	}
 	if ( $conf->{select_interchange_by} ) {
 		$self->select_interchange_by( $conf->{select_interchange_by} );
@@ -586,6 +598,8 @@ sub parse_xml {
 	my $tree = $self->{tree}
 	  = XML::LibXML->load_xml( string => $self->{xml_reply}, );
 
+	#	say $tree->toString(2);
+
 	my $xp_element = XML::LibXML::XPathExpression->new(
 		'//itdItinerary/itdRouteList/itdRoute');
 	my $xp_err = XML::LibXML::XPathExpression->new(
@@ -784,6 +798,11 @@ seilbahn, schiff, ast, sonstige
 =item B<max_interchanges> => I<num>
 
 Set maximum number of interchanges
+
+=item B<num_results> => I<num>
+
+Return up to I<num> connections.  If unset, the default of the respective
+EFA server is used (usually 4 or 5).
 
 =item B<select_interchange_by> => B<speed>|B<waittime>|B<distance>
 
