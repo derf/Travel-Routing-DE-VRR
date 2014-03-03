@@ -411,6 +411,9 @@ sub new {
 		);
 	}
 
+	#	$ref->{config}->{rm_base} //= 'http://efa.vrr.de/vrr/';
+	#	$ref->{config}->{sm_base} //= 'http://efa.vrr.de/download/envmaps/';
+
 	$ref->create_post;
 
 	if ( not( defined $conf{submit} and $conf{submit} == 0 ) ) {
@@ -598,7 +601,7 @@ sub parse_xml {
 	my $tree = $self->{tree}
 	  = XML::LibXML->load_xml( string => $self->{xml_reply}, );
 
-	#	say $tree->toString(2);
+	#say $tree->toString(2);
 
 	my $xp_element = XML::LibXML::XPathExpression->new(
 		'//itdItinerary/itdRouteList/itdRoute');

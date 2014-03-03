@@ -131,6 +131,13 @@ sub display_connection {
 		$c->train_line,     $c->train_destination,
 	);
 
+	if ( $opt->{'full-route'} ) {
+		for my $via_stop ( $c->via ) {
+			printf( "%-5s     %-30s %s\n",
+				$via_stop->[1], $via_stop->[2], $via_stop->[3] );
+		}
+	}
+
 	printf( "%-5s an  %s\n\n",
 		$c->arrival_time, $c->arrival_stop_and_platform,
 	);
@@ -152,6 +159,7 @@ GetOptions(
 		exclude|e=s@
 		extended-info|E
 		from=s@{2}
+		full-route|f
 		help|h
 		ignore-info|I:s
 		max-change|m=i
@@ -327,6 +335,11 @@ schnellbus, seilbahn, schiff, ast, sonstige
 =item B<-E>|B<--extended-info>
 
 Display duration, ticket class and price for each route (if available)
+
+=item B<-f>|B<--full-route>
+
+Display intermediate stops (with time and platform) of each train.  Note that
+these are not always available.
 
 =item B<-m>|B<--max-change> I<number>
 
