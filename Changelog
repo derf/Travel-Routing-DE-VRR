@@ -1,4 +1,4 @@
-git HEAD
+Travel::Routing::DE::VRR 2.05 - Mon Mar 03 2014
 
     * Move all logic to Travel::Routing::DE::EFA and require an EFA url to
       be set. This way, any EFA service is supported.
