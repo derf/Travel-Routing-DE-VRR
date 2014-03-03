@@ -1,8 +1,13 @@
 git HEAD
 
-    * Improve error message for unparsable (or missing) route data
-    * Add option to specify maximum number of connections
+    * Move all logic to Travel::Routing::DE::EFA and require an EFA url to
+      be set. This way, any EFA service is supported.
+      Travel::Routing::DE::VRR now calls ::EFA with the VRR url, so there are
+      no backwards-incompatible changes
+    * Improve error messages for missing route data and backend errors
+    * Add option to specify maximum number of connections (efa -n)
     * efa: add -f / --full-route option
+    * efa: add -u / --efa-url option
 
 Travel::Routing::DE::VRR 2.04 - Tue Jan 07 2014
 
