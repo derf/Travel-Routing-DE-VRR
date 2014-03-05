@@ -432,9 +432,7 @@ sub new_from_xml {
 
 	my $self = { xml_reply => $opt{xml} };
 
-	$self->{config} = {
-		efa_url => $opt{efa_url},
-	};
+	$self->{config} = { efa_url => $opt{efa_url}, };
 
 	$self->{config}->{efa_url} =~ m{
 		(?<netroot> (?<root> [^:]+ : // [^/]+ ) / [^/]+ / )
