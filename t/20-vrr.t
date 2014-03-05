@@ -16,6 +16,8 @@ sub efa_conf {
 		efa_url     => 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
 		origin      => ['Essen', 'HBf'],
 		destination => ['Koeln', 'HBf'],
+		rm_base     => 'http://efa.vrr.de/vrr/',
+		sm_base     => 'http://efa.vrr.de/download/envmaps/',
 		lwp_options => {},
 		submit      => 0,
 	};

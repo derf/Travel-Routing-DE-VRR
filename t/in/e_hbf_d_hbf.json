@@ -1,0 +1,1648 @@
+{
+   "parameters":[
+      {
+         "name":"mdvMap_destination",
+         "value":"::"
+      },
+      {
+         "name":"id_destination",
+         "value":":destination"
+      },
+      {
+         "name":"ShowFare",
+         "value":" "
+      },
+      {
+         "name":"mdvMap2_destination",
+         "value":""
+      },
+      {
+         "name":"view",
+         "value":""
+      },
+      {
+         "name":"mapState_origin",
+         "value":""
+      },
+      {
+         "name":"mapState_destination",
+         "value":""
+      },
+      {
+         "name":"mdvMap2_origin",
+         "value":""
+      },
+      {
+         "name":"enableMobilityRestrictionOptionsWithButton",
+         "value":""
+      },
+      {
+         "name":"id_via",
+         "value":":via"
+      },
+      {
+         "name":"mdvMap_origin",
+         "value":"::"
+      },
+      {
+         "name":"id_origin",
+         "value":":origin"
+      },
+      {
+         "name":"command",
+         "value":""
+      },
+      {
+         "name":"mdvMap2_via",
+         "value":""
+      },
+      {
+         "name":"mdvMap_via",
+         "value":"::"
+      },
+      {
+         "name":"mapState_via",
+         "value":""
+      },
+      {
+         "name":"transpCompany",
+         "value":"vrr"
+      },
+      {
+         "name":"priceCalculator",
+         "value":""
+      },
+      {
+         "name":"requestID",
+         "value":"1"
+      },
+      {
+         "name":"sessionID",
+         "value":"efa1.vrr.de_46961885"
+      }
+   ],
+   "trips":[
+      {
+         "trip":{
+            "duration":"00:49",
+            "interchange":"0",
+            "desc":"4",
+            "legs":[
+               {
+                  "points":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Hauptbahnhof",
+                        "usage":"departure",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"15:55"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1555"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F53EF0.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/09289_e_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009289",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362053,456277"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Hbf",
+                        "place":"Düsseldorf",
+                        "nameWithPlace":"Düsseldorf Hbf",
+                        "usage":"arrival",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"16:44"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1644"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F53EF1.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/18235_d_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20018235",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346062,481506"
+                        }
+                     }
+                  ],
+                  "mode":{
+                     "name":"S-Bahn S1",
+                     "number":"S1",
+                     "type":"2",
+                     "code":"1",
+                     "destination":"Solingen Hbf",
+                     "destID":"20013800",
+                     "desc":"",
+                     "diva":{
+                        "branch":"92",
+                        "line":"E01",
+                        "supplement":" ",
+                        "dir":"R",
+                        "project":"j14",
+                        "network":"ddb",
+                        "stateless":"ddb:92E01: :R:j14",
+                        "operator":"DB AG",
+                        "opCode":"00"
+                     }
+                  },
+                  "stopSeq":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 7",
+                        "ref":{
+                           "id":"20009289",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362053,456277",
+                           "depDateTime":"20140227 15:55",
+                           "arrDelay":"-1",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen West S",
+                        "nameWO":"West S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 4",
+                        "ref":{
+                           "id":"20009643",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3359766,455976",
+                           "arrDateTime":"20140227 15:57",
+                           "depDateTime":"20140227 15:58",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Frohnhausen S",
+                        "nameWO":"Frohnhausen S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20009244",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3358546,455781",
+                           "arrDateTime":"20140227 16:00",
+                           "depDateTime":"20140227 16:00",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Mülheim Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5117000",
+                        "placeID":"17",
+                        "platformName":"Gleis 5",
+                        "ref":{
+                           "id":"20015225",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3353190,458255",
+                           "arrDateTime":"20140227 16:05",
+                           "depDateTime":"20140227 16:05",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Mülheim West Bahnhof",
+                        "nameWO":"West Bahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5117000",
+                        "placeID":"17",
+                        "platformName":"",
+                        "ref":{
+                           "id":"20015227",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3352083,457301",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Mülheim Styrum S",
+                        "nameWO":"Styrum S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5117000",
+                        "placeID":"17",
+                        "platformName":"Gleis 5",
+                        "ref":{
+                           "id":"20015012",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3350829,456171",
+                           "arrDateTime":"20140227 16:08",
+                           "depDateTime":"20140227 16:08",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Duisburg Hbf",
+                        "nameWO":"Duisburg Hbf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5112000",
+                        "placeID":"20",
+                        "platformName":"Gleis 5",
+                        "ref":{
+                           "id":"20016032",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345397,458061",
+                           "arrDateTime":"20140227 16:13",
+                           "depDateTime":"20140227 16:15",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Duisburg Schlenk Bf",
+                        "nameWO":"Schlenk Bf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5112000",
+                        "placeID":"20",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20016341",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345103,461162",
+                           "arrDateTime":"20140227 16:17",
+                           "depDateTime":"20140227 16:18",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Duisburg Buchholz Bf",
+                        "nameWO":"Buchholz Bf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5112000",
+                        "placeID":"20",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20016332",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345193,463355",
+                           "arrDateTime":"20140227 16:20",
+                           "depDateTime":"20140227 16:20",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Duisburg Großenbaum S",
+                        "nameWO":"Großenbaum S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5112000",
+                        "placeID":"20",
+                        "platformName":"Gleis 5",
+                        "ref":{
+                           "id":"20016129",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345312,465425",
+                           "arrDateTime":"20140227 16:22",
+                           "depDateTime":"20140227 16:23",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Duisburg Rahm BF",
+                        "nameWO":"Rahm BF",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5112000",
+                        "placeID":"20",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20016416",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345401,467427",
+                           "arrDateTime":"20140227 16:25",
+                           "depDateTime":"20140227 16:25",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Angermund S",
+                        "nameWO":"Angermund S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018372",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345496,469339",
+                           "arrDateTime":"20140227 16:27",
+                           "depDateTime":"20140227 16:28",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Flughafen Bahnhof",
+                        "nameWO":"Flughafen Bahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 6",
+                        "ref":{
+                           "id":"20018488",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345657,473578",
+                           "arrDateTime":"20140227 16:31",
+                           "depDateTime":"20140227 16:32",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Unterrath S",
+                        "nameWO":"Unterrath S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018206",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345800,475246",
+                           "arrDateTime":"20140227 16:34",
+                           "depDateTime":"20140227 16:34",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Derendorf S",
+                        "nameWO":"Derendorf S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018285",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346085,478491",
+                           "arrDateTime":"20140227 16:37",
+                           "depDateTime":"20140227 16:37",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Zoo S",
+                        "nameWO":"Zoo S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018012",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346214,479740",
+                           "arrDateTime":"20140227 16:39",
+                           "depDateTime":"20140227 16:39",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Wehrhahn S",
+                        "nameWO":"Wehrhahn S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018019",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346220,480530",
+                           "arrDateTime":"20140227 16:41",
+                           "depDateTime":"20140227 16:41",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Hbf",
+                        "nameWO":"Hbf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 11",
+                        "ref":{
+                           "id":"20018235",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346062,481506",
+                           "arrDateTime":"20140227 16:44",
+                           "arrDelay":"0",
+                           "depDelay":"-1"
+                        }
+                     }
+                  ],
+                  "frequency":{
+                     "hasFrequency":"0",
+                     "tripIndex":"0",
+                     "minTimeGap":"0",
+                     "maxTimeGap":"0",
+                     "avTimeGap":"0",
+                     "minDuration":"0",
+                     "maxDuration":"0",
+                     "avDuration":"0",
+                     "modes":[
+
+                     ]
+                  },
+                  "path":"3362050,456250 3361304,456344 3361296,456345 3361247,456350 3361198,456354 3361148,456359 3360976,456380 3360888,456369 3360652,456292 3360486,456189 3360243,456056 3360150,456013 3359790,455900 3359790,455900 3359324,455754 3359121,455711 3358874,455708 3358681,455744 3358546,455781 3358546,455781 3358523,455787 3358386,455822 3358221,455864 3357920,455959 3357678,456071 3357623,456114 3357092,456573 3357066,456595 3356738,456833 3356638,456890 3356466,456967 3356348,457010 3355716,457183 3355651,457195 3355304,457211 3354869,457169 3354739,457179 3354630,457211 3354493,457284 3354422,457341 3354364,457401 3354267,457534 3354174,457703 3354130,457762 3354067,457838 3353839,458055 3353739,458134 3353682,458170 3353532,458230 3353331,458265 3353190,458254 3353190,458254 3353188,458254 3353034,458212 3352953,458188 3352904,458168 3352823,458123 3352619,457977 3352578,457940 3352255,457549 3352224,457502 3352099,457291 3352099,457291 3351887,456934 3351846,456878 3351798,456840 3351624,456650 3351562,456601 3351539,456581 3351217,456369 3350829,456170 3350829,456170 3350808,456159 3350686,456130 3350491,456065 3350341,456035 3350130,456015 3350026,456024 3349615,456126 3349498,456146 3349101,456212 3349052,456220 3348541,456306 3347950,456355 3347834,456370 3347667,456402 3347549,456429 3347302,456514 3347234,456547 3347218,456553 3347206,456560 3347193,456566 3347114,456600 3347101,456607 3346804,456787 3346754,456818 3346745,456825 3346580,456941 3346373,457087 3346157,457235 3345919,457398 3345825,457473 3345673,457636 3345557,457790 3345491,457901 3345487,457906 3345484,457912 3345480,457919 3345476,457926 3345472,457934 3345468,457943 3345464,457953 3345459,457965 3345455,457978 3345450,457993 3345424,458070 3345424,458070 3345383,458188 3345374,458201 3345365,458212 3345327,458255 3345316,458573 3345291,459407 3345280,459489 3345260,459542 3345225,459642 3345088,459946 3345061,460048 3345058,460216 3345059,460429 3345095,461162 3345095,461162 3345105,461375 3345151,462571 3345190,463305 3345193,463355 3345193,463355 3345236,464000 3345250,464051 3345288,464669 3345290,464758 3345294,465298 3345305,465390 3345307,465425 3345307,465425 3345323,465782 3345325,465879 3345348,466339 3345402,467360 3345405,467427 3345405,467427 3345424,467883 3345468,468787 3345495,469339 3345495,469339 3345533,470105 3345584,471152 3345581,471184 3345597,471512 3345634,472271 3345645,472879 3345674,473375 3345692,473394 3345715,473435 3345722,473449 3345729,473574 3345729,473574 3345657,473578 3345657,473578 3345800,475246 3345803,475246 3345805,475512 3345849,476363 3345927,476940 3346000,477393 3346027,477888 3346044,478131 3346075,478438 3346085,478491 3346085,478491 3346114,478639 3346187,478941 3346253,479275 3346259,479499 3346228,479742 3346228,479742 3346226,479760 3346227,479819 3346253,480294 3346258,480370 3346259,480378 3346276,480483 3346283,480518 3346283,480518 3346320,480718 3346366,480837 3346393,480975 3346349,481049 3346329,481112 3346298,481181 3346294,481199 3346231,481290 3346183,481348 3346177,481353 3346192,481452 3346158,481496 3346113,481549"
+               }
+            ],
+            "attrs":[
+
+            ]
+         }
+      },
+      {
+         "trip":{
+            "duration":"00:42",
+            "interchange":"0",
+            "desc":"1",
+            "legs":[
+               {
+                  "points":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Hauptbahnhof",
+                        "usage":"departure",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"16:08"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1608"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F53F00.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/09289_e_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009289",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362053,456277"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Hbf",
+                        "place":"Düsseldorf",
+                        "nameWithPlace":"Düsseldorf Hbf",
+                        "usage":"arrival",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"16:50"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1650"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F53F01.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/18235_d_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20018235",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346062,481506"
+                        }
+                     }
+                  ],
+                  "mode":{
+                     "name":"S-Bahn S6",
+                     "number":"S6",
+                     "type":"2",
+                     "code":"1",
+                     "destination":"Nippes, Nippes S-Bahn",
+                     "destID":"22000750",
+                     "desc":"",
+                     "diva":{
+                        "branch":"92",
+                        "line":"E06",
+                        "supplement":" ",
+                        "dir":"H",
+                        "project":"j14",
+                        "network":"ddb",
+                        "stateless":"ddb:92E06: :H:j14",
+                        "operator":"DB AG",
+                        "opCode":"00"
+                     }
+                  },
+                  "stopSeq":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 12",
+                        "ref":{
+                           "id":"20009289",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362053,456277",
+                           "depDateTime":"20140227 16:08",
+                           "arrDelay":"-1",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Süd S",
+                        "nameWO":"Süd S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20009590",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362624,457580",
+                           "arrDateTime":"20140227 16:10",
+                           "depDateTime":"20140227 16:11",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Stadtwald S",
+                        "nameWO":"Stadtwald S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 2",
+                        "ref":{
+                           "id":"20009578",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362585,459515",
+                           "arrDateTime":"20140227 16:13",
+                           "depDateTime":"20140227 16:13",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Hügel S",
+                        "nameWO":"Hügel S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 2",
+                        "ref":{
+                           "id":"20009074",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361530,461457",
+                           "arrDateTime":"20140227 16:16",
+                           "depDateTime":"20140227 16:16",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Werden S",
+                        "nameWO":"Werden S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 2",
+                        "ref":{
+                           "id":"20009640",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3360684,463409",
+                           "arrDateTime":"20140227 16:19",
+                           "depDateTime":"20140227 16:19",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Kettwig S",
+                        "nameWO":"Kettwig S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20009383",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3357590,465910",
+                           "arrDateTime":"20140227 16:23",
+                           "depDateTime":"20140227 16:23",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Kettwig Stausee S",
+                        "nameWO":"Kettwig Stausee S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"",
+                        "ref":{
+                           "id":"20009385",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3356594,466628",
+                           "arrDateTime":"20140227 16:25",
+                           "depDateTime":"20140227 16:26",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Ratingen Hösel S",
+                        "nameWO":"Hösel S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5158028",
+                        "placeID":"15",
+                        "platformName":"Gleis 2",
+                        "ref":{
+                           "id":"20019528",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3353335,468247",
+                           "arrDateTime":"20140227 16:29",
+                           "depDateTime":"20140227 16:30",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Ratingen Ost S",
+                        "nameWO":"Ost S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5158028",
+                        "placeID":"15",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018634",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3351063,473346",
+                           "arrDateTime":"20140227 16:34",
+                           "depDateTime":"20140227 16:34",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Rath S",
+                        "nameWO":"Rath S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018209",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3347993,476752",
+                           "arrDateTime":"20140227 16:38",
+                           "depDateTime":"20140227 16:39",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Rath Mitte S",
+                        "nameWO":"Rath Mitte S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018210",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3347208,477055",
+                           "arrDateTime":"20140227 16:41",
+                           "depDateTime":"20140227 16:41",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Derendorf S",
+                        "nameWO":"Derendorf S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018285",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346085,478491",
+                           "arrDateTime":"20140227 16:44",
+                           "depDateTime":"20140227 16:44",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Zoo S",
+                        "nameWO":"Zoo S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018012",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346214,479740",
+                           "arrDateTime":"20140227 16:46",
+                           "depDateTime":"20140227 16:46",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Wehrhahn S",
+                        "nameWO":"Wehrhahn S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 1",
+                        "ref":{
+                           "id":"20018019",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346220,480530",
+                           "arrDateTime":"20140227 16:48",
+                           "depDateTime":"20140227 16:49",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Hbf",
+                        "nameWO":"Hbf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 11",
+                        "ref":{
+                           "id":"20018235",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3346062,481506",
+                           "arrDateTime":"20140227 16:50",
+                           "arrDelay":"0",
+                           "depDelay":"-1"
+                        }
+                     }
+                  ],
+                  "frequency":{
+                     "hasFrequency":"0",
+                     "tripIndex":"0",
+                     "minTimeGap":"0",
+                     "maxTimeGap":"0",
+                     "avTimeGap":"0",
+                     "minDuration":"0",
+                     "maxDuration":"0",
+                     "avDuration":"0",
+                     "modes":[
+
+                     ]
+                  },
+                  "path":"3362053,456277 3362624,457580 3362624,457580 3362619,457577 3362619,457577 3362619,457880 3362605,458187 3362606,458357 3362604,458549 3362582,459495 3362582,459515 3362582,459515 3362584,459598 3362581,459720 3362560,459823 3362555,459845 3362534,459948 3362480,460071 3362421,460188 3362377,460248 3362225,460451 3362159,460571 3361963,461069 3361888,461192 3361785,461303 3361746,461337 3361626,461420 3361530,461458 3361530,461458 3361460,461485 3361163,461558 3360958,461623 3360849,461701 3360747,461802 3360705,461863 3360627,462022 3360607,462128 3360598,462260 3360581,462944 3360595,463073 3360641,463192 3360690,463290 3360703,463348 3360705,463395 3360704,463411 3360704,463411 3360699,463461 3360665,463570 3360614,463642 3360531,463729 3360433,463816 3360368,463857 3360290,463890 3360085,463968 3360005,463985 3359518,464017 3359262,464037 3359095,464080 3358425,464362 3358298,464450 3358220,464546 3358159,464663 3358132,464767 3358126,464828 3358115,465143 3358104,465207 3358067,465319 3358007,465451 3357966,465522 3357789,465753 3357595,465916 3357595,465916 3357468,466022 3357252,466193 3357080,466291 3356918,466403 3356853,466451 3356828,466469 3356712,466560 3356643,466604 3356593,466626 3356594,466628 3353335,468247 3353335,468247 3351063,473346 3351062,473346 3350858,473879 3350807,473992 3350768,474055 3350566,474283 3350513,474327 3350439,474370 3350264,474405 3350177,474399 3349602,474412 3349308,474432 3349251,474449 3349136,474502 3349091,474534 3348999,474622 3348887,474769 3348847,474819 3348777,474928 3348739,475001 3348706,475088 3348546,475469 3348445,475662 3348349,475847 3348289,476001 3348022,476648 3348017,476689 3347992,476752 3347992,476752 3347991,476755 3347959,476814 3347907,476909 3347864,476961 3347791,477021 3347666,477074 3347473,477099 3347375,477100 3347306,477083 3347209,477053 3347209,477053 3347142,477033 3347033,477002 3346801,476937 3346297,476786 3346207,476784 3346196,476786 3346119,476808 3346023,476874 3345963,476953 3345940,477022 3345932,477088 3345964,477317 3345955,477400 3345971,477523 3345991,477892 3346075,478438 3346085,478491 3346085,478491 3346114,478639 3346187,478941 3346253,479275 3346259,479499 3346228,479742 3346228,479742 3346226,479760 3346227,479819 3346253,480294 3346258,480370 3346259,480378 3346276,480483 3346283,480518 3346283,480518 3346320,480718 3346366,480837 3346393,480975 3346349,481049 3346329,481112 3346298,481181 3346294,481199 3346231,481290 3346183,481348 3346177,481353 3346192,481452 3346158,481496 3346113,481549"
+               }
+            ],
+            "attrs":[
+
+            ]
+         }
+      },
+      {
+         "trip":{
+            "duration":"00:32",
+            "interchange":"0",
+            "desc":"2",
+            "legs":[
+               {
+                  "points":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Hauptbahnhof",
+                        "usage":"departure",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"16:21"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1621"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F53F02.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/09289_e_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009289",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362045,456187"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Hbf",
+                        "place":"Düsseldorf",
+                        "nameWithPlace":"Düsseldorf Hbf",
+                        "usage":"arrival",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"16:53"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1653"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F53F03.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/18235_d_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20018235",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345974,481458"
+                        }
+                     }
+                  ],
+                  "mode":{
+                     "name":"R-Bahn RE2",
+                     "number":"RE2",
+                     "type":"6",
+                     "code":"0",
+                     "destination":"Düsseldorf Hbf",
+                     "destID":"20018235",
+                     "desc":"",
+                     "diva":{
+                        "branch":"90",
+                        "line":"425",
+                        "supplement":"B",
+                        "dir":"R",
+                        "project":"j14",
+                        "network":"ddb",
+                        "stateless":"ddb:90425:B:R:j14",
+                        "operator":"DB AG",
+                        "opCode":"00"
+                     }
+                  },
+                  "stopSeq":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 2",
+                        "ref":{
+                           "id":"20009289",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362045,456187",
+                           "depDateTime":"20140227 16:21",
+                           "arrDelay":"-1",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Mülheim Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5117000",
+                        "placeID":"17",
+                        "platformName":"Gleis 6",
+                        "ref":{
+                           "id":"20015225",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3353209,458257",
+                           "arrDateTime":"20140227 16:26",
+                           "depDateTime":"20140227 16:27",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Duisburg Hbf",
+                        "nameWO":"Duisburg Hbf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5112000",
+                        "placeID":"20",
+                        "platformName":"Gleis 3",
+                        "ref":{
+                           "id":"20016032",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345390,458088",
+                           "arrDateTime":"20140227 16:33",
+                           "depDateTime":"20140227 16:36",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Flughafen Bahnhof",
+                        "nameWO":"Flughafen Bahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 6",
+                        "ref":{
+                           "id":"20018488",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345726,473565",
+                           "arrDateTime":"20140227 16:45",
+                           "depDateTime":"20140227 16:46",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"D-Flughafen Terminal S",
+                        "nameWO":"Flughafen Terminal S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"",
+                        "ref":{
+                           "id":"20018517",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3344292,475050",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Hbf",
+                        "nameWO":"Hbf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 9",
+                        "ref":{
+                           "id":"20018235",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345974,481458",
+                           "arrDateTime":"20140227 16:53",
+                           "arrDelay":"0",
+                           "depDelay":"-1"
+                        }
+                     }
+                  ],
+                  "frequency":{
+                     "hasFrequency":"0",
+                     "tripIndex":"0",
+                     "minTimeGap":"0",
+                     "maxTimeGap":"0",
+                     "avTimeGap":"0",
+                     "minDuration":"0",
+                     "maxDuration":"0",
+                     "avDuration":"0",
+                     "modes":[
+
+                     ]
+                  },
+                  "path":"3362056,456276 3361586,456332 3361381,456356 3361148,456359 3360976,456380 3360888,456369 3360652,456292 3360486,456189 3360243,456056 3360150,456013 3359324,455754 3359121,455711 3358874,455708 3358681,455744 3358523,455787 3358386,455822 3358221,455864 3357920,455959 3357678,456071 3357623,456114 3357092,456573 3357066,456595 3356738,456833 3356638,456890 3356466,456967 3356348,457010 3355716,457183 3355651,457195 3355304,457211 3354869,457169 3354739,457179 3354630,457211 3354493,457284 3354422,457341 3354364,457401 3354267,457534 3354174,457703 3354130,457762 3354067,457838 3353839,458055 3353739,458134 3353682,458170 3353532,458230 3353331,458265 3353209,458256 3353209,458256 3353188,458254 3353034,458212 3352953,458188 3352904,458168 3352823,458123 3352619,457977 3352578,457940 3352255,457549 3352224,457502 3351887,456934 3351846,456878 3351798,456840 3351624,456650 3351562,456601 3351539,456581 3350731,456179 3350675,456147 3350488,456081 3350335,456049 3350124,456052 3349662,456127 3349615,456126 3349498,456146 3349101,456212 3349052,456220 3348541,456306 3348478,456327 3347895,456461 3347787,456485 3347663,456513 3347334,456586 3347278,456589 3347264,456593 3347250,456597 3347235,456603 3347127,456634 3346973,456711 3346771,456842 3346761,456848 3346598,456966 3346387,457112 3346172,457259 3345939,457412 3345828,457507 3345702,457650 3345644,457737 3345575,457872 3345560,457904 3345550,457919 3345543,457922 3345535,457926 3345528,457930 3345521,457935 3345513,457941 3345506,457948 3345499,457956 3345491,457967 3345484,457979 3345476,457994 3345412,458178 3345412,458178 3345387,458267 3345387,458267 3345389,458608 3345395,458643 3345393,458730 3345355,458842 3345340,458950 3345325,459154 3345339,459324 3345336,459364 3345301,459523 3345273,459591 3345115,459945 3345081,460063 3345058,460216 3345059,460429 3345105,461375 3345151,462571 3345190,463305 3345236,464000 3345250,464051 3345288,464669 3345290,464758 3345294,465298 3345280,465427 3345304,465774 3345313,465860 3345325,465879 3345348,466339 3345402,467360 3345424,467883 3345468,468787 3345533,470105 3345584,471152 3345581,471184 3345597,471512 3345634,472271 3345645,472879 3345674,473375 3345692,473394 3345715,473435 3345725,473452 3345731,473565 3345731,473565 3345744,473812 3345742,473831 3345719,473905 3345709,473919 3345712,474128 3345729,474477 3345693,474571 3345657,474616 3345607,474651 3345471,474686 3345415,474695 3344929,474695 3344724,474695 3344650,474711 3344598,474737 3344469,474837 3344424,474880 3344267,475022 3344267,475022 3344424,474880 3344469,474837 3344598,474737 3344650,474711 3344724,474695 3344929,474695 3345415,474695 3345471,474686 3345547,474696 3345643,474723 3345682,474752 3345729,474814 3345792,474973 3345802,475173 3345805,475512 3345849,476363 3345927,476940 3346000,477393 3346027,477888 3346044,478131 3346075,478438 3346114,478639 3346120,478831 3346149,478899 3346166,478956 3346208,479192 3346217,479403 3346197,479761 3346196,480037 3346207,480294 3346208,480318 3346207,480367 3346206,480488 3346266,480685 3346318,480850 3346320,480893 3346325,480923 3346336,480948 3346341,480992 3346338,481027 3346298,481181 3346294,481199 3346231,481290 3346183,481348 3346177,481353 3346192,481452 3346158,481496 3346099,481565"
+               }
+            ],
+            "attrs":[
+
+            ]
+         }
+      },
+      {
+         "trip":{
+            "duration":"00:28",
+            "interchange":"0",
+            "desc":"3",
+            "legs":[
+               {
+                  "points":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Hauptbahnhof",
+                        "usage":"departure",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"16:26"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1626"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F53F04.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/09289_e_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009289",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362045,456187"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Hbf",
+                        "place":"Düsseldorf",
+                        "nameWithPlace":"Düsseldorf Hbf",
+                        "usage":"arrival",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"16:54"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1654"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F53F05.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/18235_d_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20018235",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345974,481458"
+                        }
+                     }
+                  ],
+                  "mode":{
+                     "name":"R-Bahn RE1",
+                     "number":"RE1",
+                     "type":"6",
+                     "code":"0",
+                     "destination":"Aachen Hbf",
+                     "destID":"21001008",
+                     "desc":"",
+                     "diva":{
+                        "branch":"90",
+                        "line":"415",
+                        "supplement":" ",
+                        "dir":"H",
+                        "project":"j14",
+                        "network":"ddb",
+                        "stateless":"ddb:90415: :H:j14",
+                        "operator":"DB AG",
+                        "opCode":"00"
+                     }
+                  },
+                  "stopSeq":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Gleis 2",
+                        "ref":{
+                           "id":"20009289",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3362045,456187",
+                           "depDateTime":"20140227 16:09",
+                           "arrDelay":"-1",
+                           "depDelay":"17"
+                        }
+                     },
+                     {
+                        "name":"Mülheim Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5117000",
+                        "placeID":"17",
+                        "platformName":"Gleis 6",
+                        "ref":{
+                           "id":"20015225",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3353209,458257",
+                           "arrDateTime":"20140227 16:14",
+                           "depDateTime":"20140227 16:15",
+                           "arrDelay":"17",
+                           "depDelay":"17"
+                        }
+                     },
+                     {
+                        "name":"Duisburg Hbf",
+                        "nameWO":"Duisburg Hbf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5112000",
+                        "placeID":"20",
+                        "platformName":"Gleis 4",
+                        "ref":{
+                           "id":"20016032",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345390,458088",
+                           "arrDateTime":"20140227 16:20",
+                           "depDateTime":"20140227 16:22",
+                           "arrDelay":"17",
+                           "depDelay":"17"
+                        }
+                     },
+                     {
+                        "name":"Duisburg Großenbaum S",
+                        "nameWO":"Großenbaum S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5112000",
+                        "placeID":"20",
+                        "platformName":"",
+                        "ref":{
+                           "id":"20016129",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345313,465446",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Flughafen Bahnhof",
+                        "nameWO":"Flughafen Bahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 4",
+                        "ref":{
+                           "id":"20018488",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345726,473565",
+                           "arrDateTime":"20140227 16:31",
+                           "depDateTime":"20140227 16:32",
+                           "arrDelay":"17",
+                           "depDelay":"17"
+                        }
+                     },
+                     {
+                        "name":"D-Flughafen Terminal S",
+                        "nameWO":"Flughafen Terminal S",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"",
+                        "ref":{
+                           "id":"20018517",
+                           "area":"98",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3344292,475050",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Düsseldorf Hbf",
+                        "nameWO":"Hbf",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5111000",
+                        "placeID":"6",
+                        "platformName":"Gleis 16",
+                        "ref":{
+                           "id":"20018235",
+                           "area":"90",
+                           "platform":"",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3345974,481458",
+                           "arrDateTime":"20140227 16:37",
+                           "arrDelay":"17",
+                           "depDelay":"-1"
+                        }
+                     }
+                  ],
+                  "frequency":{
+                     "hasFrequency":"0",
+                     "tripIndex":"0",
+                     "minTimeGap":"0",
+                     "maxTimeGap":"0",
+                     "avTimeGap":"0",
+                     "minDuration":"0",
+                     "maxDuration":"0",
+                     "avDuration":"0",
+                     "modes":[
+
+                     ]
+                  },
+                  "path":"3362056,456276 3361586,456332 3361381,456356 3361148,456359 3360976,456380 3360888,456369 3360652,456292 3360486,456189 3360243,456056 3360150,456013 3359324,455754 3359121,455711 3358874,455708 3358681,455744 3358523,455787 3358386,455822 3358221,455864 3357920,455959 3357678,456071 3357623,456114 3357092,456573 3357066,456595 3356738,456833 3356638,456890 3356466,456967 3356348,457010 3355716,457183 3355651,457195 3355304,457211 3354869,457169 3354739,457179 3354630,457211 3354493,457284 3354422,457341 3354364,457401 3354267,457534 3354174,457703 3354130,457762 3354067,457838 3353839,458055 3353739,458134 3353682,458170 3353532,458230 3353331,458265 3353209,458256 3353209,458256 3353188,458254 3353034,458212 3352953,458188 3352904,458168 3352823,458123 3352619,457977 3352578,457940 3352255,457549 3352224,457502 3351887,456934 3351846,456878 3351798,456840 3351624,456650 3351562,456601 3351539,456581 3350731,456179 3350675,456147 3350488,456081 3350335,456049 3350124,456052 3349662,456127 3349615,456126 3349498,456146 3349101,456212 3349052,456220 3348541,456306 3348478,456327 3347895,456461 3347787,456485 3347663,456513 3347334,456586 3347278,456589 3347264,456593 3347250,456597 3347235,456603 3347127,456634 3346973,456711 3346771,456842 3346761,456848 3346598,456966 3346387,457112 3346172,457259 3345939,457412 3345828,457507 3345702,457650 3345644,457737 3345575,457872 3345560,457904 3345550,457919 3345543,457922 3345535,457926 3345528,457930 3345521,457935 3345513,457941 3345506,457948 3345499,457956 3345491,457967 3345484,457979 3345476,457994 3345412,458178 3345412,458178 3345387,458267 3345387,458267 3345389,458608 3345395,458643 3345393,458730 3345355,458842 3345340,458950 3345325,459154 3345339,459324 3345336,459364 3345301,459523 3345273,459591 3345115,459945 3345081,460063 3345058,460216 3345059,460429 3345105,461375 3345151,462571 3345190,463305 3345236,464000 3345250,464051 3345288,464669 3345290,464758 3345294,465298 3345305,465390 3345308,465446 3345308,465446 3345323,465782 3345325,465879 3345348,466339 3345402,467360 3345424,467883 3345468,468787 3345533,470105 3345584,471152 3345581,471184 3345597,471512 3345634,472271 3345645,472879 3345674,473375 3345692,473394 3345715,473435 3345725,473452 3345731,473565 3345731,473565 3345744,473812 3345742,473831 3345719,473905 3345709,473919 3345712,474128 3345729,474477 3345693,474571 3345657,474616 3345607,474651 3345471,474686 3345415,474695 3344929,474695 3344724,474695 3344650,474711 3344598,474737 3344469,474837 3344424,474880 3344267,475022 3344267,475022 3344424,474880 3344469,474837 3344598,474737 3344650,474711 3344724,474695 3344929,474695 3345415,474695 3345471,474686 3345547,474696 3345643,474723 3345682,474752 3345729,474814 3345792,474973 3345802,475173 3345805,475512 3345849,476363 3345927,476940 3346000,477393 3346027,477888 3346044,478131 3346075,478438 3346114,478639 3346120,478831 3346149,478899 3346166,478956 3346208,479192 3346217,479403 3346197,479761 3346196,480037 3346207,480294 3346208,480318 3346207,480367 3346206,480488 3346266,480685 3346318,480850 3346320,480893 3346325,480923 3346336,480948 3346341,480992 3346338,481027 3346298,481181 3346294,481199 3346231,481290 3346183,481348 3346177,481353 3346192,481452 3346158,481496 3346099,481565"
+               }
+            ],
+            "attrs":[
+
+            ]
+         }
+      }
+   ]
+}

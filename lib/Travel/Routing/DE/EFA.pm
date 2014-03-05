@@ -411,8 +411,12 @@ sub new {
 		);
 	}
 
-	#	$ref->{config}->{rm_base} //= 'http://efa.vrr.de/vrr/';
-	#	$ref->{config}->{sm_base} //= 'http://efa.vrr.de/download/envmaps/';
+	$ref->{config}->{efa_url} =~ m{
+		(?<netroot> (?<root> [^:]+ : // [^/]+ ) / [^/]+ / )
+	}ox;
+
+	$ref->{config}->{rm_base} = $+{netroot};
+	$ref->{config}->{sm_base} = $+{root} . '/download/envmaps/';
 
 	$ref->create_post;
 
@@ -427,6 +431,17 @@ sub new_from_xml {
 	my ( $class, %opt ) = @_;
 
 	my $self = { xml_reply => $opt{xml} };
+
+	$self->{config} = {
+		efa_url => $opt{efa_url},
+	};
+
+	$self->{config}->{efa_url} =~ m{
+		(?<netroot> (?<root> [^:]+ : // [^/]+ ) / [^/]+ / )
+	}ox;
+
+	$self->{config}->{rm_base} = $+{netroot};
+	$self->{config}->{sm_base} = $+{root} . '/download/envmaps/';
 
 	bless( $self, $class );
 
@@ -495,6 +510,11 @@ sub parse_xml_part {
 	my $xp_info
 	  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
 
+	my $xp_mapitem_rm = XML::LibXML::XPathExpression->new(
+		'./itdMapItemList/itdMapItem[@type="RM"]/itdImage');
+	my $xp_mapitem_sm = XML::LibXML::XPathExpression->new(
+		'./itdMapItemList/itdMapItem[@type="SM"]/itdImage');
+
 	my $xp_fare
 	  = XML::LibXML::XPathExpression->new('./itdFare/itdSingleTicket');
 
@@ -516,21 +536,38 @@ sub parse_xml_part {
 
 	for my $e ( $route->findnodes($xp_route) ) {
 
-		my $e_dep    = ( $e->findnodes($xp_dep) )[0];
-		my $e_arr    = ( $e->findnodes($xp_arr) )[0];
-		my $e_ddate  = ( $e_dep->findnodes($xp_date) )[0];
-		my $e_dtime  = ( $e_dep->findnodes($xp_time) )[0];
-		my $e_dsdate = ( $e_dep->findnodes($xp_sdate) )[0];
-		my $e_dstime = ( $e_dep->findnodes($xp_stime) )[0];
-		my $e_adate  = ( $e_arr->findnodes($xp_date) )[0];
-		my $e_atime  = ( $e_arr->findnodes($xp_time) )[0];
-		my $e_asdate = ( $e_arr->findnodes($xp_sdate) )[0];
-		my $e_astime = ( $e_arr->findnodes($xp_stime) )[0];
-		my $e_mot    = ( $e->findnodes($xp_mot) )[0];
-		my $e_delay  = ( $e->findnodes($xp_delay) )[0];
-		my @e_info   = $e->findnodes($xp_info);
+		my $e_dep     = ( $e->findnodes($xp_dep) )[0];
+		my $e_arr     = ( $e->findnodes($xp_arr) )[0];
+		my $e_ddate   = ( $e_dep->findnodes($xp_date) )[0];
+		my $e_dtime   = ( $e_dep->findnodes($xp_time) )[0];
+		my $e_dsdate  = ( $e_dep->findnodes($xp_sdate) )[0];
+		my $e_dstime  = ( $e_dep->findnodes($xp_stime) )[0];
+		my $e_adate   = ( $e_arr->findnodes($xp_date) )[0];
+		my $e_atime   = ( $e_arr->findnodes($xp_time) )[0];
+		my $e_asdate  = ( $e_arr->findnodes($xp_sdate) )[0];
+		my $e_astime  = ( $e_arr->findnodes($xp_stime) )[0];
+		my $e_mot     = ( $e->findnodes($xp_mot) )[0];
+		my $e_delay   = ( $e->findnodes($xp_delay) )[0];
+		my @e_info    = $e->findnodes($xp_info);
+		my @e_dmap_rm = $e_dep->findnodes($xp_mapitem_rm);
+		my @e_dmap_sm = $e_dep->findnodes($xp_mapitem_sm);
+		my @e_amap_rm = $e_arr->findnodes($xp_mapitem_rm);
+		my @e_amap_sm = $e_arr->findnodes($xp_mapitem_sm);
 
 		my $delay = $e_delay ? $e_delay->getAttribute('delayMinutes') : 0;
+
+		my ( @dep_rms, @dep_sms, @arr_rms, @arr_sms );
+
+		if ( $self->{config}->{rm_base} ) {
+			my $base = $self->{config}->{rm_base};
+			@dep_rms = map { $base . $_->getAttribute('src') } @e_dmap_rm;
+			@arr_rms = map { $base . $_->getAttribute('src') } @e_amap_rm;
+		}
+		if ( $self->{config}->{sm_base} ) {
+			my $base = $self->{config}->{sm_base};
+			@dep_sms = map { $base . $_->getAttribute('src') } @e_dmap_sm;
+			@arr_sms = map { $base . $_->getAttribute('src') } @e_amap_sm;
+		}
 
 		my $hash = {
 			delay              => $delay,
@@ -553,6 +590,11 @@ sub parse_xml_part {
 		for my $key ( keys %{$hash} ) {
 			$hash->{$key} = decode( 'UTF-8', $hash->{$key} );
 		}
+
+		$hash->{departure_routemaps}   = \@dep_rms;
+		$hash->{departure_stationmaps} = \@dep_sms;
+		$hash->{arrival_routemaps}     = \@arr_rms;
+		$hash->{arrival_stationmaps}   = \@arr_sms;
 
 		for my $ve ( $e->findnodes($xp_via) ) {
 			my $e_vdate = ( $ve->findnodes($xp_date) )[-1];

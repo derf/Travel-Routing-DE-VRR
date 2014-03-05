@@ -1,0 +1,1130 @@
+{
+   "parameters":[
+      {
+         "name":"mdvMap_destination",
+         "value":"::"
+      },
+      {
+         "name":"id_destination",
+         "value":":destination"
+      },
+      {
+         "name":"ShowFare",
+         "value":" "
+      },
+      {
+         "name":"mdvMap2_destination",
+         "value":""
+      },
+      {
+         "name":"view",
+         "value":""
+      },
+      {
+         "name":"mapState_origin",
+         "value":""
+      },
+      {
+         "name":"mapState_destination",
+         "value":""
+      },
+      {
+         "name":"mdvMap2_origin",
+         "value":""
+      },
+      {
+         "name":"enableMobilityRestrictionOptionsWithButton",
+         "value":""
+      },
+      {
+         "name":"id_via",
+         "value":":via"
+      },
+      {
+         "name":"mdvMap_origin",
+         "value":"::"
+      },
+      {
+         "name":"id_origin",
+         "value":":origin"
+      },
+      {
+         "name":"command",
+         "value":""
+      },
+      {
+         "name":"mdvMap2_via",
+         "value":""
+      },
+      {
+         "name":"mdvMap_via",
+         "value":"::"
+      },
+      {
+         "name":"mapState_via",
+         "value":""
+      },
+      {
+         "name":"transpCompany",
+         "value":"vrr"
+      },
+      {
+         "name":"priceCalculator",
+         "value":""
+      },
+      {
+         "name":"requestID",
+         "value":"1"
+      },
+      {
+         "name":"sessionID",
+         "value":"efa1.vrr.de_52274265"
+      }
+   ],
+   "trips":[
+      {
+         "trip":{
+            "duration":"00:07",
+            "interchange":"0",
+            "desc":"4",
+            "legs":[
+               {
+                  "points":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Hauptbahnhof",
+                        "usage":"departure",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"17:31"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1731"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F68E50.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/09289_e_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009289",
+                           "area":"14",
+                           "platform":"4",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361962,456258"
+                        }
+                     },
+                     {
+                        "name":"Essen Alfredusbad",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Alfredusbad",
+                        "usage":"arrival",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"17:38"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1738"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F68E51.pdf"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009115",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361027,459596"
+                        }
+                     }
+                  ],
+                  "mode":{
+                     "name":"Straßenbahn 107",
+                     "number":"107",
+                     "type":"4",
+                     "code":"4",
+                     "destination":"Essen Bredeney",
+                     "destID":"20009172",
+                     "desc":"",
+                     "diva":{
+                        "branch":"11",
+                        "line":"107",
+                        "supplement":" ",
+                        "dir":"H",
+                        "project":"j14",
+                        "network":"vrr",
+                        "stateless":"vrr:11107: :H:j14",
+                        "operator":"EVAG Strab",
+                        "opCode":"11"
+                     }
+                  },
+                  "stopSeq":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 4",
+                        "ref":{
+                           "id":"20009289",
+                           "area":"14",
+                           "platform":"4",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361962,456258",
+                           "depDateTime":"20140227 17:31",
+                           "arrDelay":"-1",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Philharmonie",
+                        "nameWO":"Philharmonie",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009531",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361660,456901",
+                           "arrDateTime":"20140227 17:32",
+                           "depDateTime":"20140227 17:32",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Rüttenscheider Stern",
+                        "nameWO":"Rüttenscheider Stern",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009530",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361395,457774",
+                           "arrDateTime":"20140227 17:34",
+                           "depDateTime":"20140227 17:34",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Martinstr.",
+                        "nameWO":"Martinstr.",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009450",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361313,458171",
+                           "arrDateTime":"20140227 17:35",
+                           "depDateTime":"20140227 17:35",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Florastr.",
+                        "nameWO":"Florastr.",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009234",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361149,458993",
+                           "arrDateTime":"20140227 17:36",
+                           "depDateTime":"20140227 17:36",
+                           "arrDelay":"0",
+                           "depDelay":"0"
+                        }
+                     },
+                     {
+                        "name":"Essen Alfredusbad",
+                        "nameWO":"Alfredusbad",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009115",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361027,459596",
+                           "arrDateTime":"20140227 17:38",
+                           "arrDelay":"0",
+                           "depDelay":"-1"
+                        }
+                     }
+                  ],
+                  "frequency":{
+                     "hasFrequency":"0",
+                     "tripIndex":"0",
+                     "minTimeGap":"0",
+                     "maxTimeGap":"0",
+                     "avTimeGap":"0",
+                     "minDuration":"0",
+                     "maxDuration":"0",
+                     "avDuration":"0",
+                     "modes":[
+
+                     ]
+                  },
+                  "path":"3361962,456258 3361660,456901 3361660,456901 3361641,456938 3361635,456950 3361592,457029 3361579,457052 3361552,457095 3361545,457105 3361523,457149 3361507,457196 3361505,457246 3361396,457774 3361395,457774 3361313,458171 3361313,458171 3361149,458993 3361149,458993 3361123,459100 3361117,459140 3361105,459166 3361096,459218 3361093,459234 3361078,459306 3361063,459369 3361042,459456 3361046,459468 3361040,459498 3361034,459507 3361027,459543 3361030,459552 3361022,459573 3361013,459589"
+               }
+            ],
+            "attrs":[
+
+            ]
+         }
+      },
+      {
+         "trip":{
+            "duration":"00:07",
+            "interchange":"0",
+            "desc":"1",
+            "legs":[
+               {
+                  "points":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Hauptbahnhof",
+                        "usage":"departure",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"17:34"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1734"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F68E52.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/09289_e_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009289",
+                           "area":"14",
+                           "platform":"4",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361962,456258"
+                        }
+                     },
+                     {
+                        "name":"Essen Alfredusbad",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Alfredusbad",
+                        "usage":"arrival",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"17:41"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1741"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F68E53.pdf"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009115",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361027,459596"
+                        }
+                     }
+                  ],
+                  "mode":{
+                     "name":"Straßenbahn 101",
+                     "number":"101",
+                     "type":"4",
+                     "code":"4",
+                     "destination":"Essen Bredeney",
+                     "destID":"20009172",
+                     "desc":"",
+                     "diva":{
+                        "branch":"11",
+                        "line":"101",
+                        "supplement":" ",
+                        "dir":"H",
+                        "project":"j14",
+                        "network":"vrr",
+                        "stateless":"vrr:11101: :H:j14",
+                        "operator":"EVAG Strab",
+                        "opCode":"11"
+                     }
+                  },
+                  "stopSeq":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 4",
+                        "ref":{
+                           "id":"20009289",
+                           "area":"14",
+                           "platform":"4",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361962,456258",
+                           "depDateTime":"20140227 17:34",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Philharmonie",
+                        "nameWO":"Philharmonie",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009531",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361660,456901",
+                           "arrDateTime":"20140227 17:35",
+                           "depDateTime":"20140227 17:35",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Rüttenscheider Stern",
+                        "nameWO":"Rüttenscheider Stern",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009530",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361395,457774",
+                           "arrDateTime":"20140227 17:37",
+                           "depDateTime":"20140227 17:37",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Martinstr.",
+                        "nameWO":"Martinstr.",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009450",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361313,458171",
+                           "arrDateTime":"20140227 17:38",
+                           "depDateTime":"20140227 17:38",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Florastr.",
+                        "nameWO":"Florastr.",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009234",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361149,458993",
+                           "arrDateTime":"20140227 17:39",
+                           "depDateTime":"20140227 17:39",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Alfredusbad",
+                        "nameWO":"Alfredusbad",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009115",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361027,459596",
+                           "arrDateTime":"20140227 17:41",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     }
+                  ],
+                  "frequency":{
+                     "hasFrequency":"0",
+                     "tripIndex":"0",
+                     "minTimeGap":"0",
+                     "maxTimeGap":"0",
+                     "avTimeGap":"0",
+                     "minDuration":"0",
+                     "maxDuration":"0",
+                     "avDuration":"0",
+                     "modes":[
+
+                     ]
+                  },
+                  "path":"3361962,456258 3361660,456901 3361660,456901 3361641,456938 3361635,456950 3361592,457029 3361579,457052 3361552,457095 3361545,457105 3361523,457149 3361507,457196 3361505,457246 3361396,457774 3361395,457774 3361313,458171 3361313,458171 3361149,458993 3361149,458993 3361123,459100 3361117,459140 3361105,459166 3361096,459218 3361093,459234 3361078,459306 3361063,459369 3361042,459456 3361046,459468 3361040,459498 3361034,459507 3361027,459543 3361030,459552 3361022,459573 3361013,459589"
+               }
+            ],
+            "attrs":[
+
+            ]
+         }
+      },
+      {
+         "trip":{
+            "duration":"00:07",
+            "interchange":"0",
+            "desc":"2",
+            "legs":[
+               {
+                  "points":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Hauptbahnhof",
+                        "usage":"departure",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"17:41"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1741"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F68E54.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/09289_e_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009289",
+                           "area":"14",
+                           "platform":"4",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361962,456258"
+                        }
+                     },
+                     {
+                        "name":"Essen Alfredusbad",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Alfredusbad",
+                        "usage":"arrival",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"17:48"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1748"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F68E55.pdf"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009115",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361027,459596"
+                        }
+                     }
+                  ],
+                  "mode":{
+                     "name":"Straßenbahn 107",
+                     "number":"107",
+                     "type":"4",
+                     "code":"4",
+                     "destination":"Essen Bredeney",
+                     "destID":"20009172",
+                     "desc":"",
+                     "diva":{
+                        "branch":"11",
+                        "line":"107",
+                        "supplement":" ",
+                        "dir":"H",
+                        "project":"j14",
+                        "network":"vrr",
+                        "stateless":"vrr:11107: :H:j14",
+                        "operator":"EVAG Strab",
+                        "opCode":"11"
+                     }
+                  },
+                  "stopSeq":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 4",
+                        "ref":{
+                           "id":"20009289",
+                           "area":"14",
+                           "platform":"4",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361962,456258",
+                           "depDateTime":"20140227 17:41",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Philharmonie",
+                        "nameWO":"Philharmonie",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009531",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361660,456901",
+                           "arrDateTime":"20140227 17:42",
+                           "depDateTime":"20140227 17:42",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Rüttenscheider Stern",
+                        "nameWO":"Rüttenscheider Stern",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009530",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361395,457774",
+                           "arrDateTime":"20140227 17:44",
+                           "depDateTime":"20140227 17:44",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Martinstr.",
+                        "nameWO":"Martinstr.",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009450",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361313,458171",
+                           "arrDateTime":"20140227 17:45",
+                           "depDateTime":"20140227 17:45",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Florastr.",
+                        "nameWO":"Florastr.",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009234",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361149,458993",
+                           "arrDateTime":"20140227 17:46",
+                           "depDateTime":"20140227 17:46",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     },
+                     {
+                        "name":"Essen Alfredusbad",
+                        "nameWO":"Alfredusbad",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009115",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361027,459596",
+                           "arrDateTime":"20140227 17:48",
+                           "arrDelay":"-1",
+                           "depDelay":"-1"
+                        }
+                     }
+                  ],
+                  "frequency":{
+                     "hasFrequency":"0",
+                     "tripIndex":"0",
+                     "minTimeGap":"0",
+                     "maxTimeGap":"0",
+                     "avTimeGap":"0",
+                     "minDuration":"0",
+                     "maxDuration":"0",
+                     "avDuration":"0",
+                     "modes":[
+
+                     ]
+                  },
+                  "path":"3361962,456258 3361660,456901 3361660,456901 3361641,456938 3361635,456950 3361592,457029 3361579,457052 3361552,457095 3361545,457105 3361523,457149 3361507,457196 3361505,457246 3361396,457774 3361395,457774 3361313,458171 3361313,458171 3361149,458993 3361149,458993 3361123,459100 3361117,459140 3361105,459166 3361096,459218 3361093,459234 3361078,459306 3361063,459369 3361042,459456 3361046,459468 3361040,459498 3361034,459507 3361027,459543 3361030,459552 3361022,459573 3361013,459589"
+               }
+            ],
+            "attrs":[
+
+            ]
+         }
+      },
+      {
+         "trip":{
+            "duration":"00:07",
+            "interchange":"0",
+            "desc":"3",
+            "legs":[
+               {
+                  "points":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Hauptbahnhof",
+                        "usage":"departure",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"17:45"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1745"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F68E56.pdf"
+                           },
+                           {
+                              "name":"SM",
+                              "type":"SM",
+                              "href":"vrr/09289_e_hbf_1.htm"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009289",
+                           "area":"14",
+                           "platform":"4",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361962,456258"
+                        }
+                     },
+                     {
+                        "name":"Essen Alfredusbad",
+                        "place":"Essen",
+                        "nameWithPlace":"Essen Alfredusbad",
+                        "usage":"arrival",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "desc":"",
+                        "dateTime":{
+                           "date":"27.02.2014",
+                           "time":"17:52"
+                        },
+                        "stamp":{
+                           "date":"20140227",
+                           "time":"1752"
+                        },
+                        "links":[
+                           {
+                              "name":"RM",
+                              "type":"RM",
+                              "href":"FILELOAD?Filename=dwa_530F68E57.pdf"
+                           }
+                        ],
+                        "ref":{
+                           "id":"20009115",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361027,459596"
+                        }
+                     }
+                  ],
+                  "mode":{
+                     "name":"Straßenbahn 101",
+                     "number":"101",
+                     "type":"4",
+                     "code":"4",
+                     "destination":"Essen Bredeney",
+                     "destID":"20009172",
+                     "desc":"",
+                     "diva":{
+                        "branch":"11",
+                        "line":"101",
+                        "supplement":" ",
+                        "dir":"H",
+                        "project":"j14",
+                        "network":"vrr",
+                        "stateless":"vrr:11101: :H:j14",
+                        "operator":"EVAG Strab",
+                        "opCode":"11"
+                     }
+                  },
+                  "stopSeq":[
+                     {
+                        "name":"Essen Hauptbahnhof",
+                        "nameWO":"Hauptbahnhof",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 4",
+                        "ref":{
+                           "id":"20009289",
+                           "area":"14",
+                           "platform":"4",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361962,456258",
+                           "depDateTime":"20140227 17:44",
+                           "arrDelay":"-1",
+                           "depDelay":"1"
+                        }
+                     },
+                     {
+                        "name":"Essen Philharmonie",
+                        "nameWO":"Philharmonie",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009531",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361660,456901",
+                           "arrDateTime":"20140227 17:45",
+                           "depDateTime":"20140227 17:45",
+                           "arrDelay":"1",
+                           "depDelay":"1"
+                        }
+                     },
+                     {
+                        "name":"Essen Rüttenscheider Stern",
+                        "nameWO":"Rüttenscheider Stern",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009530",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361395,457774",
+                           "arrDateTime":"20140227 17:47",
+                           "depDateTime":"20140227 17:47",
+                           "arrDelay":"1",
+                           "depDelay":"1"
+                        }
+                     },
+                     {
+                        "name":"Essen Martinstr.",
+                        "nameWO":"Martinstr.",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009450",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361313,458171",
+                           "arrDateTime":"20140227 17:48",
+                           "depDateTime":"20140227 17:48",
+                           "arrDelay":"1",
+                           "depDelay":"1"
+                        }
+                     },
+                     {
+                        "name":"Essen Florastr.",
+                        "nameWO":"Florastr.",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009234",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361149,458993",
+                           "arrDateTime":"20140227 17:49",
+                           "depDateTime":"20140227 17:49",
+                           "arrDelay":"1",
+                           "depDelay":"1"
+                        }
+                     },
+                     {
+                        "name":"Essen Alfredusbad",
+                        "nameWO":"Alfredusbad",
+                        "place":"",
+                        "nameWithPlace":"",
+                        "omc":"5113000",
+                        "placeID":"18",
+                        "platformName":"Bstg. 2",
+                        "ref":{
+                           "id":"20009115",
+                           "area":"1",
+                           "platform":"2",
+                           "NaPTANID":"",
+                           "attrs":[
+
+                           ],
+                           "coords":"3361027,459596",
+                           "arrDateTime":"20140227 17:51",
+                           "arrDelay":"1",
+                           "depDelay":"-1"
+                        }
+                     }
+                  ],
+                  "frequency":{
+                     "hasFrequency":"0",
+                     "tripIndex":"0",
+                     "minTimeGap":"0",
+                     "maxTimeGap":"0",
+                     "avTimeGap":"0",
+                     "minDuration":"0",
+                     "maxDuration":"0",
+                     "avDuration":"0",
+                     "modes":[
+
+                     ]
+                  },
+                  "path":"3361962,456258 3361660,456901 3361660,456901 3361641,456938 3361635,456950 3361592,457029 3361579,457052 3361552,457095 3361545,457105 3361523,457149 3361507,457196 3361505,457246 3361396,457774 3361395,457774 3361313,458171 3361313,458171 3361149,458993 3361149,458993 3361123,459100 3361117,459140 3361105,459166 3361096,459218 3361093,459234 3361078,459306 3361063,459369 3361042,459456 3361046,459468 3361040,459498 3361034,459507 3361027,459543 3361030,459552 3361022,459573 3361013,459589"
+               }
+            ],
+            "attrs":[
+
+            ]
+         }
+      }
+   ]
+}

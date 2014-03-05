@@ -1,3 +1,7 @@
+git HEAD
+
+    * Route::Part: Add {arrival,departure}_{route,station}maps accessors
+
 Travel::Routing::DE::VRR 2.05 - Mon Mar 03 2014
 
     * Move all logic to Travel::Routing::DE::EFA and require an EFA url to
