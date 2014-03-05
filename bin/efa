@@ -125,6 +125,12 @@ sub display_connection {
 		}
 	}
 
+	if ( $opt->{maps} ) {
+		for my $m ( $c->departure_routemaps, $c->departure_stationmaps ) {
+			say "# $m";
+		}
+	}
+
 	printf(
 		"%-5s ab  %-30s %-20s %s\n",
 		$c->departure_time, $c->departure_stop_and_platform,
@@ -138,9 +144,8 @@ sub display_connection {
 		}
 	}
 
-	printf( "%-5s an  %s\n\n",
-		$c->arrival_time, $c->arrival_stop_and_platform,
-	);
+	printf( "%-5s an  %s\n", $c->arrival_time, $c->arrival_stop_and_platform, );
+	print "\n";
 
 	return;
 }
@@ -162,6 +167,7 @@ GetOptions(
 		full-route|f
 		help|h
 		ignore-info|I:s
+		maps|M
 		max-change|m=i
 		num-connections|n=i
 		prefer|P=s
@@ -257,6 +263,15 @@ for my $i ( 0 .. $#routes ) {
 	for my $c ( $route->parts ) {
 		display_connection($c);
 	}
+
+	# last one needs to be shown separately
+	if ( $opt->{maps} ) {
+		my $c = ( $route->parts )[-1];
+		for my $m ( $c->arrival_routemaps, $c->arrival_stationmaps ) {
+			say "# $m";
+		}
+	}
+
 	if ( $i != $#routes ) {
 		print "---------\n\n";
 	}
@@ -344,6 +359,11 @@ these are not always available.
 =item B<-m>|B<--max-change> I<number>
 
 Print connections with at most I<number> interchanges
+
+=item B<-M>|B<--maps>
+
+Output links to maps of transfer paths and transfer stations where
+available.
 
 =item B<-n>|B<--num-connections> I<number>
 
