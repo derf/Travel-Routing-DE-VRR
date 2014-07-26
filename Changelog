@@ -2,6 +2,7 @@ git HEAD
 
     * Route::Part: Add {arrival,departure}_{route,station}maps accessors
     * efa: Add -m, --maps option
+    * Fix exclude / --exclude (didn't work at all previously)
 
 Travel::Routing::DE::VRR 2.05 - Mon Mar 03 2014
 

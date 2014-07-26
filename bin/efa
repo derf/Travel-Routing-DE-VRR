@@ -216,6 +216,10 @@ if ( defined $opt->{'ignore-info'} and length( $opt->{'ignore-info'} ) == 0 ) {
 	$opt->{'ignore-info'} = undef;
 }
 
+if ( $opt->{exclude} ) {
+	$opt->{exclude} = [ split( /,/, join( ',', @{ $opt->{exclude} } ) ) ];
+}
+
 $efa = eval {
 	Travel::Routing::DE::EFA->new(
 		efa_url => $efa_url,

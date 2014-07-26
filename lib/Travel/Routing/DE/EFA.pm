@@ -132,7 +132,7 @@ sub exclude {
 		my $ok = 0;
 		for my $map_id ( 0 .. $#mapping ) {
 			if ( $exclude_type eq $mapping[$map_id] ) {
-				$self->{post}->{"inclMOT_${map_id}"} = undef;
+				delete $self->{post}->{"inclMOT_${map_id}"};
 				$ok = 1;
 			}
 		}
@@ -432,7 +432,9 @@ sub new_from_xml {
 
 	my $self = { xml_reply => $opt{xml} };
 
-	$self->{config} = { efa_url => $opt{efa_url}, };
+	$self->{config} = {
+		efa_url => $opt{efa_url},
+	};
 
 	$self->{config}->{efa_url} =~ m{
 		(?<netroot> (?<root> [^:]+ : // [^/]+ ) / [^/]+ / )
@@ -459,7 +461,8 @@ sub submit {
 
 	if ( $response->is_error ) {
 		Travel::Routing::DE::EFA::Exception::Net->throw(
-			http_response => $response, );
+			http_response => $response,
+		);
 	}
 
 	$self->{xml_reply} = $response->decoded_content;
@@ -638,8 +641,9 @@ sub parse_xml_part {
 sub parse_xml {
 	my ($self) = @_;
 
-	my $tree = $self->{tree}
-	  = XML::LibXML->load_xml( string => $self->{xml_reply}, );
+	my $tree = $self->{tree} = XML::LibXML->load_xml(
+		string => $self->{xml_reply},
+	);
 
 	#say $tree->toString(2);
 
