@@ -160,6 +160,7 @@ GetOptions(
 		bike|b
 		date|d=s
 		depart=s
+		discover|D
 		efa-url|u=s
 		exclude|e=s@
 		extended-info|E
@@ -218,6 +219,40 @@ if ( defined $opt->{'ignore-info'} and length( $opt->{'ignore-info'} ) == 0 ) {
 
 if ( $opt->{exclude} ) {
 	$opt->{exclude} = [ split( /,/, join( ',', @{ $opt->{exclude} } ) ) ];
+}
+
+if ( $opt->{discover} ) {
+	for my $pair ( Travel::Routing::DE::EFA::get_efa_urls() ) {
+		my ( $url, $name ) = @{$pair};
+		$efa = eval {
+			Travel::Routing::DE::EFA->new(
+				efa_url => $url,
+
+				origin      => [ @from, $from_type ],
+				destination => [ @to,   $to_type ],
+				via => ( @via ? [ @via, $via_type ] : undef ),
+
+				arrival_time   => $opt->{arrive},
+				departure_time => $opt->{depart} // $opt->{time},
+				date           => $opt->{date},
+				exclude        => $opt->{exclude},
+				train_type     => $opt->{include},
+				with_bike      => $opt->{bike},
+
+				select_interchange_by => $opt->{prefer},
+				use_near_stops        => $opt->{proximity},
+				walk_speed            => $opt->{'walk-speed'},
+				max_interchanges      => $opt->{'max-change'},
+				num_results           => $opt->{'num-connections'},
+
+				lwp_options => { timeout => $opt->{timeout} },
+			);
+		};
+		if ($efa) {
+			printf( "%-55s (%s)\n", $url, $name );
+		}
+	}
+	exit 0;
 }
 
 $efa = eval {
@@ -343,6 +378,12 @@ Journey date
 =item B<-b>|B<--bike>
 
 Choose connections allowing to carry a bike
+
+=item B<-D>|B<--discover>
+
+Probe all known EFA entry points for the specified connection. No routes are
+returned in this case. Instead, B<efa> will print the URLs and names of all
+entry points which did not return an error.
 
 =item B<-e>|B<--exclude> I<transports>
 

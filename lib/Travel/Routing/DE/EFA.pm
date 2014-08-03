@@ -742,6 +742,45 @@ sub routes {
 	return @{ $self->{routes} };
 }
 
+# static
+sub get_efa_urls {
+	return (
+		[
+			'http://efa.ivb.at/ivb/XSLT_TRIP_REQUEST2',
+			'Innsbrucker Verkehsbetriebe'
+		],
+		[
+			'http://efa.svv-info.at/sbs/XSLT_TRIP_REQUEST2',
+			'Salzburger Verkehrsverbund'
+		],
+		[
+			'http://efa.vor.at/wvb/XSLT_TRIP_REQUEST2',
+			'Verkehrsverbund Ost-Region'
+		],
+		[
+			'http://efaneu.vmobil.at/vvv/XSLT_TRIP_REQUEST2',
+			'Vorarlberger Verkehrsverbund'
+		],
+		[
+			'http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2',
+			'Verkehsverbund Steiermark'
+		],
+		[ 'http://www.linzag.at/static/XSLT_TRIP_REQUEST2', 'Linz AG' ],
+		[
+			'http://212.114.197.7/vgnExt_oeffi/XML_TRIP_REQUEST2',
+			'Verkehrsverbund Grossraum Nuernberb'
+		],
+		[
+			'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
+			'Verkehrsverbund Rhein-Ruhr'
+		],
+		[
+			'http://www2.vvs.de/vvs/XSLT_TRIP_REQUEST2',
+			'Verkehrsverbund Stuttgart'
+		],
+	);
+}
+
 1;
 
 __END__
@@ -954,6 +993,18 @@ The following methods act like the arguments to B<new>. See there.
 =item $efa->walk_speed(I<$speed>)
 
 =item $efa->with_bike(I<$bool>)
+
+=back
+
+=head2 STATIC METHODS
+
+=over
+
+=item Travel::Status::DE::VRR::get_efa_urls()
+
+Returns a list of known EFA entry points. Each list element is a reference to
+an array consisting of two strings. The first one is the URL (as passed to
+B<efa_url>), the second describes the entity to which this URL belongs.
 
 =back
 
