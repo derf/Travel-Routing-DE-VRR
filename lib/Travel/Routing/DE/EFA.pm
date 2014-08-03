@@ -555,6 +555,13 @@ sub parse_xml_part {
 		my @e_amap_rm = $e_arr->findnodes($xp_mapitem_rm);
 		my @e_amap_sm = $e_arr->findnodes($xp_mapitem_sm);
 
+		# not all EFA services distinguish between scheduled and realtime
+		# data. Set sdate / stime to date / time when not provided.
+		$e_dsdate //= $e_ddate;
+		$e_dstime //= $e_dtime;
+		$e_asdate //= $e_adate;
+		$e_astime //= $e_atime;
+
 		my $delay = $e_delay ? $e_delay->getAttribute('delayMinutes') : 0;
 
 		my ( @dep_rms, @dep_sms, @arr_rms, @arr_sms );

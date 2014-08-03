@@ -2,6 +2,8 @@ git HEAD
 
     * Add URLs for several austrian EFA services
       (pointed out by Gregor Herrmann)
+    * Support EFA services which do not distinguish between scheduled
+      and realtime data (pointed out by Gregor Herrmann)
 
 Travel::Routing::DE::VRR 2.06 - Sat Aug 02 2014
 
