@@ -5,6 +5,7 @@ git HEAD
     * Support EFA services which do not distinguish between scheduled
       and realtime data (also pointed out by Gregor Herrmann)
     * efa: Add -D/--discover option
+    * efa: Add -A/--auto-url option
     * Travel::Routing::DE::EFA: Add get_efa_urls method
 
 Travel::Routing::DE::VRR 2.06 - Sat Aug 02 2014
