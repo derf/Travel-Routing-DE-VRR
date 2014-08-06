@@ -498,14 +498,6 @@ Travel::Routing::DE::EFA(3pm) for alternatives.
 
 Set timeout for HTTP requests. Default: 60 seconds.
 
-=item B<--post> I<key>=I<value>
-
-Add I<key> with I<value> to the HTTP POST request sent to the EFA server.
-This can be used to use setting B<efa> does not yet cover, like
-C<--post lineRestriction=400> to also show IC and ICE trains.
-Note that B<--post> will be overridden by the standard efa options, such as
-B<--time>
-
 =item B<-v>|B<--version>
 
 Print version information

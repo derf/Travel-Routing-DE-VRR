@@ -7,6 +7,7 @@ git HEAD
     * efa: Add -D/--discover option
     * efa: Add -A/--auto-url option
     * Travel::Routing::DE::EFA: Add get_efa_urls method
+    * efa: Remove unsupported --post option from documentation
 
 Travel::Routing::DE::VRR 2.06 - Sat Aug 02 2014
 
