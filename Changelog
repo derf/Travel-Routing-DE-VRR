@@ -1,4 +1,4 @@
-git HEAD
+Travel::Routing::DE::VRR 2.07 - Fri Aug 08 2014
 
     * Add URLs for several austrian EFA services
       (pointed out by Gregor Herrmann)
@@ -7,7 +7,8 @@ git HEAD
     * efa: Add -D/--discover option
     * efa: Add -A/--auto-url option
     * Travel::Routing::DE::EFA: Add get_efa_urls method
-    * efa: Remove unsupported --post option from documentation
+    * efa: Remove --post option from documentation (it has not been supported
+      since version 1.04)
 
 Travel::Routing::DE::VRR 2.06 - Sat Aug 02 2014
 
