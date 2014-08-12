@@ -352,7 +352,7 @@ It also supports other EFA services than L<http://efa.vrr.de>.
 B<efa> has a builtin list of EFA entry points which can be used with the
 B<-A> and B<-D> options. You can also specify a custom URL using B<-u>.
 However, the default EFA service is sufficient in most cases (even ICE
-connections all over germany).
+connections all over Germany).
 
 =head1 OPTIONS
 

@@ -768,7 +768,7 @@ sub get_efa_urls {
 		[ 'http://www.linzag.at/static/XSLT_TRIP_REQUEST2', 'Linz AG' ],
 		[
 			'http://212.114.197.7/vgnExt_oeffi/XML_TRIP_REQUEST2',
-			'Verkehrsverbund Grossraum Nuernberb'
+			'Verkehrsverbund Grossraum Nuernberg'
 		],
 		[
 			'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
