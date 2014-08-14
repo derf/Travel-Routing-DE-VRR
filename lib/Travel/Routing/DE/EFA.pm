@@ -802,13 +802,13 @@ Travel::Routing::DE::EFA - unofficial interface to EFA-based itinerary services
 	for my $route ( $efa->routes ) {
 		for my $part ( $route->parts ) {
 			printf(
-				"%s at %s -> %s at %s, via %s to %s",
+				"%s at %s -> %s at %s, via %s to %s\n",
 				$part->departure_time, $part->departure_stop,
 				$part->arrival_time,   $part->arrival_stop,
 				$part->train_line,     $part->train_destination,
 			);
 		}
-		print "\n\n";
+		print "\n";
 	}
 
 =head1 VERSION
@@ -905,7 +905,7 @@ Journey start time.  Default: now
 
 =item B<date> => I<DD.MM.>[I<YYYY>]
 
-Journey date.  Default: tdoay
+Journey date.  Default: today
 
 =item B<exclude> => \@exclude
 
@@ -1000,7 +1000,7 @@ The following methods act like the arguments to B<new>. See there.
 
 =over
 
-=item Travel::Status::DE::VRR::get_efa_urls()
+=item Travel::Routing::DE::EFA::get_efa_urls()
 
 Returns a list of known EFA entry points. Each list element is a reference to
 an array consisting of two strings. The first one is the URL (as passed to

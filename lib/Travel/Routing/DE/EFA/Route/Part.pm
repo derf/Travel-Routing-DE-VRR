@@ -161,7 +161,7 @@ Scheduled arrival time in HH:MM format
 =item $part->arrival_routemaps
 
 List of URLs, may be empty. Each URL poinst to a transfer map for the arrival
-station, usually outlining fow to transfer from this train to the next one
+station, usually outlining how to transfer from this train to the next one
 (if applicable).
 
 =item $part->arrival_stationmaps
@@ -204,7 +204,7 @@ Scheduled departure time in HH:MM format
 =item $part->departure_routemaps
 
 List of URLs, may be empty. Each URL points to a PDF a transfer map for the
-departure station, usually outlining fow to transfer from thep previous train
+departure station, usually outlining how to transfer from thep previous train
 (if applicable) to this one.
 
 =item $part->departure_stationmaps
