@@ -223,11 +223,10 @@ if ( $opt->{exclude} ) {
 }
 
 if ( $opt->{discover} or $opt->{'auto-url'} ) {
-	for my $pair ( Travel::Routing::DE::EFA::get_efa_urls() ) {
-		my ( $url, $name ) = @{$pair};
+	for my $service ( Travel::Routing::DE::EFA::get_efa_urls() ) {
 		$efa = eval {
 			Travel::Routing::DE::EFA->new(
-				efa_url => $url,
+				efa_url => $service->{url},
 
 				origin      => [ @from, $from_type ],
 				destination => [ @to,   $to_type ],
@@ -253,7 +252,11 @@ if ( $opt->{discover} or $opt->{'auto-url'} ) {
 			if ( $opt->{'auto-url'} ) {
 				last;
 			}
-			printf( "%-55s (%s)\n", $url, $name );
+			printf(
+				"%s / %s (%s)\n   ->  efa -s %s %s\n\n",
+				@{$service}{qw(name shortname url shortname)},
+				join( ' ', map { "'$_'" } @ARGV ),
+			);
 		}
 	}
 	if ( $opt->{'discover'} ) {
