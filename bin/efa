@@ -169,6 +169,7 @@ GetOptions(
 		full-route|f
 		help|h
 		ignore-info|I:s
+		list|l
 		maps|M
 		max-change|m=i
 		num-connections|n=i
@@ -184,6 +185,15 @@ GetOptions(
 	},
 ) or show_help(1);
 #>>>
+
+if ( $opt->{list} ) {
+	printf( "%-40s %-14s %s\n\n", 'service', 'abbr. (efa -s)', 'url (efa -u)' );
+	for my $service ( Travel::Routing::DE::EFA::get_efa_urls() ) {
+		printf( "%-40s %-14s %s\n", @{$service}{qw(name shortname url)} );
+	}
+	exit 0;
+}
+
 if ( not( @from and @to ) ) {
 	if ( @ARGV == 4 ) {
 		( @from[ 0, 1 ], @to[ 0, 1 ] ) = @ARGV;
@@ -422,6 +432,11 @@ Display duration, ticket class and price for each route (if available)
 
 Display intermediate stops (with time and platform) of each train.  Note that
 these are not always available.
+
+=item B<-l>|B<--list>
+
+List suddorted EFA services wit their URLs (see B<-u>) and abbreviations
+(see B<-s>).
 
 =item B<-m>|B<--max-change> I<number>
 
