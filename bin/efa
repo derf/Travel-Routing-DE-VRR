@@ -535,7 +535,7 @@ If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be i
 URL to the EFA entry point, defaults to
 L<http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2>.  Depending on your location, some
 I<url>s may contain more specific data than others. See
-Travel::Routing::DE::EFA(3pm) for alternatives.
+Travel::Routing::DE::EFA(3pm) and the B<-l> option for alternatives.
 
 =item B<--timeout> I<seconds>
 
