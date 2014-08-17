@@ -14,6 +14,7 @@ use Encode qw(decode);
 use Travel::Routing::DE::EFA;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
+use List::Util qw(first);
 
 our $VERSION = '2.07';
 my $ignore_info = 'Fahrradmitnahme';
@@ -169,13 +170,14 @@ GetOptions(
 		full-route|f
 		help|h
 		ignore-info|I:s
+		include|i=s
 		list|l
 		maps|M
 		max-change|m=i
 		num-connections|n=i
 		prefer|P=s
 		proximity|p
-		include|i=s
+		service|s=s
 		time|t=s
 		timeout=i
 		to=s@{2}
@@ -230,6 +232,20 @@ if ( defined $opt->{'ignore-info'} and length( $opt->{'ignore-info'} ) == 0 ) {
 
 if ( $opt->{exclude} ) {
 	$opt->{exclude} = [ split( /,/, join( ',', @{ $opt->{exclude} } ) ) ];
+}
+
+if ( $opt->{service} ) {
+	my $service = first { $_->{shortname} eq $opt->{service} }
+	Travel::Routing::DE::EFA::get_efa_urls();
+	if ( not $service ) {
+		printf STDERR (
+			"Error: Unknown service '%s'. See 'efa -l' for a "
+			  . "list of supported service names\n",
+			$opt->{service}
+		);
+		exit 1;
+	}
+	$efa_url = $service->{url};
 }
 
 if ( $opt->{discover} or $opt->{'auto-url'} ) {
@@ -363,7 +379,8 @@ It sends the specified information to the online form and displays the results.
 
 It also supports other EFA services than L<http://efa.vrr.de>.
 B<efa> has a builtin list of EFA entry points which can be used with the
-B<-A> and B<-D> options. You can also specify a custom URL using B<-u>.
+B<-A> and B<-D> options. You can also specify a custom service using B<-u> I<url>
+or B<-s> I<name>.
 However, the default EFA service is sufficient in most cases (even ICE
 connections all over Germany).
 
@@ -435,7 +452,7 @@ these are not always available.
 
 =item B<-l>|B<--list>
 
-List suddorted EFA services wit their URLs (see B<-u>) and abbreviations
+List supported EFA services wit their URLs (see B<-u>) and abbreviations
 (see B<-s>).
 
 =item B<-m>|B<--max-change> I<number>
@@ -475,6 +492,11 @@ Prefer connections with less walking (at interchanges)
 =item B<-p>|B<--proximity>
 
 Take stops close to the stop/start into account and possibly use them instead
+
+=item B<-s>|B<--service> I<name>
+
+Shortname of the EFA entry point. See Travel::Routing::DE::EFA(3pm) and
+the B<-l> option for a list of services.
 
 =item B<-i>|B<--include> I<type>
 
