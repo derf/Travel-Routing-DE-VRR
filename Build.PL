@@ -27,5 +27,9 @@ Module::Build->new(
 		'XML::LibXML' => 0,
 	},
 	sign => 1,
-
+	meta_merge => {
+		resources => {
+			repository => 'https://github.com/derf/Travel-Routing-DE-VRR'
+		}
+	},
 )->create_build_script();
