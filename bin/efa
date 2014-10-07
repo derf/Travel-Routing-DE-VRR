@@ -189,7 +189,7 @@ GetOptions(
 #>>>
 
 if ( $opt->{list} ) {
-	printf( "%-40s %-14s %s\n\n", 'service', 'abbr. (efa -s)', 'url (efa -u)' );
+	printf( "%-40s %-14s %s\n\n", 'service', 'abbr. (-s)', 'url (-u)' );
 	for my $service ( Travel::Routing::DE::EFA::get_efa_urls() ) {
 		printf( "%-40s %-14s %s\n", @{$service}{qw(name shortname url)} );
 	}
