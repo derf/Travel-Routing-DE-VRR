@@ -235,7 +235,7 @@ if ( $opt->{exclude} ) {
 }
 
 if ( $opt->{service} ) {
-	my $service = first { $_->{shortname} eq $opt->{service} }
+	my $service = first { lc($_->{shortname}) eq lc($opt->{service}) }
 	Travel::Routing::DE::EFA::get_efa_urls();
 	if ( not $service ) {
 		printf STDERR (
