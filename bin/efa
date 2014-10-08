@@ -400,20 +400,12 @@ Arrival place
 
 Travel via this place
 
-In case you want I<stop> to be an address or "point of interest", you can set
-it to 'addr:something' or 'poi:something'.
-
-=item B<-t>|B<--time>|B<--depart> I<hh>:I<mm>
-
-Journey start time
+In all cases, if you want I<stop> to be an address or "point of interest", you
+can set it to 'addr:something' or 'poi:something'.
 
 =item B<-a>|B<--arrive> I<hh>:I<mm>
 
 Journey end time (overrides --time/--depart)
-
-=item B<-d>|B<--date> I<dd>.I<mm>.[I<yyyy>]
-
-Journey date
 
 =item B<-A>|B<--auto-url>|B<--discover-and-print>
 
@@ -428,11 +420,22 @@ EFA services under considerable additional load.
 
 Choose connections allowing to carry a bike
 
+=item B<-d>|B<--date> I<dd>.I<mm>.[I<yyyy>]
+
+Journey date
+
 =item B<-D>|B<--discover>
 
 Probe all known EFA entry points for the specified connection. No routes are
 returned in this case. Instead, B<efa> will print the URLs and names of all
 entry points which did not return an error.
+
+=item B<-u>|B<--efa-url> I<url>
+
+URL to the EFA entry point, defaults to
+L<http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2>.  Depending on your location, some
+I<url>s may contain more specific data than others. See
+Travel::Routing::DE::EFA(3pm) and the B<-l> option for alternatives.
 
 =item B<-e>|B<--exclude> I<transports>
 
@@ -450,19 +453,46 @@ Display duration, ticket class and price for each route (if available)
 Display intermediate stops (with time and platform) of each train.  Note that
 these are not always available.
 
+=item B<-I>|B<--ignore-info> [ I<regex> ]
+
+Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
+
+If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be ignored)
+
+=item B<-i>|B<--include> I<type>
+
+Include connections using trains of type I<type>, where I<type> may be:
+
+=over
+
+=item * local (default)
+
+only take local trains ("Verbund-/Nahverkehrslinien"). Slow, but the cheapest
+method if you're not travelling long distance
+
+=item * ic
+
+Local trains + IC
+
+=item * ice
+
+All trains (local + IC + ICE)
+
+=back
+
 =item B<-l>|B<--list>
 
 List supported EFA services wit their URLs (see B<-u>) and abbreviations
 (see B<-s>).
 
-=item B<-m>|B<--max-change> I<number>
-
-Print connections with at most I<number> interchanges
-
 =item B<-M>|B<--maps>
 
 Output links to maps of transfer paths and transfer stations where
 available.
+
+=item B<-m>|B<--max-change> I<number>
+
+Print connections with at most I<number> interchanges
 
 =item B<-n>|B<--num-connections> I<number>
 
@@ -498,44 +528,9 @@ Take stops close to the stop/start into account and possibly use them instead
 Shortname of the EFA entry point. See Travel::Routing::DE::EFA(3pm) and
 the B<-l> option for a list of services.
 
-=item B<-i>|B<--include> I<type>
+=item B<-t>|B<--time>|B<--depart> I<hh>:I<mm>
 
-Include connections using trains of type I<type>, where I<type> may be:
-
-=over
-
-=item * local (default)
-
-only take local trains ("Verbund-/Nahverkehrslinien"). Slow, but the cheapest
-method if you're not travelling long distance
-
-=item * ic
-
-Local trains + IC
-
-=item * ice
-
-All trains (local + IC + ICE)
-
-=back
-
-=item B<-w>|B<--walk-speed> I<speed>
-
-Set your walking speed to I<speed>.
-Accepted values: normal (default), fast, slow
-
-=item B<-I>|B<--ignore-info> [ I<regex> ]
-
-Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
-
-If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be ignored)
-
-=item B<-u>|B<--efa-url> I<url>
-
-URL to the EFA entry point, defaults to
-L<http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2>.  Depending on your location, some
-I<url>s may contain more specific data than others. See
-Travel::Routing::DE::EFA(3pm) and the B<-l> option for alternatives.
+Journey start time
 
 =item B<--timeout> I<seconds>
 
@@ -544,6 +539,11 @@ Set timeout for HTTP requests. Default: 60 seconds.
 =item B<-v>|B<--version>
 
 Print version information
+
+=item B<-w>|B<--walk-speed> I<speed>
+
+Set your walking speed to I<speed>.
+Accepted values: normal (default), fast, slow
 
 =back
 
