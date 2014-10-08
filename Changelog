@@ -1,3 +1,10 @@
+Travel::Routing::DE::VRR 2.08 - Wed Oct 08 2014
+
+    * efa: Add -l / --list option
+    * efa: Add -s / --service option
+    * Travel::Routing::DE::EFA::get_efa_urls() now returns a list of hashrefs
+    * Documentation improvements
+
 Travel::Routing::DE::VRR 2.07 - Fri Aug 08 2014
 
     * Add URLs for several austrian EFA services
