@@ -562,6 +562,30 @@ Print version information
 
 None.
 
+=head1 EXAMPLES
+
+=over
+
+=item efa Do Hbf MH Hbf
+
+Look up a connection from Dortmund (Do) Hbf to ME<uuml>lheim (MH) Hbf
+
+=item efa --include ice Essen Hbf Hamburg Dammtor
+
+Look up a connection with long-distance trains
+
+=item efa --arrive 18:00 -e zug,s-bahn -M E Wickenburgstr D Oststr
+
+Look up a connection from Essen Wickenburgstr to DE<uuml>sseldorf Oststr.
+Do not use any trains, make sure to arrive around 18:00 and print links to
+maps of all interchange stations.
+
+=item efa -s vvs Stuttgart Hbf Stuttgart Marienplatz
+
+Use the VVS (Verkehrsverbund Stuttgart) EFA service to look up a connection.
+
+=back
+
 =head1 DEPENDENCIES
 
 This script requires perl 5.10 (or higher) with the following modules:
