@@ -747,7 +747,7 @@ sub get_efa_urls {
 	return (
 		{
 			url       => 'http://efa.ivb.at/ivb/XSLT_TRIP_REQUEST2',
-			name      => 'Innsbrucker Verkehsbetriebe',
+			name      => 'Innsbrucker Verkehrsbetriebe',
 			shortname => 'IVB',
 		},
 		{
@@ -767,7 +767,7 @@ sub get_efa_urls {
 		},
 		{
 			url  => 'http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2',
-			name => 'Verkehsverbund Steiermark',
+			name => 'Verkehrsverbund Steiermark',
 			shortname => 'Verbundlinie',
 		},
 		{
@@ -784,6 +784,11 @@ sub get_efa_urls {
 			url       => 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
 			name      => 'Verkehrsverbund Rhein-Ruhr',
 			shortname => 'VRR',
+		},
+		{
+			url       => 'http://app.vrr.de/standard/XML_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Rhein-Ruhr (alternative)',
+			shortname => 'VRR2',
 		},
 		{
 			url       => 'http://www2.vvs.de/vvs/XSLT_TRIP_REQUEST2',
@@ -861,7 +866,7 @@ is not completely supported yet and may not work at all.
 
 =over
 
-=item * L<http://efa.ivb.at/ivb/XSLT_TRIP_REQUEST2> (Innsbrucker Verkehsbetriebe)
+=item * L<http://efa.ivb.at/ivb/XSLT_TRIP_REQUEST2> (Innsbrucker Verkehrsbetriebe)
 
 =item * L<http://efa.svv-info.at/sbs/XSLT_TRIP_REQUEST2> (Salzburger Verkehrsverbund)
 
@@ -869,7 +874,7 @@ is not completely supported yet and may not work at all.
 
 =item * L<http://efaneu.vmobil.at/vvv/XSLT_TRIP_REQUEST2> (Vorarlberger Verkehrsverbund)
 
-=item * L<http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2> (Verkehsverbund Steiermark) B<[!]>
+=item * L<http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2> (Verkehrsverbund Steiermark) B<[!]>
 
 =item * L<http://www.linzag.at/static/XSLT_TRIP_REQUEST2> (Linz AG) B<[!]>
 
@@ -882,6 +887,8 @@ is not completely supported yet and may not work at all.
 =item * L<http://212.114.197.7/vgnExt_oeffi/XML_TRIP_REQUEST2> (Verkehrsverbund GroE<szlig>raum NE<uuml>rnberg)
 
 =item * L<http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2> (Verkehrsverbund Rhein-Ruhr)
+
+=item * L<http://app.vrr.de/standard/XML_TRIP_REQUEST2> (Verkehrsverbund Rhein-Ruhr with support for B<--full-route>)
 
 =item * L<http://www2.vvs.de/vvs/XSLT_TRIP_REQUEST2> (Verkehrsverbund Stuttgart)
 
