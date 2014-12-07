@@ -49,13 +49,13 @@ sub handle_efa_exception {
 	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Setup') ) {
 		if ( $e->message ) {
 			printf STDERR (
-				"Error: %s (option '%s'): %s\n",
+				"User error: %s (option '%s'): %s\n",
 				$e->description, $e->option, $e->message
 			);
 		}
 		else {
 			printf STDERR (
-				"Error: %s (option '%s', got '%s', want '%s')\n",
+				"User error: %s (option '%s', got '%s', want '%s')\n",
 				$e->description, $e->option, $e->have, $e->want
 			);
 		}
@@ -63,27 +63,30 @@ sub handle_efa_exception {
 		exit 1;
 	}
 	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Net') ) {
-		printf STDERR ( "Error: %s: %s\n", $e->description,
-			$e->http_response->as_string );
+		printf STDERR (
+			"Network error: %s: %s\n",
+			$e->description, $e->http_response->as_string
+		);
 		exit 2;
 	}
 	if ( $e->isa('Travel::Routing::DE::EFA::Exception::NoData') ) {
-		printf STDERR ( "Error: %s\n", $e->description );
+		printf STDERR ( "Backend rror: %s\n", $e->description );
 		exit 3;
 	}
 	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Ambiguous') ) {
 		printf STDERR (
-			"Error: %s for key %s. Specify one of %s\n",
-			$e->description, $e->post_key, $e->possibilities
+			"Backend error: The %s '%s' is ambiguous. Try one of %s\n",
+			$e->post_key, $e->post_value,, $e->possibilities
 		);
 		exit 4;
 	}
 	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Other') ) {
-		printf STDERR ( "Error: %s: %s\n", $e->description, $e->message );
+		printf STDERR ( "Backend error: %s: %s\n", $e->description,
+			$e->message );
 		exit 5;
 	}
 
-	printf STDERR ( "Uncaught exception: %s\n%s", ref($e), $e->trace );
+	printf STDERR ( "Unknown error: %s\n%s", ref($e), $e->trace );
 	exit 10;
 }
 
@@ -235,7 +238,7 @@ if ( $opt->{exclude} ) {
 }
 
 if ( $opt->{service} ) {
-	my $service = first { lc($_->{shortname}) eq lc($opt->{service}) }
+	my $service = first { lc( $_->{shortname} ) eq lc( $opt->{service} ) }
 	Travel::Routing::DE::EFA::get_efa_urls();
 	if ( not $service ) {
 		printf STDERR (

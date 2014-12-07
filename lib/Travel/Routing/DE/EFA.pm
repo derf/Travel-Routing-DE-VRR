@@ -31,7 +31,7 @@ use Exception::Class (
 	'Travel::Routing::DE::EFA::Exception::Ambiguous' => {
 		isa         => 'Travel::Routing::DE::EFA::Exception',
 		description => 'ambiguous input',
-		fields      => [ 'post_key', 'possibilities' ],
+		fields      => [ 'post_key', 'post_value', 'possibilities' ],
 	},
 	'Travel::Routing::DE::EFA::Exception::Other' => {
 		isa         => 'Travel::Routing::DE::EFA::Exception',
@@ -687,8 +687,10 @@ sub check_ambiguous_xml {
 	my $xp_place = XML::LibXML::XPathExpression->new('./itdOdvPlace');
 	my $xp_name  = XML::LibXML::XPathExpression->new('./itdOdvName');
 
-	my $xp_place_elem = XML::LibXML::XPathExpression->new('./odvPlaceElem');
-	my $xp_name_elem  = XML::LibXML::XPathExpression->new('./odvNameElem');
+	my $xp_place_elem  = XML::LibXML::XPathExpression->new('./odvPlaceElem');
+	my $xp_place_input = XML::LibXML::XPathExpression->new('./odvPlaceInput');
+	my $xp_name_elem   = XML::LibXML::XPathExpression->new('./odvNameElem');
+	my $xp_name_input  = XML::LibXML::XPathExpression->new('./odvNameInput');
 
 	my $e_place = ( $tree->findnodes($xp_place) )[0];
 	my $e_name  = ( $tree->findnodes($xp_name) )[0];
@@ -703,7 +705,11 @@ sub check_ambiguous_xml {
 
 	if ( $s_place eq 'list' ) {
 		Travel::Routing::DE::EFA::Exception::Ambiguous->throw(
-			post_key      => 'place',
+			post_key   => 'place',
+			post_value => decode(
+				'UTF-8',
+				( $e_place->findnodes($xp_place_input) )[0]->textContent
+			),
 			possibilities => join( q{ | },
 				map { decode( 'UTF-8', $_->textContent ) }
 				  @{ $e_place->findnodes($xp_place_elem) } )
@@ -711,7 +717,10 @@ sub check_ambiguous_xml {
 	}
 	if ( $s_name eq 'list' ) {
 		Travel::Routing::DE::EFA::Exception::Ambiguous->throw(
-			post_key      => 'name',
+			post_key   => 'name',
+			post_value => decode(
+				'UTF-8', ( $e_name->findnodes($xp_name_input) )[0]->textContent
+			),
 			possibilities => join( q{ | },
 				map { decode( 'UTF-8', $_->textContent ) }
 				  @{ $e_name->findnodes($xp_name_elem) } )
