@@ -45,8 +45,8 @@ We got no parsable data from the EFA service
 =head2 Travel::Routing::DE::EFA::Exception::Ambiguous
 
 Our request contained ambiguous data. B<post_key> contains the relevant POST
-key, B<possibilities> is a comma-separated string of possible key values (as
-reported by the EFA service).
+key and B<post_value> the corresponding input value.  B<possibilities> is a
+pipe-separated string of acceptable values reported by the EFA service.
 
 =head2 Travel::Routing::DE::EFA::Exception::NoConnections
 

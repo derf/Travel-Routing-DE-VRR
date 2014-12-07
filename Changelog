@@ -1,3 +1,8 @@
+git HEAD
+
+    * Travel::Routing::DE::EFA::Exception::Ambiguous: Add post_value accessor
+      which contains the ambiguous input value
+
 Travel::Routing::DE::VRR 2.08 - Wed Oct 08 2014
 
     * efa: Add -l / --list option
