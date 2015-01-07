@@ -755,6 +755,11 @@ sub routes {
 sub get_efa_urls {
 	return (
 		{
+			url       => 'http://www.ding.eu/ding3/XSLT_TRIP_REQUEST2',
+			name      => 'Donau-Iller Nahverkehrsverbund',
+			shortname => 'DING',
+		},
+		{
 			url       => 'http://efa.ivb.at/ivb/XSLT_TRIP_REQUEST2',
 			name      => 'Innsbrucker Verkehrsbetriebe',
 			shortname => 'IVB',
