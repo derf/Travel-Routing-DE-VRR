@@ -1,7 +1,9 @@
-git HEAD
+Travel::Routing::DE::VRR 2.09 - Fri Jan 09 2015
 
     * Travel::Routing::DE::EFA::Exception::Ambiguous: Add post_value accessor
       which contains the ambiguous input value
+    * Improve error messages
+    * Add VRR2 and DING EFA services
 
 Travel::Routing::DE::VRR 2.08 - Wed Oct 08 2014
 

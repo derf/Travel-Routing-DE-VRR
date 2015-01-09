@@ -6,7 +6,7 @@ use 5.010;
 
 use parent 'Class::Accessor';
 
-our $VERSION = '2.08';
+our $VERSION = '2.09';
 
 Travel::Routing::DE::EFA::Route::Part->mk_ro_accessors(
 	qw(arrival_platform arrival_stop
@@ -110,7 +110,7 @@ points, without interchanges
 
 =head1 VERSION
 
-version 2.08
+version 2.09
 
 =head1 DESCRIPTION
 
@@ -256,7 +256,7 @@ Travel::Routing::DE::EFA(3pm), Class::Accessor(3pm).
 
 =head1 AUTHOR
 
-Copyright (C) 2011-2014 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
+Copyright (C) 2011-2015 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 

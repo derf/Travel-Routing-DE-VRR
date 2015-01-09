@@ -1,5 +1,5 @@
 #!/usr/bin/env perl
-## Copyright © 2009-2014 by Daniel Friesel <derf@finalrewind.org>
+## Copyright © 2009-2015 by Daniel Friesel <derf@finalrewind.org>
 ## License: WTFPL <http://sam.zoy.org/wtfpl>
 ##   0. You just DO WHAT THE FUCK YOU WANT TO.
 use strict;
@@ -16,7 +16,7 @@ use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
 use List::Util qw(first);
 
-our $VERSION = '2.08';
+our $VERSION = '2.09';
 my $ignore_info = 'Fahrradmitnahme';
 my $efa;
 my $efa_url = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
@@ -373,7 +373,7 @@ efa - unofficial efa.vrr.de command line client
 
 =head1 VERSION
 
-version 2.08
+version 2.09
 
 =head1 DESCRIPTION
 
@@ -616,7 +616,7 @@ to to request via -> to.
 
 =head1 AUTHOR
 
-Copyright (C) 2009-2014 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
+Copyright (C) 2009-2015 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 
