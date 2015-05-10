@@ -70,7 +70,7 @@ sub handle_efa_exception {
 		exit 2;
 	}
 	if ( $e->isa('Travel::Routing::DE::EFA::Exception::NoData') ) {
-		printf STDERR ( "Backend rror: %s\n", $e->description );
+		printf STDERR ( "Backend error: %s\n", $e->description );
 		exit 3;
 	}
 	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Ambiguous') ) {
