@@ -1,3 +1,10 @@
+git HEAD
+
+    * efa: Changed -p/--proximity default walking time from 8 to 10 minutes
+    * efa: The -p/--proximity option now takes an optional duration argument
+    * EFA: use_near_stops now accepts an integer (interpreted as walking time
+      in minutes) instead of a boolean value
+
 Travel::Routing::DE::VRR 2.09 - Fri Jan 09 2015
 
     * Travel::Routing::DE::EFA::Exception::Ambiguous: Add post_value accessor

@@ -203,9 +203,16 @@ sub train_type {
 }
 
 sub use_near_stops {
-	my ( $self, $toggle ) = @_;
+	my ( $self, $duration ) = @_;
 
-	$self->{post}->{useProxFootSearch} = $toggle;
+	if ($duration) {
+		$self->{post}->{useProxFootSearch}  = 1;
+		$self->{post}->{trITArrMOTvalue100} = $duration;
+		$self->{post}->{trITDepMOTvalue100} = $duration;
+	}
+	else {
+		$self->{post}->{useProxFootSearch} = 0;
+	}
 
 	return;
 }
@@ -337,12 +344,12 @@ sub create_post {
 		sessionID                                          => 0,
 		text                                               => 1993,
 		trITArrMOT                                         => 100,
-		trITArrMOTvalue100                                 => 8,
+		trITArrMOTvalue100                                 => 10,
 		trITArrMOTvalue101                                 => 10,
 		trITArrMOTvalue104                                 => 10,
 		trITArrMOTvalue105                                 => 10,
 		trITDepMOT                                         => 100,
-		trITDepMOTvalue100                                 => 8,
+		trITDepMOTvalue100                                 => 10,
 		trITDepMOTvalue101                                 => 10,
 		trITDepMOTvalue104                                 => 10,
 		trITDepMOTvalue105                                 => 10,
@@ -380,7 +387,7 @@ sub create_post {
 		$self->select_interchange_by( $conf->{select_interchange_by} );
 	}
 	if ( $conf->{use_near_stops} ) {
-		$self->use_near_stops(1);
+		$self->use_near_stops( $conf->{use_near_stops} );
 	}
 	if ( $conf->{train_type} ) {
 		$self->train_type( $conf->{train_type} );
@@ -960,9 +967,13 @@ EFA server is used (usually 4 or 5).
 Prefer either fast connections (default), connections with low wait time or
 connections with little distance to walk
 
-=item B<use_near_stops> => B<0>|B<1>
+=item B<use_near_stops> => I<$int>
 
-If true: Try using near stops instead of the specified origin/destination ones
+If I<$int> is a true value: Take stops close to the stop/start into account and
+possibly use them instead. Up to I<$int> minutes of walking are considered
+acceptable.
+
+Otherwise: Do not take stops close to stop/start into account.
 
 =item B<train_type> => B<local>|B<ic>|B<ice>
 
@@ -1021,7 +1032,7 @@ The following methods act like the arguments to B<new>. See there.
 
 =item $efa->train_type(I<$type>)
 
-=item $efa->use_near_stops(I<$bool>)
+=item $efa->use_near_stops(I<$duration>)
 
 =item $efa->walk_speed(I<$speed>)
 

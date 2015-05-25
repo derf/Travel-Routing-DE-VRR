@@ -179,7 +179,7 @@ GetOptions(
 		max-change|m=i
 		num-connections|n=i
 		prefer|P=s
-		proximity|p
+		proximity|p:10
 		service|s=s
 		time|t=s
 		timeout=i
@@ -522,9 +522,11 @@ Prefer connections with less walking (at interchanges)
 
 =back
 
-=item B<-p>|B<--proximity>
+=item B<-p>|B<--proximity> [I<minutes>]
 
-Take stops close to the stop/start into account and possibly use them instead
+Take stops close to the stop/start into account.  By default, up to 10 minutes
+of walking to/from the route's first/last stop is considered acceptable. You
+can specify I<minutes> to use a custem value.
 
 =item B<-s>|B<--service> I<name>
 
