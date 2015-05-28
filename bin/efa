@@ -165,6 +165,7 @@ GetOptions(
 		bike|b
 		date|d=s
 		depart=s
+		devmode
 		discover|D
 		efa-url|u=s
 		exclude|e=s@
@@ -274,7 +275,8 @@ if ( $opt->{discover} or $opt->{'auto-url'} ) {
 				max_interchanges      => $opt->{'max-change'},
 				num_results           => $opt->{'num-connections'},
 
-				lwp_options => { timeout => $opt->{timeout} },
+				developer_mode => $opt->{devmode},
+				lwp_options    => { timeout => $opt->{timeout} },
 			);
 		};
 		if ($efa) {
@@ -314,7 +316,8 @@ else {
 			max_interchanges      => $opt->{'max-change'},
 			num_results           => $opt->{'num-connections'},
 
-			lwp_options => { timeout => $opt->{timeout} },
+			developer_mode => $opt->{devmode},
+			lwp_options    => { timeout => $opt->{timeout} },
 		);
 	};
 }

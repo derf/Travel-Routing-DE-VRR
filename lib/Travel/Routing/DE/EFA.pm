@@ -659,7 +659,9 @@ sub parse_xml {
 		string => $self->{xml_reply},
 	);
 
-	#say $tree->toString(2);
+	if ( $self->{config}->{developer_mode} ) {
+		say $tree->toString(2);
+	}
 
 	my $xp_element = XML::LibXML::XPathExpression->new(
 		'//itdItinerary/itdRouteList/itdRoute');
