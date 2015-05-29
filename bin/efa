@@ -16,7 +16,7 @@ use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
 use List::Util qw(first);
 
-our $VERSION = '2.09';
+our $VERSION = '2.10';
 my $ignore_info = 'Fahrradmitnahme';
 my $efa;
 my $efa_url = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
@@ -376,7 +376,7 @@ efa - unofficial efa.vrr.de command line client
 
 =head1 VERSION
 
-version 2.09
+version 2.10
 
 =head1 DESCRIPTION
 

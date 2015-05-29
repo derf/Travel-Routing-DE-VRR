@@ -1,4 +1,4 @@
-git HEAD
+Travel::Routing::DE::VRR 2.10 - Fri May 29 2015
 
     * efa: Changed -p/--proximity default walking time from 8 to 10 minutes
     * efa: The -p/--proximity option now takes an optional duration argument
