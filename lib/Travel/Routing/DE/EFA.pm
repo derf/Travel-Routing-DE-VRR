@@ -252,9 +252,6 @@ sub place {
 		);
 	}
 
-	$place = encode( 'ISO-8859-15', $place );
-	$stop  = encode( 'ISO-8859-15', $stop );
-
 	$type //= 'stop';
 
 	@{ $self->{post} }{ "place_${which}", "name_${which}" } = ( $place, $stop );
@@ -397,6 +394,10 @@ sub create_post {
 	}
 	if ( $conf->{with_bike} ) {
 		$self->with_bike(1);
+	}
+
+	for my $val ( values %{ $self->{post} } ) {
+		$val = encode( 'ISO-8859-15', $val );
 	}
 
 	return;
