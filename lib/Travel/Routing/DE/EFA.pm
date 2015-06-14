@@ -40,7 +40,7 @@ use Exception::Class (
 	},
 );
 
-our $VERSION = '2.10';
+our $VERSION = '2.11';
 
 sub set_time {
 	my ( $self, %conf ) = @_;
@@ -855,7 +855,7 @@ Travel::Routing::DE::EFA - unofficial interface to EFA-based itinerary services
 
 =head1 VERSION
 
-version 2.10
+version 2.11
 
 =head1 DESCRIPTION
 

@@ -1,4 +1,4 @@
-git HEAD
+Travel::Routing::DE::VRR 2.11 - Sun Jun 14 2015
 
     * efa: Fix encoding issues when using -w, -t, -d, -a and similar
     * Travel::Routing::DE::EFA::Route::Part: Add train_product accessor
