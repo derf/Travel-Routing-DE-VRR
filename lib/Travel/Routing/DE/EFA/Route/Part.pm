@@ -13,7 +13,7 @@ Travel::Routing::DE::EFA::Route::Part->mk_ro_accessors(
 	  arrival_date arrival_time arrival_sdate arrival_stime delay
 	  departure_platform
 	  departure_stop departure_date departure_time departure_sdate
-	  departure_stime train_line train_destination
+	  departure_stime train_destination train_line train_product
 	  )
 );
 
@@ -219,11 +219,19 @@ newline-terminated strings
 
 =item $part->train_destination
 
-destination of the line providing the connection
+Destination of the line providing the connection. May be empty.
 
 =item $part->train_line
 
-name / number of the line
+Name / number of the line. May be empty.
+
+=item $part->train_product
+
+Usually the prefix of B<train_line>, for instance C<< U-Bahn >> or
+C<< Niederflurstrab >>. However, it may also contain special values such as
+C<< FuE<szlig>weg >> (for a direct connection without transit vehicles) or
+C<< nicht umsteigen >> (in case a vehicle changes its line number at a stop).
+In those cases, B<train_destination> and B<train_line> are usually empty.
 
 =item $part->via
 

@@ -1,6 +1,9 @@
 git HEAD
 
-    * efa: Fix odd encoding issues when using -w, -t, -d, -a and similar
+    * efa: Fix encoding issues when using -w, -t, -d, -a and similar
+    * Travel::Routing::DE::EFA::Route::Part: Add train_product accessor
+    * Improve support for walking connections
+    * Handle "nicht umsteigen" messages and other unusual connection types
 
 Travel::Routing::DE::VRR 2.10 - Fri May 29 2015
 

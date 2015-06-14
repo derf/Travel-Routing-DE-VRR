@@ -137,8 +137,10 @@ sub display_connection {
 
 	printf(
 		"%-5s ab  %-30s %-20s %s\n",
-		$c->departure_time, $c->departure_stop_and_platform,
-		$c->train_line,     $c->train_destination,
+		$c->departure_time,
+		$c->departure_stop_and_platform,
+		$c->train_line || $c->train_product,
+		$c->train_destination,
 	);
 
 	if ( $opt->{'full-route'} ) {
