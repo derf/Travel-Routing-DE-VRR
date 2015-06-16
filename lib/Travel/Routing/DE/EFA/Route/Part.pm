@@ -13,7 +13,9 @@ Travel::Routing::DE::EFA::Route::Part->mk_ro_accessors(
 	  arrival_date arrival_time arrival_sdate arrival_stime delay
 	  departure_platform
 	  departure_stop departure_date departure_time departure_sdate
-	  departure_stime train_destination train_line train_product
+	  departure_stime
+	  footpath_duration footpath_type
+	  train_destination train_line train_product
 	  )
 );
 
@@ -69,6 +71,15 @@ sub departure_stop_and_platform {
 			$self->get(qw(departure_stop departure_platform)) );
 	}
 	return $self->departure_stop;
+}
+
+sub footpath_parts {
+	my ($self) = @_;
+
+	if ( $self->{footpath_parts} ) {
+		return @{ $self->{footpath_parts} };
+	}
+	return;
 }
 
 sub extra {

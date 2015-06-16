@@ -114,6 +114,29 @@ sub check_for_error {
 	return;
 }
 
+sub format_footpath {
+	my @parts = @_;
+	my $str   = q{};
+
+	for my $path_elem (@parts) {
+		my ( $type, $level ) = @{$path_elem};
+		if ( $level eq 'UP' ) {
+			$str .= ' ↗';
+		}
+		elsif ( $level eq 'DOWN' ) {
+			$str .= ' ↘';
+		}
+		elsif ( $level eq 'LEVEL' ) {
+			$str .= ' →';
+		}
+		else {
+			$str .= " [unhandled level, please report a bug : $level]";
+		}
+	}
+
+	return $str;
+}
+
 sub display_connection {
 	my ($c) = @_;
 
@@ -152,6 +175,14 @@ sub display_connection {
 
 	printf( "%-5s an  %s\n", $c->arrival_time, $c->arrival_stop_and_platform, );
 	print "\n";
+
+	if (    $opt->{'extended-info'}
+		and $c->footpath_duration
+		and $c->footpath_type ne 'IDEST' )
+	{
+		printf( "%5d min Umsteigedauer: %s\n\n",
+			$c->footpath_duration, format_footpath( $c->footpath_parts ) );
+	}
 
 	return;
 }

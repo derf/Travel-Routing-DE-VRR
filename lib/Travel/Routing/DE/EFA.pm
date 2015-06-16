@@ -514,7 +514,10 @@ sub parse_xml_part {
 	  = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdDate');
 	my $xp_stime
 	  = XML::LibXML::XPathExpression->new('./itdDateTimeTarget/itdTime');
-	my $xp_mot   = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
+	my $xp_mot = XML::LibXML::XPathExpression->new('./itdMeansOfTransport');
+	my $xp_fp  = XML::LibXML::XPathExpression->new('./itdFootPathInfo');
+	my $xp_fp_e
+	  = XML::LibXML::XPathExpression->new('./itdFootPathInfo/itdFootPathElem');
 	my $xp_delay = XML::LibXML::XPathExpression->new('./itdRBLControlled');
 	my $xp_info
 	  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
@@ -557,11 +560,13 @@ sub parse_xml_part {
 		my $e_astime  = ( $e_arr->findnodes($xp_stime) )[0];
 		my $e_mot     = ( $e->findnodes($xp_mot) )[0];
 		my $e_delay   = ( $e->findnodes($xp_delay) )[0];
+		my $e_fp      = ( $e->findnodes($xp_fp) )[0];
 		my @e_info    = $e->findnodes($xp_info);
 		my @e_dmap_rm = $e_dep->findnodes($xp_mapitem_rm);
 		my @e_dmap_sm = $e_dep->findnodes($xp_mapitem_sm);
 		my @e_amap_rm = $e_arr->findnodes($xp_mapitem_rm);
 		my @e_amap_sm = $e_arr->findnodes($xp_mapitem_sm);
+		my @e_fp_e    = $e->findnodes($xp_fp_e);
 
 		# not all EFA services distinguish between scheduled and realtime
 		# data. Set sdate / stime to date / time when not provided.
@@ -606,6 +611,22 @@ sub parse_xml_part {
 
 		for my $key ( keys %{$hash} ) {
 			$hash->{$key} = decode( 'UTF-8', $hash->{$key} );
+		}
+
+		if ($e_fp) {
+
+			# Note that position=IDEST footpaths are coupled with a special
+			# "walking" connection, so their duration is already known and
+			# accounted for. However, we still save it here, since
+			# detecting and handling this is the API client's job (for now).
+			$hash->{footpath_type}     = $e_fp->getAttribute('position');
+			$hash->{footpath_duration} = $e_fp->getAttribute('duration');
+			for my $e (@e_fp_e) {
+				push(
+					@{ $hash->{footpath_parts} },
+					[ $e->getAttribute('type'), $e->getAttribute('level') ]
+				);
+			}
 		}
 
 		$hash->{departure_routemaps}   = \@dep_rms;
