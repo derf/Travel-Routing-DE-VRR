@@ -141,7 +141,7 @@ sub display_connection {
 	my ($c) = @_;
 
 	if ( $c->delay ) {
-		printf( "# +%d,  scheduled: %s -> %s\n",
+		printf( "# +%d,  Plan: %s -> %s\n",
 			$c->delay, $c->departure_stime, $c->arrival_stime );
 	}
 
@@ -180,7 +180,7 @@ sub display_connection {
 		and $c->footpath_duration
 		and $c->footpath_type ne 'IDEST' )
 	{
-		printf( "%5d min Umsteigedauer: %s\n\n",
+		printf( "%5d min umsteigen: %s\n\n",
 			$c->footpath_duration, format_footpath( $c->footpath_parts ) );
 	}
 
@@ -366,7 +366,7 @@ for my $i ( 0 .. $#routes ) {
 	if ( $opt->{'extended-info'} ) {
 		print '# ' . $route->duration;
 		if ( $route->ticket_type ) {
-			printf( ", class %s (%s€ / %s€)\n\n",
+			printf( ", Preisstufe %s (%s€ / %s€)\n\n",
 				$route->ticket_type, $route->fare_adult, $route->fare_child, );
 		}
 		else {
