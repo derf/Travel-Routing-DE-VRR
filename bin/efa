@@ -145,11 +145,14 @@ sub display_connection {
 			$c->delay, $c->departure_stime, $c->arrival_stime );
 	}
 
-	for my $extra ( $c->extra ) {
-
+	for my $extra ( $c->sched_info ) {
 		if ( not( length $ignore_info and $extra =~ /$ignore_info/i ) ) {
 			say "# $extra";
 		}
+	}
+
+	for my $notice ( $c->current_info ) {
+		printf( "# %s - %s\n", $notice->{subtitle}, $notice->{subject} );
 	}
 
 	if ( $opt->{maps} ) {

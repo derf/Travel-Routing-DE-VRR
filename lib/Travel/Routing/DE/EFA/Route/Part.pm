@@ -82,10 +82,29 @@ sub footpath_parts {
 	return;
 }
 
+# DEPRECATED
 sub extra {
 	my ($self) = @_;
 
-	return @{ $self->{extra} // [] };
+	return @{ $self->{sched_info} // [] };
+}
+
+sub sched_info {
+	my ($self) = @_;
+
+	if ( $self->{sched_info} ) {
+		return @{ $self->{sched_info} };
+	}
+	return;
+}
+
+sub current_info {
+	my ($self) = @_;
+
+	if ( $self->{current_info} ) {
+		return @{ $self->{current_info} };
+	}
+	return;
 }
 
 sub via {

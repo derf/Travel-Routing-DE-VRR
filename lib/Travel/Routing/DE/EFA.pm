@@ -497,6 +497,31 @@ sub itdtime_str {
 		$node->getAttribute('minute') );
 }
 
+sub parse_cur_info {
+	my ( $self, $node ) = @_;
+
+	my $xp_text     = XML::LibXML::XPathExpression->new('./infoLinkText');
+	my $xp_subject  = XML::LibXML::XPathExpression->new('./infoText/subject');
+	my $xp_subtitle = XML::LibXML::XPathExpression->new('./infoText/subtitle');
+	my $xp_content  = XML::LibXML::XPathExpression->new('./infoText/content');
+
+	my $e_text     = ( $node->findnodes($xp_text) )[0];
+	my $e_subject  = ( $node->findnodes($xp_subject) )[0];
+	my $e_subtitle = ( $node->findnodes($xp_subtitle) )[0];
+	my $e_content  = ( $node->findnodes($xp_content) )[0];
+
+	my $ret = {
+		summary  => $e_text->textContent,
+		subject  => $e_subject->textContent,
+		subtitle => $e_subtitle->textContent,
+		content  => $e_content->textContent,
+	};
+	for my $key ( keys %{$ret} ) {
+		$ret->{$key} = decode( 'UTF-8', $ret->{$key} );
+	}
+	return $ret;
+}
+
 sub parse_xml_part {
 	my ( $self, $route ) = @_;
 
@@ -519,8 +544,10 @@ sub parse_xml_part {
 	my $xp_fp_e
 	  = XML::LibXML::XPathExpression->new('./itdFootPathInfo/itdFootPathElem');
 	my $xp_delay = XML::LibXML::XPathExpression->new('./itdRBLControlled');
-	my $xp_info
-	  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem | ./infoLink/infoLinkText');
+
+	my $xp_sched_info
+	  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
+	my $xp_cur_info = XML::LibXML::XPathExpression->new('./infoLink');
 
 	my $xp_mapitem_rm = XML::LibXML::XPathExpression->new(
 		'./itdMapItemList/itdMapItem[@type="RM"]/itdImage');
@@ -561,7 +588,8 @@ sub parse_xml_part {
 		my $e_mot     = ( $e->findnodes($xp_mot) )[0];
 		my $e_delay   = ( $e->findnodes($xp_delay) )[0];
 		my $e_fp      = ( $e->findnodes($xp_fp) )[0];
-		my @e_info    = $e->findnodes($xp_info);
+		my @e_sinfo   = $e->findnodes($xp_sched_info);
+		my @e_cinfo   = $e->findnodes($xp_cur_info);
 		my @e_dmap_rm = $e_dep->findnodes($xp_mapitem_rm);
 		my @e_dmap_sm = $e_dep->findnodes($xp_mapitem_sm);
 		my @e_amap_rm = $e_arr->findnodes($xp_mapitem_rm);
@@ -662,7 +690,9 @@ sub parse_xml_part {
 			);
 		}
 
-		$hash->{extra} = [ map { decode( 'UTF-8', $_->textContent ) } @e_info ];
+		$hash->{sched_info}
+		  = [ map { decode( 'UTF-8', $_->textContent ) } @e_sinfo ];
+		$hash->{current_info} = [ map { $self->parse_cur_info($_) } @e_cinfo ];
 
 		push( @route_parts, $hash );
 	}
