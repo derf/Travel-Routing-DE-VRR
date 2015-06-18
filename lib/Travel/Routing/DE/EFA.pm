@@ -520,7 +520,7 @@ sub parse_xml_part {
 	  = XML::LibXML::XPathExpression->new('./itdFootPathInfo/itdFootPathElem');
 	my $xp_delay = XML::LibXML::XPathExpression->new('./itdRBLControlled');
 	my $xp_info
-	  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem');
+	  = XML::LibXML::XPathExpression->new('./itdInfoTextList/infoTextListElem | ./infoLink/infoLinkText');
 
 	my $xp_mapitem_rm = XML::LibXML::XPathExpression->new(
 		'./itdMapItemList/itdMapItem[@type="RM"]/itdImage');
