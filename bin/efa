@@ -485,7 +485,19 @@ schnellbus, seilbahn, schiff, ast, sonstige
 
 =item B<-E>|B<--extended-info>
 
-Display duration, ticket class and price for each route (if available)
+Display more than just the basic route information. At the moment, the
+following is displayed (if available):
+
+=over
+
+=item * Route duration
+
+=item * Ticket fare
+
+=item * transfer duration and elevation changes (via stairs / escalators)
+at each stop
+
+=back
 
 =item B<-f>|B<--full-route>
 
