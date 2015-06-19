@@ -257,6 +257,38 @@ departure station, usually outlining how to transfer from thep previous train
 List of URLs, may be empty. Each URL poinst to an HTML map of the departure
 station.
 
+=item $part->footpath_duration
+
+Walking duration when transferring before / after / during this trip
+in minutes. The meaning depends on the value of B<footpath_type>.
+
+=item $part->footpath_parts
+
+Returns a list of [I<type>, I<level>] arrayrefs describing the
+footpath. For instance, ["ESCALATOR", "UP"], ["LEVEL", "LEVEL"],
+["STAIRS", "UP"] means first taking an escalator up, then walking a while,
+and then taking a flight of stairs up again.
+
+The content of I<type> and I<level> comes directly from the EFA backend. At
+the moment, the following values are known:
+
+=over
+
+=item type: ESCALATOR, LEVEL, STAIRS
+
+=item level: DOWN, LEVEL, UP
+
+=back
+
+=item $part->footpath_type
+
+type of this footpath, passed through from the EFA backend. The value
+"AFTER" indicates a footpath (transfer) after this route part. The value
+"IDEST" indicates that this route part already is a footpath (aka a walking
+connection between two stops), so the B<footpath> accessors contain redundant
+information. Other values such as "BEFORE" may also be returned, but this is
+unknown at this point.
+
 =item $part->regular_notes
 
 Remarks about the line serving this connaction part. Returns a list of
