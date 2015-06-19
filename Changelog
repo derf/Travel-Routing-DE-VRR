@@ -1,7 +1,9 @@
 git HEAD
 
     * Route::Part: Deprecate ->extra accessor. Use ->regular_notes instead
-    * Route::Part: Add ->regular_notes and ->current_notes accessors
+    * Route::Part: Add ->regular_notes and ->current_notes accessors.
+      Note that current_notes is NOT STABLE yet. It may be change without
+      further notice.
     * Route::Part: Add ->footpath_{duration,parts,type} accessors
     * efa: Show current route information provided by the EFA backend, such
       as cancelled stops or diversions.
