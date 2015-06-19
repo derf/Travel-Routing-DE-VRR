@@ -86,23 +86,23 @@ sub footpath_parts {
 sub extra {
 	my ($self) = @_;
 
-	return @{ $self->{sched_info} // [] };
+	return @{ $self->{regular_notes} // [] };
 }
 
-sub sched_info {
+sub regular_notes {
 	my ($self) = @_;
 
-	if ( $self->{sched_info} ) {
-		return @{ $self->{sched_info} };
+	if ( $self->{regular_notes} ) {
+		return @{ $self->{regular_notes} };
 	}
 	return;
 }
 
-sub current_info {
+sub current_notes {
 	my ($self) = @_;
 
-	if ( $self->{current_info} ) {
-		return @{ $self->{current_info} };
+	if ( $self->{current_notes} ) {
+		return @{ $self->{current_notes} };
 	}
 	return;
 }

@@ -690,9 +690,9 @@ sub parse_xml_part {
 			);
 		}
 
-		$hash->{sched_info}
+		$hash->{regular_notes}
 		  = [ map { decode( 'UTF-8', $_->textContent ) } @e_sinfo ];
-		$hash->{current_info} = [ map { $self->parse_cur_info($_) } @e_cinfo ];
+		$hash->{current_notes} = [ map { $self->parse_cur_info($_) } @e_cinfo ];
 
 		push( @route_parts, $hash );
 	}
