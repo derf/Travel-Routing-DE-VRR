@@ -1,3 +1,12 @@
+git HEAD
+
+    * Route::Part: Deprecate ->extra accessor. Use ->regular_notes instead
+    * Route::Part: Add ->regular_notes and ->current_notes accessors
+    * Route::Part: Add ->footpath_{duration,parts,type} accessors
+    * efa: Show current route information provided by the EFA backend, such
+      as cancelled stops or diversions.
+    * efa -E: Show transfer walking duration when available
+
 Travel::Routing::DE::VRR 2.11 - Sun Jun 14 2015
 
     * efa: Fix encoding issues when using -w, -t, -d, -a and similar
