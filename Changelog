@@ -8,6 +8,8 @@ git HEAD
     * efa: Show current route information provided by the EFA backend, such
       as cancelled stops or diversions.
     * efa -E: Show transfer walking duration when available
+    * efa: Extend --ignore-info default (this option will probably be
+      overhauled in a future release)
 
 Travel::Routing::DE::VRR 2.11 - Sun Jun 14 2015
 
