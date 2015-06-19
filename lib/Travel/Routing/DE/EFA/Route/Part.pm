@@ -126,8 +126,11 @@ points, without interchanges
 
 	for my $part ( $route->parts ) {
 
-		if ( $part->extra ) {
-			say join( "\n", $part->extra );
+		if ( $part->regular_notes ) {
+			say join( "\n", $part->regular_notes );
+		}
+		if ( $part->current_notes ) {
+			say join( "\n", map [ $_->{summary} ] $part->current_notes );
 		}
 
 		printf(
@@ -199,6 +202,18 @@ station, usually outlining how to transfer from this train to the next one
 List of URLs, may be empty. Each URL points to an HTML map of the arrival
 station.
 
+=item $part->current_notes
+
+(NOT STABLE YET - return value may be changed without notice)
+
+Remarks about unscheduled changes to the line serving this connaction part,
+such as cancelled stops. Most times, the EFA service does not include this
+information in its route calculations.
+
+Returns a list of hashes. Each hash has the keys
+summary, subject, subtitle and content. The former three return text strings,
+while content returns HTML (also as a string).
+
 =item $part->delay
 
 delay in minutes, 0 if unknown
@@ -242,10 +257,10 @@ departure station, usually outlining how to transfer from thep previous train
 List of URLs, may be empty. Each URL poinst to an HTML map of the departure
 station.
 
-=item $part->extra
+=item $part->regular_notes
 
-Additional information about the connection.  Returns a list of
-newline-terminated strings
+Remarks about the line serving this connaction part. Returns a list of
+strings.
 
 =item $part->train_destination
 
