@@ -152,7 +152,12 @@ sub display_connection {
 	}
 
 	for my $notice ( $c->current_info ) {
-		printf( "# %s - %s\n", $notice->{subtitle}, $notice->{subject} );
+		if ( $notice->{subtitle} ne $notice->{subject} ) {
+			printf( "# %s - %s\n", $notice->{subtitle}, $notice->{subject} );
+		}
+		else {
+			printf( "# %s\n", $notice->{subtitle} );
+		}
 	}
 
 	if ( $opt->{maps} ) {
