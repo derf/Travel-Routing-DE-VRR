@@ -514,7 +514,8 @@ these are not always available.
 
 =item B<-I>|B<--ignore-info> [ I<regex> ]
 
-Ignore additional information matching I<regex> (default: /Fahrradmitnahme/)
+Ignore additional information matching I<regex>
+(default: /Fahrradmitnahme|Einstiegshilfe/)
 
 If I<regex> is not supplied, removes the default regex (-E<gt> nothing will be ignored)
 
