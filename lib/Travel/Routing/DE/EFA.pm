@@ -1042,7 +1042,9 @@ Set walk speed.  Default: B<normal>
 
 =item B<with_bike> => B<0>|B<1>
 
-If true: Prefer connections allowing passengers with bikes
+If true: Request connections allowing passengers with bikes. Note that the
+backed may return an empty result if no such connection exists or bike-support
+simply isn't known.
 
 =item B<lwp_options> => I<\%hashref>
 

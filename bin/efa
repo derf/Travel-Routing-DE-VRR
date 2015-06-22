@@ -465,7 +465,10 @@ EFA services under considerable additional load.
 
 =item B<-b>|B<--bike>
 
-Choose connections allowing to carry a bike
+Request connections allowing the passenger to take a bike with them.
+Note that this may cause B<efa> to display no routes at all -- In that case,
+the backend was unable to find such connections or didn't know about
+their bike-support.
 
 =item B<-d>|B<--date> I<dd>.I<mm>.[I<yyyy>]
 
