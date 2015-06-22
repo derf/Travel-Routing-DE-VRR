@@ -205,7 +205,7 @@ GetOptions(
 		auto-url|discover-and-print|A
 		bike|b
 		date|d=s
-		depart=s
+		depart|time|t=s
 		devmode
 		discover|D
 		efa-url|u=s
@@ -223,7 +223,6 @@ GetOptions(
 		prefer|P=s
 		proximity|p:10
 		service|s=s
-		time|t=s
 		timeout=i
 		to=s@{2}
 		version|v
@@ -239,6 +238,13 @@ if ( $opt->{list} ) {
 		printf( "%-40s %-14s %s\n", @{$service}{qw(name shortname url)} );
 	}
 	exit 0;
+}
+
+if ( $opt->{arrive} and $opt->{depart} ) {
+	print STDERR 'Note: The options -a/--arrive and -t/--time/--depart are'
+	  . " mutually exclusive\n"
+	  . "      Discarding the --arrive option\n\n";
+	delete $opt->{arrive};
 }
 
 if ( not( @from and @to ) ) {
@@ -304,7 +310,7 @@ if ( $opt->{discover} or $opt->{'auto-url'} ) {
 				via => ( @via ? [ @via, $via_type ] : undef ),
 
 				arrival_time   => $opt->{arrive},
-				departure_time => $opt->{depart} // $opt->{time},
+				departure_time => $opt->{depart},
 				date           => $opt->{date},
 				exclude        => $opt->{exclude},
 				train_type     => $opt->{include},
@@ -345,7 +351,7 @@ else {
 			via => ( @via ? [ @via, $via_type ] : undef ),
 
 			arrival_time   => $opt->{arrive},
-			departure_time => $opt->{depart} // $opt->{time},
+			departure_time => $opt->{depart},
 			date           => $opt->{date},
 			exclude        => $opt->{exclude},
 			train_type     => $opt->{include},
