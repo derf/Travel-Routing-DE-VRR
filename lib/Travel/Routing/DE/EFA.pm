@@ -9,6 +9,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 use Carp qw(cluck);
 use Encode qw(decode encode);
 use Travel::Routing::DE::EFA::Route;
+use Travel::Routing::DE::EFA::Route::Message;
 use LWP::UserAgent;
 use XML::LibXML;
 
@@ -510,16 +511,26 @@ sub parse_cur_info {
 	my $e_subtitle = ( $node->findnodes($xp_subtitle) )[0];
 	my $e_content  = ( $node->findnodes($xp_content) )[0];
 
-	my $ret = {
-		summary  => $e_text->textContent,
-		subject  => $e_subject->textContent,
-		subtitle => $e_subtitle->textContent,
-		content  => $e_content->textContent,
-	};
-	for my $key ( keys %{$ret} ) {
-		$ret->{$key} = decode( 'UTF-8', $ret->{$key} );
+	my %msg = (
+		summary     => $e_text->textContent,
+		subject     => $e_subject->textContent,
+		subtitle    => $e_subtitle->textContent,
+		raw_content => $e_content->textContent,
+	);
+	for my $key ( keys %msg ) {
+		$msg{$key} = decode( 'UTF-8', $msg{$key} );
 	}
-	return $ret;
+	return Travel::Routing::DE::EFA::Route::Message->new(%msg);
+}
+
+sub parse_reg_info {
+	my ( $self, $node ) = @_;
+
+	my %msg = (
+		summary => decode( 'UTF-8', $node->textContent ),
+	);
+
+	return Travel::Routing::DE::EFA::Route::Message->new(%msg);
 }
 
 sub parse_xml_part {
@@ -691,7 +702,7 @@ sub parse_xml_part {
 		}
 
 		$hash->{regular_notes}
-		  = [ map { decode( 'UTF-8', $_->textContent ) } @e_sinfo ];
+		  = [ map { $self->parse_reg_info($_) } @e_sinfo ];
 		$hash->{current_notes} = [ map { $self->parse_cur_info($_) } @e_cinfo ];
 
 		push( @route_parts, $hash );

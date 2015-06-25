@@ -145,18 +145,19 @@ sub display_connection {
 			$c->delay, $c->departure_stime, $c->arrival_stime );
 	}
 
-	for my $extra ( $c->regular_notes ) {
-		if ( not( length $ignore_info and $extra =~ /$ignore_info/i ) ) {
-			say "# $extra";
+	for my $note ( $c->regular_notes ) {
+		my $text = $note->summary;
+		if ( not( length $ignore_info and $text =~ /$ignore_info/i ) ) {
+			say "# $text";
 		}
 	}
 
 	for my $notice ( $c->current_notes ) {
-		if ( $notice->{subtitle} ne $notice->{subject} ) {
-			printf( "# %s - %s\n", $notice->{subtitle}, $notice->{subject} );
+		if ( $notice->subtitle ne $notice->subject ) {
+			printf( "# %s - %s\n", $notice->subtitle, $notice->subject );
 		}
 		else {
-			printf( "# %s\n", $notice->{subtitle} );
+			printf( "# %s\n", $notice->subtitle );
 		}
 	}
 

@@ -86,7 +86,9 @@ sub footpath_parts {
 sub extra {
 	my ($self) = @_;
 
-	return @{ $self->{regular_notes} // [] };
+	my @ret = map { $_->summary } @{ $self->{regular_notes} // [] };
+
+	return @ret;
 }
 
 sub regular_notes {
