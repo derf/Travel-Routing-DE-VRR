@@ -6,7 +6,7 @@ use 5.010;
 
 use parent 'Class::Accessor';
 
-our $VERSION = '2.11';
+our $VERSION = '2.12';
 
 Travel::Routing::DE::EFA::Route::Part->mk_ro_accessors(
 	qw(arrival_platform arrival_stop
@@ -145,7 +145,7 @@ points, without interchanges
 
 =head1 VERSION
 
-version 2.11
+version 2.12
 
 =head1 DESCRIPTION
 
@@ -206,15 +206,11 @@ station.
 
 =item $part->current_notes
 
-(NOT STABLE YET - return value may be changed without notice)
-
 Remarks about unscheduled changes to the line serving this connaction part,
 such as cancelled stops. Most times, the EFA service does not include this
 information in its route calculations.
 
-Returns a list of hashes. Each hash has the keys
-summary, subject, subtitle and content. The former three return text strings,
-while content returns HTML (also as a string).
+Returns a list of Travel::Routing::DE::EFA::Route::Message(3pm) objects.
 
 =item $part->delay
 
@@ -294,7 +290,7 @@ unknown at this point.
 =item $part->regular_notes
 
 Remarks about the line serving this connaction part. Returns a list of
-strings.
+Travel::Routing::DE::EFA::Route::Message(3pm) objects.
 
 =item $part->train_destination
 
@@ -339,7 +335,8 @@ $part->via does not work reliably.
 
 =head1 SEE ALSO
 
-Travel::Routing::DE::EFA(3pm), Class::Accessor(3pm).
+Travel::Routing::DE::EFA::Route::Message(3pm), Travel::Routing::DE::EFA(3pm),
+Class::Accessor(3pm).
 
 =head1 AUTHOR
 

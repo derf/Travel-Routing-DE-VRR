@@ -1,4 +1,4 @@
-git HEAD
+Travel::Routing::DE::VRR 2.12 - Thu Jun 25 2015
 
     * Route::Part: Deprecate ->extra accessor. Use ->regular_notes instead
     * Route::Part: Add ->regular_notes and ->current_notes accessors.
@@ -9,7 +9,8 @@ git HEAD
       as cancelled stops or diversions.
     * efa -E: Show transfer walking duration when available
     * efa: Extend --ignore-info default (this option will probably be
-      overhauled in a future release)
+      overhauled or removed in a future release)
+    * Add Travel::Routing::DE::EFA::Route::Message module
 
 Travel::Routing::DE::VRR 2.11 - Sun Jun 14 2015
 
