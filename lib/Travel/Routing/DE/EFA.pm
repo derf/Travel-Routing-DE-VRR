@@ -519,6 +519,7 @@ sub parse_cur_info {
 	);
 	for my $key ( keys %msg ) {
 		$msg{$key} = decode( 'UTF-8', $msg{$key} );
+		chomp($msg{$key});
 	}
 	return Travel::Routing::DE::EFA::Route::Message->new(%msg);
 }
