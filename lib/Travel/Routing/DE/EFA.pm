@@ -243,6 +243,46 @@ sub with_bike {
 	return;
 }
 
+sub without_solid_stairs {
+	my ( $self, $opt ) = @_;
+
+	$self->{post}->{noSolidStairs} = $opt;
+
+	return;
+}
+
+sub without_escalators {
+	my ( $self, $opt ) = @_;
+
+	$self->{post}->{noEscalators} = $opt;
+
+	return;
+}
+
+sub without_elevators {
+	my ( $self, $opt ) = @_;
+
+	$self->{post}->{noElevators} = $opt;
+
+	return;
+}
+
+sub with_low_platform {
+	my ( $self, $opt ) = @_;
+
+	$self->{post}->{lowPlatformVhcl} = $opt;
+
+	return;
+}
+
+sub with_wheelchair {
+	my ( $self, $opt ) = @_;
+
+	$self->{post}->{wheelchair} = $opt;
+
+	return;
+}
+
 sub place {
 	my ( $self, $which, $place, $stop, $type ) = @_;
 
@@ -271,75 +311,75 @@ sub create_post {
 	my @now  = localtime( time() );
 
 	$self->{post} = {
-		changeSpeed                                        => 'normal',
-		command                                            => q{},
-		execInst                                           => q{},
-		imparedOptionsActive                               => 1,
-		inclMOT_0                                          => 'on',
-		inclMOT_1                                          => 'on',
-		inclMOT_10                                         => 'on',
-		inclMOT_11                                         => 'on',
-		inclMOT_2                                          => 'on',
-		inclMOT_3                                          => 'on',
-		inclMOT_4                                          => 'on',
-		inclMOT_5                                          => 'on',
-		inclMOT_6                                          => 'on',
-		inclMOT_7                                          => 'on',
-		inclMOT_8                                          => 'on',
-		inclMOT_9                                          => 'on',
-		includedMeans                                      => 'checkbox',
-		itOptionsActive                                    => 1,
-		itdDateDay                                         => $now[3],
-		itdDateMonth                                       => $now[4] + 1,
-		itdDateYear                                        => $now[5] + 1900,
-		itdTimeHour                                        => $now[2],
-		itdTimeMinute                                      => $now[1],
-		itdTripDateTimeDepArr                              => 'dep',
-		language                                           => 'de',
-		lineRestriction                                    => 403,
-		maxChanges                                         => 9,
-		nameInfo_destination                               => 'invalid',
-		nameInfo_origin                                    => 'invalid',
-		nameInfo_via                                       => 'invalid',
-		nameState_destination                              => 'empty',
-		nameState_origin                                   => 'empty',
-		nameState_via                                      => 'empty',
-		name_destination                                   => q{},
-		name_origin                                        => q{},
-		name_via                                           => q{},
-		nextDepsPerLeg                                     => 1,
-		outputFormat                                       => 'XML',
-		placeInfo_destination                              => 'invalid',
-		placeInfo_origin                                   => 'invalid',
-		placeInfo_via                                      => 'invalid',
-		placeState_destination                             => 'empty',
-		placeState_origin                                  => 'empty',
-		placeState_via                                     => 'empty',
-		place_destination                                  => q{},
-		place_origin                                       => q{},
-		place_via                                          => q{},
-		ptOptionsActive                                    => 1,
-		requestID                                          => 0,
-		routeType                                          => 'LEASTTIME',
-		sessionID                                          => 0,
-		text                                               => 1993,
-		trITArrMOT                                         => 100,
-		trITArrMOTvalue100                                 => 10,
-		trITArrMOTvalue101                                 => 10,
-		trITArrMOTvalue104                                 => 10,
-		trITArrMOTvalue105                                 => 10,
-		trITDepMOT                                         => 100,
-		trITDepMOTvalue100                                 => 10,
-		trITDepMOTvalue101                                 => 10,
-		trITDepMOTvalue104                                 => 10,
-		trITDepMOTvalue105                                 => 10,
-		typeInfo_destination                               => 'invalid',
-		typeInfo_origin                                    => 'invalid',
-		typeInfo_via                                       => 'invalid',
-		type_destination                                   => 'stop',
-		type_origin                                        => 'stop',
-		type_via                                           => 'stop',
-		useRealtime                                        => 1
+		changeSpeed            => 'normal',
+		command                => q{},
+		execInst               => q{},
+		imparedOptionsActive   => 1,
+		inclMOT_0              => 'on',
+		inclMOT_1              => 'on',
+		inclMOT_10             => 'on',
+		inclMOT_11             => 'on',
+		inclMOT_2              => 'on',
+		inclMOT_3              => 'on',
+		inclMOT_4              => 'on',
+		inclMOT_5              => 'on',
+		inclMOT_6              => 'on',
+		inclMOT_7              => 'on',
+		inclMOT_8              => 'on',
+		inclMOT_9              => 'on',
+		includedMeans          => 'checkbox',
+		itOptionsActive        => 1,
+		itdDateDay             => $now[3],
+		itdDateMonth           => $now[4] + 1,
+		itdDateYear            => $now[5] + 1900,
+		itdTimeHour            => $now[2],
+		itdTimeMinute          => $now[1],
+		itdTripDateTimeDepArr  => 'dep',
+		language               => 'de',
+		lineRestriction        => 403,
+		maxChanges             => 9,
+		nameInfo_destination   => 'invalid',
+		nameInfo_origin        => 'invalid',
+		nameInfo_via           => 'invalid',
+		nameState_destination  => 'empty',
+		nameState_origin       => 'empty',
+		nameState_via          => 'empty',
+		name_destination       => q{},
+		name_origin            => q{},
+		name_via               => q{},
+		nextDepsPerLeg         => 1,
+		outputFormat           => 'XML',
+		placeInfo_destination  => 'invalid',
+		placeInfo_origin       => 'invalid',
+		placeInfo_via          => 'invalid',
+		placeState_destination => 'empty',
+		placeState_origin      => 'empty',
+		placeState_via         => 'empty',
+		place_destination      => q{},
+		place_origin           => q{},
+		place_via              => q{},
+		ptOptionsActive        => 1,
+		requestID              => 0,
+		routeType              => 'LEASTTIME',
+		sessionID              => 0,
+		text                   => 1993,
+		trITArrMOT             => 100,
+		trITArrMOTvalue100     => 10,
+		trITArrMOTvalue101     => 10,
+		trITArrMOTvalue104     => 10,
+		trITArrMOTvalue105     => 10,
+		trITDepMOT             => 100,
+		trITDepMOTvalue100     => 10,
+		trITDepMOTvalue101     => 10,
+		trITDepMOTvalue104     => 10,
+		trITDepMOTvalue105     => 10,
+		typeInfo_destination   => 'invalid',
+		typeInfo_origin        => 'invalid',
+		typeInfo_via           => 'invalid',
+		type_destination       => 'stop',
+		type_origin            => 'stop',
+		type_via               => 'stop',
+		useRealtime            => 1
 	};
 
 	$self->place( 'origin',      @{ $conf->{origin} } );
@@ -377,6 +417,21 @@ sub create_post {
 	}
 	if ( $conf->{with_bike} ) {
 		$self->with_bike(1);
+	}
+	if ( $conf->{with_low_platform} ) {
+		$self->with_low_platform(1);
+	}
+	if ( $conf->{with_wheelchair} ) {
+		$self->with_wheelchair(1);
+	}
+	if ( $conf->{without_solid_stairs} ) {
+		$self->without_solid_stairs(1);
+	}
+	if ( $conf->{without_escalators} ) {
+		$self->without_escalators(1);
+	}
+	if ( $conf->{without_elevators} ) {
+		$self->without_elevators(1);
 	}
 
 	for my $val ( values %{ $self->{post} } ) {
@@ -501,7 +556,7 @@ sub parse_cur_info {
 	);
 	for my $key ( keys %msg ) {
 		$msg{$key} = decode( 'UTF-8', $msg{$key} );
-		chomp($msg{$key});
+		chomp( $msg{$key} );
 	}
 	return Travel::Routing::DE::EFA::Route::Message->new(%msg);
 }
