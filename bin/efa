@@ -20,6 +20,7 @@ our $VERSION = '2.12';
 my $ignore_info = 'Fahrradmitnahme|Einstiegshilfe';
 my $efa;
 my $efa_url = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
+my %accessibility;
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
 my $opt = {
 	'efa-url'     => \$efa_url,
@@ -202,6 +203,7 @@ sub display_connection {
 GetOptions(
 	$opt,
 	qw{
+		accessibility|x=s@
 		arrive|a=s
 		auto-url|discover-and-print|A
 		bike|b
@@ -232,6 +234,19 @@ GetOptions(
 	},
 ) or show_help(1);
 #>>>
+
+@{ $opt->{accessibility} }
+  = split( qr{,}, join( q{,}, @{ $opt->{accessibility} } ) );
+
+for my $field ( @{ $opt->{accessibility} } ) {
+	given ($field) {
+		when ( [qw[s no-stairs]] )       { $opt->{without_solid_stairs} = 1 }
+		when ( [qw[e no-escalators]] )   { $opt->{without_escalators}   = 1 }
+		when ( [qw[E no-elevators]] )    { $opt->{without_elevators}    = 1 }
+		when ( [qw[l nf low-platform]] ) { $opt->{with_low_platform}    = 1 }
+		when ( [qw[w wheelchair]] )      { $opt->{with_wheelchair}      = 1 }
+	}
+}
 
 if ( $opt->{list} ) {
 	printf( "%-40s %-14s %s\n\n", 'service', 'abbr. (-s)', 'url (-u)' );
@@ -323,6 +338,12 @@ if ( $opt->{discover} or $opt->{'auto-url'} ) {
 				max_interchanges      => $opt->{'max-change'},
 				num_results           => $opt->{'num-connections'},
 
+				without_solid_stairs => $opt->{without_solid_stairs},
+				without_escalators   => $opt->{without_escalators},
+				without_elevators    => $opt->{without_elevators},
+				with_low_platform    => $opt->{with_low_platform},
+				with_wheelchair      => $opt->{with_wheelchair},
+
 				developer_mode => $opt->{devmode},
 				lwp_options    => { timeout => $opt->{timeout} },
 			);
@@ -363,6 +384,12 @@ else {
 			walk_speed            => $opt->{'walk-speed'},
 			max_interchanges      => $opt->{'max-change'},
 			num_results           => $opt->{'num-connections'},
+
+			without_solid_stairs => $opt->{without_solid_stairs},
+			without_escalators   => $opt->{without_escalators},
+			without_elevators    => $opt->{without_elevators},
+			with_low_platform    => $opt->{with_low_platform},
+			with_wheelchair      => $opt->{with_wheelchair},
 
 			developer_mode => $opt->{devmode},
 			lwp_options    => { timeout => $opt->{timeout} },
