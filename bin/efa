@@ -235,8 +235,10 @@ GetOptions(
 ) or show_help(1);
 #>>>
 
-@{ $opt->{accessibility} }
-  = split( qr{,}, join( q{,}, @{ $opt->{accessibility} } ) );
+if ( $opt->{accessibility} ) {
+	@{ $opt->{accessibility} }
+	= split( qr{,}, join( q{,}, @{ $opt->{accessibility} } ) );
+}
 
 for my $field ( @{ $opt->{accessibility} } ) {
 	given ($field) {
