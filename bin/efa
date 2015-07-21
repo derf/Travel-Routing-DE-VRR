@@ -657,6 +657,49 @@ Print version information
 Set your walking speed to I<speed>.
 Accepted values: normal (default), fast, slow
 
+=item B<-x>|B<--accessibility> I<types>
+
+Request connections satisfying all of the specified accessibility I<types>
+(comma-separated list, option may be repeated). Please note that this may cause
+the backend to return no results at all, either because no such connection
+exists or because the required lines do not have the correct accessibility
+attributes set.
+
+The following I<types> are supported:
+
+=over
+
+=item e / no-escalators
+
+Transfers must be possible without taking an escalator.
+
+=item E / no-elevators
+
+Transferst must be possible without using an elevator.
+
+=item i / info
+
+Does not restrict the requested connections. However, this option causes
+B<efa> to display additional accessibility information for each route part
+(where available). When B<-x w> or B<-x l> do not return any connections,
+using B<-x i> might be more helpful (though it cannot guarantee that any of
+the results satisfy the respective type).
+
+=item l / nf / low-platform
+
+All vehicles must be low-platform ("Niederflur").
+
+=item s / no-stairs
+
+Transfers must be possible without stairs (e.g. via escalators/elevators or
+ramps).
+
+=item w / wheelchair
+
+All vehicles must be wheelchair accessible.
+
+=back
+
 =back
 
 =head1 EXIT STATUS
