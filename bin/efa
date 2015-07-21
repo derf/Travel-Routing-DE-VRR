@@ -207,6 +207,7 @@ GetOptions(
 		arrive|a=s
 		auto-url|discover-and-print|A
 		bike|b
+		bike-info|B
 		date|d=s
 		depart|time|t=s
 		devmode
@@ -282,8 +283,11 @@ if ( not defined $ignore_info ) {
 	$ignore_info = join(
 		q{|},
 		grep { defined } (
-			@{$opt->{accessibility}} ? undef : 'Einstiegshilfe',
-			$opt->{bike}          ? undef : 'Fahrradmitnahme',
+			@{ $opt->{accessibility} } ? undef : 'Einstiegshilfe',
+			(
+				     $opt->{bike}
+				  or $opt->{'bike-info'}
+			) ? undef : 'Fahrradmitnahme',
 		)
 	);
 }
@@ -516,6 +520,13 @@ Request connections allowing the passenger to take a bike with them.
 Note that this may cause B<efa> to display no routes at all -- In that case,
 the backend was unable to find such connections or didn't know about
 their bike-support.
+
+=item B<-B>|B<--bike-info>
+
+Show information about bike support, but do not select routes based on it.
+In essence, this option simply changes the B<--ignore-info> default. It is
+useful when B<--bike> did not return any routes even though most of the
+route has bike support.
 
 =item B<-d>|B<--date> I<dd>.I<mm>.[I<yyyy>]
 
