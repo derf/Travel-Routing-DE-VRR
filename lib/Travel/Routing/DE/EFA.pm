@@ -1095,6 +1095,31 @@ If true: Request connections allowing passengers with bikes. Note that the
 backed may return an empty result if no such connection exists or bike-support
 simply isn't known.
 
+=item B<with_low_platform> => B<0>|B<1>
+
+If true: Request connections which only use low-platform ("Niederflur")
+vehicles. Note that the backed will return an empty result if no such
+connection exists.
+
+=item B<with_wheelchair> => B<0>|B<1>
+
+If true: Request connections which are wheelchair-accessible. Again, note that
+the backend may return an empty result if no such connection exists or
+wheelchair-support isn't known.
+
+=item B<without_elevators> => B<0>|B<1>
+
+If true: Request that transfers do not require usage of elevators.
+
+=item B<without_escalators> => B<0>|B<1>
+
+If true: Request that transfers do not require usage of escalators.
+
+=item B<without_solid_stairs> => B<0>|B<1>
+
+If true: Request that transfers do not require stairs to be taken (i.e.
+ramps, escalators, elevators or similar must be available).
+
 =item B<lwp_options> => I<\%hashref>
 
 Options to pass to C<< LWP::UserAgent->new >>.
