@@ -1,4 +1,4 @@
-git HEAD
+Travel::Routing::DE::VRR 2.13 - Thu Jul 23 2015
 
     * efa: Add -a / --accessibility option
     * efa: Add -B / --bike-info option

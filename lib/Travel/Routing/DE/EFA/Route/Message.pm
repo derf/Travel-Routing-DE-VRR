@@ -6,7 +6,7 @@ use 5.010;
 
 use parent 'Class::Accessor';
 
-our $VERSION = '2.12';
+our $VERSION = '2.13';
 
 Travel::Routing::DE::EFA::Route::Message->mk_ro_accessors(
 	qw(is_detailed summary subject subtitle raw_content));
@@ -58,7 +58,7 @@ route or route part.
 
 =head1 VERSION
 
-version 2.12
+version 2.13
 
 =head1 DESCRIPTION
 
