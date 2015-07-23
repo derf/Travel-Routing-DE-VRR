@@ -1,3 +1,11 @@
+git HEAD
+
+    * efa: Add -a / --accessibility option
+    * efa: Add -B / --bike-info option
+    * efa: Change --ignore-info default to ignore less when -a / -B is set
+    * EFA->new: Add boolean config options with_low_platform, with_wheelchair,
+      without_elevators, without_escalators and without_solid_stairs
+
 Travel::Routing::DE::VRR 2.12 - Thu Jun 25 2015
 
     * Route::Part: Deprecate ->extra accessor. Use ->regular_notes instead
