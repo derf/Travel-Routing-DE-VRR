@@ -20,7 +20,6 @@ our $VERSION = '2.12';
 my $ignore_info;
 my $efa;
 my $efa_url = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
-my %accessibility;
 my ( @from, @to, @via, $from_type, $to_type, $via_type );
 my $opt = {
 	'efa-url'     => \$efa_url,
