@@ -648,7 +648,7 @@ Prefer connections with less walking (at interchanges)
 
 Take stops close to the stop/start into account.  By default, up to 10 minutes
 of walking to/from the route's first/last stop is considered acceptable. You
-can specify I<minutes> to use a custem value.
+can specify I<minutes> to use a custom value.
 
 =item B<-s>|B<--service> I<name>
 
@@ -690,7 +690,7 @@ Transfers must be possible without taking an escalator.
 
 =item E / no-elevators
 
-Transferst must be possible without using an elevator.
+Transfers must be possible without using an elevator.
 
 =item i / info
 

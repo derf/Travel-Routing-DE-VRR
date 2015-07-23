@@ -1081,7 +1081,7 @@ Otherwise: Do not take stops close to stop/start into account.
 
 =item B<train_type> => B<local>|B<ic>|B<ice>
 
-Include only local trains into itinarery (default), all but ICEs, or all.
+Include only local trains into itinerary (default), all but ICEs, or all.
 
 The latter two are usually way more expensive for short routes.
 
