@@ -240,6 +240,11 @@ if ( $opt->{accessibility} ) {
 	@{ $opt->{accessibility} }
 	  = split( qr{,}, join( q{,}, @{ $opt->{accessibility} } ) );
 }
+else {
+	# GetOptions seems to implicitly initialize $opt->{accessibility} to an
+	# empty arrayref, but it's best not to rely on that.
+	$opt->{accessibility} = [];
+}
 
 for my $field ( @{ $opt->{accessibility} } ) {
 	given ($field) {
