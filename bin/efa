@@ -283,6 +283,10 @@ else {
 	$opt->{accessibility} = [];
 }
 
+if ( $opt->{exclude} ) {
+	@{ $opt->{exclude} } = split( qr{,}, join( q{,}, @{ $opt->{exclude} } ) );
+}
+
 for my $field ( @{ $opt->{accessibility} } ) {
 	given ($field) {
 		when ( [qw[s no-stairs]] )       { $opt->{without_solid_stairs} = 1 }
@@ -309,18 +313,6 @@ if ( $opt->{arrive} and $opt->{depart} ) {
 	delete $opt->{arrive};
 }
 
-if ( not( @from and @to ) ) {
-	if ( @ARGV == 4 ) {
-		( @from[ 0, 1 ], @to[ 0, 1 ] ) = @ARGV;
-	}
-	elsif ( @ARGV == 6 ) {
-		( @from[ 0, 1 ], @via[ 0, 1 ], @to[ 0, 1 ] ) = @ARGV;
-	}
-	else {
-		show_help(1);
-	}
-}
-
 if ( not defined $ignore_info ) {
 	$ignore_info = join(
 		q{|},
@@ -332,6 +324,21 @@ if ( not defined $ignore_info ) {
 			) ? undef : 'Fahrradmitnahme',
 		)
 	);
+}
+elsif ( defined $ignore_info and length($ignore_info) == 0 ) {
+	$ignore_info = undef;
+}
+
+if ( not( @from and @to ) ) {
+	if ( @ARGV == 4 ) {
+		( @from[ 0, 1 ], @to[ 0, 1 ] ) = @ARGV;
+	}
+	elsif ( @ARGV == 6 ) {
+		( @from[ 0, 1 ], @via[ 0, 1 ], @to[ 0, 1 ] ) = @ARGV;
+	}
+	else {
+		show_help(1);
+	}
 }
 
 for my $pair ( [ \@from, \$from_type ], [ \@via, \$via_type ],
@@ -350,14 +357,6 @@ for my $pair ( [ \@from, \$from_type ], [ \@via, \$via_type ],
 			default       { ${ $pair->[1] } = $+{type} }
 		}
 	}
-}
-
-if ( defined $opt->{'ignore-info'} and length( $opt->{'ignore-info'} ) == 0 ) {
-	$opt->{'ignore-info'} = undef;
-}
-
-if ( $opt->{exclude} ) {
-	$opt->{exclude} = [ split( qr{,}, join( q{,}, @{ $opt->{exclude} } ) ) ];
 }
 
 if ( $opt->{service} ) {
