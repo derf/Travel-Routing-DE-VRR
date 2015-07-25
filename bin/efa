@@ -6,7 +6,7 @@ use strict;
 use warnings;
 use 5.010;
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
+no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
 use utf8;
 
@@ -135,6 +135,44 @@ sub format_footpath {
 	}
 
 	return $str;
+}
+
+sub display_routes {
+	my (@routes) = @_;
+
+	for my $i ( 0 .. $#routes ) {
+
+		my $route = $routes[$i];
+
+		if ( $opt->{'extended-info'} ) {
+			print '# ' . $route->duration;
+			if ( $route->ticket_type ) {
+				printf( ", Preisstufe %s (%s€ / %s€)\n\n",
+					$route->ticket_type, $route->fare_adult,
+					$route->fare_child, );
+			}
+			else {
+				print "\n\n";
+			}
+		}
+
+		for my $c ( $route->parts ) {
+			display_connection($c);
+		}
+
+		# last one needs to be shown separately
+		if ( $opt->{maps} ) {
+			my $c = ( $route->parts )[-1];
+			for my $m ( $c->arrival_routemaps, $c->arrival_stationmaps ) {
+				say "# $m";
+			}
+		}
+
+		if ( $i != $#routes ) {
+			print "---------\n\n";
+		}
+	}
+	return;
 }
 
 sub display_connection {
@@ -319,7 +357,7 @@ if ( defined $opt->{'ignore-info'} and length( $opt->{'ignore-info'} ) == 0 ) {
 }
 
 if ( $opt->{exclude} ) {
-	$opt->{exclude} = [ split( /,/, join( ',', @{ $opt->{exclude} } ) ) ];
+	$opt->{exclude} = [ split( qr{,}, join( q{,}, @{ $opt->{exclude} } ) ) ];
 }
 
 if ( $opt->{service} ) {
@@ -376,7 +414,7 @@ if ( $opt->{discover} or $opt->{'auto-url'} ) {
 			printf(
 				"%s / %s (%s)\n   ->  efa -s %s %s\n\n",
 				@{$service}{qw(name shortname url shortname)},
-				join( ' ', map { "'$_'" } @ARGV ),
+				join( q{ }, map { "'$_'" } @ARGV ),
 			);
 		}
 	}
@@ -422,37 +460,7 @@ check_for_error($@);
 
 my @routes = $efa->routes;
 
-for my $i ( 0 .. $#routes ) {
-
-	my $route = $routes[$i];
-
-	if ( $opt->{'extended-info'} ) {
-		print '# ' . $route->duration;
-		if ( $route->ticket_type ) {
-			printf( ", Preisstufe %s (%s€ / %s€)\n\n",
-				$route->ticket_type, $route->fare_adult, $route->fare_child, );
-		}
-		else {
-			print "\n\n";
-		}
-	}
-
-	for my $c ( $route->parts ) {
-		display_connection($c);
-	}
-
-	# last one needs to be shown separately
-	if ( $opt->{maps} ) {
-		my $c = ( $route->parts )[-1];
-		for my $m ( $c->arrival_routemaps, $c->arrival_stationmaps ) {
-			say "# $m";
-		}
-	}
-
-	if ( $i != $#routes ) {
-		print "---------\n\n";
-	}
-}
+display_routes( $efa->routes );
 
 __END__
 
