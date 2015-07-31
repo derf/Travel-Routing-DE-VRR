@@ -1,3 +1,8 @@
+git HEAD
+
+    * Remove support for the STV / Verbundlinie Steiermark EFA entry point
+      (returns data with broken encoding)
+
 Travel::Routing::DE::VRR 2.13 - Thu Jul 23 2015
 
     * efa: Add -a / --accessibility option

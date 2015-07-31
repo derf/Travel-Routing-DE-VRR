@@ -890,11 +890,13 @@ sub get_efa_urls {
 			name      => 'Vorarlberger Verkehrsverbund',
 			shortname => 'VVV',
 		},
-		{
-			url  => 'http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2',
-			name => 'Verkehrsverbund Steiermark',
-			shortname => 'Verbundlinie',
-		},
+
+		# Returns broken Unicode which makes Encode::decode die()
+		#{
+		#	url  => 'http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2',
+		#	name => 'Verkehrsverbund Steiermark',
+		#	shortname => 'Verbundlinie',
+		#},
 		{
 			url       => 'http://www.linzag.at/static/XSLT_TRIP_REQUEST2',
 			name      => 'Linz AG',
@@ -999,9 +1001,10 @@ is not completely supported yet and may not work at all.
 
 =item * L<http://efaneu.vmobil.at/vvv/XSLT_TRIP_REQUEST2> (Vorarlberger Verkehrsverbund)
 
-=item * L<http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2> (Verkehrsverbund Steiermark) B<[!]>
-
 =item * L<http://www.linzag.at/static/XSLT_TRIP_REQUEST2> (Linz AG) B<[!]>
+
+=item * The STV / Verkehrsverbund Steiermark is not supported since it returns
+data with broken encoding
 
 =back
 
