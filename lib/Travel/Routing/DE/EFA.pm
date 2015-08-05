@@ -922,6 +922,31 @@ sub get_efa_urls {
 			name      => 'Verkehrsverbund Stuttgart',
 			shortname => 'VVS',
 		},
+		{
+			url => 'http://delfi1.vvo-online.de:8080/delfi3/XSLT_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Oberelbe',
+			shortname => 'VVO',
+		},
+		{
+			url       => 'http://delfi.vrn.de/delfi/XSLT_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Rhein-Neckar (DELFI)',
+			shortname => 'VRNdelfi',
+		},
+		{
+			url  => 'http://fahrplanauskunft.vrn.de/vrn/XSLT_TRIP_REQUEST2',
+			name => 'Verkehrsverbund Rhein-Neckar',
+			shortname => 'VRN',
+		},
+#		{
+#			url => 'http://www.efa-bw.de/nvbw/XSLT_TRIP_REQUEST2',
+#			name => 'Nahverkehrsgesellschaft Baden-Württemberg',
+#			shortname => 'NVBW',
+#		},
+		{
+			url       => 'http://80.146.180.107/vmv/XSLT_TRIP_REQUEST2',
+			name      => 'Verkehrsgesellschaft Mecklenburg-Vorpommern',
+			shortname => 'VMV',
+		},
 	);
 }
 
