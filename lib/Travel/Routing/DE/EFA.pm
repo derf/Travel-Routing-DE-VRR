@@ -937,15 +937,26 @@ sub get_efa_urls {
 			name => 'Verkehrsverbund Rhein-Neckar',
 			shortname => 'VRN',
 		},
-#		{
-#			url => 'http://www.efa-bw.de/nvbw/XSLT_TRIP_REQUEST2',
-#			name => 'Nahverkehrsgesellschaft Baden-Württemberg',
-#			shortname => 'NVBW',
-#		},
 		{
 			url       => 'http://80.146.180.107/vmv/XSLT_TRIP_REQUEST2',
 			name      => 'Verkehrsgesellschaft Mecklenburg-Vorpommern',
 			shortname => 'VMV',
+		},
+		{
+			url       => 'http://213.144.24.66/kvv2/XML_TRIP_REQUEST2',
+			name      => 'Karlsruher Verkehrsverbund',
+			shortname => 'KVV',
+		},
+		{
+			url =>
+			  'http://www.travelineeastmidlands.co.uk/em/XSLT_TRIP_REQUEST2',
+			name      => 'Traveline East Midlands',
+			shortname => 'TLEM',
+		},
+		{
+			url       => 'http://mobil.vbl.ch/vblmobil/XML_TRIP_REQUEST2',
+			name      => 'Verkehrsbetriebe Luzern',
+			shortname => 'VBL',
 		},
 	);
 }
