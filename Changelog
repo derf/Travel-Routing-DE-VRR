@@ -1,7 +1,8 @@
-git HEAD
+Travel::Routing::DE::VRR 2.14 - Mon Oct 19 2015
 
     * Remove support for the STV / Verbundlinie Steiermark EFA entry point
       (returns data with broken encoding)
+    * Add VVO, VRN, VMV, KVV, TLEM and VBL EFA entry points
 
 Travel::Routing::DE::VRR 2.13 - Thu Jul 23 2015
 
