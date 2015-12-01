@@ -25,3 +25,11 @@ See also the Module::Build documentation.
 
 You can then run 'man Travel::Routing::DE::EFA'.
 This distribution also ships the script 'efa', see 'man efa'.
+
+See also
+--------
+
+* https://github.com/ysangkok/console-transit-trip-planner
+  Uses the querying library for Öffi, which is a very popular transit
+  planning app for Android. Thus has support for non-EFA providers.
+  More heavy-weight (Java/RoboVM), yields a 23 MB ELF executable.
