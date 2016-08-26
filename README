@@ -17,8 +17,17 @@ Dependencies
 Installation
 ------------
 
+From a release tarball:
+
 $ perl Build.PL
 $ ./Build
+$ sudo ./Build install
+
+From git:
+
+$ perl Build.PL
+$ ./Build
+$ ./Build manifest
 $ sudo ./Build install
 
 See also the Module::Build documentation.
