@@ -441,7 +441,7 @@ __END__
 
 =head1 NAME
 
-efa - unofficial efa.vrr.de command line client
+efa - Command line client for EFA-based public transit routing services
 
 =head1 SYNOPSIS
 
@@ -459,15 +459,16 @@ version 2.14
 
 =head1 DESCRIPTION
 
-B<efa> is a command line client for the L<http://efa.vrr.de> web interface.
-It sends the specified information to the online form and displays the results.
+B<efa> is a command line client for EFA-based public transit routing
+interfaces, e.g. L<http://efa.vrr.de>.  B<efa> requests connections between two
+points and displays the results.
 
-It also supports other EFA services than L<http://efa.vrr.de>.  B<efa> has a
-builtin list of EFA entry points which can be probed with the B<-A> and B<-D>
-options and listed with B<-l>. You can also specify a custom service using
-B<-u> I<url> or B<-s> I<name>.
-However, the default EFA service is sufficient in most cases (even ICE
-connections all over Germany).
+By default, the EFA service at L<http://efa.vrr.de> (operated by
+Verkehrsverbund Rhein-Ruhr) is used, which supports most places in Germany.
+A list of all supported EFA instances can be retrieved with B<-l> and a custom
+instance can be selected using B<-s> I<service> or B<-u> I<url>. It is also
+possible to probe all known EFA services for a specific connection using the
+B<-A> and B<-D> options.
 
 =head1 OPTIONS
 
