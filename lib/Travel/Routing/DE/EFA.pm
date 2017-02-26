@@ -958,6 +958,11 @@ sub get_efa_urls {
 			name      => 'Verkehrsbetriebe Luzern',
 			shortname => 'VBL',
 		},
+		{
+			url       => 'http://bsvg.efa.de/bsvagstd/XML_TRIP_REQUEST2',
+			name      => 'Braunschweiger Verkehrs-GmbH',
+			shortname => 'BSVG',
+		},
 	);
 }
 
