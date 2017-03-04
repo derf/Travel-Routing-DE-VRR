@@ -885,11 +885,6 @@ sub get_efa_urls {
 			name      => 'Verkehrsverbund Ost-Region',
 			shortname => 'VOR',
 		},
-		{
-			url       => 'http://efaneu.vmobil.at/vvv/XSLT_TRIP_REQUEST2',
-			name      => 'Vorarlberger Verkehrsverbund',
-			shortname => 'VVV',
-		},
 
 		# Returns broken Unicode which makes Encode::decode die()
 		#{
@@ -913,7 +908,7 @@ sub get_efa_urls {
 			shortname => 'VRR',
 		},
 		{
-			url       => 'http://app.vrr.de/standard/XML_TRIP_REQUEST2',
+			url       => 'http://app.vrr.de/vrrstd/XML_TRIP_REQUEST2',
 			name      => 'Verkehrsverbund Rhein-Ruhr (alternative)',
 			shortname => 'VRR2',
 		},
@@ -933,7 +928,7 @@ sub get_efa_urls {
 			shortname => 'VRNdelfi',
 		},
 		{
-			url  => 'http://fahrplanauskunft.vrn.de/vrn/XSLT_TRIP_REQUEST2',
+			url  => 'http://fahrplanauskunft.vrn.de/vrn/XML_TRIP_REQUEST2',
 			name => 'Verkehrsverbund Rhein-Neckar',
 			shortname => 'VRN',
 		},
