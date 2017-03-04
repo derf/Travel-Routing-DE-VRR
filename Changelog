@@ -1,3 +1,11 @@
+Travel::Routing::DE::VRR 2.15 - Sat Mar 04 2017
+
+    * Remove support for Vorarlberger Verkehrsverbund (VVV) backend
+      (no longer working, apparently superseded by non-EFA software)
+    * Update EFA URLs for Verkehrsverbund Rhein-Ruhr (VRR2) and
+      Verkehrsverbund Rhein-Neckar (VRN) backends
+    * Add support for Braunschweiger Verkehrs-GmbH (BSVG)
+
 Travel::Routing::DE::VRR 2.14 - Mon Oct 19 2015
 
     * Remove support for the STV / Verbundlinie Steiermark EFA entry point
