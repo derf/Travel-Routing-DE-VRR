@@ -21,7 +21,7 @@ Additional methods:
 
 =item $exception->option
 
-The option in which the error occured.
+The option in which the error occurred.
 
 =item $exception->have
 
