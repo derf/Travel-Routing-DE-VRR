@@ -5,7 +5,6 @@ use 5.010;
 
 use utf8;
 
-use Encode qw(decode);
 use File::Slurp qw(slurp);
 use Test::More tests => 82;
 
@@ -56,7 +55,7 @@ is_deeply( [ $c0->departure_routemaps ], ['http://efa.vrr.de/vrr/FILELOAD?Filena
 is_deeply( [ $c0->departure_stationmaps ], [], 'r0,0: departure_stationmaps');
 is_deeply( [ $c0->arrival_routemaps ], ['http://efa.vrr.de/vrr/FILELOAD?Filename=dwa_4ED23486D.pdf'], 'r0,0: arrival_routemaps');
 is_deeply( [ $c0->arrival_stationmaps ], ['http://efa.vrr.de/download/envmaps/vrr/09289_e_hbf_1.htm'], 'r0,0: arrival_stationmaps');
-is( $c0->train_line, decode( 'UTF-8', 'Straßenbahn 107' ), 'r0,0: line' );
+is( $c0->train_line, 'Straßenbahn 107', 'r0,0: line' );
 is( $c0->train_destination,  'Essen Hanielstr. Schleife', 'r0,0: dest' );
 is( $c0->departure_stop,     'Essen Alfredusbad',         'r0,0: dstop' );
 is( $c0->departure_platform, 'Bstg. 1',                   'r0,0: dplatf' );
@@ -85,7 +84,7 @@ is_deeply( ($c0->via)[0],
 is( $c1->delay, 3, 'r0,1: delay' );
 is_deeply(
 	[ $c1->extra ],
-	[ decode( 'UTF-8', 'Fahrradmitnahme begrenzt möglich' ) ],
+	[ 'Fahrradmitnahme begrenzt möglich' ],
 	'r0,1: extra'
 );
 is_deeply( [ $c1->departure_routemaps ], ['http://efa.vrr.de/vrr/FILELOAD?Filename=dwa_4ED23486D.pdf'], 'r0,0: departure_routemaps');
@@ -105,11 +104,11 @@ is( $c1->departure_date,  '27.11.2011', 'r0,1: drdate' );
 is( $c1->departure_sdate, '27.11.2011', 'r0,1: dsdate' );
 is( $c1->departure_time,  '14:12',      'r0,1: drtime' );
 is( $c1->departure_stime, '14:09',      'r0,1: dstime' );
-is( $c1->arrival_stop, decode( 'UTF-8', 'Düsseldorf Hbf' ), 'r0,1: astop' );
+is( $c1->arrival_stop, 'Düsseldorf Hbf', 'r0,1: astop' );
 is( $c1->arrival_platform, 'Gleis 16', 'r0,1: aplatf' );
 is(
 	$c1->arrival_stop_and_platform,
-	decode( 'UTF-8', 'Düsseldorf Hbf: Gleis 16' ),
+	'Düsseldorf Hbf: Gleis 16',
 	'r0,1: asp'
 );
 is( $c1->arrival_date,  '27.11.2011', 'r0,1: ardate' );

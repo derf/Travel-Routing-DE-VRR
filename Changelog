@@ -1,3 +1,7 @@
+git HEAD
+
+    * Fix encoding issues caused by recent API changes
+
 Travel::Routing::DE::VRR 2.15 - Sat Mar 04 2017
 
     * Remove support for Vorarlberger Verkehrsverbund (VVV) backend

@@ -7,7 +7,7 @@ use 5.010;
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 use Carp qw(cluck);
-use Encode qw(decode encode);
+use Encode qw(encode);
 use Travel::Routing::DE::EFA::Route;
 use Travel::Routing::DE::EFA::Route::Message;
 use LWP::UserAgent;
@@ -435,7 +435,7 @@ sub create_post {
 	}
 
 	for my $val ( values %{ $self->{post} } ) {
-		$val = encode( 'ISO-8859-15', $val );
+		$val = encode( 'UTF-8', $val );
 	}
 
 	return;
@@ -555,7 +555,6 @@ sub parse_cur_info {
 		raw_content => $e_content->textContent,
 	);
 	for my $key ( keys %msg ) {
-		$msg{$key} = decode( 'UTF-8', $msg{$key} );
 		chomp( $msg{$key} );
 	}
 	return Travel::Routing::DE::EFA::Route::Message->new(%msg);
@@ -565,7 +564,7 @@ sub parse_reg_info {
 	my ( $self, $node ) = @_;
 
 	my %msg = (
-		summary => decode( 'UTF-8', $node->textContent ),
+		summary => $node->textContent,
 	);
 
 	return Travel::Routing::DE::EFA::Route::Message->new(%msg);
@@ -686,10 +685,6 @@ sub parse_xml_part {
 			arrival_platform   => $e_arr->getAttribute('platformName'),
 		};
 
-		for my $key ( keys %{$hash} ) {
-			$hash->{$key} = decode( 'UTF-8', $hash->{$key} );
-		}
-
 		if ($e_fp) {
 
 			# Note that position=IDEST footpaths are coupled with a special
@@ -721,7 +716,7 @@ sub parse_xml_part {
 				next;
 			}
 
-			my $name = decode( 'UTF-8', $ve->getAttribute('name') );
+			my $name     = $ve->getAttribute('name');
 			my $platform = $ve->getAttribute('platformName');
 
 			if ( $name ~~ [ $hash->{departure_stop}, $hash->{arrival_stop} ] ) {
@@ -816,25 +811,21 @@ sub check_ambiguous_xml {
 
 	if ( $s_place eq 'list' ) {
 		Travel::Routing::DE::EFA::Exception::Ambiguous->throw(
-			post_key   => 'place',
-			post_value => decode(
-				'UTF-8',
-				( $e_place->findnodes($xp_place_input) )[0]->textContent
-			),
+			post_key => 'place',
+			post_value =>
+			  ( $e_place->findnodes($xp_place_input) )[0]->textContent,
 			possibilities => join( q{ | },
-				map { decode( 'UTF-8', $_->textContent ) }
+				map { $_->textContent }
 				  @{ $e_place->findnodes($xp_place_elem) } )
 		);
 	}
 	if ( $s_name eq 'list' ) {
 		Travel::Routing::DE::EFA::Exception::Ambiguous->throw(
-			post_key   => 'name',
-			post_value => decode(
-				'UTF-8', ( $e_name->findnodes($xp_name_input) )[0]->textContent
-			),
+			post_key => 'name',
+			post_value =>
+			  ( $e_name->findnodes($xp_name_input) )[0]->textContent,
 			possibilities => join( q{ | },
-				map { decode( 'UTF-8', $_->textContent ) }
-				  @{ $e_name->findnodes($xp_name_elem) } )
+				map { $_->textContent } @{ $e_name->findnodes($xp_name_elem) } )
 		);
 	}
 
@@ -928,8 +919,8 @@ sub get_efa_urls {
 			shortname => 'VRNdelfi',
 		},
 		{
-			url  => 'http://fahrplanauskunft.vrn.de/vrn/XML_TRIP_REQUEST2',
-			name => 'Verkehrsverbund Rhein-Neckar',
+			url       => 'http://fahrplanauskunft.vrn.de/vrn/XML_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Rhein-Neckar',
 			shortname => 'VRN',
 		},
 		{
