@@ -1,4 +1,4 @@
-git HEAD
+Travel::Routing::DE::VRR 2.16 - Wed Jul 05 2017
 
     * Fix encoding issues caused by recent API changes
 
