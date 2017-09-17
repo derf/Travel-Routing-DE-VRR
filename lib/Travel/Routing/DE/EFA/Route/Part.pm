@@ -82,6 +82,15 @@ sub footpath_parts {
 	return;
 }
 
+sub is_cancelled {
+	my ($self) = @_;
+
+	if ( $self->{delay} and $self->{delay} eq '-9999' ) {
+		return 1;
+	}
+	return;
+}
+
 # DEPRECATED
 sub extra {
 	my ($self) = @_;
@@ -286,6 +295,12 @@ type of this footpath, passed through from the EFA backend. The value
 connection between two stops), so the B<footpath> accessors contain redundant
 information. Other values such as "BEFORE" may also be returned, but this is
 unknown at this point.
+
+=item $part->is_cancelled
+
+Returns true if this part of the route has been cancelled (i.e., the entire
+route is probably useless), false otherwise.  For unknown reasons, EFA may
+sometimes return routes which contain cancelled departures.
 
 =item $part->regular_notes
 

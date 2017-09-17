@@ -214,7 +214,10 @@ sub display_routes {
 sub display_connection {
 	my ($c) = @_;
 
-	if ( $c->delay ) {
+	if ( $c->is_cancelled ) {
+		say '# FAHRT FÄLLT AUS';
+	}
+	elsif ( $c->delay ) {
 		printf( "# +%d,  Plan: %s -> %s\n",
 			$c->delay, $c->departure_stime, $c->arrival_stime );
 	}
