@@ -93,6 +93,13 @@ sub date {
 
 	my ( $day, $month, $year ) = split( /[.]/, $date );
 
+	if ( $date eq 'tomorrow' ) {
+		( undef, undef, undef, $day, $month, $year )
+		  = localtime( time + 86400 );
+		$month += 1;
+		$year  += 1900;
+	}
+
 	if (
 		not(    defined $day
 			and length($day)
@@ -1079,7 +1086,7 @@ Journey start time.  Default: now
 
 =item B<date> => I<DD.MM.>[I<YYYY>]
 
-Journey date.  Default: today
+Journey date.  Also accepts the string B<tomorrow>.  Default: today
 
 =item B<exclude> => \@exclude
 

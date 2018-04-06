@@ -521,7 +521,7 @@ route has bike support.
 
 =item B<-d>|B<--date> I<dd>.I<mm>.[I<yyyy>]
 
-Journey date
+Journey date. Also accepts the shortcut B<tomorrow>.
 
 =item B<-D>|B<--discover>
 
