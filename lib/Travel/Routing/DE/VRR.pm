@@ -6,7 +6,7 @@ use 5.010;
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
-our $VERSION = '2.16';
+our $VERSION = '2.17';
 
 use parent 'Travel::Routing::DE::EFA';
 
@@ -50,7 +50,7 @@ Travel::Routing::DE::VRR - unofficial interface to the efa.vrr.de German itinera
 
 =head1 VERSION
 
-version 2.16
+version 2.17
 
 =head1 DESCRIPTION
 

@@ -1,3 +1,8 @@
+Travel::Routing::DE::VRR 2.17 - Mon Apr 09 2018
+
+    * Handle routes containing cancelled connections
+    * Allow date to be specified as 'tomorrow'
+
 Travel::Routing::DE::VRR 2.16 - Wed Jul 05 2017
 
     * Fix encoding issues caused by recent API changes
