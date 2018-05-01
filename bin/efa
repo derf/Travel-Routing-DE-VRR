@@ -85,8 +85,9 @@ sub handle_efa_exception {
 	if ( $e->isa('Travel::Routing::DE::EFA::Exception::Setup') ) {
 		if ( $e->message ) {
 			printf STDERR (
-				"User error: %s (option '%s'): %s\n",
-				$e->description, $e->option, $e->message
+				"User error: %s (option '%s'): %s%s\n",
+				$e->description, $e->option, $e->message,
+				$e->have ? q{ "} . $e->have . q{"} : q{},
 			);
 		}
 		else {

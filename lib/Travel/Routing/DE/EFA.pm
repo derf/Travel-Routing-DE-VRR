@@ -839,13 +839,15 @@ sub check_ambiguous_xml {
 	if ( $s_place eq 'notidentified' ) {
 		Travel::Routing::DE::EFA::Exception::Setup->throw(
 			option => 'place',
-			error  => 'unknown place (typo?)'
+			error  => 'unknown place',
+			have   => ( $e_place->findnodes($xp_place_input) )[0]->textContent,
 		);
 	}
 	if ( $s_name eq 'notidentified' ) {
 		Travel::Routing::DE::EFA::Exception::Setup->throw(
 			option => 'name',
-			error  => 'unknown name (typo?)'
+			error  => 'unknown name',
+			have   => ( $e_name->findnodes($xp_name_input) )[0]->textContent,
 		);
 	}
 
