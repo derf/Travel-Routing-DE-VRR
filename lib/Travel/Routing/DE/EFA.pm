@@ -938,11 +938,6 @@ sub get_efa_urls {
 			shortname => 'VMV',
 		},
 		{
-			url       => 'http://213.144.24.66/kvv2/XML_TRIP_REQUEST2',
-			name      => 'Karlsruher Verkehrsverbund',
-			shortname => 'KVV',
-		},
-		{
 			url =>
 			  'http://www.travelineeastmidlands.co.uk/em/XSLT_TRIP_REQUEST2',
 			name      => 'Traveline East Midlands',
