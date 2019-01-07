@@ -595,7 +595,7 @@ All trains (local + IC + ICE)
 
 =item B<-l>|B<--list>
 
-List supported EFA services wit their URLs (see B<-u>) and abbreviations
+List supported EFA services with their URLs (see B<-u>) and abbreviations
 (see B<-s>).
 
 =item B<-M>|B<--maps>
