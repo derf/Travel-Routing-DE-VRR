@@ -885,6 +885,11 @@ sub get_efa_urls {
 			name      => 'Verkehrsverbund Ost-Region',
 			shortname => 'VOR',
 		},
+		{
+			url  => 'https://projekte.kvv-efa.de/sl3-alone/XSLT_TRIP_REQUEST2',
+			name => 'Karlsruher Verkehrsverbund',
+			shortname => 'KVV',
+		},
 
 		# Returns broken Unicode which makes Encode::decode die()
 		#{
