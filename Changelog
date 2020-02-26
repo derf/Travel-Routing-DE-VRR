@@ -1,3 +1,7 @@
+Travel::Routing::DE::VRR 2.18 - Wed Feb 26 2020
+
+    * Update KVV EFA URL
+
 Travel::Routing::DE::VRR 2.17 - Mon Apr 09 2018
 
     * Handle routes containing cancelled connections
