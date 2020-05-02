@@ -1284,8 +1284,8 @@ None known.
 
 =head1 AUTHOR
 
-Copyright (C) 2009-2018 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
+Copyright (C) 2009-2020 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 
-  0. You just DO WHAT THE FUCK YOU WANT TO.
+This program is licensed under the same terms as Perl itself.
