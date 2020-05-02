@@ -864,84 +864,48 @@ sub routes {
 
 # static
 sub get_efa_urls {
+
+	# sorted lexically by shortname
 	return (
 		{
-			url       => 'http://www.ding.eu/ding3/XSLT_TRIP_REQUEST2',
+			url       => 'https://bsvg.efa.de/bsvagstd/XML_TRIP_REQUEST2',
+			name      => 'Braunschweiger Verkehrs-GmbH',
+			shortname => 'BSVG',
+		},
+		{
+			url       => 'https://www.ding.eu/ding3/XSLT_TRIP_REQUEST2',
 			name      => 'Donau-Iller Nahverkehrsverbund',
 			shortname => 'DING',
-		},
-		{
-			url       => 'http://efa.ivb.at/ivb/XSLT_TRIP_REQUEST2',
-			name      => 'Innsbrucker Verkehrsbetriebe',
-			shortname => 'IVB',
-		},
-		{
-			url       => 'http://efa.svv-info.at/sbs/XSLT_TRIP_REQUEST2',
-			name      => 'Salzburger Verkehrsverbund',
-			shortname => 'SVV',
-		},
-		{
-			url       => 'http://efa.vor.at/wvb/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Ost-Region',
-			shortname => 'VOR',
 		},
 		{
 			url  => 'https://projekte.kvv-efa.de/sl3-alone/XSLT_TRIP_REQUEST2',
 			name => 'Karlsruher Verkehrsverbund',
 			shortname => 'KVV',
 		},
-
-		# Returns broken Unicode which makes Encode::decode die()
-		#{
-		#	url  => 'http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2',
-		#	name => 'Verkehrsverbund Steiermark',
-		#	shortname => 'Verbundlinie',
-		#},
 		{
-			url       => 'http://www.linzag.at/static/XSLT_TRIP_REQUEST2',
+			url       => 'https://www.linzag.at/static/XSLT_TRIP_REQUEST2',
 			name      => 'Linz AG',
 			shortname => 'LinzAG',
 		},
 		{
-			url       => 'http://212.114.197.7/vgnExt_oeffi/XML_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Grossraum Nuernberg',
-			shortname => 'VGN',
+			url  => 'https://efa.mvv-muenchen.de/mobile/XSLT_TRIP_REQUEST2',
+			name => 'Münchner Verkehrs- und Tarifverbund',
+			shortname => 'MVV',
 		},
 		{
-			url       => 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Rhein-Ruhr',
-			shortname => 'VRR',
+			url       => 'https://www.efa-bw.de/nvbw/XSLT_TRIP_REQUEST2',
+			name      => 'Nahverkehrsgesellschaft Baden-Württemberg',
+			shortname => 'NVBW',
 		},
+
+		# HTTPS not supported
 		{
-			url       => 'http://app.vrr.de/vrrstd/XML_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Rhein-Ruhr (alternative)',
-			shortname => 'VRR2',
+			url       => 'http://efa.svv-info.at/sbs/XSLT_TRIP_REQUEST2',
+			name      => 'Salzburger Verkehrsverbund',
+			shortname => 'SVV',
 		},
-		{
-			url       => 'http://www2.vvs.de/vvs/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Stuttgart',
-			shortname => 'VVS',
-		},
-		{
-			url => 'http://delfi1.vvo-online.de:8080/delfi3/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Oberelbe',
-			shortname => 'VVO',
-		},
-		{
-			url       => 'http://delfi.vrn.de/delfi/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Rhein-Neckar (DELFI)',
-			shortname => 'VRNdelfi',
-		},
-		{
-			url       => 'http://fahrplanauskunft.vrn.de/vrn/XML_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Rhein-Neckar',
-			shortname => 'VRN',
-		},
-		{
-			url       => 'http://80.146.180.107/vmv/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsgesellschaft Mecklenburg-Vorpommern',
-			shortname => 'VMV',
-		},
+
+		# HTTPS: invalid certificate
 		{
 			url =>
 			  'http://www.travelineeastmidlands.co.uk/em/XSLT_TRIP_REQUEST2',
@@ -949,14 +913,70 @@ sub get_efa_urls {
 			shortname => 'TLEM',
 		},
 		{
+			url       => 'https://efa.vagfr.de/vagfr3/XSLT_TRIP_REQUEST2',
+			name      => 'Freiburger Verkehrs AG',
+			shortname => 'VAG',
+		},
+
+		# HTTPS: unsupported protocol
+		{
 			url       => 'http://mobil.vbl.ch/vblmobil/XML_TRIP_REQUEST2',
 			name      => 'Verkehrsbetriebe Luzern',
 			shortname => 'VBL',
 		},
+
+		# HTTPS not supported
 		{
-			url       => 'http://bsvg.efa.de/bsvagstd/XML_TRIP_REQUEST2',
-			name      => 'Braunschweiger Verkehrs-GmbH',
-			shortname => 'BSVG',
+			url  => 'http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2',
+			name => 'Verkehrsverbund Steiermark',
+			shortname => 'Verbundlinie',
+		},
+		{
+			url       => 'https://efa.vgn.de/vgnExt_oeffi/XML_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Grossraum Nuernberg',
+			shortname => 'VGN',
+		},
+
+		# HTTPS: certificate verification fails
+		{
+			url       => 'http://efa.vmv-mbh.de/vmv/XML_TRIP_REQUEST2',
+			name      => 'Verkehrsgesellschaft Mecklenburg-Vorpommern',
+			shortname => 'VMV',
+		},
+		{
+			url       => 'https://efa.vor.at/wvb/XSLT_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Ost-Region',
+			shortname => 'VOR',
+			encoding  => 'iso-8859-15',
+		},
+
+		# HTTPS not spported
+		{
+			url       => 'http://fahrplanauskunft.vrn.de/vrn/XML_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Rhein-Neckar',
+			shortname => 'VRN',
+		},
+		{
+			url       => 'https://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Rhein-Ruhr',
+			shortname => 'VRR',
+		},
+		{
+			url       => 'https://app.vrr.de/vrrstd/XML_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Rhein-Ruhr (alternative)',
+			shortname => 'VRR2',
+		},
+
+		# HTTPS not supported
+		{
+			url       => 'http://efa.vvo-online.de:8080/dvb/XSLT_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Oberelbe',
+			shortname => 'VVO',
+		},
+		{
+			url       => 'https://www2.vvs.de/vvs/XSLT_TRIP_REQUEST2',
+			name      => 'Verkehrsverbund Stuttgart',
+			shortname => 'VVS',
 		},
 	);
 }
