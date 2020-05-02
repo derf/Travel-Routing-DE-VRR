@@ -1,10 +1,8 @@
 #!/usr/bin/env perl
-## Copyright © 2009-2015 by Daniel Friesel <derf@finalrewind.org>
-## License: WTFPL <http://sam.zoy.org/wtfpl>
-##   0. You just DO WHAT THE FUCK YOU WANT TO.
 use strict;
 use warnings;
 use 5.010;
+use utf8;
 
 no if $] >= 5.018, warnings => 'experimental::smartmatch';
 
@@ -330,10 +328,10 @@ if ( $opt->{exclude} ) {
 for my $field ( @{ $opt->{accessibility} } ) {
 	given ($field) {
 		when ( [qw[s no-stairs]] )       { $opt->{without_solid_stairs} = 1 }
-		when ( [qw[e no-escalators]] )   { $opt->{without_escalators}   = 1 }
-		when ( [qw[E no-elevators]] )    { $opt->{without_elevators}    = 1 }
-		when ( [qw[l nf low-platform]] ) { $opt->{with_low_platform}    = 1 }
-		when ( [qw[w wheelchair]] )      { $opt->{with_wheelchair}      = 1 }
+		when ( [qw[e no-escalators]] )   { $opt->{without_escalators} = 1 }
+		when ( [qw[E no-elevators]] )    { $opt->{without_elevators} = 1 }
+		when ( [qw[l nf low-platform]] ) { $opt->{with_low_platform} = 1 }
+		when ( [qw[w wheelchair]] )      { $opt->{with_wheelchair} = 1 }
 		when ( [qw[i info]] ) { }    # used for ignore_info default
 	}
 }
@@ -771,8 +769,8 @@ to to request via -> to.
 
 =head1 AUTHOR
 
-Copyright (C) 2009-2018 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
+Copyright (C) 2009-2020 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 
-  0. You just DO WHAT THE FUCK YOU WANT TO.
+This program is licensed under the same terms as Perl itself.
