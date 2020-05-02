@@ -1,3 +1,15 @@
+Travel::Routing::DE::VRR 2.19 - Sat May 02 2020
+
+    * Switch from WTFPL to Perl license (GPL 1+ or Artistic)
+    * Update VVO (Verkehrsverbund Oberelbe), VMV (Verkehrsgesellschaft
+      Mecklenburg-Vorpommern) and VGN (Verkehrsverbund Grossraum Nürnberg)
+      EFA urls
+    * Add VAG (Freiburger Verkehrs AG), MVV (Münchner Verkehrs- und
+      Tarifverbund), NVBW (Nahverkehrsgesellschaft Baden-Württemberg) services
+    * Re-add Verbundlinie (Verkehrsverbund Steiermark) service
+    * Remove IVB (Innsbrucker Verkehrsbetriebe) and VRNdelfi services as they
+      are no longer available
+
 Travel::Routing::DE::VRR 2.18 - Wed Feb 26 2020
 
     * Update KVV EFA URL
