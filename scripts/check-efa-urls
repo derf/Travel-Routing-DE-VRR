@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+
+export PERL5LIB=lib
+
+IFS=','
+
+checks="BSVG,Braunschweig,Hbf,Volkmarode,Moorhüttenweg
+DING,Ulm,Hbf,Ulm,Theodor-Heuss-Platz
+KVV,Karlsruhe,Hbf,Karlsruhe,Tivoli
+LinzAG,Linz,Hbf,Linz,Hart
+MVV,München,Hackerbrücke,München,Seeholzenweg
+NVBW,Stuttgart,Brendle (Großmarkt),Stuttgart,Schwabstraße
+SVV,Salzburg,Hbf,Salzburg,Mirabellplatz
+TLEM,London,Waterloo Underground Station,London,St Pancras Way
+VAG,Schallstadt,Bf,Freiburg im Breisgau,Hbf
+VBL,Luzern,Bf,Luzern,Brüggligasse
+Verbundlinie,Graz,Hbf,Graz,Mariatrost
+VGN,Nürnberg,Hbf,Nürnberg,Messe
+VMV,Schwerin,Hbf,Schwerin,Dreescher Markt
+VOR,Wien,Hbf,Wien,Praterstern
+VRN,Mannheim,Hbf,Ludwigshafen (Rhein),Hbf
+VRR,Essen,Hbf,Essen,Rüttenscheider Stern
+VRR2,Essen,Hbf,Essen,Rüttenscheider Stern
+VVO,Dresden,Hbf,Dresden,Altmarkt
+VVS,Stuttgart,Brendle (Großmarkt),Stuttgart,Schwabstraße"
+
+echo $checks | while read service from_name from_place to_name to_place; do
+	echo -n "${service} ... "
+	if bin/efa -s $service $from_name $from_place $to_name $to_place > /dev/null; then
+		echo OK
+	fi
+done
