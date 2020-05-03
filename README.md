@@ -37,14 +37,26 @@ assurance processes.
 To install the latest release, run:
 
 ```
-curl https://lib.finalrewind.org/deb/libtravel-routing-de-vrr-perl_latest_all.deb | sudo dpkg -i -
+wget https://lib.finalrewind.org/deb/libtravel-routing-de-vrr-perl_latest_all.deb
+sudo dpkg -i libtravel-routing-de-vrr-perl_latest_all.deb
+sudo apt --fix-broken install
+rm libtravel-routing-de-vrr-perl_latest_all.deb
 ```
 
 For a (possibly broken) development snapshot of the Git master branch, run:
 
 ```
-curl https://lib.finalrewind.org/deb/libtravel-routing-de-vrr-perl_dev_all.deb | sudo dpkg -i -
+wget https://lib.finalrewind.org/deb/libtravel-routing-de-vrr-perl_dev_all.deb
+sudo dpkg -i libtravel-routing-de-vrr-perl_dev_all.deb
+sudo apt --fix-broken install
+rm libtravel-routing-de-vrr-perl_dev_all.deb
 ```
+
+Note that dpkg, unlike apt, does not automatically install missing
+dependencies. If a dependency is not satisfied yet, `dpkg -i` will complain
+about unmet dependencies and bail out. `apt --fix-broken install` installs
+these dependencies and also silently finishes the Travel::Routing::DE::VRR
+installation.
 
 Uninstallation works as usual:
 
