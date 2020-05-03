@@ -15,15 +15,15 @@ Debian-based Linux distributions. It is also available as
 in the archlinux User Repository (AUR). Both provide the commandline client and
 the Perl module.
 
-If you are using another distribution and/or would prefer a more recent
-version, you have four installation options:
+If you are using another distribution or would prefer a more recent version,
+you have four installation options:
 
 * Nightly `.deb` builds for Debian-based distributions
 * Installing the latest release from CPAN
 * Installation from source
 * Using a Docker image
 
-Except for Docker, __efa__ is available in your PATH after installation. You
+Except for Docker, **efa** is available in your PATH after installation. You
 can run `efa --version` to verify this. Documentation is available via
 `man efa`.
 
@@ -31,8 +31,8 @@ can run `efa --version` to verify this. Documentation is available via
 
 [lib.finalrewind.org/deb](https://lib.finalrewind.org/deb) provides Debian
 packages of both development and release versions. Note that these are not part
-of the official Debian repository and are thus not covered by its quality
-assurance processes.
+of the official Debian repository and are not covered by its quality assurance
+process.
 
 To install the latest release, run:
 
@@ -68,7 +68,7 @@ sudo apt remove libtravel-routing-de-vrr-perl
 
 Travel::Routing::DE::VRR releases are published on the Comprehensive Perl
 Archive Network (CPAN) and can be installed using standard Perl module
-tools such as `cpanminus`.
+tools such as cpanminus.
 
 Before proceeding, ensure that you have standard build tools (i.e. make,
 pkg-config and a C compiler) installed. You will also need the following
@@ -122,6 +122,22 @@ If you are using the Git repository, use the following commands:
 ./Build manifest
 ./Build test
 sudo ./Build install
+```
+
+If you do not have superuser rights or do not want to perform a system-wide
+installation, you may leave out `Build install` and use **efa** from the
+current working directory.
+
+With carton:
+
+```
+carton exec efa --version
+```
+
+Otherwise (also works with carton):
+
+```
+perl -Ilocal/lib/perl5 -Ilib bin/efa --version
 ```
 
 ### Running efa via Docker
