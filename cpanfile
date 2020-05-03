@@ -3,6 +3,7 @@ requires 'Exception::Class';
 requires 'Getopt::Long';
 requires 'List::Util';
 requires 'LWP::UserAgent';
+requires 'LWP::Protocol::https';
 requires 'XML::LibXML';
 
 on test => sub {
