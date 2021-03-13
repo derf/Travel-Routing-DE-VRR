@@ -228,6 +228,18 @@ sub display_connection {
 		}
 	}
 
+	if ( $c->occupancy ) {
+		if ( $c->occupancy == 1 ) {
+			say "# geringe Auslastung";
+		}
+		elsif ( $c->occupancy == 2 ) {
+			say "# hohe Auslastung";
+		}
+		elsif ( $c->occupancy == 3 ) {
+			say "# sehr hohe Auslastung";
+		}
+	}
+
 	for my $notice ( $c->current_notes ) {
 		if ( $notice->subtitle ne $notice->subject ) {
 			printf( "# %s - %s\n", $notice->subtitle, $notice->subject );

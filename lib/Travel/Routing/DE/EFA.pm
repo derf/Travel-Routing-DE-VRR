@@ -682,6 +682,7 @@ sub parse_xml_part {
 			departure_stime    => $self->itdtime_str($e_dstime),
 			departure_stop     => $e_dep->getAttribute('name'),
 			departure_platform => $e_dep->getAttribute('platformName'),
+			occupancy          => $e_dep->getAttribute('occupancy'),
 			train_line         => $e_mot->getAttribute('name'),
 			train_product      => $e_mot->getAttribute('productName'),
 			train_destination  => $e_mot->getAttribute('destination'),

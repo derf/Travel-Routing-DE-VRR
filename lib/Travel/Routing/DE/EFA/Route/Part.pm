@@ -8,6 +8,12 @@ use parent 'Class::Accessor';
 
 our $VERSION = '2.19';
 
+my %occupancy = (
+	MANY_SEATS    => 1,
+	FEW_SEATS     => 2,
+	STANDING_ONLY => 3
+);
+
 Travel::Routing::DE::EFA::Route::Part->mk_ro_accessors(
 	qw(arrival_platform arrival_stop
 	  arrival_date arrival_time arrival_sdate arrival_stime delay
@@ -15,6 +21,7 @@ Travel::Routing::DE::EFA::Route::Part->mk_ro_accessors(
 	  departure_stop departure_date departure_time departure_sdate
 	  departure_stime
 	  footpath_duration footpath_type
+	  occupancy
 	  train_destination train_line train_product
 	  )
 );
@@ -23,6 +30,13 @@ sub new {
 	my ( $obj, %conf ) = @_;
 
 	my $ref = \%conf;
+
+	if ( $ref->{occupancy} and exists $occupancy{ $ref->{occupancy} } ) {
+		$ref->{occupancy} = $occupancy{ $ref->{occupancy} };
+	}
+	else {
+		delete $ref->{occupancy};
+	}
 
 	return bless( $ref, $obj );
 }
