@@ -487,6 +487,11 @@ instance can be selected using B<-s> I<service> or B<-u> I<url>. It is also
 possible to probe all known EFA services for a specific connection using the
 B<-A> and B<-D> options.
 
+If available, B<efa> shows the expected occupancy of each route part.
+It ranges from C<< [  ] >> (low occupancy) to C<< [!!] >> (very high
+occupancy). Occupation data appears to be limited to certain VRR trains
+at the moment.
+
 =head1 OPTIONS
 
 =over
