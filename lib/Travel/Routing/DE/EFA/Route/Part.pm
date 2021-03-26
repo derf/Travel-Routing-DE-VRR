@@ -373,7 +373,7 @@ Class::Accessor(3pm).
 
 =head1 AUTHOR
 
-Copyright (C) 2011-2017 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
+Copyright (C) 2011-2021 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 
