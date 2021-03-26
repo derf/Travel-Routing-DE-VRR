@@ -228,15 +228,17 @@ sub display_connection {
 		}
 	}
 
+	my $occupancy = q{};
+
 	if ( $c->occupancy ) {
 		if ( $c->occupancy == 1 ) {
-			say "# geringe Auslastung";
+			$occupancy = '[  ]';
 		}
 		elsif ( $c->occupancy == 2 ) {
-			say "# hohe Auslastung";
+			$occupancy = '[* ]';
 		}
 		elsif ( $c->occupancy == 3 ) {
-			say "# sehr hohe Auslastung";
+			$occupancy = '[!!]';
 		}
 	}
 
@@ -270,7 +272,8 @@ sub display_connection {
 		}
 	}
 
-	printf( "%-5s an  %s\n", $c->arrival_time, $c->arrival_stop_and_platform, );
+	printf( "%-5s an  %-30s %s\n",
+		$c->arrival_time, $c->arrival_stop_and_platform, $occupancy );
 	print "\n";
 
 	if (    $opt->{'extended-info'}
