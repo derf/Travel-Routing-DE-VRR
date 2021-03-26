@@ -316,6 +316,11 @@ Returns true if this part of the route has been cancelled (i.e., the entire
 route is probably useless), false otherwise.  For unknown reasons, EFA may
 sometimes return routes which contain cancelled departures.
 
+=item $part->occupancy
+
+Returns expected occupancy, if available. Values range from 1 (low occupancy)
+to 3 (very high occupancy).
+
 =item $part->regular_notes
 
 Remarks about the line serving this connaction part. Returns a list of
