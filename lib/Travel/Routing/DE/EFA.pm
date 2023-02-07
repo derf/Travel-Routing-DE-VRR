@@ -7,7 +7,7 @@ use utf8;
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
-use Carp qw(cluck);
+use Carp   qw(cluck);
 use Encode qw(encode);
 use Travel::Routing::DE::EFA::Route;
 use Travel::Routing::DE::EFA::Route::Message;
@@ -820,7 +820,7 @@ sub check_ambiguous_xml {
 
 	if ( $s_place eq 'list' ) {
 		Travel::Routing::DE::EFA::Exception::Ambiguous->throw(
-			post_key => 'place',
+			post_key   => 'place',
 			post_value =>
 			  ( $e_place->findnodes($xp_place_input) )[0]->textContent,
 			possibilities => join( q{ | },
@@ -830,7 +830,7 @@ sub check_ambiguous_xml {
 	}
 	if ( $s_name eq 'list' ) {
 		Travel::Routing::DE::EFA::Exception::Ambiguous->throw(
-			post_key => 'name',
+			post_key   => 'name',
 			post_value =>
 			  ( $e_name->findnodes($xp_name_input) )[0]->textContent,
 			possibilities => join( q{ | },
