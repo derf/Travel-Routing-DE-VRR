@@ -102,7 +102,7 @@ None known.
 
 =head1 AUTHOR
 
-Copyright (C) 2009-2021 by Daniel Friesel E<lt>derf@finalrewind.orgE<gt>
+Copyright (C) 2009-2021 by Birte Kristina Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 
