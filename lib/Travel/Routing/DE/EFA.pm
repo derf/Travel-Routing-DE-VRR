@@ -973,10 +973,8 @@ sub get_efa_urls {
 			name      => 'Verkehrsverbund Rhein-Ruhr (alternative alternative)',
 			shortname => 'VRR3',
 		},
-
-		# HTTPS not supported
 		{
-			url       => 'http://efa.vvo-online.de:8080/dvb/XSLT_TRIP_REQUEST2',
+			url       => 'https://efa.vvo-online.de/VMSSL3/XSLT_TRIP_REQUEST2',
 			name      => 'Verkehrsverbund Oberelbe',
 			shortname => 'VVO',
 		},
