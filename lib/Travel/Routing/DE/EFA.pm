@@ -899,14 +899,6 @@ sub get_efa_urls {
 			name      => 'Nahverkehrsgesellschaft Baden-Württemberg',
 			shortname => 'NVBW',
 		},
-
-		# HTTPS: invalid certificate
-		{
-			url =>
-			  'http://www.travelineeastmidlands.co.uk/em/XSLT_TRIP_REQUEST2',
-			name      => 'Traveline East Midlands',
-			shortname => 'TLEM',
-		},
 		{
 			url       => 'https://efa.vagfr.de/vagfr3/XSLT_TRIP_REQUEST2',
 			name      => 'Freiburger Verkehrs AG',
