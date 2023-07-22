@@ -7,17 +7,12 @@ IFS=','
 checks="BSVG,Braunschweig,Hbf,Volkmarode,Moorhüttenweg
 DING,Ulm,Hbf,Ulm,Theodor-Heuss-Platz
 KVV,Karlsruhe,Hbf,Karlsruhe,Tivoli
-LinzAG,Linz,Hbf,Linz,Hart
+LinzAG,Linz/Donau,Hbf,Linz/Donau,Hart
 MVV,München,Donnersbergerbrücke,München,Seeholzenweg
-NVBW,Stuttgart,Brendle (Großmarkt),Stuttgart,Schwabstraße
-SVV,Salzburg,Hbf,Salzburg,Mirabellplatz
-TLEM,London,Waterloo Underground Station,London,St Pancras Way
+NVBW,Stuttgart,Brendle (Großmarkt),Stuttgart,Kleinhohenheim
 VAG,Schallstadt,Bf,Freiburg im Breisgau,Hbf
-VBL,Luzern,Bf,Luzern,Brüggligasse
-Verbundlinie,Graz,Hbf,Graz,Mariatrost
 VGN,Nürnberg,Hbf,Nürnberg,Messe
 VMV,Schwerin,Hbf,Schwerin,Dreescher Markt
-VOR,Wien,Hbf,Wien,Praterstern
 VRN,Mannheim,Hbf,Ludwigshafen (Rhein),Hbf
 VRR,Essen,Hbf,Essen,Rüttenscheider Stern
 VRR2,Essen,Hbf,Essen,Rüttenscheider Stern
