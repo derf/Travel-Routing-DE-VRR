@@ -931,12 +931,6 @@ sub get_efa_urls {
 			name      => 'Verkehrsgesellschaft Mecklenburg-Vorpommern',
 			shortname => 'VMV',
 		},
-		{
-			url       => 'https://efa.vor.at/wvb/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Ost-Region',
-			shortname => 'VOR',
-			encoding  => 'iso-8859-15',
-		},
 
 		# HTTPS not spported
 		{
