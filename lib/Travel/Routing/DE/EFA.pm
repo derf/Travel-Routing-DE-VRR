@@ -900,13 +900,6 @@ sub get_efa_urls {
 			shortname => 'NVBW',
 		},
 
-		# HTTPS not supported
-		{
-			url       => 'http://efa.svv-info.at/sbs/XSLT_TRIP_REQUEST2',
-			name      => 'Salzburger Verkehrsverbund',
-			shortname => 'SVV',
-		},
-
 		# HTTPS: invalid certificate
 		{
 			url =>
