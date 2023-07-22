@@ -924,10 +924,8 @@ sub get_efa_urls {
 			name      => 'Verkehrsgesellschaft Mecklenburg-Vorpommern',
 			shortname => 'VMV',
 		},
-
-		# HTTPS not spported
 		{
-			url       => 'http://fahrplanauskunft.vrn.de/vrn/XML_TRIP_REQUEST2',
+			url       => 'https://www.vrn.de/mngvrn/XML_TRIP_REQUEST2',
 			name      => 'Verkehrsverbund Rhein-Neckar',
 			shortname => 'VRN',
 		},
