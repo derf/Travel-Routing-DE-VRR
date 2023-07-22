@@ -913,13 +913,6 @@ sub get_efa_urls {
 			shortname => 'VAG',
 		},
 
-		# HTTPS: unsupported protocol
-		{
-			url       => 'http://mobil.vbl.ch/vblmobil/XML_TRIP_REQUEST2',
-			name      => 'Verkehrsbetriebe Luzern',
-			shortname => 'VBL',
-		},
-
 		# HTTPS not supported
 		{
 			url  => 'http://fahrplan.verbundlinie.at/stv/XSLT_TRIP_REQUEST2',
