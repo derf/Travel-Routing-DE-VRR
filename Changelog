@@ -1,3 +1,8 @@
+Travel::Routing::DE::VRR 2.22 - Fri Sep 01 2023
+
+    * Rewrite code not to use Perl's formerly experimental and now deprecated
+      smartmatch features
+
 Travel::Routing::DE::VRR 2.21 - Sat Jul 22 2023
 
     * Add service VRR3

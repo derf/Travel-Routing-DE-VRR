@@ -12,7 +12,7 @@ use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
 use List::Util   qw(first);
 
-our $VERSION = '2.21';
+our $VERSION = '2.22';
 my $ignore_info;
 my $efa;
 my $efa_url = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
@@ -481,7 +481,7 @@ efa - Command line client for EFA-based public transit routing services
 
 =head1 VERSION
 
-version 2.21
+version 2.22
 
 =head1 DESCRIPTION
 
@@ -798,7 +798,7 @@ to to request via -> to.
 
 =head1 AUTHOR
 
-Copyright (C) 2009-2021 by Birte Kristina Friesel E<lt>derf@finalrewind.orgE<gt>
+Copyright (C) 2009-2023 by Birte Kristina Friesel E<lt>derf@finalrewind.orgE<gt>
 
 =head1 LICENSE
 

@@ -6,7 +6,7 @@ use 5.010;
 
 use parent 'Class::Accessor';
 
-our $VERSION = '2.21';
+our $VERSION = '2.22';
 
 my %occupancy = (
 	MANY_SEATS    => 1,
@@ -168,7 +168,7 @@ points, without interchanges
 
 =head1 VERSION
 
-version 2.21
+version 2.22
 
 =head1 DESCRIPTION
 
