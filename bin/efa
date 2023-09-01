@@ -4,15 +4,13 @@ use warnings;
 use 5.010;
 use utf8;
 
-no if $] >= 5.018, warnings => 'experimental::smartmatch';
-
 use utf8;
 
 use Encode qw(decode);
 use Travel::Routing::DE::EFA;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
-use List::Util qw(first);
+use List::Util   qw(first);
 
 our $VERSION = '2.21';
 my $ignore_info;
@@ -49,7 +47,7 @@ sub new_efa_by_url {
 
 			origin      => [ @from, $from_type ],
 			destination => [ @to,   $to_type ],
-			via => ( @via ? [ @via, $via_type ] : undef ),
+			via         => ( @via ? [ @via, $via_type ] : undef ),
 
 			arrival_time   => $opt->{arrive},
 			departure_time => $opt->{depart},
@@ -340,14 +338,23 @@ if ( $opt->{exclude} ) {
 	@{ $opt->{exclude} } = split( qr{,}, join( q{,}, @{ $opt->{exclude} } ) );
 }
 
+my %accessibility_map = (
+	s               => 'without_solid_stairs',
+	'no-stairs'     => 'without_solid_stairs',
+	e               => 'without_escalators',
+	'no-escalators' => 'without_escalators',
+	E               => 'without_elevators',
+	'no-elevators'  => 'without_elevators',
+	l               => 'with_low_platform',
+	nf              => 'with_low_platform',
+	'low-platform'  => 'with_low_platform',
+	w               => 'with_wheelchair',
+	wheelchair      => 'with_wheelchair',
+);
+
 for my $field ( @{ $opt->{accessibility} } ) {
-	given ($field) {
-		when ( [qw[s no-stairs]] )       { $opt->{without_solid_stairs} = 1 }
-		when ( [qw[e no-escalators]] )   { $opt->{without_escalators} = 1 }
-		when ( [qw[E no-elevators]] )    { $opt->{without_elevators} = 1 }
-		when ( [qw[l nf low-platform]] ) { $opt->{with_low_platform} = 1 }
-		when ( [qw[w wheelchair]] )      { $opt->{with_wheelchair} = 1 }
-		when ( [qw[i info]] ) { }    # used for ignore_info default
+	if ( $accessibility_map{$field} ) {
+		$opt->{ $accessibility_map{$field} } = 1;
 	}
 }
 
@@ -405,16 +412,18 @@ for my $pair ( [ \@from, \$from_type ], [ \@via, \$via_type ],
 		{$+{target}}x
 	  )
 	{
-		given ( $+{type} ) {
-			when ('addr') { ${ $pair->[1] } = 'address' }
-			default       { ${ $pair->[1] } = $+{type} }
+		if ( $+{type} eq 'addr' ) {
+			${ $pair->[1] } = 'address';
+		}
+		else {
+			${ $pair->[1] } = $+{type};
 		}
 	}
 }
 
 if ( $opt->{service} ) {
 	my $service = first { lc( $_->{shortname} ) eq lc( $opt->{service} ) }
-	Travel::Routing::DE::EFA::get_efa_urls();
+	  Travel::Routing::DE::EFA::get_efa_urls();
 	if ( not $service ) {
 		printf STDERR (
 			"Error: Unknown service '%s'. See 'efa -l' for a "

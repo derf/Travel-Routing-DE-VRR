@@ -5,8 +5,6 @@ use warnings;
 use 5.010;
 use utf8;
 
-no if $] >= 5.018, warnings => "experimental::smartmatch";
-
 use Carp   qw(cluck);
 use Encode qw(encode);
 use Travel::Routing::DE::EFA::Route;
@@ -176,17 +174,19 @@ sub number_of_trips {
 sub select_interchange_by {
 	my ( $self, $prefer ) = @_;
 
-	given ($prefer) {
-		when ('speed')    { $self->{post}->{routeType} = 'LEASTTIME' }
-		when ('waittime') { $self->{post}->{routeType} = 'LEASTINTERCHANGE' }
-		when ('distance') { $self->{post}->{routeType} = 'LEASTWALKING' }
-		default {
-			Travel::Routing::DE::EFA::Exception::Setup->throw(
-				option => 'select_interchange_by',
-				have   => $prefer,
-				want   => 'speed / waittime / distance',
-			);
-		}
+	if    ( $prefer eq 'speed' ) { $self->{post}->{routeType} = 'LEASTTIME' }
+	elsif ( $prefer eq 'waittime' ) {
+		$self->{post}->{routeType} = 'LEASTINTERCHANGE';
+	}
+	elsif ( $prefer eq 'distance' ) {
+		$self->{post}->{routeType} = 'LEASTWALKING';
+	}
+	else {
+		Travel::Routing::DE::EFA::Exception::Setup->throw(
+			option => 'select_interchange_by',
+			have   => $prefer,
+			want   => 'speed / waittime / distance',
+		);
 	}
 
 	return;
@@ -195,17 +195,15 @@ sub select_interchange_by {
 sub train_type {
 	my ( $self, $include ) = @_;
 
-	given ($include) {
-		when ('local') { $self->{post}->{lineRestriction} = 403 }
-		when ('ic')    { $self->{post}->{lineRestriction} = 401 }
-		when ('ice')   { $self->{post}->{lineRestriction} = 400 }
-		default {
-			Travel::Routing::DE::EFA::Exception::Setup->throw(
-				option => 'train_type',
-				have   => $include,
-				want   => 'local / ic / ice',
-			);
-		}
+	if    ( $include eq 'local' ) { $self->{post}->{lineRestriction} = 403 }
+	elsif ( $include eq 'ic' )    { $self->{post}->{lineRestriction} = 401 }
+	elsif ( $include eq 'ice' )   { $self->{post}->{lineRestriction} = 400 }
+	else {
+		Travel::Routing::DE::EFA::Exception::Setup->throw(
+			option => 'train_type',
+			have   => $include,
+			want   => 'local / ic / ice',
+		);
 	}
 
 	return;
@@ -229,7 +227,7 @@ sub use_near_stops {
 sub walk_speed {
 	my ( $self, $walk_speed ) = @_;
 
-	if ( $walk_speed ~~ [ 'normal', 'fast', 'slow' ] ) {
+	if ( $walk_speed =~ m{ ^ (?: normal | fast | slow ) $ }x ) {
 		$self->{post}->{changeSpeed} = $walk_speed;
 	}
 	else {
@@ -305,7 +303,7 @@ sub place {
 
 	@{ $self->{post} }{ "place_${which}", "name_${which}" } = ( $place, $stop );
 
-	if ( $type ~~ [qw[address poi stop]] ) {
+	if ( $type =~ m{ ^ (?: address | poi | stop ) $ }x ) {
 		$self->{post}->{"type_${which}"} = $type;
 	}
 
@@ -728,7 +726,9 @@ sub parse_xml_part {
 			my $name     = $ve->getAttribute('name');
 			my $platform = $ve->getAttribute('platformName');
 
-			if ( $name ~~ [ $hash->{departure_stop}, $hash->{arrival_stop} ] ) {
+			if (   $name eq $hash->{departure_stop}
+				or $name eq $hash->{arrival_stop} )
+			{
 				next;
 			}
 
