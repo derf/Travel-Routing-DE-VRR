@@ -4,10 +4,10 @@ Travel::Routing::DE::EFA::Exception - Travel::Routing::DE::EFA Exceptions
 
 =head1 DESCRIPTION
 
-All Exceptions thrown by Travel::Routing::DE::EFA are
-Travel::Routing::DE::EFA::Exception objects created by Exception::Class(3pm).
+All Exceptions thrown by L<Travel::Routing::DE::EFA> are
+L<Travel::Routing::DE::EFA::Exception> objects created by L<Exception::Class>.
 
-See Exception::Class::Base(3pm) for their common methods.
+See L<Exception::Class::Base> for their common methods.
 
 =head1 LIST OF EXCEPTIONS
 
@@ -35,7 +35,7 @@ What kind of argument we want.
 
 =head2 Travel::Routing::DE::EFA::Exception::Net
 
-The HTTP request to the efa interface failed. Contains an HTTP::Response(3pm)
+The HTTP request to the efa interface failed. Contains an L<HTTP::Response>
 object describing the error in B<http_response>.
 
 =head2 Travel::Routing::DE::EFA::Exception::NoData
@@ -54,4 +54,4 @@ The EFA service found no connections for our request.
 
 =head1 SEE ALSO
 
-Travel::Routing::DE::EFA(3pm)
+L<Travel::Routing::DE::EFA>
