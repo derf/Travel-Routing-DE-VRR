@@ -923,12 +923,12 @@ sub get_efa_urls {
 		},
 		{
 			url       => 'https://app.vrr.de/vrrstd/XML_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Rhein-Ruhr (alternative)',
+			name      => 'Verkehrsverbund Rhein-Ruhr',
 			shortname => 'VRR',
 		},
 		{
 			url       => 'https://efa.vrr.de/rbgstd3/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Rhein-Ruhr (alternative alternative)',
+			name      => 'Verkehrsverbund Rhein-Ruhr (alternative)',
 			shortname => 'VRR2',
 		},
 		{
