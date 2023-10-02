@@ -560,7 +560,7 @@ entry points which did not return an error.
 =item B<-u>|B<--efa-url> I<url>
 
 URL to the EFA entry point, defaults to
-L<http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2>.  Depending on your location, some
+L<https://app.vrr.de/vrrstd/XML_TRIP_REQUEST2>.  Depending on your location, some
 I<url>s may contain more specific data than others. See
 Travel::Routing::DE::EFA(3pm) and the B<-l> option for alternatives.
 
@@ -737,9 +737,9 @@ All vehicles must be wheelchair accessible.
     0    Everything went well
     1    Invalid arguments, see error message
     2    Network error, unable to send request
-    3    efa.vrr.de did not return any parsable data
-    4    efa.vrr.de error: ambiguous input
-    5    efa.vrr.de error: no connections found
+    3    EFA did not return any parsable data
+    4    EFA error: ambiguous input
+    5    EFA error: no connections found
     10   Unknown Travel::Routing::DE::EFA error
     255  Other internal error
 
