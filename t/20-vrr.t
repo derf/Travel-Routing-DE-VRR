@@ -13,11 +13,11 @@ require_ok('Travel::Routing::DE::VRR');
 
 sub efa_conf {
 	my $ret = {
-		efa_url     => 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
+		efa_url     => 'https://app.vrr.de/vrrstd/XML_TRIP_REQUEST2',
 		origin      => ['Essen', 'HBf'],
 		destination => ['Koeln', 'HBf'],
-		rm_base     => 'http://efa.vrr.de/vrr/',
-		sm_base     => 'http://efa.vrr.de/download/envmaps/',
+		rm_base     => 'https://app.vrr.de/vrrstd/',
+		sm_base     => 'https://app.vrr.de/download/envmaps/',
 		lwp_options => {},
 		submit      => 0,
 	};

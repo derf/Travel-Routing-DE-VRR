@@ -922,19 +922,14 @@ sub get_efa_urls {
 			shortname => 'VRN',
 		},
 		{
-			url       => 'https://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
-			name      => 'Verkehrsverbund Rhein-Ruhr',
-			shortname => 'VRR',
-		},
-		{
 			url       => 'https://app.vrr.de/vrrstd/XML_TRIP_REQUEST2',
 			name      => 'Verkehrsverbund Rhein-Ruhr (alternative)',
-			shortname => 'VRR2',
+			shortname => 'VRR',
 		},
 		{
 			url       => 'https://efa.vrr.de/rbgstd3/XSLT_TRIP_REQUEST2',
 			name      => 'Verkehrsverbund Rhein-Ruhr (alternative alternative)',
-			shortname => 'VRR3',
+			shortname => 'VRR2',
 		},
 		{
 			url       => 'https://efa.vvo-online.de/VMSSL3/XSLT_TRIP_REQUEST2',
@@ -962,7 +957,7 @@ Travel::Routing::DE::EFA - unofficial interface to EFA-based itinerary services
 	use Travel::Routing::DE::EFA;
 
 	my $efa = Travel::Routing::DE::EFA->new(
-		efa_url     => 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2',
+		efa_url     => 'https://app.vrr.de/vrrstd/XML_TRIP_REQUEST2';',
 		origin      => [ 'Essen',    'HBf' ],
 		destination => [ 'Duisburg', 'HBf' ],
 	);

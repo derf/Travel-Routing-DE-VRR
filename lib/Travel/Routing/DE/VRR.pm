@@ -11,7 +11,7 @@ use parent 'Travel::Routing::DE::EFA';
 sub new {
 	my ( $class, %opt ) = @_;
 
-	$opt{efa_url} = 'http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2';
+	$opt{efa_url} = 'https://app.vrr.de/vrrstd/XML_TRIP_REQUEST2';
 
 	return $class->SUPER::new(%opt);
 }
