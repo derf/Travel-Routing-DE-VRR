@@ -1003,47 +1003,9 @@ Valid hash keys and their values are:
 =item B<efa_url> => I<efa_url>
 
 Mandatory.  Sets the entry point to the EFA itinerary service.
-The following URLs (grouped by country) are known.  A service marked with [!]
-is not completely supported yet and may not work at all.
+See C<< efa --list >> for a list of supported services.
 
-=over
-
-=item * Austria
-
-=over
-
-=item * L<http://efa.ivb.at/ivb/XSLT_TRIP_REQUEST2> (Innsbrucker Verkehrsbetriebe)
-
-=item * L<http://efa.svv-info.at/sbs/XSLT_TRIP_REQUEST2> (Salzburger Verkehrsverbund)
-
-=item * L<http://efa.vor.at/wvb/XSLT_TRIP_REQUEST2> (Verkehrsverbund Ost-Region)
-
-=item * L<http://efaneu.vmobil.at/vvv/XSLT_TRIP_REQUEST2> (Vorarlberger Verkehrsverbund)
-
-=item * L<http://www.linzag.at/static/XSLT_TRIP_REQUEST2> (Linz AG) B<[!]>
-
-=item * The STV / Verkehrsverbund Steiermark is not supported since it returns
-data with broken encoding
-
-=back
-
-=item * Germany
-
-=over
-
-=item * L<http://212.114.197.7/vgnExt_oeffi/XML_TRIP_REQUEST2> (Verkehrsverbund GroE<szlig>raum NE<uuml>rnberg)
-
-=item * L<http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2> (Verkehrsverbund Rhein-Ruhr)
-
-=item * L<http://app.vrr.de/standard/XML_TRIP_REQUEST2> (Verkehrsverbund Rhein-Ruhr with support for B<--full-route>)
-
-=item * L<http://www2.vvs.de/vvs/XSLT_TRIP_REQUEST2> (Verkehrsverbund Stuttgart)
-
-=back
-
-=back
-
-If you found a URL not listed here, please send it to
+If you found a URL not listed there, please send it to
 E<lt>derf@finalrewind.orgE<gt>.
 
 =item B<origin> => B<[> I<city>B<,> I<stop> [ B<,> I<type> ] B<]>
