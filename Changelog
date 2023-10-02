@@ -1,3 +1,9 @@
+Travel::Routing::DE::VRR 2.23 - Mon Oct 02 2023
+
+    * Update default API endpoint as the previously used efa.vrr.de/vrr seems
+      to be gone for good
+    * Rename VRR2 API to VRR and VRR3 to VRR2
+
 Travel::Routing::DE::VRR 2.22 - Fri Sep 01 2023
 
     * Rewrite code not to use Perl's formerly experimental and now deprecated
