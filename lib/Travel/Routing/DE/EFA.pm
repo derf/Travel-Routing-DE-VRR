@@ -658,6 +658,8 @@ sub parse_xml_part {
 		$e_astime //= $e_atime;
 
 		my $delay = $e_delay ? $e_delay->getAttribute('delayMinutes') : 0;
+		my $delay_arr
+		  = $e_delay ? $e_delay->getAttribute('delayMinutesArr') : 0;
 
 		my ( @dep_rms, @dep_sms, @arr_rms, @arr_sms );
 
@@ -673,8 +675,8 @@ sub parse_xml_part {
 		}
 
 		my $hash = {
-			delay              => $delay,
 			departure_date     => $self->itddate_str($e_ddate),
+			departure_delay    => $delay,
 			departure_time     => $self->itdtime_str($e_dtime),
 			departure_sdate    => $self->itddate_str($e_dsdate),
 			departure_stime    => $self->itdtime_str($e_dstime),
@@ -685,6 +687,7 @@ sub parse_xml_part {
 			train_product      => $e_mot->getAttribute('productName'),
 			train_destination  => $e_mot->getAttribute('destination'),
 			arrival_date       => $self->itddate_str($e_adate),
+			arrival_delay      => $delay_arr,
 			arrival_time       => $self->itdtime_str($e_atime),
 			arrival_sdate      => $self->itddate_str($e_asdate),
 			arrival_stime      => $self->itdtime_str($e_astime),

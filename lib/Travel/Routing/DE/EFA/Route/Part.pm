@@ -16,14 +16,15 @@ my %occupancy = (
 
 Travel::Routing::DE::EFA::Route::Part->mk_ro_accessors(
 	qw(arrival_platform arrival_stop
-	  arrival_date arrival_time arrival_sdate arrival_stime delay
-	  departure_platform
+	  arrival_date arrival_time arrival_sdate arrival_stime arrival_delay
+	  delay
+	  departure_platform departure_delay
 	  departure_stop departure_date departure_time departure_sdate
 	  departure_stime
 	  footpath_duration footpath_type
 	  occupancy
 	  train_destination train_line train_product
-	  )
+	)
 );
 
 sub new {
@@ -37,6 +38,8 @@ sub new {
 	else {
 		delete $ref->{occupancy};
 	}
+
+	$ref->{delay} = $ref->{departure_delay};
 
 	return bless( $ref, $obj );
 }
@@ -188,6 +191,10 @@ included in the calculation, "Scheduled" means it isn't.
 
 =over
 
+=item $part->arrival_delay
+
+arrival delay in minutes, 0 if unknown
+
 =item $part->arrival_stop
 
 arrival stop (city name plus station name)
@@ -237,7 +244,11 @@ Returns a list of Travel::Routing::DE::EFA::Route::Message(3pm) objects.
 
 =item $part->delay
 
-delay in minutes, 0 if unknown
+alias for departure_delay
+
+=item $part->departure_delay
+
+departure delay in minutes, 0 if unknown
 
 =item $part->departure_stop
 
