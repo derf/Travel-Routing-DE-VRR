@@ -10,7 +10,7 @@ use Encode qw(decode);
 use Travel::Routing::DE::EFA;
 use Exception::Class;
 use Getopt::Long qw/:config no_ignore_case/;
-use List::Util   qw(first);
+use List::Util   qw(first max);
 
 our $VERSION = '2.23';
 my $ignore_info;
@@ -29,6 +29,9 @@ my $opt = {
 
 binmode( STDOUT, ':encoding(utf-8)' );
 binmode( STDERR, ':encoding(utf-8)' );
+
+my $output_bold  = -t STDOUT ? "\033[1m" : q{};
+my $output_reset = -t STDOUT ? "\033[0m" : q{};
 
 sub show_help {
 	my ($exit_status) = @_;
@@ -170,6 +173,14 @@ sub format_footpath {
 	return $str;
 }
 
+sub format_delay {
+	my ( $delay, $len ) = @_;
+	if ( $delay and $len ) {
+		return sprintf( "(%+${len}d)", $delay );
+	}
+	return q{};
+}
+
 sub display_routes {
 	my (@routes) = @_;
 
@@ -189,8 +200,19 @@ sub display_routes {
 			}
 		}
 
+		my $delay_len = 0;
 		for my $c ( $route->parts ) {
-			display_connection($c);
+			if ( $c->departure_delay ) {
+				$delay_len
+				  = max( $delay_len, length( $c->departure_delay ) + 1 );
+			}
+			if ( $c->arrival_delay ) {
+				$delay_len = max( $delay_len, length( $c->arrival_delay ) + 1 );
+			}
+		}
+
+		for my $c ( $route->parts ) {
+			display_connection( $c, $delay_len );
 		}
 
 		# last one needs to be shown separately
@@ -209,21 +231,12 @@ sub display_routes {
 }
 
 sub display_connection {
-	my ($c) = @_;
+	my ( $c, $delay_len ) = @_;
+
+	my $delay_fmt = $delay_len ? $delay_len + 2 : 0;
 
 	if ( $c->is_cancelled ) {
 		say '# FAHRT FÄLLT AUS';
-	}
-	elsif ( $c->delay ) {
-		printf( "# +%d,  Plan: %s -> %s\n",
-			$c->delay, $c->departure_stime, $c->arrival_stime );
-	}
-
-	for my $note ( $c->regular_notes ) {
-		my $text = $note->summary;
-		if ( not( length $ignore_info and $text =~ /$ignore_info/i ) ) {
-			say "# $text";
-		}
 	}
 
 	my $occupancy = q{};
@@ -240,6 +253,40 @@ sub display_connection {
 		}
 	}
 
+	if ( $opt->{maps} ) {
+		for my $m ( $c->departure_routemaps, $c->departure_stationmaps ) {
+			say "# $m";
+		}
+	}
+
+	printf(
+		"${output_bold}%s${output_reset} %s %s\n",
+		$c->train_line || $c->train_product,
+		$c->train_destination ? q{→} : q{ },
+		$c->train_destination
+	);
+
+	printf(
+		"%-5s %-${delay_fmt}s ab  %-30s\n",
+		$c->departure_time,
+		format_delay( $c->departure_delay, $delay_len ),
+		$c->departure_stop_and_platform,
+	);
+
+	if ( $opt->{'full-route'} ) {
+		for my $via_stop ( $c->via ) {
+			printf( "%-5s %-${delay_fmt}s     %-30s %s\n",
+				$via_stop->[1], q{}, $via_stop->[2], $via_stop->[3] );
+		}
+	}
+
+	printf(
+		"%-5s %-${delay_fmt}s an  %-30s %s\n",
+		$c->arrival_time,
+		format_delay( $c->arrival_delay, $delay_len ),
+		$c->arrival_stop_and_platform, $occupancy
+	);
+
 	for my $notice ( $c->current_notes ) {
 		if ( $notice->subtitle ne $notice->subject ) {
 			printf( "# %s - %s\n", $notice->subtitle, $notice->subject );
@@ -249,29 +296,13 @@ sub display_connection {
 		}
 	}
 
-	if ( $opt->{maps} ) {
-		for my $m ( $c->departure_routemaps, $c->departure_stationmaps ) {
-			say "# $m";
+	for my $note ( $c->regular_notes ) {
+		my $text = $note->summary;
+		if ( not( length $ignore_info and $text =~ /$ignore_info/i ) ) {
+			say "# $text";
 		}
 	}
 
-	printf(
-		"%-5s ab  %-30s %-20s %s\n",
-		$c->departure_time,
-		$c->departure_stop_and_platform,
-		$c->train_line || $c->train_product,
-		$c->train_destination,
-	);
-
-	if ( $opt->{'full-route'} ) {
-		for my $via_stop ( $c->via ) {
-			printf( "%-5s     %-30s %s\n",
-				$via_stop->[1], $via_stop->[2], $via_stop->[3] );
-		}
-	}
-
-	printf( "%-5s an  %-30s %s\n",
-		$c->arrival_time, $c->arrival_stop_and_platform, $occupancy );
 	print "\n";
 
 	if (    $opt->{'extended-info'}
