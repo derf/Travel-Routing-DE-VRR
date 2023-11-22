@@ -717,8 +717,8 @@ sub parse_xml_part {
 		$hash->{arrival_stationmaps}   = \@arr_sms;
 
 		for my $ve ( $e->findnodes($xp_via) ) {
-			my $e_vdate = ( $ve->findnodes($xp_date) )[-1];
-			my $e_vtime = ( $ve->findnodes($xp_time) )[-1];
+			my $e_vdate = ( $ve->findnodes($xp_date) )[0];
+			my $e_vtime = ( $ve->findnodes($xp_time) )[0];
 
 			if ( not( $e_vdate and $e_vtime )
 				or ( $e_vdate->getAttribute('weekday') == -1 ) )
