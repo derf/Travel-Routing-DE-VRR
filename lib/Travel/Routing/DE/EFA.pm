@@ -726,8 +726,9 @@ sub parse_xml_part {
 				next;
 			}
 
-			my $name     = $ve->getAttribute('name');
-			my $platform = $ve->getAttribute('platformName');
+			my $name      = $ve->getAttribute('name');
+			my $platform  = $ve->getAttribute('platformName');
+			my $arr_delay = $ve->getAttribute('arrDelay');
 
 			if (   $name eq $hash->{departure_stop}
 				or $name eq $hash->{arrival_stop} )
@@ -741,7 +742,8 @@ sub parse_xml_part {
 					$self->itddate_str($e_vdate),
 					$self->itdtime_str($e_vtime),
 					$name,
-					$platform
+					$platform,
+					$arr_delay,
 				]
 			);
 		}

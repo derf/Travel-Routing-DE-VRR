@@ -173,10 +173,18 @@ sub format_footpath {
 	return $str;
 }
 
-sub format_delay {
+sub format_delay_incl {
 	my ( $delay, $len ) = @_;
 	if ( $delay and $len ) {
 		return sprintf( "(%+${len}d)", $delay );
+	}
+	return q{};
+}
+
+sub format_delay_excl {
+	my ( $delay, $len ) = @_;
+	if ( $delay and $len ) {
+		return sprintf( " %+${len}d ", $delay );
 	}
 	return q{};
 }
@@ -269,21 +277,24 @@ sub display_connection {
 	printf(
 		"%-5s %-${delay_fmt}s ab  %-30s\n",
 		$c->departure_time,
-		format_delay( $c->departure_delay, $delay_len ),
+		format_delay_incl( $c->departure_delay, $delay_len ),
 		$c->departure_stop_and_platform,
 	);
 
 	if ( $opt->{'full-route'} ) {
 		for my $via_stop ( $c->via ) {
-			printf( "%-5s %-${delay_fmt}s     %-30s %s\n",
-				$via_stop->[1], q{}, $via_stop->[2], $via_stop->[3] );
+			printf(
+				"%-5s %-${delay_fmt}s     %-30s %s\n",
+				$via_stop->[1], format_delay_excl( $via_stop->[4], $delay_len ),
+				$via_stop->[2], $via_stop->[3]
+			);
 		}
 	}
 
 	printf(
 		"%-5s %-${delay_fmt}s an  %-30s %s\n",
 		$c->arrival_time,
-		format_delay( $c->arrival_delay, $delay_len ),
+		format_delay_incl( $c->arrival_delay, $delay_len ),
 		$c->arrival_stop_and_platform, $occupancy
 	);
 

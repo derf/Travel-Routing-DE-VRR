@@ -78,7 +78,7 @@ is( $c0->arrival_time,  '14:02',      'r0,0: artime' );
 is( $c0->arrival_stime, '14:02',      'r0,0: astime' );
 
 is_deeply( ($c0->via)[0],
-	['27.11.2011', '13:56', 'Essen Florastr.', 'Bstg. 1'],
+	['27.11.2011', '13:56', 'Essen Florastr.', 'Bstg. 1', undef],
 	'r0,0: via[0]');
 
 is( $c1->delay, 3, 'r0,1: delay' );
