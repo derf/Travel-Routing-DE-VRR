@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use 5.010;
 
-our $VERSION = '2.23';
+our $VERSION = '2.24';
 
 use parent 'Travel::Routing::DE::EFA';
 
@@ -47,7 +47,7 @@ Travel::Routing::DE::VRR - unofficial interface to the efa.vrr.de German itinera
 
 =head1 VERSION
 
-version 2.23
+version 2.24
 
 =head1 DESCRIPTION
 
