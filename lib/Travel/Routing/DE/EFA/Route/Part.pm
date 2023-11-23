@@ -355,9 +355,10 @@ In those cases, B<train_destination> and B<train_line> are usually empty.
 
 =item $part->via
 
-Returns a list of C<< [ "DD.MM.YYYY", "HH:MM", stop, platform ] >> arrayrefs
-encoding the stops passed between B<departure_stop> and B<arrival_stop>,
-if supported by the backend. Returns nothing / an empty list otherwise.
+Returns a list of C<< [ "DD.MM.YYYY", "HH:MM", stop, platform, delay ] >>
+arrayrefs encoding the stops passed between B<departure_stop> and
+B<arrival_stop>, if supported by the backend. Returns nothing / an empty list
+otherwise. Date and time refer to schedule data and do not account for delays.
 
 =back
 
