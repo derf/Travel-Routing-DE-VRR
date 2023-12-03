@@ -10,10 +10,8 @@ for details.
 efa has been packaged as
 [libtravel-routing-de-vrr-perl](https://packages.debian.org/search?keywords=libtravel-routing-de-vrr-perl)
 for Debian, so you can install it using your package manager of choice on
-Debian-based Linux distributions. It is also available as
-[perl-travel-routing-de-vrr-git](https://aur.archlinux.org/packages/perl-travel-routing-de-vrr-git/)
-in the archlinux User Repository (AUR). Both provide the commandline client and
-the Perl module.
+Debian-based Linux distributions. The package provides the commandline client
+as well as the Perl module.
 
 If you are using another distribution or would prefer a more recent version,
 you have four installation options:
