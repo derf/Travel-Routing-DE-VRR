@@ -16,7 +16,7 @@ as well as the Perl module.
 If you are using another distribution or would prefer a more recent version,
 you have four installation options:
 
-* Nightly `.deb` builds for Debian-based distributions
+* `.deb` releases for Debian-based distributions
 * Installing the latest release from CPAN
 * Installation from source
 * Using a Docker image
@@ -25,12 +25,11 @@ Except for Docker, **efa** is available in your PATH after installation. You
 can run `efa --version` to verify this. Documentation is available via
 `man efa`.
 
-### Nightly Builds for Debian
+### Release Builds for Debian
 
 [lib.finalrewind.org/deb](https://lib.finalrewind.org/deb) provides Debian
-packages of both development and release versions. Note that these are not part
-of the official Debian repository and are not covered by its quality assurance
-process.
+packages of all release versions. Note that these are not part of the official
+Debian repository and are not covered by its quality assurance process.
 
 To install the latest release, run:
 
@@ -38,14 +37,6 @@ To install the latest release, run:
 wget https://lib.finalrewind.org/deb/libtravel-routing-de-vrr-perl_latest_all.deb
 sudo apt install ./libtravel-routing-de-vrr-perl_latest_all.deb
 rm libtravel-routing-de-vrr-perl_latest_all.deb
-```
-
-For a (possibly broken) development snapshot of the Git master branch, run:
-
-```
-wget https://lib.finalrewind.org/deb/libtravel-routing-de-vrr-perl_dev_all.deb
-sudo apt install ./libtravel-routing-de-vrr-perl_dev_all.deb
-rm libtravel-routing-de-vrr-perl_dev_all.deb
 ```
 
 Uninstallation works as usual:
