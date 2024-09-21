@@ -508,6 +508,13 @@ sub submit {
 	$self->{ua} = LWP::UserAgent->new(%conf);
 	$self->{ua}->env_proxy;
 
+	if ( $self->{config}{developer_mode} ) {
+		say 'POST ' . $self->{config}{efa_url};
+		while ( my ( $key, $value ) = each %{ $self->{post} } ) {
+			printf( "%30s = %s\n", $key, $value );
+		}
+	}
+
 	my $response
 	  = $self->{ua}->post( $self->{config}->{efa_url}, $self->{post} );
 
